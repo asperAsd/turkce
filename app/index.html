@@ -148,6 +148,7 @@ h1,h2,h3{text-wrap:balance}
 .wrow:first-child{border-top:0}
 .wrow b{font-weight:800;display:block;overflow-wrap:anywhere}
 .wrow span{color:var(--muted);font-size:15px;display:block}
+.wrow span.tw{display:inline;color:inherit;font-size:inherit}
 .wrow .lv{display:inline-block;font-size:11px;font-weight:900;color:var(--cobalt);background:var(--cobalt-soft);border-radius:5px;padding:0 5px;margin-left:6px;vertical-align:middle}
 
 /* lesson */
@@ -565,6 +566,33 @@ pre.codes{background:var(--bg);border:2px dashed var(--line-strong);border-radiu
 .cap{min-height:100px}
 .cookie-bar{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:85;background:var(--ink);color:#fff;border-radius:16px;padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;font-size:14px;font-weight:700;max-width:640px;margin:0 auto;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .cookie-bar a{color:var(--gold)}.cookie-bar div{display:flex;gap:8px}.cookie-bar .btn{width:auto}
+/* mistakes, rules, phrasebook, pronunciation, tips */
+.rule-btn{font-size:20px;width:40px;height:40px}
+.rule-link{color:var(--cobalt)!important}
+.diff{display:grid;gap:6px;margin:10px 0 2px;background:var(--surface);border-radius:12px;padding:10px 12px;font-size:17px;font-weight:800}
+.diff small{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.diff del{background:var(--bad-soft);color:var(--bad-dk);text-decoration:line-through}
+.diff ins{background:var(--ok-soft);color:var(--ok-dk);text-decoration:none;border-bottom:2px solid var(--ok)}
+.diff p{margin:0;font-size:14px;color:var(--muted)}
+.words-mini .wrow.pb-row,.wrow.pb-row{grid-template-columns:auto 1fr auto auto;gap:8px}
+.pb-row .icon-btn[aria-pressed="true"]{color:var(--gold);border-color:var(--gold)}
+.pb-fav{border-color:var(--gold)!important;background:var(--gold-soft)!important}
+.show-phrase{position:fixed;inset:0;z-index:90;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px;text-align:center;animation:fadeUp .25s ease-out}
+.show-phrase .x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px}
+.sp-tr{font-size:clamp(34px,10vw,72px);font-weight:900;line-height:1.15;color:var(--ink);overflow-wrap:anywhere}
+.sp-ru{font-size:20px;color:var(--muted);font-weight:700}
+.sp-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}.sp-btns .btn{width:auto}
+.speak-card{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:18px;text-align:center}
+.speak-card .t{font-size:26px;font-weight:900}.speak-card .ru{color:var(--muted);font-weight:700;margin-top:6px}
+.speak-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.speak-btns .btn{padding-left:6px;padding-right:6px;font-size:15px}
+.btn.rec.on{background:var(--bad);color:#fff;border-color:var(--bad-dk);animation:pulseRing 1.4s ease-out infinite}
+.asr{border-radius:14px;padding:10px 12px;border:2px solid var(--line);display:grid;gap:2px}
+.asr small{color:var(--muted);font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.06em}.asr b{font-size:19px}
+.asr.good{border-color:var(--ok);background:var(--ok-soft)}.asr.mid{border-color:var(--gold);background:var(--gold-soft)}.asr.low{border-color:var(--bad);background:var(--bad-soft)}
+.tip-card{position:relative;margin-top:14px;background:linear-gradient(135deg,#FFF6DE,#FFEFD6);border:2px solid #F3D9A4;border-radius:18px;padding:14px 44px 14px 16px}
+.tip-card b{display:block;font-size:17px;font-weight:900;margin:2px 0 4px}.tip-card p{margin:0;font-size:15px;line-height:1.45}
+.tip-x{position:absolute;top:8px;right:8px;width:30px;height:30px;border:0;background:none;color:var(--muted);cursor:pointer;padding:4px}.tip-x svg{width:18px;height:18px}
+.rest-seg button{min-width:0;padding-left:0;padding-right:0}
 @media (max-width:380px){.types,.topics{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -1312,6 +1340,60 @@ const STORIES = [
 ];
 const STORY_GLOSS = {"buyurun":"пожалуйста; проходите; вот, возьмите","şekerli":"с сахаром","şekersiz":"без сахара","simit":"симит (бублик с кунжутом)","günler":"дни (iyi günler — хорошего дня)","senin":"твой","adın":"твоё имя","nerelisin":"откуда ты родом","rusyalıyım":"я из России","istanbulluyum":"я из Стамбула","öğreniyor":"учит","abla":"старшая сестра; вежливое обращение к женщине","istiyorsunuz":"вы хотите","domatesler":"помидоры","taze":"свежий","karpuz":"арбуз","kilosu":"его килограмм, за килограмм","istemiyorum":"я не хочу","neyiniz":"что у вас (neyiniz var — что с вами)","zamandan":"со времени (ne zamandan beri — с каких пор)","beri":"с (какого-то времени)","dünden":"со вчера","olmuşsunuz":"вы, оказывается, стали (grip olmuşsunuz — у вас грипп)","bol":"много, обильно","için":"пейте; для","dinlenin":"отдыхайте","annemi":"мою маму","günü":"день (Pazar günü — в воскресенье)","nasıldı":"какой был","güneşliydi":"было солнечно","kaldım":"я осталась, остался","hangi":"какой","komikti":"было смешно","ailemle":"с моей семьёй","antalya'ya":"в Анталью","gireceğiz":"мы войдём (denize girmek — купаться в море)","tuttunuz":"вы сняли, держали","teyzemin":"моей тёти","evinde":"в доме","kalacağız":"мы останемся, будем жить","kapadokya'yı":"Каппадокию","görmek":"видеть","balona":"на воздушный шар","binmek":"садиться, кататься","rezervasyon":"бронирование","yapmalısın":"тебе нужно сделать","kalabalık":"многолюдный, толпа","bakacağım":"я посмотрю","haklısın":"ты прав","zeynep":"Зейнеп (имя)","emre":"Эмре (имя)","elif":"Элиф (имя)","mehmet":"Мехмет (имя)","ayşe":"Айше (имя)"};
 
+// Traveller's phrasebook: ready-made phrases by situation. Each phrase has audio (pack "phrases").
+const PHRASEBOOK = [
+ {id:"polite",t:"Вежливость и знакомство",ic:"👋",p:[
+  ["Merhaba!","Здравствуйте!"],["Günaydın!","Доброе утро!"],["Teşekkür ederim.","Спасибо."],["Rica ederim.","Пожалуйста (в ответ на «спасибо»)."],
+  ["Özür dilerim.","Извините."],["Affedersiniz!","Простите! (чтобы обратиться к кому-то)"],["Türkçe bilmiyorum.","Я не знаю турецкий."],
+  ["Rusça biliyor musunuz?","Вы говорите по-русски?"],["Anlamadım, tekrar eder misiniz?","Не понял(а), повторите, пожалуйста?"],["Daha yavaş konuşur musunuz?","Можете говорить помедленнее?"]]},
+ {id:"cafe",t:"Кафе и ресторан",ic:"🍽️",p:[
+  ["İki kişilik masa var mı?","Есть столик на двоих?"],["Menüyü alabilir miyim?","Можно меню?"],["Bir çay, lütfen.","Один чай, пожалуйста."],["Su alabilir miyim?","Можно воды?"],
+  ["Bu acı mı?","Это острое?"],["Vejetaryen yemeğiniz var mı?","Есть вегетарианские блюда?"],["Hesap, lütfen.","Счёт, пожалуйста."],
+  ["Kartla ödeyebilir miyim?","Можно оплатить картой?"],["Çok lezzetliydi!","Было очень вкусно!"],["Afiyet olsun!","Приятного аппетита!"]]},
+ {id:"shop",t:"Магазин и рынок",ic:"🛍️",p:[
+  ["Bu ne kadar?","Сколько это стоит?"],["Çok pahalı.","Очень дорого."],["İndirim var mı?","Есть скидка?"],["Daha ucuz var mı?","Есть подешевле?"],
+  ["Sadece bakıyorum.","Я просто смотрю."],["Bunu alıyorum.","Я беру это."],["Başka renk var mı?","Есть другой цвет?"],["Deneyebilir miyim?","Можно примерить?"],["Poşet alabilir miyim?","Можно пакет?"]]},
+ {id:"road",t:"Транспорт и дорога",ic:"🚕",p:[
+  ["Tuvalet nerede?","Где туалет?"],["Otobüs durağı nerede?","Где автобусная остановка?"],["Havalimanına gitmek istiyorum.","Мне нужно в аэропорт."],
+  ["Bu adrese götürür müsünüz?","Отвезёте по этому адресу?"],["Ne kadar sürer?","Сколько времени это займёт?"],["Burada durun, lütfen.","Остановитесь здесь, пожалуйста."],
+  ["Bir bilet, lütfen.","Один билет, пожалуйста."],["Uzak mı?","Это далеко?"],["Kayboldum.","Я заблудился(-ась)."]]},
+ {id:"hotel",t:"Отель",ic:"🏨",p:[
+  ["Rezervasyonum var.","У меня бронь."],["Boş odanız var mı?","Есть свободные номера?"],["Kahvaltı dahil mi?","Завтрак включён?"],["Wi-Fi şifresi nedir?","Какой пароль от Wi-Fi?"],
+  ["Klima çalışmıyor.","Кондиционер не работает."],["Havlu alabilir miyim?","Можно полотенце?"],["Çıkış saat kaçta?","Во сколько выезд?"],["Bavulumu bırakabilir miyim?","Можно оставить чемодан?"]]},
+ {id:"health",t:"Аптека и врач",ic:"💊",p:[
+  ["Eczane nerede?","Где аптека?"],["Başım ağrıyor.","У меня болит голова."],["Midem bulanıyor.","Меня тошнит."],["Ateşim var.","У меня температура."],
+  ["Alerjim var.","У меня аллергия."],["Doktora ihtiyacım var.","Мне нужен врач."],["Bu ilacı nasıl kullanmalıyım?","Как принимать это лекарство?"]]},
+ {id:"beach",t:"Пляж и отдых",ic:"🏖️",p:[
+  ["Şezlong ne kadar?","Сколько стоит шезлонг?"],["Deniz soğuk mu?","Вода холодная?"],["Burada yüzmek güvenli mi?","Здесь безопасно купаться?"],
+  ["Fotoğrafımızı çeker misiniz?","Сфотографируете нас?"],["Güneş kremi nereden alabilirim?","Где купить солнцезащитный крем?"],["Tekne turu saat kaçta?","Во сколько морская прогулка?"]]},
+ {id:"sos",t:"Экстренные случаи",ic:"🆘",p:[
+  ["Yardım edin!","Помогите!"],["Ambulans çağırın!","Вызовите скорую!"],["Polis çağırın!","Вызовите полицию!"],["Acil durum!","Это срочно!"],
+  ["Çantamı kaybettim.","Я потерял(а) сумку."],["Telefonum çalındı.","У меня украли телефон."],["İngilizce bilen var mı?","Кто-нибудь говорит по-английски?"],["Rusya Başkonsolosluğu nerede?","Где генеральное консульство России?"]]},
+];
+// Short cultural notes shown as "Совет дня".
+const CULTURE = [
+ ["Чай — это дружба","Чай (çay) пьют из маленьких стаканчиков-тюльпанов весь день. Если вам предложили чай, лучше согласиться — это знак гостеприимства."],
+ ["Kolay gelsin","Так говорят человеку за работой: продавцу, мастеру, коллеге. Дословно — «пусть будет легко». Это сразу располагает к вам."],
+ ["Afiyet olsun","«Приятного аппетита» звучит не только перед едой, но и после — когда человек поел. Ответ: «Teşekkür ederim»."],
+ ["Geçmiş olsun","Так желают выздоровления или сочувствуют после неприятности: болезни, поломки машины, потери телефона."],
+ ["Ağzına sağlık","«Здоровья твоим устам» — так хвалят того, кто приготовил вкусную еду. Хозяйке будет очень приятно."],
+ ["Обращение «abla» и «abi»","К незнакомой женщине можно обратиться «abla» (старшая сестра), к мужчине — «abi» (старший брат). Это вежливо и тепло."],
+ ["Hanım и Bey","Вежливое обращение ставится после имени: Ayşe Hanım, Mehmet Bey. Так говорят с коллегами, врачами, соседями."],
+ ["Торг на рынке","На базарах и в сувенирных лавках торговаться нормально. В супермаркетах и аптеках цены фиксированные."],
+ ["Обувь дома","В турецких домах принято разуваться у входа. Хозяева часто предложат тапочки (terlik)."],
+ ["Inşallah","«Если будет угодно Богу» — говорят о планах на будущее: «Yarın görüşürüz, inşallah» — «Увидимся завтра, даст Бог»."],
+ ["Maşallah","Говорят, когда хвалят ребёнка, дом или успех, — как пожелание, чтобы не сглазить."],
+ ["Голубой глаз","Синий амулет «nazar boncuğu» защищает от сглаза. Его вешают дома, в машине и дарят новорождённым."],
+ ["Буква ğ","«Мягкий знак» ğ сам не читается: он удлиняет гласную перед ним. Dağ (гора) звучит как «да-а»."],
+ ["Турецкий завтрак","Kahvaltı — это целое застолье: сыры, оливки, помидоры, огурцы, яйца, мёд, симит и, конечно, чай."],
+ ["Bayram","Главные праздники — Şeker Bayramı и Kurban Bayramı. Поздравляют словами «Bayramınız kutlu olsun!»."],
+ ["Счёт пополам","Турки часто спорят, кто платит за всех. Разделить счёт можно фразой «Hesabı ayrı ayrı ödeyelim»."],
+ ["Кофе и гадание","Турецкий кофе пьют маленькими чашками, а по гуще иногда гадают. Его подают со стаканом воды."],
+ ["Tamam","Универсальное «ладно, хорошо, договорились». Пожалуй, самое частое слово в разговоре."],
+ ["Ya","Частица «ya» добавляет эмоцию: «Çok güzel ya!» — «Ну до чего же красиво!»"],
+ ["Kolay mı?","Турецкий кажется трудным из-за длинных слов, но окончания очень регулярные: выучив правило гармонии гласных, вы поймёте тысячи слов."],
+];
+
 </script>
 <script>
 // Website-only layer (included by build-web.js, not in the Claude-hosted build).
@@ -1691,6 +1773,7 @@ ABC.forEach(a=>{if(!PACK.has(a[2]))PACK.set(a[2],"common")});
 Object.values(DRILLS).forEach(d=>d.items.forEach(([b,f])=>{if(!PACK.has(f))PACK.set(f,"common")}));
 Object.values(NOTES).forEach(n=>n.e.forEach(([t])=>{if(!PACK.has(t))PACK.set(t,"common")}));
 if(typeof STORIES!=="undefined")STORIES.forEach(st=>st.lines.forEach(([,t])=>{if(!PACK.has(t))PACK.set(t,"stories")}));
+if(typeof PHRASEBOOK!=="undefined")PHRASEBOOK.forEach(g=>g.p.forEach(([t])=>{if(!PACK.has(t))PACK.set(t,"phrases")}));
 const TEST_PHRASE="Merhaba! Ben Türkçe öğreniyorum. Bugün hava çok güzel.";PACK.set(TEST_PHRASE,"common");
 
 /* glossary for tap-to-translate */
@@ -1803,8 +1886,8 @@ function persist(){
 /* ================= DERIVED ================= */
 const active=d=>(S.xp[d]||0)>0||S.frozen.includes(d);
 function streakInfo(){
-  const t=today();const alive=active(t);let cur=0;let d=alive?t:addDays(t,-1);
-  while(active(d)){cur++;d=addDays(d,-1)}
+  const t=today();const alive=active(t)||isRestDay(t);let cur=0;let d=alive?t:addDays(t,-1);let restRun=0;
+  while(active(d)||(isRestDay(d)&&restRun<2)){if(active(d)){cur++;restRun=0}else restRun++;d=addDays(d,-1)}
   let best=0,run=0,prev=null;
   for(const x of [...new Set([...Object.keys(S.xp).filter(k=>S.xp[k]>0),...S.frozen])].sort()){run=(prev&&addDays(prev,1)===x)?run+1:1;best=Math.max(best,run);prev=x}
   return {cur,alive,best:Math.max(best,cur)};
@@ -1961,7 +2044,8 @@ const TYPES={
   letter:{name:"Алфавит",desc:"Особые буквы и звуки",ic:"abc",col:"#5B6B7F"},
   speed:{name:"Подбор на время",desc:"Найти 6 пар как можно быстрее",ic:"clock",col:"#D9483B",game:1},
   hang:{name:"Угадай слово",desc:"Отгадать слово по буквам",ic:"heart",col:"#8A4FC7",game:1},
-  wordle:{name:"Вордл",desc:"Слово за 6 попыток: зелёный, жёлтый, красный",ic:"abc",col:"#1F9D6B",game:1}
+  wordle:{name:"Вордл",desc:"Слово за 6 попыток: зелёный, жёлтый, красный",ic:"abc",col:"#1F9D6B",game:1},
+  speak:{name:"Произношение",desc:"Послушать, записать себя и сравнить",ic:"speaker",col:"#C2407A"}
 };
 
 /* ================= EXERCISE GENERATION ================= */
@@ -1985,6 +2069,7 @@ function makeSession({items,len,diff,only,drill,abc,exam}){
     if(only==="letter")return letterEx(len);
     if(only==="suffix")return drillEx(drill||"pl",len,d);
     if(only==="speed"){const src=items.filter(w=>w.tr.length<=18&&w.ru.length<=24);return [{type:"speed",pairs:pickPairs(src.length>=6?src:items,6)}]}
+    if(only==="speak"){const src=items.filter(w=>w.tr.length<=60);return pick(src.length?src:items,Math.min(len,8)).map(w=>({type:"speak",w}))}
     if(only==="wordle"){const ok=w=>{const u=w.tr.toLocaleUpperCase("tr");return /^[A-ZÇĞİÖŞÜ]{4,6}$/.test(u)};let src=items.filter(ok);if(src.length<3)src=ALL.filter(w=>ok(w)&&w.ci<=Math.max(0,currentCourse()));return pick(src,Math.min(len,5)).map(w=>({type:"wordle",w}))}
     if(only==="hang"){const src=items.filter(w=>!w.tr.includes(" ")&&w.tr.replace(/[^A-Za-zÇĞİÖŞÜçğıöşü]/g,"").length>=3&&w.tr.length<=12);return pick(src.length?src:items,Math.min(len,8)).map(w=>({type:"hang",w}))}
     if(only==="match"){for(let i=0;i<Math.max(2,Math.round(len/4));i++)ex.push({type:"match",pairs:pickPairs(items,d.pairs)});return ex}
@@ -2009,7 +2094,7 @@ let L=null;
 function lessonShell(){
   $("#overlay").innerHTML=`<div class="lesson" role="dialog" aria-label="Урок">
     <div class="l-top"><button class="x" id="lx" aria-label="Выйти">${I.cross}</button>
-    <div class="l-bar"><i id="lbar" style="width:0"></i></div><span class="combo" id="lcombo"></span></div>
+    <div class="l-bar"><i id="lbar" style="width:0"></i></div><span class="combo" id="lcombo"></span><button class="x rule-btn" id="lrule" aria-label="Правило урока" title="Правило урока" hidden>📘</button></div>
     <div class="l-body" id="lbody"></div><div class="check" id="lcheck"></div></div>`;
   $("#lx").onclick=confirmQuit;document.body.style.overflow="hidden";
 }
@@ -2042,7 +2127,7 @@ function confirmQuit(){
     persist();endSession(true);toast("💾","Урок сохранён","Продолжите с того же места на странице «Курсы»");
   };
 }
-function endSession(){L=null;lessonVoice=null;clearInterval(speedTimer);$("#overlay").innerHTML="";document.body.style.overflow="";try{player.pause()}catch(e){};render()}
+function endSession(){stopRecording();L=null;lessonVoice=null;clearInterval(speedTimer);$("#overlay").innerHTML="";document.body.style.overflow="";try{player.pause()}catch(e){};render()}
 function progressBar(){$("#lbar").style.width=(L.placement?Math.min(100,(L.placement.done+L.i)/(COURSES.length*PL_N)*100):Math.min(100,L.correct/L.total*100))+"%";const cb=$("#lcombo");if(L.combo>=3){cb.innerHTML=`<i class="fl-anim">${I.flame}</i>${L.combo}`;if(L._lc!==L.combo){cb.classList.remove("pop");void cb.offsetWidth;cb.classList.add("pop")}}else cb.innerHTML="";L._lc=L.combo}
 function setCheck(on){L.custCheck=null;const c=$("#lcheck");c.className="check";c.innerHTML=`<div class="check-in"><button class="btn good" id="lgo" ${on?"":"disabled"}>Проверить</button></div>`;$("#lgo").onclick=()=>L.checkFn&&L.checkFn()}
 function enableCheck(on){const b=$("#lgo");if(b)b.disabled=!on}
@@ -2053,7 +2138,7 @@ function typeBox(body,e,prompt){
   t.oninput=()=>{L.state.typed=t.value.trim();enableCheck(!!L.state.typed)};
   t.onkeydown=ev=>{if(ev.key==="Enter"){ev.preventDefault();if(t.value.trim())L.checkFn()}};
   body.querySelectorAll(".keys button").forEach(b=>b.onclick=()=>{const s=t.selectionStart??t.value.length;t.value=t.value.slice(0,s)+b.dataset.k+t.value.slice(t.selectionEnd??s);t.focus();t.selectionStart=t.selectionEnd=s+1;L.state.typed=t.value.trim();enableCheck(true)});
-  L.checkFn=()=>{const v=t.value;
+  L.checkFn=()=>{const v=t.value;L.lastTyped=v;
     if(norm(v)===norm(e.w.tr))return answer(true,"",e.w.tr);
     if(deacc(v)===deacc(e.w.tr)){if(DIFF[L.diff].strict)return answer(false,e.w.tr+" (проверьте особые буквы)",e.w.tr);return answer(true,"",e.w.tr,false,"Почти! Правильно пишется: "+e.w.tr)}
     answer(false,e.w.tr,e.w.tr)};
@@ -2063,7 +2148,8 @@ const TR_KB="ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ".split("");
 function renderEx(){
   progressBar();
   if(L.i>=L.list.length)return finishSession();
-  const e=L.list[L.i];L.answered=false;L.state={};L.checkFn=null;L.keyHandler=null;L.custCheck=null;L.introFn=null;
+  const e=L.list[L.i];L.answered=false;L.state={};L.checkFn=null;L.keyHandler=null;L.custCheck=null;L.introFn=null;L.lastTyped=null;stopRecording();
+  {const rb=$("#lrule"),nl=L.placement?null:lessonOfEx(e);if(rb){rb.hidden=!nl;rb.onclick=nl?()=>openNoteSheet(nl):null}}
   lessonVoice=nextVoice();
   const body=$("#lbody");body.scrollTop=0;setCheck(false);
   if(e.type==="choice_tr"){
@@ -2134,6 +2220,7 @@ function renderEx(){
       enableCheck(L.state.picked.length>0);
     };draw();
     L.checkFn=()=>answer(norm(L.state.picked.map(i=>tiles[i]).join(" "))===norm(e.w.tr),e.w.tr,e.w.tr);
+  }else if(e.type==="speak"){renderSpeak(body,e);
   }else if(e.type==="wordle"){
     const word=e.w.tr.toLocaleUpperCase("tr"),W=[...word],N=W.length,ROWS=6;
     L.state.rows=L.state.rows||[];L.state.cur=L.state.cur||[];L.state.keys=L.state.keys||{};
@@ -2207,9 +2294,12 @@ function answer(ok,correctText,sayText,skipSpeak,note){
 }
 function showVerdict(ok,msg){
   const c=$("#lcheck");c.className="check "+(ok?"ok":"bad");haptic(ok?15:[30,40,30]);
-  c.innerHTML=`<div class="check-in"><div class="verdict"><span class="badge">${ok?I.check:I.cross}</span><div><h4>${ok?PRAISE[Math.floor(Math.random()*PRAISE.length)]:"Правильный ответ:"}</h4>${msg?`<p>${esc(msg)}</p>`:""}</div></div>
+  const ce=L.list[L.i],dl=!ok&&L.lastTyped&&ce&&ce.w?diffHTML(L.lastTyped,ce.w.tr):"",rl=!ok&&!L.placement?lessonOfEx(ce):null;
+  c.innerHTML=`<div class="check-in"><div class="verdict"><span class="badge">${ok?I.check:I.cross}</span><div><h4>${ok?PRAISE[Math.floor(Math.random()*PRAISE.length)]:"Правильный ответ:"}</h4>${msg?`<p>${esc(msg)}</p>`:""}</div></div>${dl}
+    ${rl?`<button class="report-link rule-link" id="lwhy">📘 Почему так? Правило урока «${esc(rl.t)}»</button>`:""}
     ${L.placement?"":`<button class="report-link" id="lrep">Ошибка в задании? Сообщите нам</button>`}
     <button class="btn ${ok?"good":"badb"}" id="lnext">${ok?"Дальше":"Понятно"}</button></div>`;
+  const wy=$("#lwhy");if(wy)wy.onclick=()=>openNoteSheet(rl);
   const rp=$("#lrep");if(rp)rp.onclick=()=>{const e=L.list[L.i];openReport({where:L.lessonKey||L.only||"практика",type:e.type,tr:e.w?e.w.tr:(e.base||""),ru:e.w?e.w.ru:(e.right||"")})};
   $("#lnext").onclick=()=>{L.i++;renderEx()};$("#lnext").focus({preventScroll:true});
 }
@@ -2542,7 +2632,7 @@ function viewCourses(){
   const cc=currentCourse();
   const showPl=!S.placement||(S.placement.skipped&&Object.values(S.lessons).filter(x=>x.done).length<3);
   const plCard=showPl&&currentCourse()===0?`<button class="deck" style="margin-top:14px" id="plStart"><span class="ico" style="background:#12908A">${I.target}</span><div><b>Уже знаете турецкий?</b><small>Пройдите тест уровня — засчитаем то, что вы знаете</small></div><span style="width:24px;color:var(--muted)">${I.play}</span></button>`:"";
-  return goalCard()+`<button class="btn primary" id="quickGo" style="margin-top:12px">${I.dumbbell} Быстрая практика · 5 минут</button>`+questCard()+resumeCard()+plCard+`<h1 class="sec-title">Курсы</h1><p class="sec-lead">Каждый уровень — отдельный курс. Следующий открывается после экзамена предыдущего.</p>
+  return goalCard()+`<button class="btn primary" id="quickGo" style="margin-top:12px">${I.dumbbell} Быстрая практика · 5 минут</button>`+mistakesCard()+questCard()+tipCard()+resumeCard()+plCard+`<h1 class="sec-title">Курсы</h1><p class="sec-lead">Каждый уровень — отдельный курс. Следующий открывается после экзамена предыдущего.</p>
   <div class="courses">${COURSES.map((c,ci)=>{
     const open=courseOpen(ci),passed=coursePassed(ci),nd=c.lessons.filter(isDone).length;
     const unpaid=!paidOK(ci),elig=ci===0||coursePassed(ci-1);
@@ -2672,7 +2762,7 @@ function viewTrain(){
   const diff=T.diff||P.diff;const noSrc=T.type==="suffix"||T.type==="letter";
   const srcOpts=sourceOptions();if(!noSrc&&!srcOpts.some(o=>o[0]===T.src)&&!T.src.startsWith("t:"))T.src="learned";
   const items=noSrc?[]:sourceItems(T.src);const need=T.type==="speed"?6:4;const enough=noSrc||T.type==="wordle"||items.length>=need;
-  const games=Object.entries(TYPES).filter(([k,t])=>t.game),ex=Object.entries(TYPES).filter(([k,t])=>!t.game);
+  const games=Object.entries(TYPES).filter(([k,t])=>t.game),ex=Object.entries(TYPES).filter(([k,t])=>!t.game&&(k!=="speak"||WEB));
   const card=([k,t])=>`<button class="type-card" data-type="${k}" aria-pressed="${T.type===k}"><span class="ico" style="background:${t.col}">${I[t.ic]}</span><b>${t.name}</b><span>${t.desc}</span></button>`;
   return `<h1 class="sec-title">Практика</h1><p class="sec-lead">Любое упражнение или игру можно проходить отдельно.</p>
   <div class="stack">
@@ -2694,6 +2784,7 @@ function viewTrain(){
 let Dq="",Dtopic=null;
 function topicsList(){const m=new Map();ALL.forEach(w=>{if(!w.topic)return;if(!m.has(w.topic))m.set(w.topic,{n:0,lv:new Set()});const t=m.get(w.topic);t.n++;t.lv.add(cshort(w.ci))});return [...m.entries()].sort((a,b)=>a[0].localeCompare(b[0],"ru"))}
 function viewDict(){
+  if(Dpb)return viewPhrasebook();
   const addBtn=w=>{const has=S.custom.some(c=>c.tr===w.tr);return `<button class="icon-btn" data-tocard="${esc(w.tr)}" aria-label="В мои карточки" title="В мои карточки" ${has?"disabled":""}>${has?I.check:I.plus}</button>`};
   if(Dtopic){const ws=ALL.filter(w=>w.topic===Dtopic);
     return `<button class="back" data-dback>${I.back} Все темы</button><h1 class="sec-title">${esc(Dtopic)}</h1><p class="sec-lead">${ws.length} ${slov(ws.length)} и фраз. Нажмите на слово — появится перевод, на «+» — слово попадёт в ваши карточки.</p>
@@ -2701,7 +2792,7 @@ function viewDict(){
   const q=Dq.trim();
   const res=q?ALL.filter(w=>norm(w.tr).includes(norm(q))||deacc(w.tr).includes(deacc(q))||w.ru.toLowerCase().includes(q.toLowerCase())).slice(0,60):[];
   return `<h1 class="sec-title">Словарь</h1><p class="sec-lead">${ALL.length} слов и фраз из всех курсов, по темам. У каждого слова есть озвучка.</p>
-   <div class="stack"><input class="search" id="dq" type="search" placeholder="Поиск по-турецки или по-русски" value="${esc(Dq)}" autocomplete="off">
+   <div class="stack">${pbAll().length?`<button class="deck" id="pbOpen"><span class="ico" style="background:#12908A">🧳</span><div><b>Разговорник туриста</b><small>${pbCount()} готовых фраз: кафе, магазин, такси, отель, аптека</small></div><span style="width:24px;color:var(--muted)">${I.play}</span></button>`:""}<input class="search" id="dq" type="search" placeholder="Поиск по-турецки или по-русски" value="${esc(Dq)}" autocomplete="off">
    <div id="dres">${q?(res.length?`<div class="card card-list"><div class="words-mini">${res.map(w=>wordRow(w,addBtn(w))).join("")}</div></div>`:`<p class="help">Ничего не найдено.</p>`):""}</div>
    <div class="topics" ${q?"hidden":""}>${topicsList().map(([t,o])=>`<button class="topic" data-topic="${esc(t)}"><b>${esc(t)}</b><span>${o.n} · ${[...o.lv].join(", ")}</span></button>`).join("")}</div></div>`;
 }
@@ -2746,6 +2837,7 @@ function viewProfile(){
       ${saveStatusHTML()}
       <div class="grid2"><button class="btn sm" id="bkSave">${I.save} Скачать копию</button><label class="btn sm" for="bkFile" style="margin:0">📂 Загрузить копию</label></div>
       <input type="file" id="bkFile" accept=".json,application/json" hidden>
+      ${WEB?`<button class="btn sm" id="shareWeek">🖼️ Поделиться итогами недели</button>`:""}
     </div>
     ${SRV?SRV.accountCard():""}
     <div class="card streak-card"><div style="width:64px;height:64px;color:${s.alive?"var(--flame)":"var(--muted)"}">${I.flame}</div>
@@ -2793,6 +2885,13 @@ function viewProfile(){
       <div class="field"><span class="flabel">Новых карточек в день</span><div class="seg">${[5,10,20].map(n=>`<button data-npd="${n}" aria-pressed="${P.newPerDay===n}">${n}</button>`).join("")}</div></div>
       <label class="toggle" for="snd">Звуки правильных и неправильных ответов<input type="checkbox" id="snd" ${P.sound?"checked":""}></label>
       <label class="toggle" for="taps">Щелчки при нажатии на кнопки<input type="checkbox" id="taps" ${P.taps?"checked":""}></label>
+      ${WEB&&(window.SpeechRecognition||window.webkitSpeechRecognition)?`<label class="toggle" for="asr">Автопроверка произношения<input type="checkbox" id="asr" ${P.asr?"checked":""}></label><p class="help" style="margin:-6px 0 0">Браузер отправит запись в свой сервис распознавания речи. Без этой галочки запись остаётся только на устройстве.</p>`:""}
+    </div>
+    <div class="card stack">
+      <div class="field"><span class="flabel">Выходные дни</span><p class="help" style="margin:0">В эти дни можно не заниматься — серия не сгорит. Не больше двух дней в неделю.</p>
+        <div class="seg rest-seg">${["Пн","Вт","Ср","Чт","Пт","Сб","Вс"].map((n,i)=>`<button data-rest="${i}" aria-pressed="${(P.rest||[]).includes(i)}">${n}</button>`).join("")}</div></div>
+      <div class="field"><label for="remT">Напоминание в календаре телефона</label><div class="grid2"><input class="inp" type="time" id="remT" value="${esc(P.remind||"19:00")}"><button class="btn sm" id="remGo">📅 Добавить</button></div>
+        <p class="help" style="margin:0">Скачается файл события — откройте его, и календарь будет каждый день напоминать о занятии.</p></div>
     </div>
     <div class="card stack"><h3>Уровень</h3><p class="help" style="margin:0">${S.placement&&S.placement.results&&S.placement.results.length?`Тест уровня от ${esc(S.placement.date)}: ${S.placement.results.map((r,i)=>cshort(i)+" — "+r+"%").join(", ")}.`:"Тест уровня ещё не пройден."}</p><button class="btn sm" id="plRetake">${I.target} Пройти тест уровня</button></div>
     <div class="card stack"><h3>Документы</h3><button class="btn sm" data-legal="terms">${I.note} Пользовательское соглашение</button><button class="btn sm" data-legal="privacy">${I.note} Политика конфиденциальности</button><button class="btn sm" data-legal="consent">${I.note} Согласие на обработку данных</button></div>
@@ -2898,6 +2997,10 @@ const adl=$("#adLoad");if(adl)adl.onclick=loadPromos;
   if(view==="admin"&&Atab==="overview")animateCounts(v);
   if(view==="admin"&&Atab==="sales"&&SRV)SRV.wireAdmin(v);
   const qg=$("#quickGo");if(qg)qg.onclick=quickPractice;
+  const mg=$("#mistGo");if(mg)mg.onclick=startMistakes;
+  const tx=$("#tipX");if(tx)tx.onclick=()=>{P.hideTip=today();savePrefs();render()};
+  if(view==="dict"&&Dpb)wirePhrasebook(v);
+  const pbo=$("#pbOpen");if(pbo)pbo.onclick=()=>{Dpb="home";render();window.scrollTo({top:0})};
   const cb=$("#chestBtn");if(cb)cb.onclick=()=>openChest(cb);
   v.querySelectorAll("[data-story]").forEach(b=>b.onclick=()=>openStory(b.dataset.story));
   const rl=$("#repLoad");if(rl)rl.onclick=loadReports;
@@ -2957,6 +3060,10 @@ const adl=$("#adLoad");if(adl)adl.onclick=loadPromos;
   v.querySelectorAll("[data-zoom]").forEach(b=>b.onclick=()=>{P.zoom=+b.dataset.zoom;savePrefs();applyZoom();render()});
   v.querySelectorAll("[data-npd]").forEach(b=>b.onclick=()=>{P.newPerDay=+b.dataset.npd;savePrefs();render()});
   const sn=$("#snd");if(sn)sn.onchange=()=>{P.sound=sn.checked;savePrefs()};
+  const asr=$("#asr");if(asr)asr.onchange=()=>{P.asr=asr.checked;savePrefs()};
+  v.querySelectorAll("[data-rest]").forEach(b=>b.onclick=()=>{const i=+b.dataset.rest,r=P.rest||(P.rest=[]),k=r.indexOf(i);if(k>=0)r.splice(k,1);else{if(r.length>=2){toast("🗓️","Не больше двух выходных","Снимите один из выбранных дней");return}r.push(i)}savePrefs();render()});
+  const rg2=$("#remGo");if(rg2)rg2.onclick=async()=>{P.remind=$("#remT").value||"19:00";savePrefs();if(await downloadText("turkce-napominanie.ics",icsReminder(),"text/calendar"))toast("📅","Файл напоминания готов","Откройте его, чтобы добавить в календарь")};
+  const shw=$("#shareWeek");if(shw)shw.onclick=()=>weeklyCard().catch(()=>toast("⚠️","Не удалось создать картинку",""));
   const tps=$("#taps");if(tps)tps.onchange=()=>{P.taps=tps.checked;savePrefs();if(P.taps)tapSound("pop")};
   const rs=$("#reset");if(rs)rs.onclick=()=>{
     $("#resetBox").innerHTML=`<p style="margin:0 0 10px;font-weight:800">Удалить весь опыт, серию, карточки и пройденные уроки? Профиль останется. Это нельзя отменить.</p><div class="grid2"><button class="btn" id="rsNo">Отмена</button><button class="btn badb" id="rsYes">Удалить</button></div>`;
@@ -3287,7 +3394,166 @@ function wireClub(v){
   };
 }
 
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{view=b.dataset.v;if(view==="courses")sub=null;if(view==="cards")Cdeck=null;if(view==="train"&&T.type==="tutor"&&!chatTurns.length)T.type="choice_tr";render();window.scrollTo({top:0})});
+/* ================= MISTAKES WORK & RULES ================= */
+function lessonOfEx(e){if(L&&L.lessonKey){const l=findLesson(L.lessonKey);if(l&&l.note)return l}const w=e&&e.w;if(w&&w.ci!=null&&w.li){const l=COURSES[w.ci]&&COURSES[w.ci].lessons[w.li-1];if(l&&l.note)return l}return null}
+function sheetLayer(html,id,z){const old=$("#"+id);if(old)old.remove();const el=document.createElement("div");el.id=id;el.className="sheet-bg";el.style.zIndex=String(z||70);
+  el.innerHTML=`<div class="sheet" role="dialog">${html}</div>`;document.body.appendChild(el);el.onclick=e=>{if(e.target===el)el.remove()};wireSay(el);return el}
+function openNoteSheet(l){
+  const el=sheetLayer(`<span class="kicker">${esc(cname(l.ci))} · урок ${l.n}</span><h2>${esc(l.t)}</h2>${noteHTML(l,true)}<button class="btn primary" data-close>Вернуться к заданию</button>`,"noteLayer",72);
+  el.querySelector("[data-close]").onclick=()=>el.remove();
+}
+// Character-level comparison of a typed answer with the correct one (LCS), rendered as two highlighted lines.
+function diffHTML(typed,right){
+  const a=[...String(typed).trim()],b=[...String(right)];if(!a.length||a.length*b.length>60000)return "";
+  const lo=c=>c.toLocaleLowerCase("tr"),n=a.length,m=b.length,dp=Array.from({length:n+1},()=>new Uint16Array(m+1));
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)dp[i][j]=lo(a[i])===lo(b[j])?dp[i+1][j+1]+1:Math.max(dp[i+1][j],dp[i][j+1]);
+  let i=0,j=0,ta="",tb="";
+  while(i<n||j<m){
+    if(i<n&&j<m&&lo(a[i])===lo(b[j])){ta+=esc(a[i]);tb+=esc(b[j]);i++;j++}
+    else if(j<m&&(i>=n||dp[i][j+1]>=dp[i+1][j])){tb+=`<ins>${esc(b[j])}</ins>`;j++}
+    else{ta+=`<del>${esc(a[i])}</del>`;i++}
+  }
+  const onlyLetters=deacc(typed)===deacc(right);
+  return `<div class="diff"><div><small>Вы написали</small><span>${ta}</span></div><div><small>Правильно</small><span>${tb}</span></div>${onlyLetters?`<p>Разница только в турецких буквах: ı, ş, ç, ğ, ö, ü.</p>`:""}</div>`;
+}
+function mistakeWords(){return Object.keys(S.mistakes).map(tr=>ALL.find(w=>w.tr===tr)).filter(Boolean)}
+function mistakesCard(){
+  const ws=mistakeWords();if(ws.length<3)return "";
+  return `<button class="deck" id="mistGo" style="margin-top:12px"><span class="ico" style="background:#D9483B">${I.target}</span><div><b>Работа над ошибками</b><small>${ws.length} ${slov(ws.length)} с ошибками — разберём за пару минут</small></div><span style="width:24px;color:var(--muted)">${I.play}</span></button>`;
+}
+function startMistakes(){const ws=mistakeWords();if(!ws.length)return;startSession({items:ws,len:Math.min(15,Math.max(8,ws.length)),diff:P.diff,label:"Работа над ошибками"})}
+
+/* ================= PHRASEBOOK ================= */
+let Dpb=null; // null | "home" | group id | "fav"
+const pbAll=()=>typeof PHRASEBOOK==="undefined"?[]:PHRASEBOOK;
+const pbCount=()=>pbAll().reduce((a,g)=>a+g.p.length,0);
+function favs(){return S.fav||(S.fav=[])}
+function phraseRow(tr,ru){const on=favs().includes(tr);
+  return `<div class="wrow pb-row">${sayBtns(tr)}<div><b>${trHTML(tr)}</b><span>${esc(ru)}</span></div>
+    <button class="icon-btn" data-pbfav="${esc(tr)}" aria-pressed="${on}" aria-label="${on?"Убрать из избранного":"В избранное"}">${on?"★":"☆"}</button>
+    <button class="icon-btn" data-pbshow="${esc(tr)}" data-ru="${esc(ru)}" aria-label="Показать собеседнику">⤢</button></div>`}
+function viewPhrasebook(){
+  const back=`<button class="back" data-pbback>${I.back} ${Dpb==="home"?"Словарь":"Разговорник"}</button>`;
+  if(Dpb==="home"){
+    const f=favs();
+    return back+`<h1 class="sec-title">Разговорник</h1><p class="sec-lead">Готовые фразы для поездки: ${pbCount()} фраз в ${pbAll().length} ситуациях. Кнопка ⤢ показывает фразу крупно — можно просто повернуть телефон к собеседнику.</p>
+      <div class="topics">${f.length?`<button class="topic pb-fav" data-pbgo="fav"><b>⭐ Избранное</b><span>${f.length} ${["фраза","фразы","фраз"][plural_ru(f.length)]}</span></button>`:""}${pbAll().map(g=>`<button class="topic" data-pbgo="${g.id}"><b>${g.ic} ${esc(g.t)}</b><span>${g.p.length} фраз</span></button>`).join("")}</div>`;
+  }
+  let title,list;
+  if(Dpb==="fav"){title="⭐ Избранное";const map=new Map(pbAll().flatMap(g=>g.p).concat(ALL.map(w=>[w.tr,w.ru])));list=favs().map(t=>[t,map.get(t)||""])}
+  else{const g=pbAll().find(x=>x.id===Dpb);if(!g){Dpb="home";return viewPhrasebook()}title=g.ic+" "+g.t;list=g.p}
+  return back+`<h1 class="sec-title">${esc(title)}</h1>
+    <div class="stack">${list.length?`<div class="grid2"><button class="btn sm" data-pbspeak="${esc(Dpb)}">🎤 Тренировать произношение</button><button class="btn sm" data-pbtrain="${esc(Dpb)}">${I.dumbbell} Запомнить фразы</button></div>`:""}
+    <div class="card card-list"><div class="words-mini">${list.map(([t,r])=>phraseRow(t,r)).join("")||`<p class="help" style="margin:0">Нажмите ☆ у любой фразы, чтобы она появилась здесь.</p>`}</div></div></div>`;
+}
+function pbItems(id){if(id==="fav"){const map=new Map(pbAll().flatMap(g=>g.p).concat(ALL.map(w=>[w.tr,w.ru])));return favs().map(t=>({tr:t,ru:map.get(t)||""}))}const g=pbAll().find(x=>x.id===id);return g?g.p.map(([tr,ru])=>({tr,ru})):[]}
+function showPhrase(tr,ru){
+  const old=$("#showLayer");if(old)old.remove();
+  const el=document.createElement("div");el.id="showLayer";el.className="show-phrase";el.setAttribute("role","dialog");
+  el.innerHTML=`<button class="x" data-close aria-label="Закрыть">${I.cross}</button><div class="sp-tr" lang="tr">${esc(tr)}</div><div class="sp-ru">${esc(ru)}</div>
+    <div class="sp-btns"><button class="btn primary" data-sp="1">🔊 Сказать</button><button class="btn" data-sp="0.6">🐢 Медленно</button></div>`;
+  document.body.appendChild(el);
+  el.querySelector("[data-close]").onclick=()=>el.remove();
+  el.querySelectorAll("[data-sp]").forEach(b=>b.onclick=()=>speak(tr,b.dataset.sp!=="1"));
+  speak(tr);
+}
+function wirePhrasebook(v){
+  v.querySelectorAll("[data-pbback]").forEach(b=>b.onclick=()=>{Dpb=Dpb==="home"?null:"home";render();window.scrollTo({top:0})});
+  v.querySelectorAll("[data-pbgo]").forEach(b=>b.onclick=()=>{Dpb=b.dataset.pbgo;render();window.scrollTo({top:0});preloadPacks(["phrases","common"])});
+  v.querySelectorAll("[data-pbfav]").forEach(b=>b.onclick=()=>{const t=b.dataset.pbfav,f=favs(),i=f.indexOf(t);if(i>=0)f.splice(i,1);else f.push(t);persist();
+    b.setAttribute("aria-pressed",i<0);b.textContent=i<0?"★":"☆";if(i<0)toast("⭐","Фраза в избранном","Найдёте её в разговорнике")});
+  v.querySelectorAll("[data-pbshow]").forEach(b=>b.onclick=()=>showPhrase(b.dataset.pbshow,b.dataset.ru));
+  v.querySelectorAll("[data-pbspeak]").forEach(b=>b.onclick=()=>{const it=pbItems(b.dataset.pbspeak);if(it.length)startSession({items:it,len:Math.min(8,it.length),only:"speak",diff:P.diff,label:"Произношение"})});
+  v.querySelectorAll("[data-pbtrain]").forEach(b=>b.onclick=()=>{const it=pbItems(b.dataset.pbtrain);if(it.length<4){toast("⭐","Нужно хотя бы 4 фразы","Добавьте ещё в избранное");return}startSession({items:it,len:Math.min(10,it.length*2),only:"choice_ru",diff:P.diff,label:"Разговорник"})});
+}
+
+/* ================= PRONUNCIATION («Повтори за диктором») ================= */
+const canRecord=()=>!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder);
+const ASR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function similarity(a,b){a=norm(a);b=norm(b);if(!a||!b)return 0;const n=a.length,m=b.length;let prev=Array.from({length:m+1},(_,j)=>j);
+  for(let i=1;i<=n;i++){const cur=[i];for(let j=1;j<=m;j++)cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));prev=cur}
+  return Math.max(0,Math.round((1-prev[m]/Math.max(n,m))*100))}
+let recState=null;
+function stopRecording(){if(recState){try{recState.rec.state!=="inactive"&&recState.rec.stop()}catch(e){}try{recState.stream.getTracks().forEach(t=>t.stop())}catch(e){}try{recState.asr&&recState.asr.stop()}catch(e){}clearTimeout(recState.timer)}}
+function renderSpeak(body,e){
+  L.state.myUrl=null;
+  body.innerHTML=`<span class="tag">Произношение</span><h2 class="l-title">Послушайте и повторите</h2>
+    <div class="speak-card"><div class="t">${trHTML(e.w.tr)}</div><div class="ru">${esc(e.w.ru)}</div></div>
+    <div class="speak-btns">
+      <button class="btn" id="spNative">🔊 Диктор</button>
+      <button class="btn rec" id="spRec">🎙️ Записать себя</button>
+      <button class="btn" id="spMine" disabled>▶ Мой голос</button>
+    </div>
+    <p class="help" id="spInfo" style="margin:0;text-align:center">${canRecord()?"Запись хранится только на вашем устройстве и сразу удаляется.":"На этом устройстве запись недоступна — повторите фразу вслух вслед за диктором."}</p>
+    <div id="spAsr"></div>`;
+  const rb=$("#spRec");if(!canRecord())rb.disabled=true;
+  $("#spNative").onclick=()=>speak(e.w.tr);
+  $("#spMine").onclick=()=>{if(L.state.myUrl){try{player.pause();player.src=L.state.myUrl;player.playbackRate=1;player.play()}catch(err){}}};
+  rb.onclick=async()=>{
+    if(recState&&recState.on){stopRecording();return}
+    try{
+      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+      const chunks=[];const rec=new MediaRecorder(stream);recState={rec,stream,on:true,asr:null};
+      rec.ondataavailable=ev=>ev.data&&ev.data.size&&chunks.push(ev.data);
+      rec.onstop=()=>{recState&&(recState.on=false);rb.classList.remove("on");rb.textContent="🎙️ Записать ещё раз";
+        if(L.state.myUrl)URL.revokeObjectURL(L.state.myUrl);L.state.myUrl=URL.createObjectURL(new Blob(chunks,{type:rec.mimeType||"audio/webm"}));
+        const mb=$("#spMine");if(mb){mb.disabled=false;mb.click()}enableSelf()};
+      rec.start();rb.classList.add("on");rb.textContent="⏹ Остановить";recState.timer=setTimeout(stopRecording,8000);
+      if(ASR&&P.asr){try{const a=new ASR();a.lang="tr-TR";a.interimResults=false;a.maxAlternatives=3;recState.asr=a;
+        a.onresult=ev=>{const alts=[...ev.results[0]].map(r=>r.transcript);const best=alts.map(t=>[t,similarity(t,e.w.tr)]).sort((x,y)=>y[1]-x[1])[0];
+          const box=$("#spAsr");if(box)box.innerHTML=`<div class="asr ${best[1]>=80?"good":best[1]>=55?"mid":"low"}"><small>Распознано</small><b>${esc(best[0])}</b><span>Совпадение ${best[1]}%${best[1]>=80?" — отлично!":best[1]>=55?" — почти, послушайте диктора ещё раз":" — попробуйте медленнее и чётче"}</span></div>`};
+        a.onerror=()=>{};a.start()}catch(err){}}
+    }catch(err){$("#spInfo").textContent="Нет доступа к микрофону. Разрешите его в настройках браузера или повторите фразу вслух.";enableSelf()}
+  };
+  const enableSelf=()=>{const c=$("#lcheck");c.className="check";c.innerHTML=`<div class="check-in"><div class="grid2"><button class="btn" id="spAgain">Ещё потренируюсь</button><button class="btn good" id="spOk">Получилось</button></div></div>`;
+    $("#spOk").onclick=()=>{stopRecording();answer(true,"",e.w.tr,true)};$("#spAgain").onclick=()=>{stopRecording();answer(false,e.w.tr+" — "+e.w.ru,e.w.tr,true)}};
+  L.custCheck=()=>{const c=$("#lcheck");c.className="check";c.innerHTML=`<div class="check-in"><button class="btn" id="spSkip">Повторил(а) вслух — дальше</button></div>`;$("#spSkip").onclick=()=>{stopRecording();answer(true,"",e.w.tr,true)}};
+  L.custCheck();speak(e.w.tr);
+}
+
+/* ================= GENTLE STREAK, REMINDER, WEEKLY CARD, TIP ================= */
+const isRestDay=d=>{const r=P.rest||[];if(!r.length)return false;const [y,m,dd]=d.split("-").map(Number);return r.includes((new Date(y,m-1,dd).getDay()+6)%7)};
+function icsReminder(){
+  const t=(P.remind||"19:00").split(":"),now=new Date(),start=new Date(now.getFullYear(),now.getMonth(),now.getDate(),+t[0],+t[1]);if(start<now)start.setDate(start.getDate()+1);
+  const f=d=>`${d.getFullYear()}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}T${String(d.getHours()).padStart(2,"0")}${String(d.getMinutes()).padStart(2,"0")}00`;
+  const end=new Date(start.getTime()+15*60000),url=location.href.split("?")[0].split("#")[0];
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Turkce//RU","CALSCALE:GREGORIAN","BEGIN:VEVENT",`UID:turkce-daily-${Date.now()}@turkce`,`DTSTAMP:${f(new Date())}`,`DTSTART:${f(start)}`,`DTEND:${f(end)}`,"RRULE:FREQ=DAILY","SUMMARY:Турецкий — 10 минут 🔥",`DESCRIPTION:Урок дня в «Türkçe каждый день»: ${url}`,`URL:${url}`,"BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:Время для турецкого!","TRIGGER:PT0M","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+  return ics;
+}
+async function downloadText(name,data,type){
+  if(dlApi){try{await dlApi.save({filename:name,data});return true}catch(e){return false}}
+  try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);return true}catch(e){return false}
+}
+async function weeklyCard(){
+  const s=streakInfo(),mon=mondayOf(today());let wk=0,days=0;for(let i=0;i<7;i++){const x=S.xp[addDays(mon,i)]||0;wk+=x;if(x>0)days++}
+  const words=learnedWords().length,lv=lvlInfo();
+  const c=document.createElement("canvas");c.width=1080;c.height=1350;const x=c.getContext("2d");
+  const g=x.createLinearGradient(0,0,0,1350);g.addColorStop(0,"#1C2A6B");g.addColorStop(1,"#0D1330");x.fillStyle=g;x.fillRect(0,0,1080,1350);
+  const font=(w,s)=>`${w} ${s}px Nunito, "Segoe UI", Roboto, sans-serif`;
+  x.fillStyle="#E30A17";x.beginPath();x.roundRect(80,90,110,80,18);x.fill();x.fillStyle="#fff";x.font=font(900,48);x.textAlign="center";x.fillText("TR",135,148);
+  x.textAlign="left";x.font=font(900,52);x.fillText("Türkçe каждый день",215,148);
+  x.fillStyle="#FFC93C";x.font=font(800,40);x.fillText("Мои итоги недели",80,270);
+  const p=new Path2D("M12.3 1.8c1.2 3.6-.4 5.6-2.1 7.5-1.7 1.8-3.7 3.6-3.7 6.6a5.5 5.5 0 0 0 11 0c0-2.1-.9-3.8-2-5.1-.3 1.3-1 2.3-2.1 2.8.6-3.6-.1-7.8-1.1-11.8Z");
+  const p2=new Path2D("M12 21.3c-1.8 0-3.1-1.3-3.1-3 0-1.9 1.4-2.9 2.3-4.3.4 1.1 1.2 1.6 1.9 1.5-.2 1 .3 1.8 1 2.3.6.4 1.1 1 1.1 1.9 0 1.5-1.4 2.6-3.2 2.6Z");
+  x.save();x.translate(80,320);x.scale(13,13);x.fillStyle="#FF8A00";x.fill(p);x.fillStyle="#FFD34D";x.fill(p2);x.restore();
+  x.fillStyle="#FF8A00";x.font=font(900,190);x.fillText(String(s.cur),420,520);x.fillStyle="#fff";x.font=font(800,48);x.fillText(s.cur===1?"день подряд":([2,3,4].includes(s.cur%10)&&![12,13,14].includes(s.cur%100)?"дня подряд":"дней подряд"),420,590);
+  const tile=(tx,ty,big,small,col)=>{x.fillStyle="rgba(255,255,255,.08)";x.beginPath();x.roundRect(tx,ty,440,200,28);x.fill();x.fillStyle=col;x.font=font(900,84);x.fillText(big,tx+36,ty+105);x.fillStyle="#C9D1F5";x.font=font(800,34);x.fillText(small,tx+36,ty+160)};
+  tile(80,690,`+${wk}`,"XP за неделю","#FFC93C");tile(560,690,`${days}/7`,"дней занятий","#58CC02");
+  tile(80,920,String(words),"слов выучено","#1CB0F6");tile(560,920,`ур. ${lv.n}`,lv.title,"#CE82FF");
+  x.fillStyle="#C9D1F5";x.font=font(700,34);x.fillText("Учу турецкий по 10 минут в день.",80,1220);
+  x.fillStyle="#FFC93C";x.font=font(800,34);x.fillText(myCode?`Мой код приглашения: ${myCode}`:"Присоединяйтесь!",80,1275);
+  const blob=await new Promise(r=>c.toBlob(r,"image/png"));
+  const file=new File([blob],"turkce-itogi.png",{type:"image/png"});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"Мои итоги недели",text:"Учу турецкий в «Türkçe каждый день»"});return}catch(e){if(e&&e.name==="AbortError")return}}
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="turkce-itogi.png";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);toast("🖼️","Картинка сохранена","Поделитесь ею с друзьями");
+}
+function tipCard(){
+  if(typeof CULTURE==="undefined"||P.hideTip===today())return "";
+  const [h,t]=CULTURE[dayDiff("2026-01-01",today())%CULTURE.length];
+  return `<div class="tip-card"><span class="kicker">Совет дня</span><b>${esc(h)}</b><p>${trHTML(t)}</p><button class="tip-x" id="tipX" aria-label="Скрыть совет">${I.cross}</button></div>`;
+}
+
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{view=b.dataset.v;if(view==="courses")sub=null;if(view==="cards")Cdeck=null;if(view==="dict")Dpb=null;if(view==="train"&&T.type==="tutor"&&!chatTurns.length)T.type="choice_tr";render();window.scrollTo({top:0})});
 const hv=(location.hash||"").slice(1);
 if(["courses","cards","train","dict","rating","profile"].includes(hv))view=hv;
 applyZoom();render();
