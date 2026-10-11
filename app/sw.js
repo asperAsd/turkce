@@ -1,5 +1,5 @@
 // Offline support for the app: shell is network-first, audio packs are cached (stale-while-revalidate).
-const SHELL='turkce-shell-v1',AUDIO='turkce-audio-v1';
+const SHELL='turkce-shell-v1',AUDIO='turkce-audio-v2';
 self.addEventListener('install',e=>{e.waitUntil(caches.open(SHELL).then(c=>c.addAll(['./','./manifest.webmanifest','./icon-192.png'])).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('turkce-')&&k!==SHELL&&k!==AUDIO).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{
