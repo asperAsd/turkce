@@ -71,8 +71,8 @@ h1,h2,h3{text-wrap:balance}
 .nav button{min-width:0;background:none;border:0;padding:8px 0 10px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:800;color:var(--muted);cursor:pointer}
 .nav .ic{padding:2px 8px;border-radius:12px}
 .nav .ic svg{width:26px;height:26px}
-.nav button[aria-selected="true"]{color:var(--cobalt)}
-.nav button[aria-selected="true"] .ic{background:var(--cobalt-soft)}
+.nav button[aria-current="page"]{color:var(--cobalt)}
+.nav button[aria-current="page"] .ic{background:var(--cobalt-soft)}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:900;font-size:17px;letter-spacing:.03em;text-transform:uppercase;border:2px solid var(--line-strong);border-bottom-width:5px;border-radius:16px;background:var(--surface);color:var(--ink);padding:12px 18px;min-height:54px;cursor:pointer;width:100%}
 .btn.sm{font-size:15px;padding:10px 8px;min-height:48px;letter-spacing:0}
@@ -138,7 +138,7 @@ h1,h2,h3{text-wrap:balance}
 .sheet{background:var(--surface);width:100%;max-width:600px;border-radius:22px 22px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:12px;max-height:92%;overflow:auto}
 .sheet h2{margin:0;font-size:24px;font-weight:900;line-height:1.2}
 .kicker{font-size:13px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
-.info{background:var(--bg);border-radius:14px;padding:12px 14px;font-size:16px}
+.info{background:var(--bg);border-radius:14px;padding:12px 14px;font-size:16px;overflow-wrap:anywhere}
 .info b.h{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
 .info.tip{background:var(--turq-soft)}
 .words-mini{display:flex;flex-direction:column}
@@ -183,7 +183,7 @@ h1,h2,h3{text-wrap:balance}
 .opt.wrong{border-color:var(--bad);background:var(--bad-soft);color:var(--bad-dk)}
 .opt:disabled{cursor:default}
 .opt.gone{opacity:.35;border-bottom-width:2px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}.grid2>*{min-width:0}.grid2 .btn{white-space:normal}
 .grid2 .opt{justify-content:center;text-align:center;font-size:17px;padding:12px 8px}
 .letters .opt{justify-content:center;font-size:22px}
 .answer-line{min-height:64px;border-bottom:2px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;padding-bottom:8px}
@@ -277,7 +277,7 @@ select,.search{font:700 17px var(--font);padding:12px;border-radius:14px;border:
 .kpi b{display:block;font-size:22px;font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--ink)}
 .kpi span{font-size:14px;color:var(--muted);font-weight:700}
 .chart-wrap{overflow-x:auto}
-.chart-wrap svg{width:100%;height:auto;min-width:300px}
+.chart-wrap svg{width:100%;height:auto;min-width:260px}
 .chart-wrap text{font-family:var(--font);fill:var(--muted);font-size:10px;font-weight:700}
 .bar-r{fill:var(--cobalt)} .bar-r.today{fill:var(--turq)}
 .goal-line{stroke:var(--gold);stroke-width:2;stroke-dasharray:5 4}
@@ -309,6 +309,18 @@ select,.search{font:700 17px var(--font);padding:12px;border-radius:14px;border:
 .pop b{display:block;font-size:17px;font-weight:900}
 .pop span{display:block;font-weight:600;opacity:.9}
 .pop .say{background:var(--cobalt);border-bottom-color:var(--cobalt-dk)}
+.pop-add{display:block;margin-top:8px;border:0;border-radius:10px;background:var(--gold);color:#1B1B1B;font-weight:900;font-size:14px;padding:6px 10px;cursor:pointer}
+.pop-add:disabled{background:none;color:inherit;opacity:.85;padding:0;cursor:default}
+/* conjugation */
+.cj-card{margin-top:12px;padding-top:6px;padding-bottom:6px}
+.cj-head{padding:8px 0 10px;font-size:17px}.cj-head b{font-size:20px;font-weight:900}.cj-head span{display:block;color:var(--muted);font-weight:700;font-size:14px;margin-top:2px}
+.cj-row{display:grid;grid-template-columns:96px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.cj-p{font-weight:800;color:var(--muted);line-height:1.15}.cj-p small{display:block;font-size:12px;font-weight:700}
+.cj-w{font-size:19px;font-weight:700;overflow-wrap:anywhere}.cj-w .sfx{color:var(--cobalt);font-weight:900}
+.seg.cj-f{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:1fr}
+.chips.wrap{flex-wrap:wrap;overflow:visible}
+.chips.row{flex-wrap:nowrap;overflow-x:auto;margin:0 -4px;padding:0 4px 2px}
+.keys.cj-keys{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}.keys.cj-keys button{min-width:0;width:auto}
 /* toasts */
 .toasts{position:fixed;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 10px);z-index:90;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;padding-inline:16px}
 .toast{pointer-events:auto;max-width:520px;width:100%;background:var(--surface);border:2px solid var(--gold);border-radius:16px;padding:10px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.18);font-weight:800}
@@ -329,8 +341,8 @@ details.note-card summary::-webkit-details-marker{display:none}
 /* avatars & profile */
 .avatar{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:var(--cobalt-soft);flex:0 0 auto}
 .avatar.sm{width:44px;height:44px;font-size:24px}
-.av-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-.av-grid button{aspect-ratio:1;border-radius:50%;border:2px solid var(--line);background:var(--surface);font-size:24px;cursor:pointer;max-width:100%}
+.av-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.av-grid button{min-width:0;padding:0;aspect-ratio:1;border-radius:50%;border:2px solid var(--line);background:var(--surface);font-size:24px;cursor:pointer;max-width:100%}
 .av-grid button[aria-pressed="true"]{border-color:var(--cobalt);background:var(--cobalt-soft)}
 .inp{font:700 18px var(--font);padding:12px 14px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--ink);width:100%;max-width:100%}
 .inp.code{text-transform:uppercase;letter-spacing:.12em}
@@ -341,6 +353,8 @@ details.note-card summary::-webkit-details-marker{display:none}
 .save-ok{display:flex;gap:8px;align-items:center;font-weight:800;font-size:15px;padding:10px 12px;border-radius:12px}
 .save-ok.good{background:var(--ok-soft);color:var(--ok-dk)}
 .save-ok.warn{background:var(--gold-soft);color:var(--ink)}
+.save-ok.bad{background:var(--bad-soft,#FDE3E1);color:var(--ink)}
+.store-warn{position:sticky;top:0;z-index:90;background:#8E1F1A;color:#fff;font:700 14px/1.35 Nunito,system-ui,sans-serif;padding:10px 40px 10px 14px}.store-warn .link{color:#fff;text-decoration:underline;background:none;border:0;font:inherit;cursor:pointer;padding:0 4px}.store-warn .x{position:absolute;right:8px;top:6px;background:none;border:0;color:#fff;font-size:22px;cursor:pointer;width:32px;height:32px}
 .save-ok svg{width:20px;height:20px;flex:0 0 auto}
 .codebox{font-size:28px;font-weight:900;letter-spacing:.16em;text-align:center;background:var(--bg);border:2px dashed var(--line-strong);border-radius:14px;padding:10px;font-variant-numeric:tabular-nums}
 .resume{display:flex;gap:12px;align-items:center;margin-top:14px;background:var(--cobalt-soft);border:2px solid var(--cobalt);border-radius:18px;padding:12px 14px}
@@ -348,7 +362,7 @@ details.note-card summary::-webkit-details-marker{display:none}
 .resume span{font-size:14px;color:var(--muted);font-weight:700}
 .resume .btn{width:auto;flex:0 0 auto;min-height:44px;padding:8px 14px;font-size:14px}
 /* achievements */
-.ach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ach-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.ach{min-width:0}.ach b,.ach small{overflow-wrap:anywhere;hyphens:auto}
 .ach{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:10px 6px;border-radius:16px;background:var(--bg)}
 .ach .medal{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:26px;background:var(--gold-soft);border:3px solid var(--gold)}
 .ach b{font-size:13px;font-weight:900;line-height:1.2}
@@ -646,6 +660,8 @@ pre.codes{background:var(--bg);border:2px dashed var(--line-strong);border-radiu
 .asr small{text-transform:none!important;letter-spacing:0!important;font-size:13px!important}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+[role="dialog"]:focus,[role="dialog"]:focus-visible{outline:none}
+#view h1:focus,#view h2:focus{outline:none}
 </style>
 
 <div class="app">
@@ -661,13 +677,13 @@ pre.codes{background:var(--bg);border:2px dashed var(--line-strong);border-radiu
 </div>
 
 <nav class="nav" aria-label="Разделы">
-  <div class="nav-in" role="tablist">
-    <button data-v="courses" role="tab"><span class="ic" data-ic="path"></span>Курсы</button>
-    <button data-v="cards" role="tab"><span class="ic" data-ic="cards"></span>Карточки</button>
-    <button data-v="train" role="tab"><span class="ic" data-ic="dumbbell"></span>Практика</button>
-    <button data-v="dict" role="tab"><span class="ic" data-ic="book"></span>Словарь</button>
-    <button data-v="rating" role="tab"><span class="ic" data-ic="trophy"></span>Рейтинг</button>
-    <button data-v="profile" role="tab"><span class="ic" data-ic="user"></span>Профиль</button>
+  <div class="nav-in">
+    <button data-v="courses"><span class="ic" data-ic="path"></span>Курсы</button>
+    <button data-v="cards"><span class="ic" data-ic="cards"></span>Карточки</button>
+    <button data-v="train"><span class="ic" data-ic="dumbbell"></span>Практика</button>
+    <button data-v="dict"><span class="ic" data-ic="book"></span>Словарь</button>
+    <button data-v="rating"><span class="ic" data-ic="trophy"></span>Рейтинг</button>
+    <button data-v="profile"><span class="ic" data-ic="user"></span>Профиль</button>
   </div>
 </nav>
 <div id="pop" class="pop" hidden></div>
@@ -1352,51 +1368,138 @@ const NOTES = {
 const GLOSS_RAW = `acele=спешка|acı=острый; горький|açabilir=может открыть|açılır=открывается|açıyorum=я открываю|açmak=открыть|adam=мужчина|adım=моё имя|adınız=ваше имя|afiyet=аппетит (afiyet olsun — приятного аппетита)|ağaç=дерево|ağrıyor=болит|ağzına=твоему рту (ağzına sağlık — хорошо сказано)|ahmet=Ахмет (имя)|aklıma=мне в голову|akşam=вечер; вечером|akşamlar=вечера (iyi akşamlar — добрый вечер)|alabilir=может взять|aldığın=который ты купил(а)|alerjim=моя аллергия|alırdım=я бы купила|alıyorum=я покупаю, беру|almak=брать, покупать|alo=алло|anahtarımı=мой ключ (вин.)|ankara'dan=чем Анкара; из Анкары|anlamadım=я не поняла|anlattı=рассказал(а)|anna=Анна|arabam=моя машина|arabamı=мою машину|aradığında=когда ты позвонил(а)|ararım=я позвоню|arayacağım=я позвоню|arıyor=звонит; ищет|arkadaşıma=моей подруге|arkadaşımla=с моей подругой|artık=уже; больше (yok artık — не может быть)|arz=представление (arz ederim — прошу, докладываю)|ateşim=мой жар (ateşim var — у меня температура)|ayda=в месяц|aydın=светлый (gözün aydın — поздравляю с радостной вестью)|ayırttık=мы забронировали|aynı=одинаковый, тот же|ayrı=отдельно, раздельно|bağlar=соединяет|bahçede=в саду|bakmayın=не смотрите (kusura bakmayın — извините)|bana=мне|başım=моя голова|başın=твоя голова (başın sağ olsun — соболезную)|başka=другой, ещё|başladım=я начала|başlamıştı=уже начался|başlasaydım=если бы я начала|bavulum=мой чемодан|bayramınız=ваш праздник|beklerken=пока ждала|bekleyen=который ждёт|belirtmek=отметить, указать|beni=меня|benim=мой; у меня|beşe=к пяти (beşe on var — без десяти пять)|bey=господин|bırakmak=оставить|bilen=который знает|bilgilerinize=к вашему сведению|biliyorum=я знаю|bilsem=если бы я знала|bilseydim=если бы я знала (тогда)|biraz=немного|birbirine=друг с другом|biri=кто-то, один (из)|biridir=является одним из|bizi=нас|bizim=наш|boğazım=моё горло|boş=пустой; свободный|boyattık=мы покрасили (наняв)|boylu=ростом (uzun boylu — высокий)|bozuk=сломанный (bozuk para — мелочь)|bozuldu=сломался|bu=это, этот|buçuk=с половиной|bulaşıkları=посуду|buluşalım=давай встретимся|buluştum=я встретилась|buna=этому (buna rağmen — несмотря на это)|bunu=это (вин.)|burada=здесь|buradan=отсюда|cana=душе (cana yakın — приятный)|canım=моя душа; дорогой (canım sıkılıyor — мне скучно)|çağırmamız=нам вызвать|çalışıyor=работает|çalışıyorum=я работаю|çalışmayı=работать (вин.)|çalışmıyor=не работает|çalıştı=работал(а)|çalıştım=я работала|çamaşır=бельё (çamaşır makinesi — стиральная машина)|çekmek=тянуть; снимать (деньги)|çevreyi=окружающую среду|çeyrek=четверть|çıkarım=я выхожу|çıkarır=вынесет|çıkış=выход; выезд|çıkıyorum=я выхожу|çıkmadık=мы не вышли|çıkmak=выходить|çıkmıştı=уже ушёл|çıktıktan=после того как вышла|çocuğu=ребёнка|çocuğum=мой ребёнок|çok=очень; много|çoktan=давно, уже|çöpü=мусор (вин.)|da=тоже; и|dans=танец|de=тоже; и|değil=не (с существительными)|değilim=я не|değişikliği=изменение|değiştirmek=поменять|deneyebilir=может примерить|denize=к морю|denizi=море (вин.)|derinden=глубоко|dışarı=наружу, на улицу|dikkat=внимание|dilerim=желаю, прошу (özür dilerim — извините)|dinlemeyi=слушать (вин.)|dinlendim=я отдохнула|dinlerim=я слушаю|dizim=моё колено|doğduğum=где я родилась|doğdum=я родилась|doğdun=ты родилась|doğdunuz=вы родились|doğru=правильный; правда|doğum=рождение (doğum günü — день рождения)|doktor=врач|doktora=к врачу|doktorsun=ты врач|dokuzda=в девять|dokuzdan=с девяти|döneceğini=что вернёшься|dönün=поверните|dönüşüm=переработка; возврат|dördü=четыре (вин., о времени)|döviz=валюта|durumu=состояние (hava durumu — прогноз погоды)|duruyor=стоит|duyuyorum=я чувствую; слышу|dünyanın=мира|eczane=аптека|edebilir=может сделать|eder=делает|ederim=я делаю (teşekkür ederim — спасибо)|edersiniz=вы делаете|ediyorum=я делаю|eğilir=гнётся|elin=руки (род.)|ellerini=свои руки|ellerinize=вашим рукам|emekli=пенсионер(ка)|emin=уверенный|en=самый|erken=рано|ertelendi=перенесли|eskiden=раньше|etkiledi=тронул, впечатлил|etkisi=его эффект (yan etkisi — побочный эффект)|etme=не делай (merak etme — не волнуйся)|etmek=делать (вспомогательный глагол)|etmeyin=не делайте|etsem=если бы я сделала (rica etsem — позвольте попросить)|ettiler=они сделали|ettim=я сделала|evde=дома|evden=из дома|eve=домой|evi=дом (вин.)|evim=мой дом|evimiz=наш дом|evlendiniz=вы поженились|evlenmiş=оказывается, женился|fabrikada=на фабрике|farkı=разница|faturayı=счёт (вин.)|fikir=мысль, идея|fikirde=во мнении (aynı fikirde — согласен)|film=фильм|filmi=фильм (вин.)|geceler=ночи (iyi geceler — спокойной ночи)|geç=поздно|geçiyor=проходит (çeyrek geçiyor — четверть …)|geçmiş=прошедший (geçmiş olsun — выздоравливайте)|gel=приходи|geldi=пришёл, приехал|geldiğimde=когда я пришла|geldiniz=вы пришли (hoş geldiniz — добро пожаловать)|geleceğini=что придёт|gelemedim=я не смогла прийти|gelen=который пришёл|gelince=когда придёт|gelir=придёт|gelirsen=если придёшь|geliyor=идёт (сюда), приходит|geliyoruz=мы приходим, мы из|gelmiş=оказывается, пришёл|gelmiyor=не приходит (sesiniz gelmiyor — вас не слышно)|gelsin=пусть придёт (kolay gelsin — удачи в работе)|genelde=обычно|gereğinin=необходимого|gerek=нужно|gerekiyor=нужно, требуется|geri=назад|gidelim=давай пойдём|giderim=я хожу|gidiş-dönüş=туда и обратно|gidiyor=идёт|gidiyorum=я иду, еду|gidiyoruz=мы идём, едем|gitmelisin=тебе надо пойти|gitmem=мне идти (gitmem lazım — мне надо идти); я не пойду|gittiniz=вы ездили|gönderildi=отправлено|göre=согласно (bana göre — по-моему)|görmemiştim=я не видела (раньше)|görüşebilir=может поговорить|görüşmek=видеться, разговаривать|görüşmesi=встреча, разговор (iş görüşmesi — собеседование)|gözün=твой глаз|gurur=гордость|güldürdün=ты рассмешил|gülerek=смеясь|günde=в день|günüm=мой день|günün=твой день|gürültü=шум|güzeldi=было красиво, хорошо|güzelmiş=говорят, красивый|haberleri=новости (вин.)|hadi=давай|hafta=неделя|haftada=в неделю|haklı=правый (haklısın — ты прав)|hâlâ=всё ещё|hangisi=который из них|hasta=больной|hastaydım=я болела|havale=перевод (денег)|hayal=мечта (hayal kırıklığı — разочарование)|hayalim=моя мечта|hayatımda=в моей жизни|hayatın=жизни|hayırlı=добрый, благой|hazırlanıyor=готовится|hem=и … (hem … hem de — и … и)|hepsi=все, всё|her=каждый|hesabı=счёт (вин.)|hesap=счёт|hiç=совсем; никогда; когда-нибудь|hoş=приятный|hoşuma=мне по душе (hoşuma gidiyor — мне нравится)|içer=пьёт|içerim=я пью|içilir=пьют (пассив)|içilmez=не пьют, не курят (пассив)|içim=моя душа, внутри (içim rahatladı — отлегло)|için=для; из-за|içiyordum=я пила; курила|içiyorum=я пью|içmem=я не пью; мне выпить|içmen=тебе пить|içmeye=пить (куда: içmeye gitmek)|içmiyorum=я не пью|idare=управление (idare eder — сойдёт)|ikinci=второй|iklim=климат|ilacı=лекарство (вин.)|ilacın=лекарства (род.)|ile=с|ilginç=интересный|ilk=первый|istanbul=Стамбул|istanbul'a=в Стамбул|istanbul'da=в Стамбуле|ister=хочет|isterim=я хотела бы|istersen=если хочешь|istifa=отставка (istifa etmek — уволиться)|istiyorum=я хочу|iş=работа; дело|işe=на работу; к делу|işiniz=ваша работа|işte=на работе; вот|işten=с работы|iyiyim=у меня всё хорошо|izledim=я посмотрела|izledin=ты посмотрела|izliyordum=я смотрела|izliyorum=я смотрю|kaçta=во сколько|kadar=до; столько (ne kadar — сколько)|kadın=женщина|kahvaltı=завтрак|kahvaltıdan=после завтрака (с sonra)|kahveden=чем кофе|kaldığım=что я опоздала, осталась|kaldık=мы остановились, жили|kalırız=мы останемся|kalkıyor=отправляется; встаёт|kalkıyorum=я встаю|kalkmak=вставать; отправляться|kalkmalıyım=мне надо вставать|kalmışım=оказывается, я (опоздала)|kan=кровь|kapılar=двери|kapıyı=дверь (вин.)|karar=решение|karışır=вмешивается|kartı=карта (kredi kartı — кредитная карта)|kartla=картой|kavga=ссора|kaybettim=я потеряла|kayboldu=потерялся|kedim=моя кошка|kenarında=на краю, у (deniz kenarında — у моря)|kestirdim=я подстриглась|keşke=если бы, жаль что не|kez=раз|kırıklığına=разочарованию|kırk=40|kısa=короткий; низкий|kıtayı=континент (вин.)|kızıma=моей дочери|ki=что (союз)|kişilik=на … человек (iki kişilik — на двоих)|kitabı=книгу (вин.)|klima=кондиционер|kolay=лёгкий|komşumuz=наш сосед|kontrolü=контроль|konuşabiliyorum=я могу говорить|konuşan=который говорит|konuştukça=чем больше говорю|konuşulur=говорят (пассив)|konuşur=говорит (konuşur musunuz — не могли бы вы говорить)|konuyu=тему|korumalıyız=мы должны беречь|koşarak=бегом|köyde=в деревне|kredi=кредит|kuru=курс (döviz kuru — курс валют)|kusura=на промах (kusura bakmayın — извините)|kuşak=поколение|kutlu=счастливый, праздничный|kültürünün=культуры|lazım=нужно|lezzetli=вкусный|lira=лира|maalesef=к сожалению|makinesi=машина, аппарат|markete=в магазин|marketten=из магазина|mayısta=в мае|memnun=довольный (memnun oldum — приятно познакомиться)|menü=меню|merak=любопытство; беспокойство|merkezindedir=находится в центре|mesaj=сообщение|mı=ли (вопрос)|mısın=ли ты|mi=ли (вопрос)|misafirperverlik=гостеприимство|misiniz=ли вы|miyim=ли я|moskova'dan=из Москвы|musun=ли ты|musunuz=ли вы|mutfağı=кухня (турецкая кухня)|mutfaklarından=из кухонь|mutluyum=я счастлива|mü=ли (вопрос)|mübarek=благословенный|müdürle=с директором, управляющим|müsait=свободный, удобный|müzik=музыка|nesi=что у него (nesi var — что может)|nice=много (nice yıllara — многая лета)|numaranızı=ваш номер|odalı=…комнатный|odanız=ваша комната, номер|odası=комната (yatak odası — спальня)|okuduğum=которую я читаю|okudukça=чем больше читаю|okula=в школу|okumayı=читать (вин.)|okurum=я читаю (обычно)|okuyorum=я читаю|olabilir=может быть|olabilirsiniz=вы можете быть|olacak=будет|olanı=тот, который (en ucuz olanı — самый дешёвый)|olarak=в качестве|olduğunu=что является|olduktan=после того как стала|oldum=я стала|olmalı=должно быть|olmalılar=они должно быть|olmasına=тому, что является (olmasına rağmen — несмотря на то что)|olsa=если бы было|olsun=пусть будет|olur=будет; ладно, можно|olursa=если будет|oluyor=становится|onu=его, её (вин.)|orada=там|otel=отель|otelde=в отеле|otobüsü=автобус (вин.)|oturan=который сидит|oturduğunu=где он живёт|oturuyorsunuz=вы живёте, сидите|otuz=30|ödedim=я оплатила|ödeyebilir=может оплатить|ödeyelim=давайте заплатим|öğreniyorum=я учу|öğrenmeye=учить (начать учить)|öğretmen=учитель|öğretmenim=я учитель|önce=раньше; перед|önemli=важный|örgü=вязание|örmek=вязать|örnek=пример|öte=другой, тот (öte yandan — с другой стороны)|özledim=я соскучилась|özür=извинение|para=деньги|param=мои деньги|paramı=мои деньги (вин.)|parçasıdır=является частью|parkta=в парке|pasaport=паспорт|pazara=на рынок|pencereyi=окно (вин.)|pişirdim=я приготовила|pişman=сожалеющий|rağmen=несмотря на|rahatladı=успокоился, отлегло|randevu=запись, встреча|renk=цвет|resim=картина, рисунок|rezervasyonum=моя бронь|rica=просьба (rica ederim — не за что)|roman=роман|rötar=задержка рейса|rusum=я русская|rusya'da=в России|saat=час; часы; время|sabah=утро; утром|saçımı=мои волосы|sağ=живой, здоровый; правый|sağlık=здоровье|sahneye=на сцену|sakla=храни|samanı=солому|seni=тебя|sesi=звук, голос|sesiniz=ваш голос|sevdiğim=который я люблю, любимый|sevinirim=я обрадуюсь|seviyorsun=ты любишь|seviyorum=я люблю|sık=частый (sık sık — часто)|sıkılıyor=сжимается (canım sıkılıyor — мне тоскливо)|sigara=сигарета|sinemaya=в кино|siparişiniz=ваш заказ|sizinle=с вами|soğukmuş=говорят, холодно|sokaktan=с улицы, по улице|son=последний|sonları=концы (hafta sonları — по выходным)|sonra=потом, после|sonu=конец (hafta sonu — выходные)|sonuç=результат|sordu=спросил(а)|sorun=проблема|sosyal=социальный|söyledi=сказал(а)|söylediklerini=то, что ты сказал|söylerdim=я бы сказала|söz=слово (söz vermek — обещать)|sunarız=представляем|suyu=воду (вин.)|şey=вещь (bir şey — что-то)|şeytan=чёрт, шайтан|şu=тот, вон тот|şunu=вот это (вин.)|tabii=конечно|tahlili=анализ|taksi=такси|tamirci=мастер по ремонту|tanıyorum=я знаю (кого-то)|tansiyonum=моё давление|tavsiye=совет|tek=один, одиночный|tekrar=снова, ещё раз|televizyon=телевизор|terfi=повышение|teşekkür=благодарность|teşekkürler=спасибо|toparlarsak=если подытожим|toplantı=собрание, встреча|torunumu=моего внука|tuvalet=туалет|türk=турецкий; турок|türkçe=турецкий язык|türkçeyi=турецкий язык (вин.)|uçağımız=наш самолёт|uçmamıştım=я не летала (раньше)|uğradım=я подверглась|unutmuş=оказывается, забыл|uyumadan=перед сном (не уснув)|uyuttum=я уложила спать|uyuyordum=я спала|uzak=далёкий, далеко|uzun=длинный; высокий|üzere=чтобы; вот-вот|varsa=если есть|ver=дай|vereyim=дам-ка, приведу|verir=даст|veriyorum=я даю|vermek=давать|ya=или; же|yağarsa=если пойдёт (дождь)|yağdığı=что шёл (дождь)|yağıyordu=шёл (дождь)|yağmur=дождь|yakın=близкий|yan=бок, сторона (yan etkisi — побочный эффект)|yandan=со стороны|yapacaksın=ты будешь делать|yaparsınız=вы делаете (обычно)|yapıldı=было сделано, построено|yapılmasını=чтобы было сделано|yapıyor=делает|yapıyordun=ты делала|yapıyorum=я делаю|yapmayı=делать (вин.)|yaptı=сделал(а)|yaptın=ты сделала|yaptırmam=мне сделать (через кого-то)|yardım=помощь|yaşadığım=где я живу|yaşadım=я жила|yaşamak=жить|yaşken=пока молодой, сырой|yatak=кровать|yatarım=я ложусь|yavaş=медленно|yazın=летом|yazıyorum=я пишу|yedide=в семь|yemekten=от еды (yemekten önce — перед едой)|yemem=я не ем|yer=место|yıka=мой (руки)|yıkarım=я помою|yıkattım=я отдала помыть|yıl=год|yılınız=ваш год|yıllara=к годам|yolda=в пути|yorgunum=я устала|yüksek=высокий|yürüdüm=я гуляла|yürürken=когда гуляю|yürüyerek=пешком|yürüyüşe=на прогулку|yüzden=по причине (bu yüzden — поэтому)|yüzerim=я плаваю|zaman=время (ne zaman — когда)|zamana=ко времени|zamanı=его время|zamanım=моё время|zamanın=твоё время|zengin=богатый|ziyaret=посещение|daha=ещё; более|dahil=включённый|dakika=минута|mektup=письмо|damlaya=капая (damlaya damlaya — капля за каплей)|bol=обильный, много (bol şans — удачи)|şans=удача`;
 const GLOSS = Object.fromEntries(GLOSS_RAW.split("|").map(p => { const i = p.indexOf("="); return [p.slice(0, i).trim(), p.slice(i + 1).trim()]; }));
 
-// Legal texts shown in the app. Placeholders in [square brackets] must be filled before public launch.
-const LEGAL = {
-privacy: { title: "Политика конфиденциальности", updated: "11 октября 2026",
- intro: "Эта политика объясняет, какие данные собирает приложение «Türkçe каждый день», зачем, где они хранятся и как ими управлять. Политика составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
- sections: [
-  ["1. Кто обрабатывает данные", "Оператор персональных данных — [ФИО индивидуального предпринимателя / самозанятого или наименование организации], ИНН [ИНН], ОГРН/ОГРНИП [номер, если есть], адрес: [адрес]. Связаться с оператором можно по адресу [e-mail для обращений]."],
-  ["2. Какие данные мы собираем", "• Данные профиля: имя или псевдоним для рейтинга, выбранный аватар.\n• Данные для входа: адрес электронной почты, номер телефона или данные аккаунта Google (имя, e-mail, идентификатор) — в зависимости от выбранного способа входа.\n• Учебные данные: пройденные уроки, результаты тестов и экзаменов, опыт, серия дней, достижения, карточки и их расписание повторений, созданные вами карточки.\n• Данные партнёрской программы: ваш код приглашения, кто пригласил вас, начисления.\n• Данные об оплате: сумма, дата, статус и идентификатор платежа. Данные банковских карт и счетов мы не получаем и не храним — их обрабатывает платёжный сервис.\n• Вопросы ИИ-репетитору и реплики в сценках с ИИ: текст сообщений в рамках текущего разговора.\n• Записи голоса в упражнениях на произношение: используются только для распознавания речи в момент проверки и не сохраняются.\n• Telegram: идентификатор чата с нашим ботом и выбранное время напоминаний — если вы подключили напоминания.\n• Технические данные: тип устройства и браузера, дата и время входа, данные в локальном хранилище браузера."],
-  ["3. Зачем мы их используем", "• чтобы создать аккаунт и пускать вас в него;\n• чтобы сохранять учебный прогресс и показывать его на любом устройстве;\n• чтобы показывать общий рейтинг учеников (только имя для рейтинга, аватар, опыт, серию и уровень);\n• чтобы принимать оплату и начислять бонусы по партнёрской программе;\n• чтобы проверять произношение, отвечать на вопросы репетитору и вести сценки с ИИ;\n• чтобы присылать напоминания о занятиях в Telegram, если вы их подключили;\n• чтобы отвечать на обращения и сообщать о важных изменениях;\n• чтобы обеспечивать безопасность и предотвращать злоупотребления."],
-  ["4. Правовые основания", "Мы обрабатываем данные на основании вашего согласия, которое вы даёте при регистрации, а также для исполнения договора (пользовательского соглашения) и выполнения требований закона (например, налогового учёта платежей)."],
-  ["5. Где хранятся данные", "Персональные данные граждан России записываются и хранятся в базах данных, расположенных на территории Российской Федерации, как требует ч. 5 ст. 18 152-ФЗ: [название хостинга и города дата-центра]. Учебный прогресс также сохраняется в памяти вашего браузера. Текущая версия приложения может работать на платформе Claude (Anthropic); в этом случае данные хранятся в инфраструктуре этой платформы."],
-  ["6. Кому мы передаём данные", "Только тем, кто помогает работать сервису, и только в нужном объёме:\n• хостинг-провайдер — [название];\n• платёжный сервис ЮKassa (ООО НКО «ЮМани») — для приёма оплаты и выдачи чеков;\n• сервис отправки SMS — [название] — для кодов подтверждения;\n• Google — если вы входите через аккаунт Google;\n• поставщик ИИ-модели — текст ваших вопросов репетитору и реплик в сценках, без имени и контактов (на сайте — ООО «Яндекс.Облако», сервис YandexGPT; в версии внутри Claude — Anthropic);\n• сервис распознавания речи — запись фразы в упражнении на произношение: на сайте — ООО «Яндекс.Облако» (SpeechKit) или встроенный сервис вашего браузера (например, Google в Chrome, Apple в Safari);\n• Telegram — сообщения-напоминания отправляются через Telegram, если вы подключили бота.\nМы не продаём данные и не передаём их для рекламы."],
-  ["7. Сколько мы храним данные", "Пока действует ваш аккаунт. После удаления аккаунта данные удаляются в течение 30 дней, кроме сведений о платежах, которые хранятся столько, сколько требует налоговое законодательство."],
-  ["8. Ваши права", "Вы можете: узнать, какие данные о вас хранятся; исправить их; получить выгрузку своих данных (в профиле аккаунта — «Скачать мои данные»); удалить аккаунт и данные; отозвать согласие на обработку. Для этого напишите на [e-mail для обращений]. Мы ответим в течение 10 рабочих дней. Вы также вправе обратиться в Роскомнадзор."],
-  ["9. Защита данных", "Соединение с сервисом шифруется (HTTPS). Пароли хранятся только в виде хэшей. Доступ к базе данных ограничен правилами: каждый пользователь видит только свои учебные данные, а в общем рейтинге — только публичные поля. Коды подтверждения ограничены по числу попыток."],
-  ["10. Файлы cookie и локальное хранилище", "Приложение сохраняет настройки и прогресс в памяти браузера (localStorage), чтобы работать быстрее и без интернета. Рекламные и сторонние трекеры мы не используем. Очистка данных браузера удалит локальную копию, но не данные аккаунта."],
-  ["11. Дети", "Сервис рассчитан на пользователей старше 14 лет. Если ребёнку меньше 14 лет, регистрироваться должен его родитель или законный представитель."],
-  ["12. Изменения политики", "Мы можем обновлять эту политику. О существенных изменениях сообщим в приложении. Дата последнего обновления указана вверху."]
- ]},
-consent: { title: "Согласие на обработку персональных данных", updated: "11 октября 2026",
- intro: "Отмечая галочку «Даю согласие на обработку персональных данных» при регистрации, я, пользователь приложения «Türkçe каждый день», свободно, своей волей и в своём интересе даю согласие на обработку моих персональных данных на условиях ниже (ст. 9 Федерального закона № 152-ФЗ «О персональных данных»).",
- sections: [
-  ["1. Оператор", "[ФИО индивидуального предпринимателя / самозанятого или полное наименование организации], ИНН [ИНН], ОГРН/ОГРНИП [если есть], адрес: [адрес], e-mail: [e-mail]."],
-  ["2. Цели обработки", "Регистрация и вход в приложение; сохранение учебного прогресса; показ имени, аватара и результатов в общем рейтинге; приём оплаты и начисления по партнёрской программе; проверка произношения, ответы ИИ-репетитора и сценки с ИИ; напоминания о занятиях в Telegram (если подключены); ответы на обращения."],
-  ["3. Перечень данных", "Имя или псевдоним, аватар; адрес электронной почты и/или номер телефона и/или идентификатор и e-mail аккаунта Google; учебные данные (прогресс, результаты, карточки); код приглашения и сведения о приглашённых; сведения о платежах (сумма, дата, статус, без данных карт); тексты сообщений ИИ-репетитору и в сценках; записи голоса в упражнениях на произношение (без сохранения); идентификатор чата Telegram и время напоминаний; технические данные (тип устройства и браузера, время входа)."],
-  ["4. Действия с данными", "Сбор, запись, систематизация, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передача (предоставление, доступ) лицам, указанным в Политике конфиденциальности и действующим по поручению оператора, обезличивание, блокирование, удаление, уничтожение. Обработка — автоматизированная, с использованием баз данных на территории Российской Федерации."],
-  ["5. Срок действия и отзыв", "Согласие действует до удаления аккаунта или до отзыва. Отозвать согласие можно, направив заявление на [e-mail]. После отзыва оператор прекращает обработку и удаляет данные в течение 30 дней, кроме данных, которые нужно хранить по закону."],
-  ["6. Подтверждение", "Согласие считается подписанным простой электронной подписью при отметке галочки. Оператор сохраняет дату, время и версию текста согласия."]
- ]},
-terms: { title: "Пользовательское соглашение", updated: "11 октября 2026",
- intro: "Это соглашение — договор между вами и [ФИО / наименование], ИНН [ИНН] (далее — «мы»), о пользовании приложением «Türkçe каждый день». Регистрируясь или пользуясь приложением, вы принимаете эти условия.",
- sections: [
-  ["1. Что это за сервис", "Приложение помогает самостоятельно учить турецкий язык: курсы по уровням, конспекты, упражнения, карточки, словарь, озвучка, ИИ-репетитор, рейтинг и достижения. Сервис не является образовательной организацией и не выдаёт документов об образовании."],
-  ["2. Аккаунт", "• Регистрация — по e-mail, номеру телефона или через аккаунт Google.\n• Указывайте достоверные контакты: через них восстанавливается доступ.\n• Не передавайте доступ к аккаунту другим людям. Вы отвечаете за действия в своём аккаунте.\n• Имя для рейтинга видно другим ученикам. Не используйте оскорбительные или чужие имена — такие имена мы можем изменить."],
-  ["3. Бесплатные и платные функции", "Курс «Старт» (уровень A0), карточки, словарь и игры на словах этого курса доступны бесплатно. Платный доступ — покупка отдельного уровня (A1, A2, B1 или B2): он открывает уроки, конспекты, экзамен, слова и истории этого уровня навсегда, без подписки. Цена указана в приложении перед оплатой."],
-  ["4. Оплата и возврат", "• Оплата принимается через платёжный сервис ЮKassa (ООО НКО «ЮМани») — через Систему быстрых платежей (СБП), банковские карты, SberPay и T-Pay. Данные карт вводятся на стороне ЮKassa, мы их не получаем.\n• Каждый платёж разовый. Подписок и автоматических списаний нет.\n• Часть стоимости можно оплатить бонусами партнёрской программы.\n• Возврат: если вы не прошли ни одного урока купленного уровня, деньги можно вернуть в течение 14 дней после оплаты по заявке на [e-mail]. В остальных случаях заявление рассматривается в соответствии с Законом «О защите прав потребителей». Возврат идёт тем же способом, которым была оплата; доступ к уровню после возврата закрывается.\n• Чек направляется на e-mail, указанный в аккаунте."],
-  ["5. Партнёрская программа", "• У каждого ученика есть код приглашения.\n• Когда приглашённый вами человек покупает уровень, вам начисляется 10% от суммы его платежа на бонусный счёт в приложении. Бонус становится доступен через 14 дней после оплаты, если платёж не был возвращён; при возврате бонус аннулируется.\n• Бонусами можно оплатить часть стоимости своего уровня. Вывод денег возможен [условия: например, для партнёров со статусом самозанятого, от суммы X ₽] — в соответствии с налоговым законодательством.\n• Запрещено приглашать самого себя, создавать фиктивные аккаунты и распространять код через спам. При нарушении бонусы аннулируются.\n• Бонусы за приглашение без оплаты (опыт и заморозки серии) — игровые и денежной ценности не имеют."],
-  ["6. Промокоды", "Промокод даёт указанную в нём награду один раз на аккаунт. Промокоды не обмениваются на деньги."],
-  ["7. ИИ-репетитор, сценки и проверка произношения", "Ответы репетитора, реплики и исправления в сценках с ИИ, а также автоматическая оценка произношения генерируются программно. Они могут содержать неточности; проверяйте важное. Не отправляйте ИИ личные данные. На сайте действует дневной лимит сообщений ИИ."],
-  ["8. Учебные материалы", "Тексты, упражнения, озвучка и оформление принадлежат нам или используются по лицензии. Их можно использовать для личного обучения, но нельзя копировать для распространения или продажи. Карточки, которые вы создаёте сами, принадлежат вам."],
-  ["9. Ограничение ответственности", "Мы стараемся, чтобы сервис работал без сбоев, но не гарантируем непрерывную работу и не отвечаем за результат обучения, который зависит от регулярности занятий. Мы не несём ответственности за сбои платёжных сервисов, операторов связи и провайдеров интернета."],
-  ["10. Удаление аккаунта", "Вы можете удалить аккаунт в любой момент, написав на [e-mail]. Мы можем ограничить доступ при нарушении этого соглашения, сообщив причину."],
-  ["11. Изменения соглашения", "Мы можем изменять соглашение, публикуя новую редакцию в приложении. Если вы не согласны с изменениями, вы можете прекратить пользоваться сервисом и запросить возврат по правилам раздела 4."],
-  ["12. Реквизиты и контакты", "[ФИО / наименование]\nИНН [ИНН], ОГРН/ОГРНИП [если есть]\nАдрес: [адрес]\nE-mail: [e-mail]\nТелефон: [телефон]"]
- ]}
-};
+const LEGAL_MODE="static";const LEGAL_OWNER={"owner":"","inn":"","ogrn":"","address":"","email":"","phone":"","hosting":"","mailer":""};
+// Legal texts of «Türkçe каждый день». They depend on the build, because each build really does different things with data:
+//   "static" — the public website without a server (GitHub Pages): no accounts, everything stays in the browser;
+//   "claude" — the version inside Claude (Anthropic): progress, rating and club live in the Claude platform storage;
+//   "server" — the website with our own server: accounts, payments, AI, Telegram.
+// Operator details come from web/owner.json. Nothing is invented: a missing field is reported in `missing`,
+// and the server build refuses to publish documents without an operator (see build-web.js).
+function makeLegal(F, O) {
+  F = F || {}; O = O || {};
+  const mode = F.mode || "static", updated = F.updated || "11 октября 2026";
+  const feedback = F.feedback || "https://github.com/asperAsd/turkce/issues";
+  const has = k => typeof O[k] === "string" && O[k].trim() !== "";
+  const need = mode === "server" ? ["owner", "inn", "address", "email", "hosting", "mailer"] : [];
+  const missing = need.filter(k => !has(k));
+  const opLine = () => [O.owner, has("inn") ? "ИНН " + O.inn : "", has("ogrn") ? "ОГРН/ОГРНИП " + O.ogrn : "", has("address") ? "адрес: " + O.address : ""].filter(Boolean).join(", ");
+  const opKnown = has("owner") && has("inn");
+  const contact = mode === "server" ? (has("email") ? "по e-mail " + O.email : "через форму обратной связи на сайте")
+    : opKnown && has("email") ? "по e-mail " + O.email
+    : mode === "claude" ? "владельцу приложения — тем же способом, которым он поделился с вами ссылкой"
+    : "через страницу обратной связи проекта: " + feedback + " (сообщения там публичные — не пишите в них личные данные)";
+  const draftNote = missing.length ? "Тестовая сборка: сведения об операторе не заполнены, документ не действует и не предназначен для публикации." : "";
+  const speech = mode === "server"
+    ? "Когда вы записываете фразу в упражнении на произношение, запись отправляется на распознавание в сервис Yandex SpeechKit (ООО «Яндекс.Облако»), если эта функция включена на сайте, или распознаётся встроенным сервисом вашего браузера. Запись используется только для проверки и не сохраняется."
+    : "Когда вы записываете фразу в упражнении на произношение, речь распознаёт встроенный сервис вашего браузера: например, Chrome отправляет запись в Google, Edge — в Microsoft, Safari — в Apple или распознаёт на устройстве. Мы эту запись не получаем и не храним.";
+  const asrOff = "Автоматическую проверку можно выключить: Настройки → Произношение.";
+  const kids = ["Дети", "Сервис рассчитан на пользователей старше 14 лет. Если ребёнку меньше 14 лет, пользоваться приложением он должен вместе с родителем или законным представителем."];
+
+  // ---------------- privacy ----------------
+  let privacy;
+  if (mode === "static") privacy = { title: "Политика конфиденциальности", updated,
+    intro: "Эта политика объясняет, какие данные затрагивает бета-версия приложения «Türkçe каждый день» на сайте и где они хранятся. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
+    sections: [
+      ["1. Кто отвечает за приложение", opKnown ? `Приложение публикует ${opLine()}. Связаться: ${contact}.`
+        : `Бета-версию публикует автор проекта «Türkçe каждый день» на GitHub. В этой версии нет регистрации, аккаунтов и нашего сервера, поэтому автор не получает ваших персональных данных. Вопросы и сообщения — ${contact}.`],
+      ["2. Что хранится и где", "• Имя и аватар профиля (если вы его создали), учебный прогресс, карточки и настройки хранятся только в памяти вашего браузера (localStorage) на этом устройстве. На сервер они не отправляются.\n• Файл с прогрессом, который вы сохранили сами, хранится там, куда вы его сохранили.\n• Сайт и записи озвучки загружаются с хостинга GitHub Pages (GitHub, Inc., США). Как любой веб-сервер, он получает IP-адрес и технические сведения о запросе (браузер, время). Эти журналы нам не передаются.\n• Шрифт загружается с серверов Google Fonts — Google получает IP-адрес и сведения о браузере." + (F.metrika ? "\n• Яндекс Метрика (ООО «Яндекс») — только если вы разрешили cookie в появившемся окне: обезличенная статистика посещений." : "")],
+      ["3. Проверка произношения", speech + " " + asrOff],
+      ["4. Сообщения об ошибках в заданиях", "Кнопка «Сообщить об ошибке» открывает страницу GitHub с подготовленным текстом. Сообщение отправится, только если вы сами опубликуете его там, и будет видно всем."],
+      ["5. Управление данными", "• Сохранить копию прогресса: Настройки → Данные → «Сохранить прогресс в файл».\n• Удалить всё: Настройки → «Сбросить весь прогресс» или очистите данные сайта в браузере.\n• Профиль можно не создавать: приложение работает и без него."],
+      ["6. " + kids[0], kids[1]],
+      ["7. Изменения политики", "Мы можем обновлять эту политику. Дата последней редакции указана вверху."]
+    ]};
+  else if (mode === "claude") privacy = { title: "Политика конфиденциальности", updated,
+    intro: "Эта политика объясняет, какие данные собирает версия приложения «Türkçe каждый день», работающая внутри Claude, зачем и где они хранятся. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
+    sections: [
+      ["1. Кто отвечает за приложение", opKnown ? `Оператор персональных данных — ${opLine()}. Связаться: ${contact}.`
+        : "Эту версию приложения опубликовал её владелец на платформе Claude компании Anthropic. Приложение доступно только тем, с кем владелец поделился ссылкой. С вопросами о данных обращайтесь " + contact + "."],
+      ["2. Какие данные собираются", "• Профиль — только если вы его создали: имя для рейтинга и аватар.\n• Учебные данные: пройденные уроки, результаты, опыт, серия дней, достижения, карточки, ошибки, избранные фразы.\n• Код приглашения и промокоды, которые вы ввели.\n• Сообщения в клубе учеников — если вы их пишете.\n• Сообщения об ошибках в заданиях — если вы их отправляете.\n• Тексты, которые вы пишете ИИ-репетитору и в сценках с ИИ.\n• Записи голоса в упражнениях на произношение — не сохраняются (см. раздел 4)."],
+      ["3. Где хранятся данные и кто их видит", "Данные хранятся в хранилище платформы Claude (Anthropic, США) и в памяти вашего браузера.\n• Учебный прогресс — в личном разделе, который видите только вы.\n• Рейтинг (имя, аватар, опыт, серия, уровень) и сообщения клуба видят другие пользователи этого приложения. Без профиля вы в рейтинг не попадаете.\n• Сообщения об ошибках видит владелец приложения."],
+      ["4. ИИ и распознавание речи", "Ответы ИИ-репетитора и реплики в сценках создаёт модель Claude (Anthropic): ей передаётся текст разговора, без вашего имени. " + speech + " " + asrOff],
+      ["5. Ваши права", "• Удалить профиль из рейтинга: Настройки → Данные → «Удалить профиль». Прогресс при этом останется.\n• Удалить прогресс: Настройки → «Сбросить весь прогресс».\n• Узнать, какие данные о вас хранятся, исправить или удалить их — обратитесь " + contact + "."],
+      ["6. " + kids[0], kids[1]],
+      ["7. Изменения политики", "Мы можем обновлять эту политику. О существенных изменениях сообщим в приложении. Дата последней редакции указана вверху."]
+    ]};
+  else privacy = { title: "Политика конфиденциальности", updated,
+    intro: (draftNote ? draftNote + " " : "") + "Эта политика объясняет, какие данные собирает приложение «Türkçe каждый день», зачем, где они хранятся и как ими управлять. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
+    sections: [
+      ["1. Кто обрабатывает данные", opKnown ? `Оператор персональных данных — ${opLine()}. Связаться с оператором можно ${contact}.` : "Сведения об операторе не заполнены."],
+      ["2. Какие данные мы собираем", "• Аккаунт: адрес электронной почты; пароль — только в виде хэша; секрет двухфакторной защиты, если вы её включили.\n• Профиль: имя для рейтинга, аватар.\n• Учебные данные: пройденные уроки, результаты, опыт, серия дней, достижения, карточки и расписание повторений.\n• Партнёрская программа: ваш код приглашения, кто пригласил вас, начисления.\n• Платежи: сумма, дата, статус и идентификатор платежа. Данные банковских карт получает только платёжный сервис.\n• Тексты, которые вы пишете ИИ-репетитору и в сценках с ИИ, — если эта функция включена.\n• Telegram: идентификатор чата с нашим ботом и время напоминаний — если вы подключили напоминания.\n• Технические данные: IP-адрес и тип браузера при входе, время входа, сообщения о сбоях приложения." + (F.metrika ? "\n• Обезличенная статистика посещений (Яндекс Метрика) — только если вы разрешили cookie." : "")],
+      ["3. Зачем мы их используем", "• чтобы создать аккаунт и пускать вас в него;\n• чтобы сохранять прогресс и показывать его на любом устройстве;\n• чтобы показывать рейтинг учеников (только имя, аватар, опыт, серию и уровень);\n• чтобы принимать оплату и начислять бонусы партнёрской программы;\n• чтобы проверять произношение, отвечать на вопросы репетитору и вести сценки с ИИ;\n• чтобы присылать напоминания в Telegram, если вы их подключили;\n• чтобы отвечать на обращения, защищать аккаунты и предотвращать злоупотребления."],
+      ["4. Правовые основания", "Ваше согласие, которое вы даёте при регистрации, исполнение договора (пользовательского соглашения) и выполнение требований закона (например, учёт платежей)."],
+      ["5. Где хранятся данные", `Персональные данные хранятся в базе данных на территории Российской Федерации (ч. 5 ст. 18 152-ФЗ), хостинг — ${has("hosting") ? O.hosting : "не указан"}. Настройки и копия прогресса также хранятся в памяти вашего браузера.`],
+      ["6. Кому мы передаём данные", `Только тем, кто помогает работать сервису, и только в нужном объёме:\n• хостинг-провайдер — ${has("hosting") ? O.hosting : "не указан"};\n• сервис отправки писем — ${has("mailer") ? O.mailer : "не указан"} — письма для подтверждения e-mail и восстановления пароля;\n• Yandex SmartCaptcha (ООО «Яндекс.Облако») — защита регистрации от ботов;\n• ЮKassa (ООО НКО «ЮМани») — приём оплаты и чеки;\n• ООО «Яндекс.Облако» — модель YandexGPT и распознавание речи SpeechKit, если эти функции включены: передаётся текст разговора или запись фразы, без имени и контактов;\n• Telegram — напоминания, если вы подключили бота.${F.metrika ? "\n• ООО «Яндекс» — Яндекс Метрика, если вы разрешили cookie." : ""}\nМы не продаём данные и не передаём их для рекламы.`],
+      ["7. Проверка произношения", speech + " " + asrOff],
+      ["8. Сколько мы храним данные", "Пока действует ваш аккаунт. После удаления аккаунта данные удаляются, кроме сведений о платежах, которые хранятся столько, сколько требует закон."],
+      ["9. Ваши права", `В профиле аккаунта можно скачать свои данные («Скачать мои данные») и удалить аккаунт. Чтобы узнать, исправить данные или отозвать согласие, напишите оператору ${contact}. Мы ответим в течение 10 рабочих дней. Вы также вправе обратиться в Роскомнадзор.`],
+      ["10. Защита данных", "Соединение шифруется (HTTPS). Пароли хранятся только в виде хэшей, доступна двухфакторная защита. Каждый пользователь видит только свои учебные данные, в рейтинге — только публичные поля. Число попыток входа и кодов ограничено."],
+      ["11. Cookie и локальное хранилище", "Cookie нужна, чтобы вы оставались в аккаунте. Настройки и копия прогресса хранятся в памяти браузера (localStorage)." + (F.metrika ? " Статистика Яндекс Метрики подключается только после вашего согласия." : " Рекламных и сторонних трекеров нет.")],
+      ["12. " + kids[0], kids[1]],
+      ["13. Изменения политики", "Мы можем обновлять эту политику. О существенных изменениях сообщим в приложении. Дата последней редакции указана вверху."]
+    ]};
+
+  // ---------------- consent ----------------
+  let consent;
+  if (mode === "static") consent = { title: "Согласие на обработку персональных данных", updated,
+    intro: "В этой версии приложения согласие на обработку персональных данных не требуется: регистрации нет, а профиль и прогресс хранятся только в вашем браузере и никому не передаются.",
+    sections: [["Когда понадобится согласие", "Если на сайте появятся аккаунты, рейтинг или оплата, перед их использованием мы попросим отдельное согласие и покажем его полный текст с данными оператора."]] };
+  else consent = { title: "Согласие на обработку персональных данных", updated,
+    intro: (draftNote ? draftNote + " " : "") + "Отмечая галочку «Даю согласие на обработку персональных данных», я, пользователь приложения «Türkçe каждый день», свободно, своей волей и в своём интересе даю согласие на обработку моих персональных данных на условиях ниже (ст. 9 Федерального закона № 152-ФЗ «О персональных данных»).",
+    sections: [
+      ["1. Оператор", opKnown ? opLine() + (has("email") ? ", e-mail: " + O.email : "") + "." : mode === "claude" ? "Владелец этой версии приложения на платформе Claude (Anthropic)." : "Сведения об операторе не заполнены."],
+      ["2. Цели обработки", mode === "claude"
+        ? "Сохранение учебного прогресса; показ имени, аватара и результатов в рейтинге; клуб учеников; приглашения друзей; ответы ИИ-репетитора и сценки с ИИ; обработка сообщений об ошибках."
+        : "Регистрация и вход; сохранение прогресса; показ имени, аватара и результатов в рейтинге; приём оплаты и начисления по партнёрской программе; проверка произношения, ответы ИИ-репетитора и сценки с ИИ; напоминания в Telegram (если подключены); ответы на обращения."],
+      ["3. Перечень данных", mode === "claude"
+        ? "Имя или псевдоним, аватар; учебные данные (прогресс, результаты, карточки); код приглашения; сообщения в клубе и об ошибках; тексты сообщений ИИ-репетитору и в сценках."
+        : "Адрес электронной почты; имя или псевдоним, аватар; учебные данные; код приглашения и сведения о приглашённых; сведения о платежах (без данных карт); тексты сообщений ИИ-репетитору и в сценках; запись фразы для проверки произношения (без сохранения); идентификатор чата Telegram и время напоминаний; IP-адрес, тип браузера и время входа."],
+      ["4. Действия с данными", "Сбор, запись, систематизация, накопление, хранение, уточнение, извлечение, использование, передача лицам, указанным в Политике конфиденциальности, обезличивание, блокирование, удаление, уничтожение. Обработка автоматизированная" + (mode === "claude" ? ", в хранилище платформы Claude (Anthropic, США)." : ", с использованием баз данных на территории Российской Федерации.")],
+      ["5. Срок действия и отзыв", mode === "claude"
+        ? "Согласие действует, пока у вас есть профиль. Чтобы отозвать его, удалите профиль: Настройки → Данные → «Удалить профиль»."
+        : `Согласие действует до удаления аккаунта или до отзыва. Отозвать согласие можно, удалив аккаунт в профиле или написав оператору ${contact}. После отзыва обработка прекращается, данные удаляются, кроме тех, что нужно хранить по закону.`],
+      ["6. Подтверждение", "Согласие даётся отметкой галочки. Сохраняются дата, время и версия текста согласия."]
+    ]};
+
+  // ---------------- terms ----------------
+  const who = opKnown ? `${O.owner}, ИНН ${O.inn}` : mode === "claude" ? "владельцем этой версии приложения" : mode === "static" ? "автором проекта «Türkçe каждый день»" : "оператором сервиса";
+  const common = [
+    ["Что это за сервис", "Приложение помогает самостоятельно учить турецкий язык: курсы по уровням, конспекты, упражнения, карточки, словарь, озвучка и истории. Сервис не является образовательной организацией и не выдаёт документов об образовании."],
+  ];
+  const ai = ["ИИ и автоматическая проверка", "Ответы ИИ-репетитора, реплики и исправления в сценках с ИИ, а также автоматическая оценка произношения создаются программно и могут содержать неточности. Не отправляйте ИИ личные данные."];
+  const materials = ["Учебные материалы", "Тексты, упражнения, озвучка и оформление принадлежат авторам приложения или используются по лицензии. Их можно использовать для личного обучения, но нельзя копировать для распространения или продажи. Карточки, которые вы создаёте сами, принадлежат вам."];
+  const liability = ["Ограничение ответственности", "Мы стараемся, чтобы сервис работал без сбоев, но не гарантируем непрерывную работу и не отвечаем за результат обучения, который зависит от регулярности занятий."];
+  let tsec;
+  if (mode === "static") tsec = [...common,
+    ["Бета-версия", "Это тестовая версия. Все уровни доступны бесплатно, оплаты и подписок нет. Прогресс хранится только в вашем браузере: если очистить данные сайта или сменить устройство, он пропадёт — сохраняйте копию в файл (Настройки → Данные)."],
+    ["Профиль", "Профиль (имя и аватар) необязателен и хранится только в вашем браузере."],
+    materials, liability,
+    ["Обратная связь", "Сообщить об ошибке или задать вопрос можно " + contact + "."]];
+  else if (mode === "claude") tsec = [...common,
+    ["Доступ", "Приложение работает внутри Claude и доступно тем, с кем им поделился владелец. Оплаты в этой версии нет."],
+    ["Профиль, рейтинг и клуб", "Профиль необязателен. Имя для рейтинга и сообщения в клубе видят другие пользователи — не используйте оскорбительные или чужие имена и не публикуйте личные данные. Такие имена и сообщения владелец приложения может удалить."],
+    ["Приглашения и промокоды", "Бонусы за приглашения и промокоды — игровые (опыт и заморозки серии) и денежной ценности не имеют."],
+    ai, materials, liability,
+    ["Изменения условий", "Условия могут меняться; новая редакция публикуется в приложении."]];
+  else tsec = [...common,
+    ["Аккаунт", "• Регистрация — по адресу электронной почты.\n• Указывайте действующий e-mail: через него восстанавливается доступ.\n• Не передавайте доступ к аккаунту другим людям. Вы отвечаете за действия в своём аккаунте.\n• Имя для рейтинга видно другим ученикам. Не используйте оскорбительные или чужие имена — такие имена мы можем изменить."],
+    ["Бесплатные и платные функции", "Курс «Старт» (уровень A0), карточки, словарь и игры на словах этого курса доступны бесплатно. Платный доступ — покупка отдельного уровня (A1, A2, B1 или B2): он открывает уроки, конспекты, экзамен, слова и истории этого уровня навсегда, без подписки. Цена указана в приложении перед оплатой."],
+    ["Оплата и возврат", `• Оплата принимается через платёжный сервис ЮKassa (ООО НКО «ЮМани»). Данные карт вводятся на стороне ЮKassa, мы их не получаем.\n• Каждый платёж разовый. Подписок и автоматических списаний нет.\n• Часть стоимости можно оплатить бонусами партнёрской программы.\n• Возврат: если вы не прошли ни одного урока купленного уровня, деньги можно вернуть в течение 14 дней после оплаты по заявке ${contact}. В остальных случаях заявление рассматривается по Закону «О защите прав потребителей». Возврат идёт тем же способом, которым была оплата; доступ к уровню после возврата закрывается.\n• Чек направляется на e-mail аккаунта.`],
+    ["Партнёрская программа", "• У каждого ученика есть код приглашения.\n• Когда приглашённый вами человек покупает уровень, вам начисляется 10% от суммы его платежа на бонусный счёт в приложении. Бонус становится доступен через 14 дней после оплаты, если платёж не был возвращён; при возврате бонус аннулируется.\n• Бонусами можно оплатить часть стоимости своего уровня. Бонусы не обмениваются на деньги.\n• Запрещено приглашать самого себя, создавать фиктивные аккаунты и распространять код через спам. При нарушении бонусы аннулируются."],
+    ["Промокоды", "Промокод даёт указанную в нём награду один раз на аккаунт и не обменивается на деньги."],
+    ai, materials,
+    [liability[0], liability[1] + " Мы не отвечаем за сбои платёжных сервисов, операторов связи и провайдеров интернета."],
+    ["Удаление аккаунта", "Вы можете удалить аккаунт в любой момент в профиле аккаунта. Мы можем ограничить доступ при нарушении этого соглашения, сообщив причину."],
+    ["Изменения соглашения", "Мы можем изменять соглашение, публикуя новую редакцию в приложении. Если вы не согласны с изменениями, вы можете прекратить пользоваться сервисом и запросить возврат по правилам раздела об оплате."],
+    ["Реквизиты и контакты", opKnown ? [O.owner, "ИНН " + O.inn + (has("ogrn") ? ", ОГРН/ОГРНИП " + O.ogrn : ""), has("address") ? "Адрес: " + O.address : "", has("email") ? "E-mail: " + O.email : "", has("phone") ? "Телефон: " + O.phone : ""].filter(Boolean).join("\n") : "Сведения об операторе не заполнены."]];
+  const terms = { title: "Пользовательское соглашение", updated,
+    intro: (draftNote ? draftNote + " " : "") + `Это соглашение — условия пользования приложением «Türkçe каждый день», которое предоставляет ${who}. Пользуясь приложением, вы принимаете эти условия.`,
+    sections: tsec.map(([h, t], i) => [(i + 1) + ". " + h, t]) };
+
+  return { privacy, consent, terms, missing, mode, pdConsent: mode !== "static" };
+}
+// The builds define LEGAL_MODE (and LEGAL_OWNER) before this file.
+const LEGAL = makeLegal({ mode: typeof LEGAL_MODE !== "undefined" ? LEGAL_MODE : "static", metrika: typeof METRIKA_ID !== "undefined" && !!METRIKA_ID, feedback: typeof FEEDBACK_URL !== "undefined" ? FEEDBACK_URL.replace(/\/new$/, "") : undefined }, typeof LEGAL_OWNER !== "undefined" ? LEGAL_OWNER : {});
 
 // Short dialogue stories with comprehension questions. g: speaker gender for voice choice.
 const STORIES = [
@@ -1821,6 +1924,160 @@ const CULTURE = [
  ["Kolay mı?","Турецкий кажется трудным из-за длинных слов, но окончания очень регулярные: выучив правило гармонии гласных, вы поймёте тысячи слов."],
 ];
 
+// Turkish verb conjugation by rule, for the «Спряжение» tool and its drills.
+// Covers the tenses of the course (A0–B2) in four forms: affirmative, negative, question, negative question.
+// Irregular corners handled: ye-/de- (yiyor, diyecek), t→d before a vowel (gidiyor, ediyor, kaybediyor),
+// the 13 one-syllable verbs with aorist -ır (gelir, alır…), compound verbs written in two words (yardım etmek).
+const CONJ = (() => {
+  const V = "aeıioöuü", BACK = "aıou", HARD = "fstkçşhp";
+  const lastV = s => { for (let i = s.length - 1; i >= 0; i--) if (V.includes(s[i])) return s[i]; return "e"; };
+  const h4 = s => ({ a: "ı", ı: "ı", o: "u", u: "u", e: "i", i: "i", ö: "ü", ü: "ü" })[lastV(s)];
+  const a2 = s => BACK.includes(lastV(s)) ? "a" : "e";
+  const endsV = s => V.includes(s[s.length - 1]);
+  const nVow = s => [...s].filter(c => V.includes(c)).length;
+  const AOR_IR = new Set(["al", "bil", "bul", "dur", "gel", "gör", "kal", "ol", "öl", "san", "ver", "var", "vur"]);
+  // t→d before a vowel: only these stems (not satmak, tutmak, öğretmek…)
+  const SOFT = new Set(["git", "et", "tat", "güt", "dit", "affet", "kaybet", "hisset", "seyret", "reddet", "keşfet", "hallet", "zannet", "sabret", "terket", "emret", "naklet", "şükret", "kahret"]);
+  const soft = st => SOFT.has(st) ? st.slice(0, -1) + "d" : st;
+  const yeDe = st => st === "ye" || st === "de";
+  // stem before a suffix that starts with a vowel (adds the y buffer after a vowel)
+  const vbase = st => yeDe(st) ? st[0] + "iy" : endsV(st) ? st + "y" : soft(st);
+  const PERS = ["ben", "sen", "o", "biz", "siz", "onlar"];
+
+  function parse(input) {
+    const s = String(input || "").toLocaleLowerCase("tr").replace(/\s+/g, " ").trim();
+    if (!s || !/^[a-zçğıöşüâîû ]+$/.test(s)) return null;
+    const parts = s.split(" "); const last = parts.pop(); const pre = parts.length ? parts.join(" ") + " " : "";
+    let stem = /m[ae]k$/.test(last) && last.length > 3 ? last.slice(0, -3) : last;
+    if (!stem || !V.split("").some(c => stem.includes(c))) return null;
+    return { pre, stem, inf: pre + stem + "m" + a2(stem) + "k" };
+  }
+  // question particle with personal endings: miyim, misin, mi, miyiz, misiniz
+  const qp = (word, p) => { const v = h4(word); return " m" + v + ["y" + v + "m", "s" + v + "n", "", "y" + v + "z", "s" + v + "n" + v + "z"][p]; };
+
+  // --- one function per tense: (stem, person 0–5, form "aff" | "neg" | "q" | "negq") → word ---
+  function yorBase(st, neg) {
+    if (neg) return st + "m" + h4(st) + "yor";
+    if (yeDe(st)) return st[0] + "iyor";
+    if (endsV(st)) { if ("ae".includes(st[st.length - 1])) { const b = st.slice(0, -1); return b + h4(b) + "yor"; } return st + "yor"; }
+    return soft(st) + h4(st) + "yor";
+  }
+  const YOR = ["um", "sun", "", "uz", "sunuz", "lar"];
+  function prs(st, p, f) {
+    const b = yorBase(st, f === "neg" || f === "negq");
+    if (f === "aff" || f === "neg") return b + YOR[p];
+    return p === 5 ? b + "lar mı" : b + qp(b, p);
+  }
+  function past(st, p, f) {
+    const neg = f === "neg" || f === "negq";
+    const s = neg ? st + "m" + a2(st) : st;
+    const b = s + (HARD.includes(s[s.length - 1]) ? "t" : "d") + h4(s);
+    const v = h4(b), a = a2(b);
+    const w = b + ["m", "n", "", "k", "n" + v + "z", "l" + a + "r"][p];
+    return f === "q" || f === "negq" ? w + " m" + h4(w) : w;
+  }
+  function futBase(st, neg) { const s = neg ? st + "m" + a2(st) : st; const x = neg ? s + "y" : vbase(s); const a = a2(s); return x + a + "c" + a + "k"; }
+  function futPers(b, p) { const v = h4(b), a = a2(b), g = b.slice(0, -1) + "ğ"; return [g + v + "m", b + "s" + v + "n", b, g + v + "z", b + "s" + v + "n" + v + "z", b + "l" + a + "r"][p]; }
+  function fut(st, p, f) {
+    const b = futBase(st, f === "neg" || f === "negq");
+    if (f === "aff" || f === "neg") return futPers(b, p);
+    return p === 5 ? futPers(b, 5) + " m" + h4(futPers(b, 5)) : b + qp(b, p);
+  }
+  function aorBase(st) {
+    if (endsV(st)) return st + "r";
+    if (AOR_IR.has(st) || (nVow(st) > 1 && !SOFT.has(st))) return st + h4(st) + "r";
+    return soft(st) + a2(st) + "r";
+  }
+  function aorPos(b, p) { const v = h4(b), a = a2(b); return b + ["" + v + "m", "s" + v + "n", "", v + "z", "s" + v + "n" + v + "z", "l" + a + "r"][p]; }
+  function aorNeg(n, p) { // n = stem + ma/me
+    const v = h4(n + "z"), a = a2(n);
+    return [n + "m", n + "zs" + v + "n", n + "z", n + "y" + v + "z", n + "zs" + v + "n" + v + "z", n + "zl" + a + "r"][p];
+  }
+  function aorQ(b, p) { return p === 5 ? aorPos(b, 5) + " m" + h4(aorPos(b, 5)) : b + qp(b, p); }
+  function aor(st, p, f) {
+    const b = aorBase(st), n = st + "m" + a2(st);
+    if (f === "aff") return aorPos(b, p);
+    if (f === "neg") return aorNeg(n, p);
+    if (f === "q") return aorQ(b, p);
+    return p === 5 ? aorNeg(n, 5) + " m" + h4(aorNeg(n, 5)) : n + "z" + qp(n + "z", p);
+  }
+  function mis(st, p, f) {
+    const s = f === "neg" || f === "negq" ? st + "m" + a2(st) : st;
+    const b = s + "m" + h4(s) + "ş", v = h4(b), a = a2(b);
+    if (f === "aff" || f === "neg") return b + [v + "m", "s" + v + "n", "", v + "z", "s" + v + "n" + v + "z", "l" + a + "r"][p];
+    return p === 5 ? b + "l" + a + "r m" + h4(b + "l" + a + "r") : b + qp(b, p);
+  }
+  function iyordu(st, p, f) {
+    const b = yorBase(st, f === "neg" || f === "negq");
+    if (f === "aff" || f === "neg") return p === 5 ? b + "lardı" : b + "du" + ["m", "n", "", "k", "nuz"][p];
+    return p === 5 ? b + "lar mıydı" : b + " muydu" + ["m", "n", "", "k", "nuz"][p];
+  }
+  function abil(st, p, f) {
+    if (f === "aff" || f === "q") { const b = vbase(st) + a2(st) + "bilir"; return f === "aff" ? aorPos(b, p) : aorQ(b, p); }
+    const n = vbase(st) + a2(st) + "m" + a2(st); // geleme-, yapama-
+    return f === "neg" ? aorNeg(n, p) : (p === 5 ? aorNeg(n, 5) + " m" + h4(aorNeg(n, 5)) : n + "z" + qp(n + "z", p));
+  }
+  function meli(st, p, f) {
+    const s = f === "neg" || f === "negq" ? st + "m" + a2(st) : st;
+    const b = s + "m" + a2(st) + "l" + h4(a2(st)), v = h4(b), a = a2(b);
+    if (f === "aff" || f === "neg") return b + ["y" + v + "m", "s" + v + "n", "", "y" + v + "z", "s" + v + "n" + v + "z", "l" + a + "r"][p];
+    return p === 5 ? b + "l" + a + "r m" + h4(b + "l" + a + "r") : b + qp(b, p);
+  }
+  function cond(st, p, f) {
+    const b = f === "neg" ? st + "m" + a2(st) + "z" : aorBase(st), a = a2(b), v = h4(a);
+    return p === 5 ? b + "l" + a + "rs" + a2(b + "l" + a + "r") : b + "s" + a + ["m", "n", "", "k", "n" + v + "z"][p];
+  }
+  function imp(st, p, f) {
+    const neg = f === "neg", n = st + "m" + a2(st);
+    switch (p) {
+      case 0: return neg ? n + "y" + a2(n) + "y" + h4(a2(n)) + "m" : vbase(st) + a2(st) + "y" + h4(a2(st)) + "m"; // geleyim
+      case 1: return neg ? n : st;
+      case 2: return neg ? n + "s" + h4(n) + "n" : st + "s" + h4(st) + "n";
+      case 3: return neg ? n + "y" + a2(n) + "l" + h4(a2(n)) + "m" : vbase(st) + a2(st) + "l" + h4(a2(st)) + "m"; // gelelim
+      case 4: if (neg) return n + "y" + h4(n) + "n";
+        if (st === "ye") return "yiyin"; if (st === "de") return "deyin";
+        return (endsV(st) ? st + "y" : soft(st)) + h4(st) + "n";
+      default: { const o = neg ? n + "s" + h4(n) + "n" : st + "s" + h4(st) + "n"; return o + "l" + a2(o) + "r"; }
+    }
+  }
+
+  const TENSES = [
+    { id: "prs", ru: "Сейчас", sfx: "-iyor", lesson: "A0-23", note: "Что происходит сейчас. Основа + -ıyor/-iyor/-uyor/-üyor + лицо. Конечная a/e отпадает: başla → başlıyor.", fn: prs },
+    { id: "past", ru: "Прошедшее", sfx: "-dı", lesson: "A1-15", note: "То, что точно случилось. -dı/-di/-du/-dü, после глухих согласных -tı: geldim, yaptın.", fn: past },
+    { id: "fut", ru: "Будущее", sfx: "-acak", lesson: "A2-1", note: "-acak/-ecek, после гласной -yacak. Перед гласной k → ğ: geleceğim, yapacağız.", fn: fut },
+    { id: "aor", ru: "Широкое время", sfx: "-ır / -ar", lesson: "A2-5", note: "Привычки и общие истины. Односложные — -ar/-er (yapar, gider), кроме 13 глаголов на -ır (gelir, alır, bilir…); многосложные — -ır (çalışır). «Не» — -maz, «я не» — -mam.", fn: aor },
+    { id: "mis", ru: "Говорят, что…", sfx: "-mış", lesson: "A2-15", note: "Пересказ и то, что узнали не сами: gelmiş — говорят, пришёл; оказывается, пришёл.", fn: mis },
+    { id: "iyordu", ru: "Было в процессе", sfx: "-iyordu", lesson: "A2-16", note: "Действие шло в какой-то момент прошлого: Ben yemek yapıyordum — я готовила (в тот момент).", fn: iyordu },
+    { id: "abil", ru: "Могу", sfx: "-ebil", lesson: "A2-2", note: "Основа + -abil/-ebil + широкое время. «Не могу» — -ama/-eme: gelemem, yapamazsın.", fn: abil },
+    { id: "meli", ru: "Надо", sfx: "-malı", lesson: "A2-3", note: "Долженствование: gitmeliyim — мне надо идти, yapmamalısın — тебе не стоит делать.", fn: meli },
+    { id: "cond", ru: "Если", sfx: "-rsa", lesson: "A2-19", note: "Реальное условие: широкое время + -sa/-se. Gelirsen sevinirim — если придёшь, я обрадуюсь.", fn: cond, forms: ["aff", "neg"] },
+    { id: "imp", ru: "Просьбы и «давай»", sfx: "gel / gelin", lesson: "A1-emir", note: "ben — «давай я», sen — просьба к «ты», o — «пусть он», biz — «давайте», siz — вежливая просьба, onlar — «пусть они».", fn: imp, forms: ["aff", "neg"] },
+  ];
+  const FORMS = [["aff", "Да"], ["neg", "Нет"], ["q", "Вопрос"], ["negq", "Не…?"]];
+  function form(verb, tense, p, f) {
+    const v = typeof verb === "string" ? parse(verb) : verb; if (!v) return null;
+    const t = TENSES.find(x => x.id === tense); if (!t) return null;
+    if (t.forms && !t.forms.includes(f)) return null;
+    return v.pre + t.fn(v.stem, p, f);
+  }
+  function table(verb, tense, f) { const v = parse(verb); if (!v) return null; return PERS.map((pr, p) => [pr, form(v, tense, p, f)]); }
+  return { parse, form, table, TENSES, FORMS, PERS };
+})();
+
+// Common verbs for suggestions and drills.
+const VERB_LIST = [
+  ["gelmek","приходить"],["gitmek","идти, ехать"],["yapmak","делать"],["etmek","делать (yardım etmek…)"],["olmak","быть, становиться"],["almak","брать, покупать"],["vermek","давать"],["bilmek","знать"],
+  ["görmek","видеть"],["bakmak","смотреть"],["istemek","хотеть"],["sevmek","любить"],["yemek","есть"],["içmek","пить"],["okumak","читать"],["yazmak","писать"],
+  ["konuşmak","говорить"],["söylemek","сказать"],["demek","сказать, значить"],["anlamak","понимать"],["anlatmak","рассказывать"],["sormak","спрашивать"],["öğrenmek","учить, узнавать"],["öğretmek","учить (кого-то)"],
+  ["çalışmak","работать, заниматься"],["oturmak","сидеть, жить"],["kalkmak","вставать"],["uyumak","спать"],["uyanmak","просыпаться"],["başlamak","начинать"],["bitirmek","заканчивать"],["beklemek","ждать"],
+  ["dinlemek","слушать"],["izlemek","смотреть (фильм)"],["düşünmek","думать"],["hatırlamak","помнить"],["unutmak","забывать"],["bulmak","находить"],["aramak","искать; звонить"],["kaybetmek","терять"],
+  ["açmak","открывать"],["kapatmak","закрывать"],["girmek","входить"],["çıkmak","выходить"],["binmek","садиться (в транспорт)"],["inmek","выходить (из транспорта)"],["dönmek","возвращаться"],["kalmak","оставаться"],
+  ["ödemek","платить"],["satmak","продавать"],["kullanmak","использовать"],["denemek","пробовать"],["hazırlamak","готовить"],["pişirmek","готовить (еду)"],["temizlemek","убирать"],["yıkamak","мыть"],
+  ["giymek","надевать"],["koşmak","бегать"],["yürümek","ходить пешком"],["yüzmek","плавать"],["gülmek","смеяться"],["ağlamak","плакать"],["getirmek","приносить"],["göndermek","отправлять"],
+  ["göstermek","показывать"],["tanımak","знать (кого-то)"],["tutmak","держать"],["koymak","класть"],["bırakmak","оставлять"],["taşınmak","переезжать"],["dinlenmek","отдыхать"],["kazanmak","зарабатывать, выигрывать"],
+  ["yardım etmek","помогать"],["telefon etmek","звонить по телефону"],["affetmek","прощать"],["seyretmek","смотреть (зрелище)"],["durmak","стоять, останавливаться"],["düşmek","падать"],["gezmek","гулять, путешествовать"],["kiralamak","арендовать"],
+];
+
 </script>
 <script>
 // Website-only layer (included by build-web.js, not in the Claude-hosted build).
@@ -1977,7 +2234,7 @@ const ACC=(()=>{
   }
   function open2faLogin(ticket){
     const el=layer(`<h2>Код подтверждения</h2><p class="help" style="margin:0">Откройте приложение-аутентификатор (Google Authenticator, Яндекс Ключ) и введите 6 цифр.</p>
-      <input class="inp code" id="tCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456">
+      <input class="inp code" id="tCode" aria-label="Код подтверждения" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456">
       <p class="acc-msg" hidden></p><button class="btn primary" id="tGo">Войти</button>
       <button class="btn sm" id="tRec">Нет доступа к телефону — ввести запасной код</button>`);
     let rec=false;
@@ -2030,7 +2287,7 @@ const ACC=(()=>{
       else if(a==="logout")logout(false);else if(a==="logout-all")logout(true);else if(a==="export")exportData();else if(a==="delete")openDelete();});
   }
   async function logout(all){try{await api("POST",all?"/api/auth/logout-all":"/api/auth/logout",{})}catch(e){}
-    try{localStorage.removeItem("turkce.v3")}catch(e){}done(all?"Вы вышли на всех устройствах":"Вы вышли из аккаунта")}
+    try{localStorage.removeItem("turkce.v3");localStorage.removeItem("turkce.v3.broken")}catch(e){}done(all?"Вы вышли на всех устройствах":"Вы вышли из аккаунта")}
   async function exportData(){try{const j=await api("GET","/api/me/export");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(j,null,1)],{type:"application/json"}));a.download="turkce-my-data.json";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000)}catch(e){toast("⚠️",e.message,"")}}
   function openPassword(){
     const el=layer(`<h2>Смена пароля</h2>${pwField("cOld","Текущий пароль","current-password",false)}${pwField("cNew","Новый пароль","new-password",true)}<p class="acc-msg" hidden></p><button class="btn primary" id="cGo">Сменить пароль</button><p class="help" style="margin:0">На других устройствах нужно будет войти заново.</p>`);
@@ -2042,7 +2299,7 @@ const ACC=(()=>{
       ${pwField("dPw","Введите пароль для подтверждения","current-password",false)}<p class="acc-msg" hidden></p><div class="grid2"><button class="btn" id="dNo">Отмена</button><button class="btn badb" id="dGo">Удалить</button></div>`);
     wirePw(el);el.querySelector("#dNo").onclick=close;
     el.querySelector("#dGo").onclick=async()=>{const btn=el.querySelector("#dGo");busy(btn,true);
-      try{await api("DELETE","/api/me",{password:el.querySelector("#dPw").value});try{localStorage.removeItem("turkce.v3")}catch(e){}done("Аккаунт удалён")}catch(e){busy(btn,false);msgBox(el,e.message)}};
+      try{await api("DELETE","/api/me",{password:el.querySelector("#dPw").value});try{localStorage.removeItem("turkce.v3");localStorage.removeItem("turkce.v3.broken")}catch(e){}done("Аккаунт удалён")}catch(e){busy(btn,false);msgBox(el,e.message)}};
   }
   let qrLib=null;
   function loadQr(){if(window.qrcode)return Promise.resolve(window.qrcode);if(qrLib)return qrLib;qrLib=new Promise(res=>{const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";s.onload=()=>res(window.qrcode);s.onerror=()=>res(null);document.head.appendChild(s)});return qrLib}
@@ -2052,7 +2309,7 @@ const ACC=(()=>{
       <ol class="help" style="margin:0;padding-left:20px;display:grid;gap:6px"><li>Установите Google Authenticator или Яндекс Ключ.</li><li>Отсканируйте QR-код или нажмите «Открыть в приложении» на этом телефоне.</li><li>Введите 6 цифр, которые покажет приложение.</li></ol>
       <div id="qr" class="qr"></div><a class="btn sm" href="${esc(s.otpauth)}">Открыть в приложении</a>
       <p class="help" style="margin:0">Или введите ключ вручную: <code class="secret">${esc(s.secret.replace(/(.{4})/g,"$1 ").trim())}</code></p>
-      <input class="inp code" id="eCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456"><p class="acc-msg" hidden></p><button class="btn primary" id="eGo">Включить</button>`);
+      <input class="inp code" id="eCode" aria-label="Код подтверждения" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456"><p class="acc-msg" hidden></p><button class="btn primary" id="eGo">Включить</button>`);
     loadQr().then(q=>{const box=el.querySelector("#qr");if(!q||!box)return;const qr=q(0,"M");qr.addData(s.otpauth);qr.make();box.innerHTML=qr.createSvgTag({cellSize:5,margin:2,scalable:true})});
     el.querySelector("#eGo").onclick=async()=>{const btn=el.querySelector("#eGo");busy(btn,true);
       try{const r=await api("POST","/api/2fa/enable",{code:el.querySelector("#eCode").value.trim()});me.totp=true;showRecovery(r.recoveryCodes)}catch(e){busy(btn,false);msgBox(el,e.message)}};
@@ -2066,7 +2323,7 @@ const ACC=(()=>{
     el.querySelector("#rOk").onclick=()=>{close();toast("🛡️","Двухфакторная защита включена","");render()};
   }
   function open2faOff(){
-    const el=layer(`<h2>Отключить 2FA?</h2>${pwField("oPw","Пароль","current-password",false)}<input class="inp code" id="oCode" inputmode="numeric" maxlength="6" placeholder="Код из приложения"><p class="acc-msg" hidden></p><button class="btn badb" id="oGo">Отключить</button>`);
+    const el=layer(`<h2>Отключить 2FA?</h2>${pwField("oPw","Пароль","current-password",false)}<input class="inp code" id="oCode" aria-label="Код из приложения-аутентификатора" inputmode="numeric" maxlength="6" placeholder="Код из приложения"><p class="acc-msg" hidden></p><button class="btn badb" id="oGo">Отключить</button>`);
     wirePw(el);el.querySelector("#oGo").onclick=async()=>{const btn=el.querySelector("#oGo");busy(btn,true);
       try{await api("POST","/api/2fa/disable",{password:el.querySelector("#oPw").value,code:el.querySelector("#oCode").value.trim()});me.totp=false;close();render();toast("🛡️","2FA отключена","")}catch(e){busy(btn,false);msgBox(el,e.message)}};
   }
@@ -2263,21 +2520,79 @@ function addDays(s,n){const [y,m,d]=s.split("-").map(Number);const t=new Date(y,
 function mondayOf(s){const [y,m,d]=s.split("-").map(Number);const wd=(new Date(y,m-1,d).getDay()+6)%7;return addDays(s,-wd)}
 function dayDiff(a,b){const p=s=>{const [y,m,d]=s.split("-").map(Number);return Date.UTC(y,m-1,d)};return Math.round((p(b)-p(a))/864e5)}
 const LS="turkce.v3";
-const blank=()=>({xp:{},lessons:{},mistakes:{},profile:null,bonus:0,freezes:0,frozen:[],refBy:null,refClaimed:[],promos:[],ach:{},stats:{perfect:0,cards:0,matchBest:0,tutor:0,hang:0,early:0,night:0},srs:{},custom:[],newDone:{},resume:null,saved:0,resetAt:0,placement:null,partner:{balance:0,history:[]},daily:null,stories:{},scenes:{},fav:[],lvlSeen:null});
+const blank=()=>({xp:{},lessons:{},mistakes:{},profile:null,guest:null,bonus:0,freezes:0,frozen:[],refBy:null,refClaimed:[],promos:[],ach:{},stats:{perfect:0,cards:0,matchBest:0,tutor:0,hang:0,early:0,night:0},srs:{},custom:[],newDone:{},resume:null,saved:0,resetAt:0,placement:null,partner:{balance:0,history:[]},daily:null,stories:{},scenes:{},fav:[],lvlSeen:null});
 let S=blank();
-let P={voice:"f",taps:true,rate:1,diff:"medium",goal:20,sound:true,cardDir:"tr",newPerDay:10,vol:1,sfx:1,theme:"auto",simple:false,aim:null,asr:true,speakLessons:true,listen:false};
+const P_DEFAULTS={voice:"f",taps:true,rate:1,diff:"medium",goal:20,sound:true,cardDir:"tr",newPerDay:10,vol:1,sfx:1,theme:"auto",simple:false,aim:null,asr:true,speakLessons:true,listen:false};
+let P={...P_DEFAULTS};
+let storageOK=true,loadIssue=null;
 function readLS(k){try{return JSON.parse(localStorage.getItem(k)||"null")}catch(e){return null}}
-function normLessons(ls){const o={};for(const [k,v] of Object.entries(ls||{})){const key=/^\d+$/.test(k)?"A0-"+k:k;const c=o[key]||{};o[key]={done:!!(c.done||v.done),best:Math.max(c.best||0,v.best||0),times:Math.max(c.times||0,v.times||0)}}return o}
-function fixState(x){const b=blank();x=Object.assign(b,x||{});x.stats=Object.assign(blank().stats,x.stats||{});x.lessons=normLessons(x.lessons);return x}
+/* ---- state normalisation: saved progress may be empty, from an old version, partly damaged or edited by hand ---- */
+const isObj=v=>!!v&&typeof v==="object"&&!Array.isArray(v);
+const numOr=(v,d,min=0,max=1e9)=>{const n=+v;return Number.isFinite(n)?Math.min(max,Math.max(min,n)):d};
+const strOr=(v,d,max=200)=>typeof v==="string"?v.slice(0,max):d;
+const strArr=(v,max=5000,len=200)=>Array.isArray(v)?[...new Set(v.filter(x=>typeof x==="string"&&x).map(x=>x.slice(0,len)))].slice(-max):[];
+const objMap=(v,ok)=>{const o={};if(isObj(v))for(const [k,x] of Object.entries(v))if(k!=="__proto__"&&ok(x))o[k]=x;return o};
+const DAY=/^\d{4}-\d\d-\d\d$/;
+function normLessons(ls){const o={};for(const [k,v] of Object.entries(isObj(ls)?ls:{})){if(!isObj(v)||k==="__proto__")continue;const key=/^\d+$/.test(k)?"A0-"+k:k;const c=o[key]||{};o[key]={done:!!(c.done||v.done),best:Math.max(c.best||0,numOr(v.best,0,0,100)),times:Math.max(c.times||0,numOr(v.times,0,0,1e6))}}return o}
+function fixState(x){
+  const o=blank();if(!isObj(x))return o;
+  for(const [k,v] of Object.entries(x))if(!(k in o)&&k!=="__proto__")o[k]=v; // fields of newer versions are kept as they are
+  if(isObj(x.xp))for(const [d,v] of Object.entries(x.xp)){const n=numOr(v,0,0,1e5);if(DAY.test(d)&&n>0)o.xp[d]=n}
+  o.lessons=normLessons(x.lessons);
+  for(const [k,v] of Object.entries(objMap(x.mistakes,v=>numOr(v,0)>0)))o.mistakes[k]=Math.min(99,Math.round(+v));o.ach=objMap(x.ach,v=>!!v);o.srs=objMap(x.srs,isObj);
+  o.newDone=objMap(x.newDone,v=>Number.isFinite(+v));o.stories=objMap(x.stories,isObj);o.scenes=objMap(x.scenes,isObj);
+  if(isObj(x.stats))for(const k in o.stats)o.stats[k]=numOr(x.stats[k],0);
+  if(isObj(x.profile)&&typeof x.profile.name==="string"&&x.profile.name.trim())o.profile={...x.profile,name:x.profile.name.trim().slice(0,24),avatar:strOr(x.profile.avatar,"🦊",8),created:numOr(x.profile.created,Date.now()),u:numOr(x.profile.u,0),consent:isObj(x.profile.consent)?x.profile.consent:null};
+  o.guest=o.profile?null:(x.guest?numOr(x.guest,Date.now()):null);
+  o.bonus=numOr(x.bonus,0);o.freezes=numOr(x.freezes,0,0,50);o.saved=numOr(x.saved,0);o.resetAt=numOr(x.resetAt,0);
+  o.frozen=strArr(x.frozen,400,10).filter(d=>DAY.test(d));o.refClaimed=strArr(x.refClaimed);o.promos=strArr(x.promos);o.fav=strArr(x.fav,2000,300);
+  o.refBy=strOr(x.refBy,null,40);o.lvlSeen=x.lvlSeen==null?null:numOr(x.lvlSeen,null);
+  o.custom=Array.isArray(x.custom)?x.custom.filter(c=>isObj(c)&&typeof c.tr==="string"&&typeof c.ru==="string"&&c.tr.trim()).map((c,i)=>({...c,id:strOr(c.id,"c"+i+"-"+c.tr.length,40)})):[];
+  o.resume=isObj(x.resume)&&Array.isArray(x.resume.list)&&x.resume.list.length&&x.resume.list.every(e=>isObj(e)&&typeof e.type==="string")?{...x.resume,i:numOr(x.resume.i,0,0,x.resume.list.length-1)}:null;
+  o.placement=isObj(x.placement)?x.placement:null;
+  o.daily=isObj(x.daily)&&typeof x.daily.d==="string"?{...x.daily,p:isObj(x.daily.p)?x.daily.p:{}}:null;
+  o.partner=isObj(x.partner)?{balance:numOr(x.partner.balance,0),history:Array.isArray(x.partner.history)?x.partner.history:[]}:{balance:0,history:[]};
+  if("myReports" in x)o.myReports=Array.isArray(x.myReports)?x.myReports.filter(isObj).slice(-30):[];
+  return o;
+}
+function fixPrefs(p){
+  const o={...P_DEFAULTS};if(!isObj(p))return o;
+  for(const [k,v] of Object.entries(p))if(k!=="__proto__"&&(!(k in o)||typeof v===typeof o[k]||o[k]===null))o[k]=v;
+  if(!["f","v0","v3","v5","v8","mix"].includes(o.voice))o.voice="f";
+  o.rate=numOr(o.rate,1,.5,1.5);o.vol=numOr(o.vol,1,0,1.5);o.sfx=numOr(o.sfx,1,0,1);o.goal=[10,20,40].includes(+o.goal)?+o.goal:20;
+  if(!DIFF_IDS.includes(o.diff))o.diff="medium";if(!["auto","light","dark"].includes(o.theme))o.theme="auto";
+  if(![5,10,20].includes(+o.newPerDay))o.newPerDay=10;if(o.zoom!=null)o.zoom=[1,1.12,1.25].includes(+o.zoom)?+o.zoom:1;
+  if(o.rest!=null)o.rest=Array.isArray(o.rest)?o.rest.filter(d=>Number.isInteger(d)&&d>=0&&d<7).slice(0,2):[];
+  return o;
+}
+const DIFF_IDS=["easy","medium","hard"];
 (function load(){
-  const v3=readLS(LS);
-  if(v3&&v3.xp)S=fixState(v3);
-  else{const v2=readLS("turkce.v2");if(v2&&v2.xp)S=fixState({xp:v2.xp,mistakes:v2.mistakes,lessons:v2.lessons})}
-  const p=readLS(LS+".prefs");if(p)P=Object.assign(P,p);if(!["f","v0","v3","v5","v8","mix"].includes(P.voice))P.voice="f";if(P.taps==null)P.taps=true;
+  let raw=null;
+  try{raw=localStorage.getItem(LS)}catch(e){storageOK=false;loadIssue="blocked"}
+  if(raw!=null&&raw!==""){
+    let v;try{v=JSON.parse(raw)}catch(e){v=undefined}
+    if(v===null||isObj(v))S=fixState(v);
+    else{ // unreadable: keep the original text aside so that nothing is lost, start clean
+      loadIssue="broken";try{localStorage.setItem(LS+".broken",raw.slice(0,4e6))}catch(e){}
+    }
+  }else{const v2=readLS("turkce.v2");if(isObj(v2)&&v2.xp)S=fixState({xp:v2.xp,mistakes:v2.mistakes,lessons:v2.lessons})}
+  P=fixPrefs(readLS(LS+".prefs"));
 })();
-function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}}
+// Writes never fail silently: when the browser refuses (private mode, no space, blocked storage), the learner is told.
+function storageFailed(e){
+  const was=storageOK;storageOK=false;
+  if(was||!$("#storeWarn"))showStoreWarn();
+}
+function showStoreWarn(){
+  if(typeof document==="undefined"||!document.body)return;let el=$("#storeWarn");
+  if(!el){el=document.createElement("div");el.id="storeWarn";el.className="store-warn";el.setAttribute("role","alert");document.body.prepend(el)}
+  el.innerHTML=`<b>Прогресс не сохраняется в этом браузере.</b> <span>${remote?"В аккаунте он сохраняется, но копии на устройстве нет.":"Похоже, включён приватный режим, закончилось место или сохранение запрещено. Сохраните прогресс в файл: Настройки → Данные."}</span> <button class="link" id="storeWarnGo">Открыть</button><button class="x" id="storeWarnX" aria-label="Скрыть предупреждение">×</button>`;
+  el.querySelector("#storeWarnGo").onclick=()=>{openSettings();setTimeout(()=>{const d=$("#dataBox");if(d)d.scrollIntoView({block:"center"})},60)};
+  el.querySelector("#storeWarnX").onclick=()=>el.remove();
+}
+function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(S));if(!storageOK){storageOK=true;const w=$("#storeWarn");if(w)w.remove()}return true}catch(e){storageFailed(e);return false}}
 function applyZoom(){try{const z=P.zoom&&P.zoom!==1?P.zoom:1;document.documentElement.style.zoom=z===1?"":String(z);const n=document.querySelector(".nav");if(n)n.style.zoom=z===1?"":String(1/z)}catch(e){}}
-function savePrefs(){try{localStorage.setItem(LS+".prefs",JSON.stringify(P))}catch(e){}}
+function savePrefs(){try{localStorage.setItem(LS+".prefs",JSON.stringify(P))}catch(e){storageFailed(e)}}
 
 function mergeState(a,b){
   a=fixState(a);b=fixState(b);
@@ -2286,7 +2601,7 @@ function mergeState(a,b){
   for(const [k,v] of Object.entries(b.xp))o.xp[k]=Math.max(o.xp[k]||0,+v||0);
   o.lessons=normLessons({...a.lessons});for(const [k,v] of Object.entries(b.lessons)){const c=o.lessons[k]||{};o.lessons[k]={done:!!(c.done||v.done),best:Math.max(c.best||0,v.best||0),times:Math.max(c.times||0,v.times||0)}}
   for(const [k,v] of Object.entries(b.mistakes))if(!(k in o.mistakes))o.mistakes[k]=v;
-  o.profile=a.profile||b.profile;
+  o.profile=a.profile||b.profile;o.guest=o.profile?null:(a.guest||b.guest||null);
   if(b.daily&&(!o.daily||b.daily.d>o.daily.d||(b.daily.d===o.daily.d&&b.daily.chest&&!o.daily.chest)))o.daily=b.daily;
   o.stories=Object.assign({},b.stories||{},a.stories||{});o.scenes=Object.assign({},b.scenes||{},a.scenes||{});o.fav=[...new Set([...(a.fav||[]),...(b.fav||[])])];
   o.lvlSeen=Math.max(a.lvlSeen||0,b.lvlSeen||0)||null;
@@ -2316,7 +2631,7 @@ async function initSync(){
     userApi=user;
     myId=user?await user.id():null;
     isOwner=user?await user.isOwner():false;
-    if(!db||!myId){applyFreezes();render();if(!S.profile&&!L&&!C)showOnboarding();return}
+    if(!db||!myId){applyFreezes();render();if(needsOnboarding()&&!L&&!C)showOnboarding();return}
     DB=db;
     const ref=db.doc("data/users/"+myId+"/progress");
     const snap=await ref.get();
@@ -2327,7 +2642,7 @@ async function initSync(){
     lbCol.orderBy("xp","desc").limit(100).onSnapshot(s=>{lbRows=s.docs.map(d=>({id:d.id,...d.data()}));if(view==="rating")render()},()=>{lbRows=lbRows||[]});
     applyFreezes();
     render();
-    if(!S.profile&&!L)showOnboarding();
+    if(needsOnboarding()&&!L)showOnboarding();
     if(Object.keys(S.xp).length||S.profile){persist()}
     checkReferrals();
   }catch(e){remote=null;syncMode="local";applyFreezes();render()}
@@ -2345,7 +2660,7 @@ function persist(){
   saveLocal();checkAchievements();if(!L&&!ST)checkLevelUp();
   if(!remote)return;
   const data=JSON.parse(JSON.stringify(S));
-  saving=saving.then(()=>remote.set(data)).then(()=>{lastSaveOk=Date.now();return lbRef&&lbRef.set(lbData())}).then(()=>{if(view==="profile")renderSaveStatus()}).catch(()=>{syncMode="local";remote=null;if(view==="profile")render()});
+  saving=saving.then(()=>remote.set(data)).then(()=>{lastSaveOk=Date.now();return lbRef&&S.profile&&lbRef.set(lbData())}).then(()=>{if(view==="profile")renderSaveStatus()}).catch(()=>{syncMode="local";remote=null;if(view==="profile")render()});
 }
 
 /* ================= DERIVED ================= */
@@ -2486,9 +2801,11 @@ document.addEventListener("click",e=>{
     if(popFor===w&&!pop.hidden){pop.hidden=true;popFor=null;return}
     popFor=w;w.classList.add("on");
     const word=w.dataset.w,g=glossOf(word);
-    pop.innerHTML=`${hasClip(word)?sayBtns(word):""}<div><b></b><span></span></div>`;
+    const clean=word.replace(/[.,!?…:;«»"()]/g,"").trim(),inCards=S.custom.some(c=>!c.del&&tnorm(c.tr)===tnorm(clean));
+    pop.innerHTML=`${hasClip(word)?sayBtns(word):""}<div><b></b><span></span>${g?`<button class="pop-add" ${inCards?"disabled":""}>${inCards?"✓ в карточках":"+ в карточки"}</button>`:""}</div>`;
     const ctxRu=!g&&w.closest("[data-ru]")?w.closest("[data-ru]").dataset.ru:"";
     pop.querySelector("b").textContent=word;pop.querySelector("span").textContent=g||(ctxRu?"вся фраза: "+ctxRu:"перевод этой формы пока не добавлен");
+    const pa=pop.querySelector(".pop-add");if(pa&&!inCards)pa.onclick=ev=>{ev.stopPropagation();S.custom.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),tr:clean,ru:g});persist();pa.textContent="✓ в карточках";pa.disabled=true;toast("🃏","Слово в «Моих карточках»",clean+" — "+g)};
     wireSay(pop);pop.hidden=false;
     const r=w.getBoundingClientRect(),pw=pop.offsetWidth,ph=pop.offsetHeight;
     let x=Math.min(Math.max(16,r.left+r.width/2-pw/2),window.innerWidth-pw-16);let y=r.top-ph-10;if(y<10)y=r.bottom+10;
@@ -2540,7 +2857,7 @@ function makeSession({items,len,diff,only,drill,abc,exam}){
   let ex=[];
   if(only){
     if(only==="letter")return letterEx(len);
-    if(only==="suffix")return drillEx(drill||"pl",len,d);
+    if(only==="suffix")return drill==="conj"?conjEx(len,d):drillEx(drill||"pl",len,d);
     if(only==="speed"){const src=items.filter(w=>w.tr.length<=18&&w.ru.length<=24);return [{type:"speed",pairs:pickPairs(src.length>=6?src:items,6)}]}
     if(only==="speak"){const src=items.filter(w=>w.tr.length<=60);return pick(src.length?src:items,Math.min(len,8)).map(w=>({type:"speak",w}))}
     if(only==="wordle"){const ok=w=>{const u=w.tr.toLocaleUpperCase("tr");return /^[A-ZÇĞİÖŞÜ]{4,6}$/.test(u)};let src=items.filter(ok);if(src.length<3)src=ALL.filter(w=>ok(w)&&w.ci<=Math.max(0,currentCourse()));return pick(src,Math.min(len,5)).map(w=>({type:"wordle",w}))}
@@ -2656,9 +2973,9 @@ function renderEx(){
       <div class="grid2 letters">${e.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o} ${o.toLocaleLowerCase("tr")}</button>`).join("")}</div>`;
     choiceWire(e,o=>o===Lt,`${Lt}: ${word} — ${ru}`,false,word);
   }else if(e.type==="suffix"){
-    const D=DRILLS[e.mode];
+    const D=e.name?{name:e.name,ask:e.ask}:DRILLS[e.mode];
     body.innerHTML=`<span class="tag">${esc(D.name)}</span><h2 class="l-title">${esc(D.ask)}</h2>
-      <div class="big-word">${esc(e.base)} + <u>?</u></div>
+      <div class="big-word">${esc(e.base)} ${e.mode==="conj"?"→":"+"} <u>?</u></div>${e.ru?`<p class="help" style="text-align:center;margin:-6px 0 10px">${esc(e.ru)}</p>`:""}
       <div class="opts">${e.opts.map((o,i)=>`<button class="opt" data-i="${i}"><span class="k">${i+1}</span>${esc(o)}</button>`).join("")}</div>`;
     choiceWire(e,o=>o===e.right,e.right,false,e.right);
   }else if(e.type==="match"||e.type==="speed"){
@@ -2871,6 +3188,62 @@ function startChoice(){
   $("#chTest").onclick=startPlacement;
 }
 
+/* ================= DIALOGS: modal semantics and focus ================= */
+// Every [role=dialog] that appears is treated as modal: aria-modal, focus moves into it, Tab stays inside,
+// Escape closes it the same way as its own close button, the page behind it is inert, and when it closes
+// focus goes back to the control that opened it (or the same control after a re-render).
+const DLG=(function(){
+  const SEL='a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+  const stack=[];let seq=0;
+  // the dialog on top is the one drawn on top (z-index), not simply the newest
+  const zOf=d=>{let z=0;for(let e=d;e&&e!==document.body;e=e.parentElement){const v=parseInt(getComputedStyle(e).zIndex,10);if(v>z)z=v}return z};
+  const order=()=>{stack.forEach(s=>s.z=zOf(s.d));stack.sort((a,b)=>a.z-b.z||a.n-b.n)};
+  const shown=el=>!!(el.offsetWidth||el.offsetHeight||el.getClientRects().length);
+  const items=d=>[...d.querySelectorAll(SEL)].filter(el=>shown(el)&&!el.closest("[inert]"));
+  const hostOf=d=>{let h=d;while(h.parentElement&&h.parentElement!==document.body)h=h.parentElement;return h};
+  function sig(el){if(!el||el===document.body)return null;if(el.id)return "#"+CSS.escape(el.id);
+    for(const a of el.attributes)if(a.name.startsWith("data-")&&a.value&&a.value.length<80)return `[${a.name}="${CSS.escape(a.value)}"]`;return null}
+  function background(on){for(const el of [document.querySelector(".app"),document.querySelector(".nav"),document.getElementById("beta")])if(el){if(on)el.setAttribute("inert","");else el.removeAttribute("inert")}
+    stack.forEach((s,i)=>{if(s.host===document.body)return;if(i<stack.length-1)s.host.setAttribute("inert","");else s.host.removeAttribute("inert")})}
+  function restore(prev,key){
+    let t=prev&&prev.isConnected&&shown(prev)?prev:null;
+    if(!t&&key){try{t=document.querySelector(key)}catch(e){}}
+    if(!t||!shown(t)){t=document.querySelector("#view h1, #view h2")||document.getElementById("view");if(t&&!t.hasAttribute("tabindex"))t.setAttribute("tabindex","-1")}
+    if(t)try{t.focus({preventScroll:true})}catch(e){}
+  }
+  function open(d,inherit){
+    d.setAttribute("aria-modal","true");if(!d.hasAttribute("tabindex"))d.setAttribute("tabindex","-1");
+    if(!d.getAttribute("aria-label")&&!d.getAttribute("aria-labelledby")){const h=d.querySelector("h1,h2,h3");if(h){if(!h.id)h.id="dlg-h-"+Math.random().toString(36).slice(2,8);d.setAttribute("aria-labelledby",h.id)}}
+    const prev=inherit?inherit.prev:document.activeElement,key=inherit?inherit.key:sig(document.activeElement);
+    stack.push({d,host:hostOf(d),prev,key,n:++seq});order();background(true);
+    if(stack[stack.length-1].d!==d)return; // opened underneath another dialog: it gets focus when that one closes
+    const first=d.querySelector("[data-autofocus]");
+    setTimeout(()=>{if(d.isConnected&&!d.contains(document.activeElement))try{(first||d).focus({preventScroll:true})}catch(e){}},0);
+  }
+  function sync(){
+    const live=[...document.querySelectorAll('[role="dialog"]')];
+    const gone=stack.filter(s=>!live.includes(s.d)||!s.d.isConnected);
+    gone.forEach(s=>stack.splice(stack.indexOf(s),1));
+    const fresh=live.filter(d=>!stack.some(s=>s.d===d));
+    fresh.forEach((d,i)=>open(d,i===0&&gone.length?gone[0]:null));
+    if(!fresh.length&&gone.length){order();background(stack.length>0);const top=stack[stack.length-1];
+      if(top){if(!top.d.contains(document.activeElement))try{top.d.focus({preventScroll:true})}catch(e){}}else restore(gone[0].prev,gone[0].key)}
+  }
+  new MutationObserver(sync).observe(document.body,{childList:true,subtree:true});
+  document.addEventListener("keydown",e=>{
+    const top=stack[stack.length-1];if(!top)return;const d=top.d;
+    if(e.key==="Tab"){const list=items(d);if(!list.length){e.preventDefault();d.focus();return}
+      const i=list.indexOf(document.activeElement);
+      if(e.shiftKey&&(i<=0)){e.preventDefault();list[list.length-1].focus()}
+      else if(!e.shiftKey&&(i===-1||i===list.length-1)){e.preventDefault();list[0].focus()}}
+    else if(e.key==="Escape"){
+      const btn=[...d.querySelectorAll('[data-close],#legalClose,#repNo,#dNo,[aria-label="Закрыть"],[aria-label="Выйти"]')].find(shown);
+      if(btn){e.preventDefault();btn.click();return}
+      const bg=d.closest(".sheet-bg");if(bg&&bg.onclick){e.preventDefault();bg.dispatchEvent(new MouseEvent("click",{bubbles:true}))}}
+  },true);
+  return {stack,sync};
+})();
+
 /* ================= LEGAL ================= */
 function openLegal(kind){
   const d=LEGAL[kind];const old=$("#legalLayer");if(old)old.remove();
@@ -3061,7 +3434,7 @@ let lastViewKey="";
 function render(){
   renderTop();
   const vk=view+"|"+JSON.stringify(sub)+"|"+(view==="cards"?Cdeck:"")+(view==="dict"?Dtopic:"")+(view==="train"?T.type==="tutor":"");
-  document.querySelectorAll(".nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===view));
+  document.querySelectorAll(".nav button").forEach(b=>{if(b.dataset.v===view)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
   const v=$("#view");
   v.innerHTML=view==="courses"?(sub&&sub.notes!=null?viewNotes(sub.notes):sub&&sub.ci!=null?viewCourse(sub.ci):viewCourses())
     :view==="cards"?viewCards():view==="train"?viewTrain():view==="dict"?viewDict():view==="rating"?viewRating():view==="admin"?viewAdmin():view==="settings"?viewSettings():viewProfile();
@@ -3224,7 +3597,7 @@ function viewTrain(){
     <h2 class="flabel" style="margin:6px 0 0">Игры</h2><div class="types">${games.map(card).join("")}</div>
     <h2 class="flabel" style="margin:6px 0 0">Упражнения</h2><div class="types">${ex.map(card).join("")}</div>
     <div class="card stack" id="tsetup">
-      ${T.type==="suffix"?`<div class="field"><label for="tdrill">Что тренируем</label><select id="tdrill">${Object.entries(DRILLS).map(([k,d])=>`<option value="${k}" ${T.drill===k?"selected":""}>${esc(d.name)}</option>`).join("")}</select></div>`:""}
+      ${T.type==="suffix"?`<div class="field"><label for="tdrill">Что тренируем</label><select id="tdrill">${Object.entries(DRILLS).map(([k,d])=>`<option value="${k}" ${T.drill===k?"selected":""}>${esc(d.name)}</option>`).join("")}${typeof CONJ!=="undefined"?`<option value="conj" ${T.drill==="conj"?"selected":""}>Спряжение глаголов: все времена</option>`:""}</select></div>`:""}
       ${!noSrc?`<div class="field"><label for="tsrc">Какие слова</label><select id="tsrc">${T.src.startsWith("t:")?`<option value="${esc(T.src)}" selected>Тема: ${esc(T.src.slice(2))}</option>`:""}${srcOpts.map(([v,n])=>`<option value="${esc(v)}" ${T.src===v?"selected":""}>${esc(n)}</option>`).join("")}</select></div>`:""}
       ${T.type!=="speed"&&T.type!=="wordle"?`<div class="field"><span class="flabel">Сложность</span>${diffSeg("tdiff",diff)}</div><div class="field"><span class="flabel">Сколько заданий</span><div class="seg">${[10,15,20].map(n=>`<button data-len="${n}" aria-pressed="${T.len===n}">${n}</button>`).join("")}</div></div>`:""}
       ${T.type==="speed"&&S.stats.matchBest?`<p class="help" style="margin:0">Ваш рекорд: ${S.stats.matchBest} с</p>`:""}
@@ -3238,6 +3611,7 @@ let Dq="",Dtopic=null;
 function topicsList(){const m=new Map();ALL.forEach(w=>{if(!w.topic)return;if(!m.has(w.topic))m.set(w.topic,{n:0,lv:new Set()});const t=m.get(w.topic);t.n++;t.lv.add(cshort(w.ci))});return [...m.entries()].sort((a,b)=>a[0].localeCompare(b[0],"ru"))}
 function viewDict(){
   if(Dpb)return viewPhrasebook();
+  if(Dconj)return viewConj();
   const addBtn=w=>{const has=S.custom.some(c=>c.tr===w.tr);return `<button class="icon-btn" data-tocard="${esc(w.tr)}" aria-label="В мои карточки" title="В мои карточки" ${has?"disabled":""}>${has?I.check:I.plus}</button>`};
   if(Dtopic){const ws=ALL.filter(w=>w.topic===Dtopic);
     return `<button class="back" data-dback>${I.back} Все темы</button><h1 class="sec-title">${esc(Dtopic)}</h1><p class="sec-lead">${ws.length} ${slov(ws.length)} и фраз. Нажмите на слово — появится перевод, на «+» — слово попадёт в ваши карточки.</p>
@@ -3245,7 +3619,7 @@ function viewDict(){
   const q=Dq.trim();
   const res=q?ALL.filter(w=>norm(w.tr).includes(norm(q))||deacc(w.tr).includes(deacc(q))||w.ru.toLowerCase().includes(q.toLowerCase())).slice(0,60):[];
   return `<h1 class="sec-title">Словарь</h1><p class="sec-lead">${ALL.length} слов и фраз из всех курсов, по темам. У каждого слова есть озвучка.</p>
-   <div class="stack">${pbAll().length?`<button class="deck" id="pbOpen"><span class="ico" style="background:#12908A">🧳</span><div><b>Разговорник</b><small>${pbCount()} готовых фраз: поездка, переезд, сериалы</small></div><span style="width:24px;color:var(--muted)">${I.play}</span></button>`:""}<input class="search" id="dq" type="search" placeholder="Поиск по-турецки или по-русски" value="${esc(Dq)}" autocomplete="off">
+   <div class="stack">${pbAll().length?`<button class="deck" id="pbOpen"><span class="ico" style="background:#12908A">🧳</span><div><b>Разговорник</b><small>${pbCount()} готовых фраз: поездка, переезд, сериалы</small></div><span style="width:24px;color:var(--muted)">${I.play}</span></button>`:""}${typeof CONJ!=="undefined"?`<button class="deck" id="conjOpen"><span class="ico" style="background:#7C4CC2">${I.suffix}</span><div><b>Спряжение глаголов</b><small>Любой глагол во всех временах: «делаю», «не делаю», «делаю?»</small></div><span style="width:24px;color:var(--muted)">${I.play}</span></button>`:""}<input class="search" id="dq" aria-label="Поиск по словарю" type="search" placeholder="Поиск по-турецки или по-русски" value="${esc(Dq)}" autocomplete="off">
    <div id="dres">${q?(res.length?`<div class="card card-list"><div class="words-mini">${res.map(w=>wordRow(w,addBtn(w))).join("")}</div></div>`:`<p class="help">Ничего не найдено.</p>`):""}</div>
    <div class="topics" ${q?"hidden":""}>${topicsList().map(([t,o])=>`<button class="topic" data-topic="${esc(t)}"><b>${esc(t)}</b><span>${o.n} · ${[...o.lv].join(", ")}</span></button>`).join("")}</div></div>`;
 }
@@ -3257,11 +3631,12 @@ function viewRating(){
   if(Rtab==="club"&&!CLUB_ON)Rtab="week";
   if(Rtab==="club")return `<h1 class="sec-title">Клуб учеников</h1><p class="sec-lead">Пишите по-турецки на тему дня, хвалите друг друга. За сообщение +2 XP.</p><div class="stack"><div class="tabs2"><button data-rtab="week" aria-pressed="false">Неделя</button><button data-rtab="all" aria-pressed="false">Всё время</button><button data-rtab="club" aria-pressed="true">Клуб</button></div>${viewClub()}</div>`;
   if(!lbRows)return head+`<div class="card"><p class="help" style="margin:0">Загружаю рейтинг…</p></div>`;
+  const guestCard=S.profile?"":`<div class="card stack"><h3>Вас нет в рейтинге</h3><p class="help" style="margin:0">Вы занимаетесь без профиля, поэтому другие ученики вас не видят. Чтобы участвовать, создайте профиль — это необязательно.</p><button class="btn sm" id="toProfile">${I.user} Создать профиль</button></div>`;
   const mon=mondayOf(today());
   let rows=lbRows.filter(r=>r.id!==myId).map(r=>({...r,score:Rtab==="week"?(r.week===mon?r.weekXp||0:0):r.xp||0}));
-  const me=lbData();rows.push({id:myId,...me,score:Rtab==="week"?me.weekXp:me.xp});
+  const me=lbData();if(S.profile)rows.push({id:myId,...me,score:Rtab==="week"?me.weekXp:me.xp});
   rows=rows.filter(r=>r.score>0||r.id===myId).sort((a,b)=>b.score-a.score);
-  return head+`<div class="stack"><div class="tabs2"><button data-rtab="week" aria-pressed="${Rtab==="week"}">Неделя</button><button data-rtab="all" aria-pressed="${Rtab==="all"}">Всё время</button>${CLUB_ON?`<button data-rtab="club" aria-pressed="${Rtab==="club"}">Клуб</button>`:""}</div>
+  return head+guestCard+`<div class="stack" style="margin-top:${guestCard?"14px":"0"}"><div class="tabs2"><button data-rtab="week" aria-pressed="${Rtab==="week"}">Неделя</button><button data-rtab="all" aria-pressed="${Rtab==="all"}">Всё время</button>${CLUB_ON?`<button data-rtab="club" aria-pressed="${Rtab==="club"}">Клуб</button>`:""}</div>
     <div class="card"><div class="lb" id="lbList">${rows.map((r,i)=>`<div class="lb-row ${r.id===myId?"me":""}" data-uid="${esc(r.id)}"><span class="lb-rank ${i<3?"r"+(i+1):""}">${i+1}</span><span class="avatar sm">${esc(r.avatar||"🙂")}</span><div class="lb-name"><b data-nm="${esc(r.name||"")}">${r.id===myId?"Вы":esc(r.name||"Ученик")}</b><span><i>${I.flame}</i>${r.streak||0} · ${esc(r.level||"A0")}</span></div><span class="lb-xp">${r.score} XP</span></div>`).join("")}</div></div>
     <p class="help" style="margin:0">${Rtab==="week"?"Неделя начинается в понедельник.":"Сумма опыта за всё время, включая бонусы."}</p></div>`;
 }
@@ -3275,6 +3650,7 @@ let editProfile=false,promoMsg="",refMsg="",adminPromos=null;
 function saveStatusHTML(){
   if(syncMode==="account"){const t=lastSaveOk||S.saved;const tm=t?new Date(t).toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"}):"";
     return `<div class="save-ok good" id="saveStatus">${I.check}<span>Прогресс сохраняется в вашем аккаунте автоматически${tm?" · последнее сохранение "+tm:""}</span></div>`}
+  if(!storageOK)return `<div class="save-ok bad" id="saveStatus" role="alert">${I.save}<span>Прогресс сейчас не сохраняется: браузер запрещает запись. Сохраните его в файл — Настройки → Данные.</span></div>`;
   return `<div class="save-ok warn" id="saveStatus">${I.save}<span>Прогресс хранится только в этом браузере. ${WEB?(SRV&&SRV.health?"Войдите в аккаунт, чтобы он сохранялся на всех устройствах.":"Аккаунты с сохранением на всех устройствах появятся в полной версии сайта."):"Войдите в аккаунт Claude, чтобы он сохранялся на всех устройствах."}</span></div>`;
 }
 function renderSaveStatus(){const el=$("#saveStatus");if(el)el.outerHTML=saveStatusHTML()}
@@ -3306,7 +3682,7 @@ function viewProfile(){
       ${syncMode==="account"&&myCode?`<p class="help" style="margin:0">Поделитесь приложением и дайте другу этот код. Когда друг введёт его, вы оба получите +50 XP и заморозку серии.</p>
         <div class="codebox" id="myCode">${myCode}</div><button class="btn sm" id="copyCode">Скопировать приглашение</button>
         <p class="help" style="margin:0">Приглашено друзей: ${S.refClaimed.length}</p>
-        ${S.refBy?`<p class="help" style="margin:0">Вас пригласили по коду ${esc(S.refBy)}.</p>`:`<div class="row"><input class="inp code" id="refIn" maxlength="6" placeholder="Код друга" autocomplete="off"><button class="btn sm" style="width:auto" id="refGo">Ввести</button></div>${refMsg?`<p class="help" style="margin:0;color:var(--bad)">${esc(refMsg)}</p>`:""}`}`
+        ${S.refBy?`<p class="help" style="margin:0">Вас пригласили по коду ${esc(S.refBy)}.</p>`:`<div class="row"><input class="inp code" id="refIn" aria-label="Код приглашения друга" maxlength="6" placeholder="Код друга" autocomplete="off"><button class="btn sm" style="width:auto" id="refGo">Ввести</button></div>${refMsg?`<p class="help" style="margin:0;color:var(--bad)">${esc(refMsg)}</p>`:""}`}`
         :`<p class="help" style="margin:0">${WEB?"Приглашения заработают вместе с аккаунтами на сайте.":"Приглашения работают, когда вы вошли в аккаунт Claude."}</p>`}
     </div>
     ${SRV&&SRV.health&&SRV.me?`<div class="card stack"><h3>Партнёрская программа</h3>
@@ -3316,7 +3692,7 @@ function viewProfile(){
       <p class="help" style="margin:0">Условия — в <a href="#" class="link" data-legal="terms">Пользовательском соглашении</a>.</p>
     </div>`:""}
     <div class="card stack"><h3>Промокод</h3>
-      <div class="row"><input class="inp code" id="promoIn" maxlength="24" placeholder="Введите промокод" autocomplete="off"><button class="btn sm" style="width:auto" id="promoGo">${I.gift}</button></div>
+      <div class="row"><input class="inp code" id="promoIn" aria-label="Промокод" maxlength="24" placeholder="Введите промокод" autocomplete="off"><button class="btn sm" style="width:auto" id="promoGo" aria-label="Применить промокод">${I.gift}</button></div>
       ${promoMsg?`<p class="help" style="margin:0;color:var(--bad)">${esc(promoMsg)}</p>`:""}
     </div>
     ${isOwner&&DB?`<button class="deck" id="openAdmin"><span class="ico" style="background:#3B3F5C">${I.target}</span><div><b>Админка</b><small>Ученики, сообщения об ошибках, промокоды</small></div><span style="width:24px;color:var(--muted)">${I.play}</span></button>`:""}
@@ -3370,6 +3746,7 @@ function viewSettings(){
     </div>
     <div class="card stack"><h3>Уровень</h3><p class="help" style="margin:0">${S.placement&&S.placement.results&&S.placement.results.length?`Тест уровня от ${esc(S.placement.date)}: ${S.placement.results.map((r,i)=>cshort(i)+" — "+r+"%").join(", ")}.`:"Тест уровня ещё не пройден."}</p><button class="btn sm" id="plRetake">${I.target} Пройти тест уровня</button></div>
     <div class="card stack"><h3>Документы</h3><button class="btn sm" data-legal="terms">${I.note} Пользовательское соглашение</button><button class="btn sm" data-legal="privacy">${I.note} Политика конфиденциальности</button><button class="btn sm" data-legal="consent">${I.note} Согласие на обработку данных</button></div>
+    ${dataCard()}
     <div class="card" id="resetBox"><button class="danger" id="reset">Сбросить весь прогресс</button></div>
   </div>`;
 }
@@ -3379,12 +3756,12 @@ function profileForm(){
     <div class="field"><label for="pName">Имя для рейтинга</label><input class="inp" id="pName" maxlength="24" placeholder="Например, Анна" autocomplete="off"></div>
     <div class="field"><span class="flabel">Аватар</span><div class="av-grid">${AVATARS.map(a=>`<button data-av="${a}" aria-pressed="${pr.avatar===a}">${a}</button>`).join("")}</div></div>
     ${S.profile?"":`<label class="consent" for="pAgree"><input type="checkbox" id="pAgree"><span>Я принимаю <a href="#" class="link" data-legal="terms">Пользовательское соглашение</a> и ознакомлен(а) с <a href="#" class="link" data-legal="privacy">Политикой конфиденциальности</a></span></label>
-    <label class="consent" for="pPd"><input type="checkbox" id="pPd"><span>Даю <a href="#" class="link" data-legal="consent">согласие на обработку персональных данных</a></span></label>`}
+    ${LEGAL.pdConsent?`<label class="consent" for="pPd"><input type="checkbox" id="pPd"><span>Даю <a href="#" class="link" data-legal="consent">согласие на обработку персональных данных</a></span></label>`:`<p class="help" style="margin:0">Имя и аватар хранятся только в этом браузере.</p>`}`}
     <button class="btn good" id="pSave">${S.profile?"Сохранить":"Создать профиль"}</button>`;
 }
 function adminHTML(){
   return `<div class="card stack"><h3>Промокоды · для владельца</h3><p class="help" style="margin:0">Создайте код и награду. Ученики вводят его в разделе «Промокод». Сами коды в базе не хранятся — только их отпечаток.</p>
-    <input class="inp code" id="adCode" maxlength="24" placeholder="Новый код, например LETO2026" autocomplete="off">
+    <input class="inp code" id="adCode" aria-label="Новый промокод" maxlength="24" placeholder="Новый код, например LETO2026" autocomplete="off">
     <div class="grid2"><div class="field"><label for="adXp">Опыт, XP</label><input class="inp" id="adXp" type="number" min="0" max="1000" value="100"></div><div class="field"><label for="adFr">Заморозки</label><input class="inp" id="adFr" type="number" min="0" max="10" value="1"></div></div>
     <button class="btn good" id="adMake">Создать промокод</button>
     <div id="adList">${adminPromos?adminPromos.map(p=>`<div class="crow"><span class="badge" style="background:var(--violet)">${I.gift}</span><div><b>${esc(p.label)}</b><small>${p.xp||0} XP · заморозок ${p.freezes||0}</small></div><button class="icon-btn" data-delpromo="${p.id}" aria-label="Удалить промокод">${I.trash}</button></div>`).join("")||`<p class="help">Промокодов пока нет.</p>`:`<button class="btn sm" id="adLoad">Показать созданные</button>`}</div></div>`;
@@ -3408,19 +3785,81 @@ function xpChart(){
   return `<div class="chart-wrap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Опыт по дням за две недели">${g}</svg></div>`;
 }
 
+/* ================= DATA: export, restore, profile removal ================= */
+const EXPORT_FORMAT="Türkçe каждый день — прогресс";
+function progressSummary(st){const ls=Object.values(st.lessons||{}).filter(x=>x.done).length,xp=Object.values(st.xp||{}).reduce((a,b)=>a+(+b||0),0)+(+st.bonus||0);
+  return {xp,lessonsDone:ls,days:Object.keys(st.xp||{}).length,cards:Object.keys(st.srs||{}).length,ownCards:(st.custom||[]).length,profile:st.profile?st.profile.name:null}}
+function exportJSON(){const st=JSON.parse(JSON.stringify(S));delete st.myReports;
+  return JSON.stringify({app:"turkce",format:EXPORT_FORMAT,v:4,exported:new Date().toISOString(),summary:progressSummary(st),state:st,prefs:P},null,1)}
+async function exportProgress(){
+  const ok=await downloadText(`turkce-progress-${today()}.json`,exportJSON(),"application/json");
+  toast(ok?"💾":"⚠️",ok?"Файл с прогрессом готов":"Не удалось сохранить файл",ok?"Храните его в надёжном месте. Восстановить: Настройки → Данные":"Попробуйте другой браузер или обновите страницу");
+}
+// Accepts this format and the older {app:"turkce",v:3,state}. Returns {state,prefs} or an error text.
+function parseBackup(text){
+  if(typeof text!=="string"||!text.trim())return {err:"Файл пустой"};
+  if(text.length>8e6)return {err:"Файл слишком большой для файла прогресса"};
+  let j;try{j=JSON.parse(text)}catch(e){return {err:"Файл повреждён: это не JSON"}}
+  if(!isObj(j)||j.app!=="turkce"||!isObj(j.state))return {err:"Это не файл прогресса «Türkçe каждый день»"};
+  const st=fixState(j.state);
+  if(!Object.keys(st.xp).length&&!Object.keys(st.lessons).length&&!st.custom.length&&!Object.keys(st.srs).length&&!st.profile)return {err:"В файле нет прогресса"};
+  return {state:st,prefs:isObj(j.prefs)?j.prefs:null,date:typeof j.exported==="string"?j.exported:(typeof j.at==="string"?j.at:"")};
+}
+function applyBackup(b,how){
+  if(how==="replace"){const keep={refBy:S.refBy,refClaimed:S.refClaimed,promos:S.promos};S=fixState(b.state);Object.assign(S,{refBy:S.refBy||keep.refBy,refClaimed:[...new Set([...S.refClaimed,...keep.refClaimed])],promos:[...new Set([...S.promos,...keep.promos])]});S.resetAt=Date.now();if(b.prefs){P=fixPrefs({...P,...b.prefs});savePrefs();applyTheme();applyZoom();applyVolume()}}
+  else{const st={...b.state,resetAt:S.resetAt||0};S=mergeState(S,st)}
+  if(S.profile)S.guest=null;
+  persist();render();
+  toast("📂",how==="replace"?"Прогресс восстановлен из файла":"Прогресс объединён с файлом",saveLocal()?"Всё сохранено":"Но браузер не дал сохранить — оставьте файл у себя");
+}
+function dataCard(){
+  const acc=syncMode==="account";
+  return `<div class="card stack" id="dataBox"><h3 class="set-h"><span>💾</span>Данные</h3>
+    ${acc?`<p class="help" style="margin:0">Прогресс сохраняется в вашем аккаунте автоматически.</p>`
+      :`<p class="help" style="margin:0">Прогресс хранится только в этом браузере. Сохраните его в файл, чтобы не потерять при очистке браузера или перенести на другое устройство.</p>
+      <div class="grid2"><button class="btn sm" id="expGo">💾 Сохранить прогресс в файл</button><button class="btn sm" id="impGo">📂 Восстановить из файла</button></div>
+      <input type="file" id="impFile" accept="application/json,.json" hidden aria-label="Файл с прогрессом">
+      <div id="impBox" aria-live="polite"></div>`}
+    ${storageOK?"":`<p class="help" role="alert" style="margin:0;color:var(--bad);font-weight:800">Браузер сейчас не сохраняет данные этого сайта. Не закрывайте вкладку, не сохранив прогресс в файл.</p>`}
+    ${S.profile?`<div id="profDelBox"><button class="danger" id="profDel">Удалить профиль${syncMode==="account"&&!SRV?" и убрать меня из рейтинга":""}</button><p class="help" style="margin:4px 0 0">Имя и аватар удалятся, прогресс останется. Заниматься можно и без профиля.</p></div>`:""}
+  </div>`;
+}
+function wireDataCard(){
+  const eg=$("#expGo");if(eg)eg.onclick=exportProgress;
+  const ig=$("#impGo"),f=$("#impFile");if(ig&&f){ig.onclick=()=>f.click();
+    f.onchange=()=>{const file=f.files&&f.files[0];if(!file)return;const box=$("#impBox");
+      const r=new FileReader();r.onerror=()=>{box.innerHTML=`<p class="help" style="margin:0;color:var(--bad)">Не удалось прочитать файл.</p>`};
+      r.onload=()=>{const b=parseBackup(String(r.result||""));f.value="";
+        if(b.err){box.innerHTML=`<p class="help" role="alert" style="margin:0;color:var(--bad);font-weight:800">${esc(b.err)}</p>`;return}
+        const sm=progressSummary(b.state),d=b.date?new Date(b.date):null;
+        box.innerHTML=`<div class="info"><b class="h">В файле${d&&!isNaN(d)?" от "+d.toLocaleDateString("ru-RU"):""}</b>${sm.xp} XP · уроков пройдено: ${sm.lessonsDone} · дней занятий: ${sm.days} · карточек: ${sm.cards+sm.ownCards}${sm.profile?" · профиль «"+esc(sm.profile)+"»":""}</div>
+          <button class="btn primary" id="impMerge">Объединить с текущим прогрессом</button>
+          <button class="btn badb" id="impReplace">Заменить текущий прогресс файлом</button><button class="btn" id="impCancel">Отмена</button>`;
+        $("#impMerge").onclick=()=>applyBackup(b,"merge");$("#impReplace").onclick=()=>applyBackup(b,"replace");$("#impCancel").onclick=()=>{box.innerHTML=""};$("#impMerge").focus()};
+      r.readAsText(file)}}
+  const pd=$("#profDel");if(pd)pd.onclick=()=>{
+    $("#profDelBox").innerHTML=`<p style="margin:0 0 10px;font-weight:800">Удалить профиль «${esc(S.profile.name)}»? Прогресс останется.</p><div class="grid2"><button class="btn" id="pdNo">Отмена</button><button class="btn badb" id="pdYes">Удалить</button></div>`;
+    $("#pdNo").onclick=render;$("#pdYes").onclick=async()=>{S.profile=null;S.guest=Date.now();persist();if(lbRef){try{await lbRef.delete()}catch(e){}}render();toast("🗑️","Профиль удалён","Вы занимаетесь без профиля")};$("#pdNo").focus()};
+}
+
 /* onboarding */
+const needsOnboarding=()=>!S.profile&&!S.guest;
 function showOnboarding(){
   if($("#overlay").innerHTML)return;
   $("#overlay").innerHTML=`<div class="sheet-bg"><div class="sheet" role="dialog" aria-label="Создание профиля">
     <div class="mascot-row"><div class="big-icon">${catSVG("happy",92)}</div><div class="speech">Merhaba! Я Памук. Буду учиться вместе с вами!</div></div>
     <span class="kicker">Добро пожаловать</span><h2>Давайте познакомимся</h2>
     ${SRV&&SRV.health&&!SRV.me?`<button class="btn sm" id="obLogin">Уже есть аккаунт? Войти</button>`:""}
-    <p class="help" style="margin:0">Профиль нужен для рейтинга и достижений. ${syncMode==="account"&&SRV?"Вы вошли в аккаунт — прогресс сохраняется автоматически.":syncMode==="account"?"Вход выполнен через ваш аккаунт Claude — пароль не нужен, прогресс будет сохраняться автоматически.":"Сейчас прогресс сохранится в этом браузере."}</p>
+    <p class="help" style="margin:0">Профиль нужен для рейтинга${CLUB_ON?" и клуба учеников":""}. ${syncMode==="account"&&SRV?"Вы вошли в аккаунт — прогресс сохраняется автоматически.":syncMode==="account"?"Вход выполнен через ваш аккаунт Claude — пароль не нужен, прогресс будет сохраняться автоматически.":"Сейчас прогресс сохранится в этом браузере."}</p>
     ${profileForm()}
+    <button class="btn" id="obGuest">Продолжить без профиля</button>
+    <p class="help" style="margin:0">Без профиля открыты все уроки, практика, карточки и словарь, а прогресс сохраняется ${syncMode==="account"?"в вашем аккаунте":"в этом браузере"}. Профиль можно создать позже в разделе «Профиль».</p>
     ${syncMode==="account"?`<div class="field"><label for="obRef">Код приглашения от друга (необязательно)</label><input class="inp code" id="obRef" maxlength="6" placeholder="ABC123" autocomplete="off"></div><p class="help" id="obMsg" style="margin:0;color:var(--bad)"></p>`:""}
   </div></div>`;
   wireProfileForm(true);
   const obl=$("#obLogin");if(obl)obl.onclick=()=>SRV.openAuth("login");
+  $("#obGuest").onclick=()=>{S.guest=Date.now();persist();$("#overlay").innerHTML="";document.body.style.overflow="";
+    if(!S.placement&&!Object.values(S.lessons).some(x=>x.done)){render();aimSheet(()=>{render();startChoice()});return}render()};
 }
 function wireProfileForm(onboarding){
   const root=onboarding?$("#overlay"):$("#view");
@@ -3430,8 +3869,10 @@ function wireProfileForm(onboarding){
   root.querySelector("#pSave").onclick=async()=>{
     const name=nm.value.trim().slice(0,24);if(!name){nm.focus();nm.style.borderColor="var(--bad)";return}
     const ag=root.querySelector("#pAgree"),pd=root.querySelector("#pPd");
-    if(ag&&(!ag.checked||!pd.checked)){[ag,pd].forEach(x=>{if(!x.checked)x.closest(".consent").style.borderColor="var(--bad)"});toast("📄","Нужно отметить обе галочки","Без них зарегистрироваться нельзя");return}
-    S.profile={name,avatar:av,created:(S.profile&&S.profile.created)||Date.now(),u:Date.now(),consent:(S.profile&&S.profile.consent)||(ag?{terms:Date.now(),pd:Date.now(),version:"2026-10-11"}:null)};
+    const boxes=[ag,pd].filter(Boolean);
+    if(boxes.some(x=>!x.checked)){boxes.forEach(x=>{const c=x.closest(".consent");if(!x.checked){c.style.borderColor="var(--bad)";c.setAttribute("aria-invalid","true")}});const first=boxes.find(x=>!x.checked);first.focus();
+      toast("📄",boxes.length>1?"Нужно отметить обе галочки":"Нужно принять соглашение","Без этого профиль не создать. Можно продолжить без профиля");return}
+    S.profile={name,avatar:av,created:(S.profile&&S.profile.created)||Date.now(),u:Date.now(),consent:(S.profile&&S.profile.consent)||(ag?{terms:Date.now(),pd:pd?Date.now():null,version:"2026-10-11",mode:LEGAL.mode}:null)};delete S.guest;
     const rc=root.querySelector("#obRef");
     if(rc&&rc.value.trim()){const err=await applyRefCode(rc.value);if(err){root.querySelector("#obMsg").textContent=err;persist();return}}
     persist();editProfile=false;
@@ -3464,8 +3905,11 @@ const adl=$("#adLoad");if(adl)adl.onclick=loadPromos;
   const mg=$("#mistGo");if(mg)mg.onclick=startMistakes;
   const tx=$("#tipX");if(tx)tx.onclick=()=>{P.hideTip=today();savePrefs();render()};
   if(view==="dict"&&Dpb)wirePhrasebook(v);
+  if(view==="dict"&&Dconj&&!Dpb)wireConj(v);
+  const cjo=$("#conjOpen");if(cjo)cjo.onclick=()=>{Dconj=true;render();window.scrollTo({top:0})};
   const pbo=$("#pbOpen");if(pbo)pbo.onclick=()=>{Dpb="home";render();window.scrollTo({top:0})};
   const cb=$("#chestBtn");if(cb)cb.onclick=()=>openChest(cb);
+  const tpf=$("#toProfile");if(tpf)tpf.onclick=()=>{view="profile";editProfile=false;render();window.scrollTo({top:0});setTimeout(()=>{const n=$("#pName");if(n)n.focus()},50)};
   v.querySelectorAll("[data-story]").forEach(b=>b.onclick=()=>openStory(b.dataset.story));
   v.querySelectorAll("[data-scene]").forEach(b=>b.onclick=()=>openScene(b.dataset.scene));
   v.querySelectorAll("[data-slv]").forEach(b=>b.onclick=()=>{Slv=b.dataset.slv;render()});
@@ -3543,6 +3987,7 @@ const adl=$("#adLoad");if(adl)adl.onclick=loadPromos;
   v.querySelectorAll("[data-aimset]").forEach(b=>b.onclick=()=>{P.aim=b.dataset.aimset;savePrefs();Slv=null;render()});
   const spl=$("#spkL");if(spl)spl.onchange=()=>{P.speakLessons=spl.checked;if(spl.checked)P.speakOff=0;savePrefs()};
   const tps=$("#taps");if(tps)tps.onchange=()=>{P.taps=tps.checked;savePrefs();if(P.taps)tapSound("pop")};
+  wireDataCard();
   const rs=$("#reset");if(rs)rs.onclick=()=>{
     $("#resetBox").innerHTML=`<p style="margin:0 0 10px;font-weight:800">Удалить весь опыт, серию, карточки и пройденные уроки? Профиль останется. Это нельзя отменить.</p><div class="grid2"><button class="btn" id="rsNo">Отмена</button><button class="btn badb" id="rsYes">Удалить</button></div>`;
     $("#rsNo").onclick=render;$("#rsYes").onclick=()=>{const pr=S.profile,rb=S.refBy,rc=S.refClaimed,pm=S.promos;const bn=S.bonus,fr=S.freezes;S=blank();S.profile=pr;S.refBy=rb;S.refClaimed=rc;S.promos=pm;S.bonus=bn;S.freezes=fr;S.resetAt=Date.now();persist();render()};
@@ -3772,7 +4217,7 @@ function viewAdmin(){
   }else if(Atab==="users"){
     const q=Aq.trim().toLowerCase();const rows=U.filter(u=>!q||(u.name||"").toLowerCase().includes(q)||(u.refCode||"").toLowerCase().includes(q)).sort((a,b)=>(b.t||0)-(a.t||0)).slice(0,300);
     const ago=t=>{if(!t)return "—";const m=Math.round((now-t)/6e4);return m<60?m+" мин назад":m<1440?Math.round(m/60)+" ч назад":Math.round(m/1440)+" дн назад"};
-    body=`<input class="search" id="aq" type="search" placeholder="Поиск по имени или коду приглашения" value="${esc(Aq)}" autocomplete="off">
+    body=`<input class="search" id="aq" aria-label="Поиск учеников" type="search" placeholder="Поиск по имени или коду приглашения" value="${esc(Aq)}" autocomplete="off">
      <div class="card card-list"><div class="lb">${rows.map((u,i)=>`<div class="lb-row"><span class="lb-rank">${i+1}</span><span class="avatar sm">${esc(u.avatar||"🙂")}</span><div class="lb-name"><b>${esc(u.name||"Без имени")}</b><small style="display:block;color:var(--muted);font-weight:700;font-size:12px;line-height:1.35">${esc(u.level||"A0")} · серия ${u.streak||0} · уроков ${u.lessons||0}<br>${ago(u.t)}${u.refBy?" · пригл. "+esc(u.refBy):""}</small></div><span class="lb-xp">${u.xp||0} XP</span></div>`).join("")||`<p class="help" style="padding:12px;margin:0">Никого не нашлось.</p>`}</div></div>
      <p class="help" style="margin:0">Показаны те, у кого есть профиль в рейтинге. Сортировка — по последнему заходу.</p>`;
   }else if(Atab==="reports"){
@@ -3954,6 +4399,82 @@ function wirePhrasebook(v){
   v.querySelectorAll("[data-pbshow]").forEach(b=>b.onclick=()=>showPhrase(b.dataset.pbshow,b.dataset.ru));
   v.querySelectorAll("[data-pbspeak]").forEach(b=>b.onclick=()=>{const it=pbItems(b.dataset.pbspeak);if(it.length)startSession({items:it,len:Math.min(8,it.length),only:"speak",diff:P.diff,label:"Произношение"})});
   v.querySelectorAll("[data-pbtrain]").forEach(b=>b.onclick=()=>{const it=pbItems(b.dataset.pbtrain);if(it.length<4){toast("⭐","Нужно хотя бы 4 фразы","Добавьте ещё в избранное");return}startSession({items:it,len:Math.min(10,it.length*2),only:"choice_ru",diff:P.diff,label:"Разговорник"})});
+}
+
+/* ================= CONJUGATION («Спряжение глаголов») ================= */
+let Dconj=false;const CJ={v:"gelmek",t:"prs",f:"aff"};
+const PERS_RU=["я","ты","он, она","мы","вы","они"],IMP_RU=["давай я","ты","пусть он","давайте","вы, вежливо","пусть они"];
+const FORM_RU={aff:"утверждение",neg:"отрицание",q:"вопрос",negq:"вопрос с «не»"},IMP_FORM={aff:"просьба",neg:"запрет"};
+const CJ_POP=["olmak","gitmek","gelmek","yapmak","yemek","içmek","almak","istemek","bilmek","konuşmak","görmek","etmek"];
+const cjOK=()=>typeof CONJ!=="undefined";
+const cjT=id=>CONJ.TENSES.find(t=>t.id===id)||CONJ.TENSES[0];
+const cjRu=inf=>{const x=VERB_LIST.find(v=>v[0]===inf);return x?x[1]:""};
+const cjPers=(t,p)=>t==="imp"?IMP_RU[p]:PERS_RU[p];
+// highlights what was added to the stem: gel + iyorum
+function cjMark(word,v){const base=v.pre+v.stem;let i=0;while(i<word.length&&i<base.length&&word[i]===base[i])i++;return esc(word.slice(0,i))+`<b class="sfx">${esc(word.slice(i))}</b>`}
+function viewConj(){
+  return `<button class="back" data-cjback>${I.back} Словарь</button>
+    <h1 class="sec-title">Спряжение глаголов</h1>
+    <p class="sec-lead">Напишите любой глагол — с <span style="white-space:nowrap">-mak/-mek</span> или просто основу — и посмотрите, как он меняется по лицам и временам.</p>
+    <div class="card stack" style="gap:10px">
+      <input class="search" id="cjIn" list="cjList" value="${esc(CJ.v)}" placeholder="например, gelmek" autocomplete="off" autocapitalize="off" spellcheck="false" lang="tr" aria-label="Глагол">
+      <datalist id="cjList">${VERB_LIST.map(([a,b])=>`<option value="${esc(a)}">${esc(b)}</option>`).join("")}</datalist>
+      <div class="keys cj-keys">${["ç","ş","ğ","ı","ö","ü"].map(k=>`<button data-cjk="${k}">${k}</button>`).join("")}</div>
+      <div class="chips row" id="cjPop">${CJ_POP.map(x=>`<button class="chip" data-cjv="${x}">${x}</button>`).join("")}</div>
+    </div>
+    <div id="cjOut">${cjOut()}</div>
+    <button class="btn primary block" style="margin-top:14px" id="cjTrain">${I.dumbbell} Тренировать спряжение</button>`;
+}
+function cjOut(){
+  const t=cjT(CJ.t);if(t.forms&&!t.forms.includes(CJ.f))CJ.f="aff";
+  const v=CONJ.parse(CJ.v),tab=v?CONJ.table(CJ.v,t.id,CJ.f):null,ru=v?cjRu(v.inf):"",L=findLesson(t.lesson);
+  const fl=t.id==="imp"?IMP_FORM:Object.fromEntries(CONJ.FORMS);
+  return `<div class="chips wrap" style="margin-top:14px" aria-label="Время">${CONJ.TENSES.map(x=>`<button class="chip" data-cjt="${x.id}" aria-pressed="${x.id===t.id}">${esc(x.ru)}</button>`).join("")}</div>
+    <div class="seg cj-f" style="margin-top:10px" role="group" aria-label="Форма">${Object.entries(fl).map(([k,n])=>`<button data-cjf="${k}" aria-pressed="${k===CJ.f}">${esc(n)}</button>`).join("")}</div>
+    ${tab?`<div class="card cj-card"><div class="cj-head"><b lang="tr">${esc(v.inf)}</b>${ru?` — ${esc(ru)}`:""}<span>${esc(t.ru)} · ${esc(t.sfx)}</span></div>
+      ${tab.map(([pr,w],p)=>`<div class="cj-row"><span class="cj-p"><span lang="tr">${pr}</span><small>${esc(cjPers(t.id,p))}</small></span><span class="cj-w" lang="tr">${cjMark(w,v)}</span><button class="icon-btn" data-cjsay="${esc(w)}" aria-label="Послушать: ${esc(w)}">🔊</button></div>`).join("")}
+      </div>`:`<div class="info" style="margin-top:14px">Не получилось разобрать глагол. Напишите его латиницей, как в словаре: <b>gelmek</b>, <b>yardım etmek</b>.</div>`}
+    <div class="info" style="margin-top:12px"><b class="h">Правило</b>${esc(t.note)}${!ru&&v?`<br><small>Этого глагола нет в нашем списке — сверьте форму со словарём: у некоторых глаголов бывают исключения.</small>`:""}</div>
+    ${L?`<button class="deck" style="margin-top:10px" data-cjlesson="${L.key}"><span class="ico" style="background:#2255C4">${I.book}</span><div><b>Урок: ${esc(L.t)}</b><small>${esc(cname(L.ci))}</small></div></button>`:""}`;
+}
+function wireConj(v){
+  const inp=$("#cjIn");
+  const refresh=()=>{const o=$("#cjOut");o.innerHTML=cjOut();wireCjOut(o)};
+  let tm=null;inp.oninput=()=>{clearTimeout(tm);const val=inp.value;tm=setTimeout(()=>{CJ.v=val;refresh()},VERB_LIST.some(x=>x[0]===val.trim().toLocaleLowerCase("tr"))?0:350)};
+  v.querySelectorAll("[data-cjk]").forEach(b=>b.onclick=()=>{const s=inp.selectionStart??inp.value.length,e=inp.selectionEnd??s;inp.value=inp.value.slice(0,s)+b.dataset.cjk+inp.value.slice(e);inp.focus();inp.setSelectionRange(s+1,s+1);CJ.v=inp.value;refresh()});
+  v.querySelectorAll("[data-cjv]").forEach(b=>b.onclick=()=>{CJ.v=inp.value=b.dataset.cjv;refresh()});
+  v.querySelectorAll("[data-cjback]").forEach(b=>b.onclick=()=>{Dconj=false;render();window.scrollTo({top:0})});
+  const tr=$("#cjTrain");if(tr)tr.onclick=()=>{const p=CONJ.parse(CJ.v);CJ_TRAIN={verb:p&&p.inf,tense:CJ.t};startSession({items:ALL.slice(0,30),len:10,diff:P.diff,only:"suffix",drill:"conj",label:"Спряжение"})};
+  wireCjOut($("#cjOut"));
+  function wireCjOut(o){
+    o.querySelectorAll("[data-cjt]").forEach(b=>b.onclick=()=>{CJ.t=b.dataset.cjt;refresh()});
+    o.querySelectorAll("[data-cjf]").forEach(b=>b.onclick=()=>{CJ.f=b.dataset.cjf;refresh()});
+    o.querySelectorAll("[data-cjsay]").forEach(b=>b.onclick=()=>{const w=b.dataset.cjsay;let tts=false;try{tts=speechSynthesis.getVoices().some(x=>/^tr/i.test(x.lang))}catch(e){}
+      if(!hasClip(w)&&!tts){toast("🔊","Нет турецкого голоса","Добавьте турецкий голос в настройках телефона, чтобы слушать любые формы");return}speak(w)});
+    o.querySelectorAll("[data-cjlesson]").forEach(b=>b.onclick=()=>openLesson(b.dataset.cjlesson));
+  }
+}
+// Drill: a verb, a person and a form — pick the right word. Wrong options are mostly the other persons of the same tense.
+let CJ_TRAIN=null;
+const CJ_LEVEL=[["prs"],["prs","past","imp"]];
+function conjEx(n,d){
+  const fromView=CJ_TRAIN;CJ_TRAIN=null;
+  const ci=currentCourse(),tenses=CJ_LEVEL[ci]||CONJ.TENSES.map(t=>t.id);
+  const verbs=VERB_LIST.slice(0,40).map(x=>x[0]);
+  const out=[];let guard=0;
+  while(out.length<n&&guard++<n*30){
+    // from the conjugation screen: half the items use the verb and tense on screen
+    const mine=fromView&&out.length%2===0;
+    const v=mine&&fromView.verb?fromView.verb:pick(verbs,1)[0],tid=mine?fromView.tense:pick(tenses,1)[0],t=cjT(tid);
+    const forms=t.forms||(ci<1?["aff","neg","q"]:["aff","neg","q","negq"]),f=pick(forms,1)[0],p=Math.floor(Math.random()*6);
+    const right=CONJ.form(v,tid,p,f);if(!right||out.some(e=>e.right===right))continue;
+    const pers=shuffle(CONJ.PERS.map((_,q)=>q!==p?CONJ.form(v,tid,q,f):null)),other=shuffle(forms.filter(x=>x!==f).map(x=>CONJ.form(v,tid,p,x)));
+    const otherT=shuffle(tenses.filter(x=>x!==tid).map(x=>CONJ.form(v,x,p,f)));
+    const wrong=[...new Set([pers[0],pers[1],other[0],otherT[0],...pers.slice(2),...other.slice(1)].filter(x=>x&&x!==right))];
+    const fl=tid==="imp"?IMP_FORM:FORM_RU;
+    out.push({type:"suffix",mode:"conj",base:v,ru:cjRu(v),right,opts:shuffle([right,...wrong.slice(0,d.opts-1)]),name:"Спряжение · "+t.ru,ask:`${CONJ.PERS[p]} (${cjPers(tid,p)}) · ${fl[f]}`});
+  }
+  return out;
 }
 
 /* ================= PRONUNCIATION («Повтори за диктором») ================= */
@@ -4273,13 +4794,17 @@ function finishScene(){
   chime(true);animateCounts($("#scbody"));if(goal)confetti();
 }
 
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{view=b.dataset.v;if(view==="courses")sub=null;if(view==="cards")Cdeck=null;if(view==="dict")Dpb=null;if(view==="train"&&T.type==="tutor"&&!chatTurns.length)T.type="choice_tr";render();window.scrollTo({top:0})});
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{view=b.dataset.v;if(view==="courses")sub=null;if(view==="cards")Cdeck=null;if(view==="dict"){Dpb=null;Dconj=false}if(view==="train"&&T.type==="tutor"&&!chatTurns.length)T.type="choice_tr";render();window.scrollTo({top:0})});
 const hv=(location.hash||"").slice(1);
 if(["courses","cards","train","dict","rating","profile","settings"].includes(hv))view=hv;
+if(hv==="conj"&&typeof CONJ!=="undefined"){view="dict";Dconj=true}
 applyZoom();applyTheme();applyVolume();render();
+if(loadIssue==="broken")setTimeout(()=>toast("⚠️","Сохранённый прогресс повреждён","Начинаем с чистого листа. Если есть файл с прогрессом — восстановите его: Настройки → Данные"),900);
+if(!storageOK)showStoreWarn();
+else{try{const k=LS+".probe";localStorage.setItem(k,"1");localStorage.removeItem(k)}catch(e){storageFailed(e)}}
 initSync();
-setTimeout(()=>{if(!S.profile&&!L&&!C&&!window.claude)showOnboarding()},600);
-setTimeout(()=>{if(!S.profile&&!L&&!C&&syncMode!=="account")showOnboarding()},11000);
+setTimeout(()=>{if(needsOnboarding()&&!L&&!C&&!window.claude)showOnboarding()},600);
+setTimeout(()=>{if(needsOnboarding()&&!L&&!C&&syncMode!=="account")showOnboarding()},11000);
 
 </script>
 
