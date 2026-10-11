@@ -67,7 +67,7 @@ h1,h2,h3{text-wrap:balance}
 .lvl-chip{font-size:14px;font-weight:900;color:var(--cobalt);background:var(--cobalt-soft);border-radius:8px;padding:3px 8px}
 
 .nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:2px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
-.nav-in{max-width:600px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr)}
+.nav-in{max-width:600px;margin:0 auto;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
 .nav button{min-width:0;background:none;border:0;padding:8px 0 10px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:800;color:var(--muted);cursor:pointer}
 .nav .ic{padding:2px 8px;border-radius:12px}
 .nav .ic svg{width:26px;height:26px}
@@ -362,13 +362,6 @@ details.note-card summary::-webkit-details-marker{display:none}
 .resume span{font-size:14px;color:var(--muted);font-weight:700}
 .resume .btn{width:auto;flex:0 0 auto;min-height:44px;padding:8px 14px;font-size:14px}
 /* achievements */
-.ach-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.ach{min-width:0}.ach b,.ach small{overflow-wrap:anywhere;hyphens:auto}
-.ach{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:10px 6px;border-radius:16px;background:var(--bg)}
-.ach .medal{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:26px;background:var(--gold-soft);border:3px solid var(--gold)}
-.ach b{font-size:13px;font-weight:900;line-height:1.2}
-.ach small{font-size:11px;color:var(--muted);font-weight:700;line-height:1.2}
-.ach.locked .medal{background:var(--locked);border-color:var(--locked-dk);filter:grayscale(1);opacity:.55}
-.ach.locked b{color:var(--muted)}
 /* cards */
 .deck{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;width:100%;text-align:left;cursor:pointer;border:2px solid var(--line);border-bottom-width:4px;border-radius:18px;background:var(--surface);padding:12px 14px}
 .deck .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:#fff}
@@ -455,8 +448,6 @@ svg .fi{fill:#FFD34D}
 .rc{animation:fadeUp .4s ease-out both}.rc:nth-child(2){animation-delay:.12s}.rc:nth-child(3){animation-delay:.24s}
 .toast{animation:fadeUp .3s ease-out}
 .toast .ti{animation:spinIn .6s cubic-bezier(.3,1.5,.5,1)}
-.ach:not(.locked) .medal{position:relative;overflow:hidden}
-.ach:not(.locked) .medal::after{content:"";position:absolute;inset:-20%;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.7) 50%,transparent 60%);animation:shine 3.5s ease-in-out infinite}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:95}
 /* mascot */
 .cat{display:block}
@@ -1414,10 +1405,10 @@ function makeLegal(F, O) {
     sections: [
       ["1. Кто отвечает за приложение", opKnown ? `Оператор персональных данных — ${opLine()}. Связаться: ${contact}.`
         : "Эту версию приложения опубликовал её владелец на платформе Claude компании Anthropic. Приложение доступно только тем, с кем владелец поделился ссылкой. С вопросами о данных обращайтесь " + contact + "."],
-      ["2. Какие данные собираются", "• Профиль — только если вы его создали: имя для рейтинга и аватар.\n• Учебные данные: пройденные уроки, результаты, опыт, серия дней, достижения, карточки, ошибки, избранные фразы.\n• Код приглашения и промокоды, которые вы ввели.\n• Сообщения в клубе учеников — если вы их пишете.\n• Сообщения об ошибках в заданиях — если вы их отправляете.\n• Тексты, которые вы пишете ИИ-репетитору и в сценках с ИИ.\n• Записи голоса в упражнениях на произношение — не сохраняются (см. раздел 4)."],
-      ["3. Где хранятся данные и кто их видит", "Данные хранятся в хранилище платформы Claude (Anthropic, США) и в памяти вашего браузера.\n• Учебный прогресс — в личном разделе, который видите только вы.\n• Рейтинг (имя, аватар, опыт, серия, уровень) и сообщения клуба видят другие пользователи этого приложения. Без профиля вы в рейтинг не попадаете.\n• Сообщения об ошибках видит владелец приложения."],
+      ["2. Какие данные собираются", "• Профиль — только если вы его создали: имя и аватар.\n• Учебные данные: пройденные уроки, результаты, опыт, серия дней, карточки, ошибки, избранные фразы.\n• Код приглашения и промокоды, которые вы ввели.\n• Сообщения в клубе учеников — если вы их пишете.\n• Сообщения об ошибках в заданиях — если вы их отправляете.\n• Тексты, которые вы пишете ИИ-репетитору и в сценках с ИИ.\n• Записи голоса в упражнениях на произношение — не сохраняются (см. раздел 4)."],
+      ["3. Где хранятся данные и кто их видит", "Данные хранятся в хранилище платформы Claude (Anthropic, США) и в памяти вашего браузера.\n• Учебный прогресс — в личном разделе, который видите только вы.\n• Карточка ученика (имя, аватар, опыт, серия, уровень, код приглашения) создаётся, только если у вас есть профиль. Её видит владелец приложения в списке учеников; по ней работают приглашения, поэтому технически она доступна и другим участникам приложения. Общего рейтинга в приложении нет.\n• Сообщения в клубе видят другие участники приложения.\n• Сообщения об ошибках видит владелец приложения."],
       ["4. ИИ и распознавание речи", "Ответы ИИ-репетитора и реплики в сценках создаёт модель Claude (Anthropic): ей передаётся текст разговора, без вашего имени. " + speech + " " + asrOff],
-      ["5. Ваши права", "• Удалить профиль из рейтинга: Настройки → Данные → «Удалить профиль». Прогресс при этом останется.\n• Удалить прогресс: Настройки → «Сбросить весь прогресс».\n• Узнать, какие данные о вас хранятся, исправить или удалить их — обратитесь " + contact + "."],
+      ["5. Ваши права", "• Удалить профиль и карточку ученика: Настройки → Данные → «Удалить профиль». Прогресс при этом останется.\n• Удалить прогресс: Настройки → «Сбросить весь прогресс».\n• Узнать, какие данные о вас хранятся, исправить или удалить их — обратитесь " + contact + "."],
       ["6. " + kids[0], kids[1]],
       ["7. Изменения политики", "Мы можем обновлять эту политику. О существенных изменениях сообщим в приложении. Дата последней редакции указана вверху."]
     ]};
@@ -1425,15 +1416,15 @@ function makeLegal(F, O) {
     intro: (draftNote ? draftNote + " " : "") + "Эта политика объясняет, какие данные собирает приложение «Türkçe каждый день», зачем, где они хранятся и как ими управлять. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
     sections: [
       ["1. Кто обрабатывает данные", opKnown ? `Оператор персональных данных — ${opLine()}. Связаться с оператором можно ${contact}.` : "Сведения об операторе не заполнены."],
-      ["2. Какие данные мы собираем", "• Аккаунт: адрес электронной почты; пароль — только в виде хэша; секрет двухфакторной защиты, если вы её включили.\n• Профиль: имя для рейтинга, аватар.\n• Учебные данные: пройденные уроки, результаты, опыт, серия дней, достижения, карточки и расписание повторений.\n• Партнёрская программа: ваш код приглашения, кто пригласил вас, начисления.\n• Платежи: сумма, дата, статус и идентификатор платежа. Данные банковских карт получает только платёжный сервис.\n• Тексты, которые вы пишете ИИ-репетитору и в сценках с ИИ, — если эта функция включена.\n• Telegram: идентификатор чата с нашим ботом и время напоминаний — если вы подключили напоминания.\n• Технические данные: IP-адрес и тип браузера при входе, время входа, сообщения о сбоях приложения." + (F.metrika ? "\n• Обезличенная статистика посещений (Яндекс Метрика) — только если вы разрешили cookie." : "")],
-      ["3. Зачем мы их используем", "• чтобы создать аккаунт и пускать вас в него;\n• чтобы сохранять прогресс и показывать его на любом устройстве;\n• чтобы показывать рейтинг учеников (только имя, аватар, опыт, серию и уровень);\n• чтобы принимать оплату и начислять бонусы партнёрской программы;\n• чтобы проверять произношение, отвечать на вопросы репетитору и вести сценки с ИИ;\n• чтобы присылать напоминания в Telegram, если вы их подключили;\n• чтобы отвечать на обращения, защищать аккаунты и предотвращать злоупотребления."],
+      ["2. Какие данные мы собираем", "• Аккаунт: адрес электронной почты; пароль — только в виде хэша; секрет двухфакторной защиты, если вы её включили.\n• Профиль: имя, аватар.\n• Учебные данные: пройденные уроки, результаты, опыт, серия дней, карточки и расписание повторений.\n• Партнёрская программа: ваш код приглашения, кто пригласил вас, начисления.\n• Платежи: сумма, дата, статус и идентификатор платежа. Данные банковских карт получает только платёжный сервис.\n• Тексты, которые вы пишете ИИ-репетитору и в сценках с ИИ, — если эта функция включена.\n• Telegram: идентификатор чата с нашим ботом и время напоминаний — если вы подключили напоминания.\n• Технические данные: IP-адрес и тип браузера при входе, время входа, сообщения о сбоях приложения." + (F.metrika ? "\n• Обезличенная статистика посещений (Яндекс Метрика) — только если вы разрешили cookie." : "")],
+      ["3. Зачем мы их используем", "• чтобы создать аккаунт и пускать вас в него;\n• чтобы сохранять прогресс и показывать его на любом устройстве;\n• чтобы принимать оплату и начислять бонусы партнёрской программы;\n• чтобы проверять произношение, отвечать на вопросы репетитору и вести сценки с ИИ;\n• чтобы присылать напоминания в Telegram, если вы их подключили;\n• чтобы отвечать на обращения, защищать аккаунты и предотвращать злоупотребления."],
       ["4. Правовые основания", "Ваше согласие, которое вы даёте при регистрации, исполнение договора (пользовательского соглашения) и выполнение требований закона (например, учёт платежей)."],
       ["5. Где хранятся данные", `Персональные данные хранятся в базе данных на территории Российской Федерации (ч. 5 ст. 18 152-ФЗ), хостинг — ${has("hosting") ? O.hosting : "не указан"}. Настройки и копия прогресса также хранятся в памяти вашего браузера.`],
       ["6. Кому мы передаём данные", `Только тем, кто помогает работать сервису, и только в нужном объёме:\n• хостинг-провайдер — ${has("hosting") ? O.hosting : "не указан"};\n• сервис отправки писем — ${has("mailer") ? O.mailer : "не указан"} — письма для подтверждения e-mail и восстановления пароля;\n• Yandex SmartCaptcha (ООО «Яндекс.Облако») — защита регистрации от ботов;\n• ЮKassa (ООО НКО «ЮМани») — приём оплаты и чеки;\n• ООО «Яндекс.Облако» — модель YandexGPT и распознавание речи SpeechKit, если эти функции включены: передаётся текст разговора или запись фразы, без имени и контактов;\n• Telegram — напоминания, если вы подключили бота.${F.metrika ? "\n• ООО «Яндекс» — Яндекс Метрика, если вы разрешили cookie." : ""}\nМы не продаём данные и не передаём их для рекламы.`],
       ["7. Проверка произношения", speech + " " + asrOff],
       ["8. Сколько мы храним данные", "Пока действует ваш аккаунт. После удаления аккаунта данные удаляются, кроме сведений о платежах, которые хранятся столько, сколько требует закон."],
       ["9. Ваши права", `В профиле аккаунта можно скачать свои данные («Скачать мои данные») и удалить аккаунт. Чтобы узнать, исправить данные или отозвать согласие, напишите оператору ${contact}. Мы ответим в течение 10 рабочих дней. Вы также вправе обратиться в Роскомнадзор.`],
-      ["10. Защита данных", "Соединение шифруется (HTTPS). Пароли хранятся только в виде хэшей, доступна двухфакторная защита. Каждый пользователь видит только свои учебные данные, в рейтинге — только публичные поля. Число попыток входа и кодов ограничено."],
+      ["10. Защита данных", "Соединение шифруется (HTTPS). Пароли хранятся только в виде хэшей, доступна двухфакторная защита. Каждый пользователь видит только свои учебные данные; общего рейтинга нет. Число попыток входа и кодов ограничено."],
       ["11. Cookie и локальное хранилище", "Cookie нужна, чтобы вы оставались в аккаунте. Настройки и копия прогресса хранятся в памяти браузера (localStorage)." + (F.metrika ? " Статистика Яндекс Метрики подключается только после вашего согласия." : " Рекламных и сторонних трекеров нет.")],
       ["12. " + kids[0], kids[1]],
       ["13. Изменения политики", "Мы можем обновлять эту политику. О существенных изменениях сообщим в приложении. Дата последней редакции указана вверху."]
@@ -1443,14 +1434,14 @@ function makeLegal(F, O) {
   let consent;
   if (mode === "static") consent = { title: "Согласие на обработку персональных данных", updated,
     intro: "В этой версии приложения согласие на обработку персональных данных не требуется: регистрации нет, а профиль и прогресс хранятся только в вашем браузере и никому не передаются.",
-    sections: [["Когда понадобится согласие", "Если на сайте появятся аккаунты, рейтинг или оплата, перед их использованием мы попросим отдельное согласие и покажем его полный текст с данными оператора."]] };
+    sections: [["Когда понадобится согласие", "Если на сайте появятся аккаунты или оплата, перед их использованием мы попросим отдельное согласие и покажем его полный текст с данными оператора."]] };
   else consent = { title: "Согласие на обработку персональных данных", updated,
     intro: (draftNote ? draftNote + " " : "") + "Отмечая галочку «Даю согласие на обработку персональных данных», я, пользователь приложения «Türkçe каждый день», свободно, своей волей и в своём интересе даю согласие на обработку моих персональных данных на условиях ниже (ст. 9 Федерального закона № 152-ФЗ «О персональных данных»).",
     sections: [
       ["1. Оператор", opKnown ? opLine() + (has("email") ? ", e-mail: " + O.email : "") + "." : mode === "claude" ? "Владелец этой версии приложения на платформе Claude (Anthropic)." : "Сведения об операторе не заполнены."],
       ["2. Цели обработки", mode === "claude"
-        ? "Сохранение учебного прогресса; показ имени, аватара и результатов в рейтинге; клуб учеников; приглашения друзей; ответы ИИ-репетитора и сценки с ИИ; обработка сообщений об ошибках."
-        : "Регистрация и вход; сохранение прогресса; показ имени, аватара и результатов в рейтинге; приём оплаты и начисления по партнёрской программе; проверка произношения, ответы ИИ-репетитора и сценки с ИИ; напоминания в Telegram (если подключены); ответы на обращения."],
+        ? "Сохранение учебного прогресса; список учеников для владельца приложения; клуб учеников; приглашения друзей; ответы ИИ-репетитора и сценки с ИИ; обработка сообщений об ошибках."
+        : "Регистрация и вход; сохранение прогресса; приём оплаты и начисления по партнёрской программе; проверка произношения, ответы ИИ-репетитора и сценки с ИИ; напоминания в Telegram (если подключены); ответы на обращения."],
       ["3. Перечень данных", mode === "claude"
         ? "Имя или псевдоним, аватар; учебные данные (прогресс, результаты, карточки); код приглашения; сообщения в клубе и об ошибках; тексты сообщений ИИ-репетитору и в сценках."
         : "Адрес электронной почты; имя или псевдоним, аватар; учебные данные; код приглашения и сведения о приглашённых; сведения о платежах (без данных карт); тексты сообщений ИИ-репетитору и в сценках; запись фразы для проверки произношения (без сохранения); идентификатор чата Telegram и время напоминаний; IP-адрес, тип браузера и время входа."],
@@ -1477,15 +1468,15 @@ function makeLegal(F, O) {
     ["Обратная связь", "Сообщить об ошибке или задать вопрос можно " + contact + "."]];
   else if (mode === "claude") tsec = [...common,
     ["Доступ", "Приложение работает внутри Claude и доступно тем, с кем им поделился владелец. Оплаты в этой версии нет."],
-    ["Профиль, рейтинг и клуб", "Профиль необязателен. Имя для рейтинга и сообщения в клубе видят другие пользователи — не используйте оскорбительные или чужие имена и не публикуйте личные данные. Такие имена и сообщения владелец приложения может удалить."],
+    ["Профиль и клуб", "Профиль необязателен. Ваше имя и сообщения в клубе видят другие участники — не используйте оскорбительные или чужие имена и не публикуйте личные данные. Такие имена и сообщения владелец приложения может удалить."],
     ["Приглашения и промокоды", "Бонусы за приглашения и промокоды — игровые (опыт и заморозки серии) и денежной ценности не имеют."],
     ai, materials, liability,
     ["Изменения условий", "Условия могут меняться; новая редакция публикуется в приложении."]];
   else tsec = [...common,
-    ["Аккаунт", "• Регистрация — по адресу электронной почты.\n• Указывайте действующий e-mail: через него восстанавливается доступ.\n• Не передавайте доступ к аккаунту другим людям. Вы отвечаете за действия в своём аккаунте.\n• Имя для рейтинга видно другим ученикам. Не используйте оскорбительные или чужие имена — такие имена мы можем изменить."],
+    ["Аккаунт", "• Регистрация — по адресу электронной почты.\n• Указывайте действующий e-mail: через него восстанавливается доступ.\n• Не передавайте доступ к аккаунту другим людям. Вы отвечаете за действия в своём аккаунте."],
     ["Бесплатные и платные функции", "Курс «Старт» (уровень A0), карточки, словарь и игры на словах этого курса доступны бесплатно. Платный доступ — покупка отдельного уровня (A1, A2, B1 или B2): он открывает уроки, конспекты, экзамен, слова и истории этого уровня навсегда, без подписки. Цена указана в приложении перед оплатой."],
     ["Оплата и возврат", `• Оплата принимается через платёжный сервис ЮKassa (ООО НКО «ЮМани»). Данные карт вводятся на стороне ЮKassa, мы их не получаем.\n• Каждый платёж разовый. Подписок и автоматических списаний нет.\n• Часть стоимости можно оплатить бонусами партнёрской программы.\n• Возврат: если вы не прошли ни одного урока купленного уровня, деньги можно вернуть в течение 14 дней после оплаты по заявке ${contact}. В остальных случаях заявление рассматривается по Закону «О защите прав потребителей». Возврат идёт тем же способом, которым была оплата; доступ к уровню после возврата закрывается.\n• Чек направляется на e-mail аккаунта.`],
-    ["Партнёрская программа", "• У каждого ученика есть код приглашения.\n• Когда приглашённый вами человек покупает уровень, вам начисляется 10% от суммы его платежа на бонусный счёт в приложении. Бонус становится доступен через 14 дней после оплаты, если платёж не был возвращён; при возврате бонус аннулируется.\n• Бонусами можно оплатить часть стоимости своего уровня. Бонусы не обмениваются на деньги.\n• Запрещено приглашать самого себя, создавать фиктивные аккаунты и распространять код через спам. При нарушении бонусы аннулируются."],
+    ["Партнёрская программа", "• У каждого ученика есть код приглашения.\n• Когда приглашённый вами человек покупает уровень, вам начисляется 10% от суммы его платежа на бонусный счёт в приложении. Бонус становится доступен через 14 дней после оплаты, если платёж не был возвращён; при возврате бонус аннулируется.\n• Бонусами можно оплатить часть стоимости своего уровня. Бонусы не обмениваются на деньги.\n• Когда друг регистрируется по вашему коду, вы оба получаете игровые бонусы — опыт и заморозку серии. Денежной ценности они не имеют.\n• Запрещено приглашать самого себя, создавать фиктивные аккаунты и распространять код через спам. При нарушении бонусы аннулируются."],
     ["Промокоды", "Промокод даёт указанную в нём награду один раз на аккаунт и не обменивается на деньги."],
     ai, materials,
     [liability[0], liability[1] + " Мы не отвечаем за сбои платёжных сервисов, операторов связи и провайдеров интернета."],
@@ -2475,6 +2466,7 @@ const I={
  gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>',
  snow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7M9 4l3 2 3-2M9 20l3-2 3 2"/></svg>'
 };
+{const rb=document.querySelector('.nav button[data-v="rating"]');if(rb){if(!CLUB_ON)rb.remove();else rb.innerHTML=`<span class="ic" data-ic="chat"></span>Клуб`}}
 document.querySelectorAll("[data-ic]").forEach(e=>e.innerHTML=I[e.dataset.ic]);
 
 /* ================= CONTENT PREP ================= */
@@ -2639,7 +2631,6 @@ async function initSync(){
     remote=ref;syncMode="account";
     myCode=(SRV&&SRV.me&&SRV.me.refCode)||await refCodeOf(myId);
     lbCol=db.collection("leaderboard");lbRef=lbCol.doc(myId);
-    lbCol.orderBy("xp","desc").limit(100).onSnapshot(s=>{lbRows=s.docs.map(d=>({id:d.id,...d.data()}));if(view==="rating")render()},()=>{lbRows=lbRows||[]});
     applyFreezes();
     render();
     if(needsOnboarding()&&!L)showOnboarding();
@@ -2657,7 +2648,7 @@ function lbData(){
 let saving=Promise.resolve(),lastSaveOk=0;
 function persist(){
   S.saved=Date.now();
-  saveLocal();checkAchievements();if(!L&&!ST)checkLevelUp();
+  saveLocal();if(!L&&!ST)checkLevelUp();
   if(!remote)return;
   const data=JSON.parse(JSON.stringify(S));
   saving=saving.then(()=>remote.set(data)).then(()=>{lastSaveOk=Date.now();return lbRef&&S.profile&&lbRef.set(lbData())}).then(()=>{if(view==="profile")renderSaveStatus()}).catch(()=>{syncMode="local";remote=null;if(view==="profile")render()});
@@ -3256,46 +3247,6 @@ function openLegal(kind){
 }
 document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("[data-legal]");if(a){e.preventDefault();e.stopPropagation();openLegal(a.dataset.legal)}},true);
 
-/* ================= ACHIEVEMENTS ================= */
-const ACH=[
- ["first","🌱","Первый шаг","Пройти первый урок",s=>s.lessons>=1],
- ["l10","📘","Ученица","Пройти 10 уроков",s=>s.lessons>=10],
- ["l50","📚","Книжный червь","Пройти 50 уроков",s=>s.lessons>=50],
- ["l100","🎓","Отличница","Пройти 100 уроков",s=>s.lessons>=100],
- ["s3","🔥","Разогрев","3 дня подряд",s=>s.streak>=3],
- ["s7","🔥","Неделя","7 дней подряд",s=>s.streak>=7],
- ["s30","🏔️","Месяц","30 дней подряд",s=>s.streak>=30],
- ["s100","💎","Сотня","100 дней подряд",s=>s.streak>=100],
- ["x100","⚡","100 XP","Набрать 100 опыта",s=>s.xp>=100],
- ["x1000","⚡","1000 XP","Набрать 1000 опыта",s=>s.xp>=1000],
- ["x5000","🌟","5000 XP","Набрать 5000 опыта",s=>s.xp>=5000],
- ["perf","🎯","Без ошибок","Урок без единой ошибки",s=>s.perfect>=1],
- ["perf10","🏹","Снайпер","10 уроков без ошибок",s=>s.perfect>=10],
- ["w100","🗂️","100 слов","Выучить 100 слов и фраз",s=>s.words>=100],
- ["w300","🧠","300 слов","Выучить 300 слов и фраз",s=>s.words>=300],
- ["w600","🦉","Полиглот","Выучить 600 слов и фраз",s=>s.words>=600],
- ["c50","🃏","Карточки","Повторить 50 карточек",s=>s.cards>=50],
- ["c500","🗃️","Архивариус","Повторить 500 карточек",s=>s.cards>=500],
- ["own10","✍️","Автор","Создать 10 своих карточек",s=>s.own>=10],
- ["fast","⏱️","Молния","Подбор быстрее 30 секунд",s=>s.matchBest>0&&s.matchBest<30],
- ["hang10","🧩","Отгадчица","Отгадать 10 слов в «Вордле»",s=>s.hang>=10],
- ["tutor","💬","Любопытная","Задать вопрос репетитору",s=>s.tutor>=1],
- ["friend","🤝","Вместе веселее","Пригласить друга",s=>s.friends>=1],
- ["early","🌅","Жаворонок","Заниматься до 8 утра",s=>s.early>=1],
- ["night","🌙","Сова","Заниматься после 23:00",s=>s.night>=1],
- ...COURSES.map((c,ci)=>["course"+ci,["🥉","🥈","🥇","🏅","👑"][ci]||"🏆",cname(ci)+" пройден","Сдать экзамен "+(ci?c.name:"курса «Старт»"),s=>s.passed.includes(ci)])
-];
-function achStats(){
-  return {lessons:Object.values(S.lessons).filter(x=>x.done).length,streak:streakInfo().best,xp:totalXp(),perfect:S.stats.perfect,words:learnedWords().length,
-    cards:S.stats.cards,own:S.custom.length,matchBest:S.stats.matchBest,hang:S.stats.hang,tutor:S.stats.tutor,friends:S.refClaimed.length,early:S.stats.early,night:S.stats.night,
-    passed:COURSES.map((_,i)=>i).filter(coursePassed)};
-}
-function checkAchievements(){
-  const st=achStats();let changed=0;
-  for(const [id,ic,name,desc,fn] of ACH){if(!S.ach[id]&&fn(st)){S.ach[id]=today();changed++;if(changed<=2)toast(ic,"Новое достижение: "+name,desc)}}if(changed)setTimeout(confetti,300);
-  if(changed>2)toast("🏅",`И ещё ${changed-2} достижений`,"Все награды — в профиле");
-  if(changed)saveLocal();
-}
 
 /* ================= SRS (Anki-style) ================= */
 const MASTER=21;
@@ -3371,6 +3322,9 @@ function grade(g){
 
 /* ================= REFERRALS & PROMO ================= */
 async function checkReferrals(){
+  // on our server the invite count comes from the server (learner cards are private); inside Claude — from the shared learner cards
+  if(SRV){if(!SRV.me)return;const inv=Math.min(1000,+SRV.me.invited||0);let n=0;for(let i=S.refClaimed.filter(x=>/^srv:/.test(x)).length;i<inv;i++){S.refClaimed.push("srv:"+i);S.bonus+=50;S.freezes+=1;n++}
+    if(n){persist();toast("🤝",`Друзей присоединилось: ${n}`,`+${50*n} XP и ${n} ${n===1?"заморозка":"заморозки"} серии`);if(view==="profile")render()}return}
   if(!lbCol||!myCode)return;
   try{const s=await lbCol.where("refBy","==",myCode).limit(50).get();let n=0;
     s.docs.forEach(d=>{if(d.id!==myId&&!S.refClaimed.includes(d.id)){S.refClaimed.push(d.id);S.bonus+=50;S.freezes+=1;n++}});
@@ -3408,7 +3362,7 @@ function tutorRules(){
 }
 async function askTutor(q){
   if(!sampleApi||chatBusy||!q.trim())return;
-  chatTurns.push({role:"user",content:q.trim()});chatBusy=true;S.stats.tutor++;saveLocal();checkAchievements();
+  chatTurns.push({role:"user",content:q.trim()});chatBusy=true;S.stats.tutor++;saveLocal();
   chatTurns.push({role:"assistant",content:"Думаю…",pending:true});render();scrollChat();
   chatCtl=new AbortController();
   const turns=[{role:"user",content:tutorRules()},{role:"assistant",content:"Понял. Готов помогать."},...chatTurns.filter(t=>!t.pending)];
@@ -3624,25 +3578,11 @@ function viewDict(){
    <div class="topics" ${q?"hidden":""}>${topicsList().map(([t,o])=>`<button class="topic" data-topic="${esc(t)}"><b>${esc(t)}</b><span>${o.n} · ${[...o.lv].join(", ")}</span></button>`).join("")}</div></div>`;
 }
 /* rating */
-let Rtab="week";
+// The leaderboard was removed. The tab stays only where the students' club is on (the version inside Claude).
 function viewRating(){
-  const head=`<h1 class="sec-title">Рейтинг</h1><p class="sec-lead">Все, кто учит турецкий в этом приложении. Опыт даётся за уроки, тренировки и карточки.</p>`;
-  if(syncMode!=="account")return head+`<div class="card"><h3>Рейтинг недоступен</h3><p class="help" style="margin:0">${WEB?"Рейтинг учеников появится, когда на сайте заработают аккаунты. Сейчас идёт бета-тест.":"Чтобы попасть в рейтинг, откройте приложение, войдя в аккаунт Claude. Доступ должен быть на уровне «Участник»."}</p></div>`;
-  if(Rtab==="club"&&!CLUB_ON)Rtab="week";
-  if(Rtab==="club")return `<h1 class="sec-title">Клуб учеников</h1><p class="sec-lead">Пишите по-турецки на тему дня, хвалите друг друга. За сообщение +2 XP.</p><div class="stack"><div class="tabs2"><button data-rtab="week" aria-pressed="false">Неделя</button><button data-rtab="all" aria-pressed="false">Всё время</button><button data-rtab="club" aria-pressed="true">Клуб</button></div>${viewClub()}</div>`;
-  if(!lbRows)return head+`<div class="card"><p class="help" style="margin:0">Загружаю рейтинг…</p></div>`;
-  const guestCard=S.profile?"":`<div class="card stack"><h3>Вас нет в рейтинге</h3><p class="help" style="margin:0">Вы занимаетесь без профиля, поэтому другие ученики вас не видят. Чтобы участвовать, создайте профиль — это необязательно.</p><button class="btn sm" id="toProfile">${I.user} Создать профиль</button></div>`;
-  const mon=mondayOf(today());
-  let rows=lbRows.filter(r=>r.id!==myId).map(r=>({...r,score:Rtab==="week"?(r.week===mon?r.weekXp||0:0):r.xp||0}));
-  const me=lbData();if(S.profile)rows.push({id:myId,...me,score:Rtab==="week"?me.weekXp:me.xp});
-  rows=rows.filter(r=>r.score>0||r.id===myId).sort((a,b)=>b.score-a.score);
-  return head+guestCard+`<div class="stack" style="margin-top:${guestCard?"14px":"0"}"><div class="tabs2"><button data-rtab="week" aria-pressed="${Rtab==="week"}">Неделя</button><button data-rtab="all" aria-pressed="${Rtab==="all"}">Всё время</button>${CLUB_ON?`<button data-rtab="club" aria-pressed="${Rtab==="club"}">Клуб</button>`:""}</div>
-    <div class="card"><div class="lb" id="lbList">${rows.map((r,i)=>`<div class="lb-row ${r.id===myId?"me":""}" data-uid="${esc(r.id)}"><span class="lb-rank ${i<3?"r"+(i+1):""}">${i+1}</span><span class="avatar sm">${esc(r.avatar||"🙂")}</span><div class="lb-name"><b data-nm="${esc(r.name||"")}">${r.id===myId?"Вы":esc(r.name||"Ученик")}</b><span><i>${I.flame}</i>${r.streak||0} · ${esc(r.level||"A0")}</span></div><span class="lb-xp">${r.score} XP</span></div>`).join("")}</div></div>
-    <p class="help" style="margin:0">${Rtab==="week"?"Неделя начинается в понедельник.":"Сумма опыта за всё время, включая бонусы."}</p></div>`;
-}
-async function fillNames(){
-  if(!userApi)return;const rows=[...document.querySelectorAll("#lbList .lb-row")].filter(r=>r.dataset.uid!==myId&&!r.querySelector("b").dataset.nm);if(!rows.length)return;
-  try{const ps=await userApi.profiles(rows.map(r=>r.dataset.uid));rows.forEach(r=>{const p=ps[r.dataset.uid];if(p&&p.name)r.querySelector("b").textContent=p.name})}catch(e){}
+  const head=`<h1 class="sec-title">Клуб учеников</h1><p class="sec-lead">Пишите по-турецки на тему дня, хвалите друг друга. За сообщение +2 XP.</p>`;
+  if(syncMode!=="account"||!DB)return head+`<div class="card"><p class="help" style="margin:0">Клуб работает, когда приложение открыто через аккаунт Claude с доступом «Участник».</p></div>`;
+  return head+`<div class="stack">${viewClub()}</div>`;
 }
 /* profile */
 const AVATARS=["🦊","🐱","🐢","🦉","🐬","🌷","🌻","☕","🍉","⭐","🌙","🐝"];
@@ -3659,7 +3599,6 @@ function viewProfile(){
   const strip=["Пн","Вт","Ср","Чт","Пт","Сб","Вс"].map((n,i)=>{const d=addDays(mon,i);const on=active(d);return `<div class="wd ${on?"on":""} ${d===t?"today":""}"><span class="dot">${S.frozen.includes(d)?I.snow:on?I.flame:""}</span>${n}</div>`}).join("");
   const learned=learnedWords().length,lessonsDone=Object.values(S.lessons).filter(x=>x.done).length;
   const accs=Object.values(S.lessons).map(x=>x.best).filter(Boolean);const avg=accs.length?Math.round(accs.reduce((a,b)=>a+b,0)/accs.length):0;
-  const achDone=ACH.filter(a=>S.ach[a[0]]).length;
   return `<div class="stack" style="margin-top:18px">
     <div class="card stack">
       ${pr&&!editProfile?`<div class="prof-head"><span class="avatar">${esc(pr.avatar)}</span><div style="flex:1;min-width:0"><h2></h2><p class="help" style="margin:0">Учится с ${esc(new Date(pr.created||Date.now()).toLocaleDateString("ru-RU"))} · ${esc(COURSES[currentCourse()].level)}</p></div><button class="icon-btn" id="pEdit" aria-label="Изменить профиль">${I.pen}</button></div>${levelCard()}`
@@ -3676,8 +3615,6 @@ function viewProfile(){
       <div class="kpi" style="color:var(--turq)">${I.book}<div><b>${learned}</b><span>слов и фраз</span></div></div>
       <div class="kpi" style="color:var(--ok)">${I.target}<div><b>${avg}%</b><span>средняя точность</span></div></div>
     </div>
-    <div class="card"><div class="note-head" style="margin-bottom:12px"><h3>Достижения</h3><span>${achDone} из ${ACH.length}</span></div>
-      <div class="ach-grid">${ACH.map(([id,ic,name,desc])=>`<div class="ach ${S.ach[id]?"":"locked"}" title="${esc(desc)}"><span class="medal">${ic}</span><b>${esc(name)}</b><small>${esc(desc)}</small></div>`).join("")}</div></div>
     <div class="card stack"><h3>Пригласить друга</h3>
       ${syncMode==="account"&&myCode?`<p class="help" style="margin:0">Поделитесь приложением и дайте другу этот код. Когда друг введёт его, вы оба получите +50 XP и заморозку серии.</p>
         <div class="codebox" id="myCode">${myCode}</div><button class="btn sm" id="copyCode">Скопировать приглашение</button>
@@ -3753,7 +3690,7 @@ function viewSettings(){
 function profileForm(){
   const pr=S.profile||{name:"",avatar:"🦊"};
   return `<h3>${S.profile?"Изменить профиль":"Создайте профиль"}</h3>
-    <div class="field"><label for="pName">Имя для рейтинга</label><input class="inp" id="pName" maxlength="24" placeholder="Например, Анна" autocomplete="off"></div>
+    <div class="field"><label for="pName">Ваше имя</label><input class="inp" id="pName" maxlength="24" placeholder="Например, Анна" autocomplete="off"></div>
     <div class="field"><span class="flabel">Аватар</span><div class="av-grid">${AVATARS.map(a=>`<button data-av="${a}" aria-pressed="${pr.avatar===a}">${a}</button>`).join("")}</div></div>
     ${S.profile?"":`<label class="consent" for="pAgree"><input type="checkbox" id="pAgree"><span>Я принимаю <a href="#" class="link" data-legal="terms">Пользовательское соглашение</a> и ознакомлен(а) с <a href="#" class="link" data-legal="privacy">Политикой конфиденциальности</a></span></label>
     ${LEGAL.pdConsent?`<label class="consent" for="pPd"><input type="checkbox" id="pPd"><span>Даю <a href="#" class="link" data-legal="consent">согласие на обработку персональных данных</a></span></label>`:`<p class="help" style="margin:0">Имя и аватар хранятся только в этом браузере.</p>`}`}
@@ -3821,7 +3758,7 @@ function dataCard(){
       <input type="file" id="impFile" accept="application/json,.json" hidden aria-label="Файл с прогрессом">
       <div id="impBox" aria-live="polite"></div>`}
     ${storageOK?"":`<p class="help" role="alert" style="margin:0;color:var(--bad);font-weight:800">Браузер сейчас не сохраняет данные этого сайта. Не закрывайте вкладку, не сохранив прогресс в файл.</p>`}
-    ${S.profile?`<div id="profDelBox"><button class="danger" id="profDel">Удалить профиль${syncMode==="account"&&!SRV?" и убрать меня из рейтинга":""}</button><p class="help" style="margin:4px 0 0">Имя и аватар удалятся, прогресс останется. Заниматься можно и без профиля.</p></div>`:""}
+    ${S.profile?`<div id="profDelBox"><button class="danger" id="profDel">Удалить профиль</button><p class="help" style="margin:4px 0 0">Имя и аватар удалятся, прогресс останется. Заниматься можно и без профиля.</p></div>`:""}
   </div>`;
 }
 function wireDataCard(){
@@ -3850,7 +3787,7 @@ function showOnboarding(){
     <div class="mascot-row"><div class="big-icon">${catSVG("happy",92)}</div><div class="speech">Merhaba! Я Памук. Буду учиться вместе с вами!</div></div>
     <span class="kicker">Добро пожаловать</span><h2>Давайте познакомимся</h2>
     ${SRV&&SRV.health&&!SRV.me?`<button class="btn sm" id="obLogin">Уже есть аккаунт? Войти</button>`:""}
-    <p class="help" style="margin:0">Профиль нужен для рейтинга${CLUB_ON?" и клуба учеников":""}. ${syncMode==="account"&&SRV?"Вы вошли в аккаунт — прогресс сохраняется автоматически.":syncMode==="account"?"Вход выполнен через ваш аккаунт Claude — пароль не нужен, прогресс будет сохраняться автоматически.":"Сейчас прогресс сохранится в этом браузере."}</p>
+    <p class="help" style="margin:0">Профиль — это ваше имя и аватар${CLUB_ON?", с ним можно писать в клубе учеников":""}. Его можно не создавать. ${syncMode==="account"&&SRV?"Вы вошли в аккаунт — прогресс сохраняется автоматически.":syncMode==="account"?"Вход выполнен через ваш аккаунт Claude — пароль не нужен, прогресс будет сохраняться автоматически.":"Сейчас прогресс сохранится в этом браузере."}</p>
     ${profileForm()}
     <button class="btn" id="obGuest">Продолжить без профиля</button>
     <p class="help" style="margin:0">Без профиля открыты все уроки, практика, карточки и словарь, а прогресс сохраняется ${syncMode==="account"?"в вашем аккаунте":"в этом браузере"}. Профиль можно создать позже в разделе «Профиль».</p>
@@ -3953,9 +3890,7 @@ const adl=$("#adLoad");if(adl)adl.onclick=loadPromos;
   v.querySelectorAll("[data-dback]").forEach(b=>b.onclick=()=>{Dtopic=null;render()});
   const dt=$("#dtrain");if(dt)dt.onclick=()=>{T.src="t:"+Dtopic;T.type="choice_tr";view="train";render();window.scrollTo({top:0})};
   // rating
-  v.querySelectorAll("[data-rtab]").forEach(b=>b.onclick=()=>{Rtab=b.dataset.rtab;render()});
-  if(view==="rating"&&Rtab!=="club")fillNames();
-  if(view==="rating"&&Rtab==="club")wireClub(v);
+  if(view==="rating"&&CLUB_ON&&DB&&syncMode==="account")wireClub(v);
   // profile
   if(view==="profile"){
     const h=v.querySelector(".prof-head h2");if(h&&S.profile)h.textContent=S.profile.name;
@@ -4219,7 +4154,7 @@ function viewAdmin(){
     const ago=t=>{if(!t)return "—";const m=Math.round((now-t)/6e4);return m<60?m+" мин назад":m<1440?Math.round(m/60)+" ч назад":Math.round(m/1440)+" дн назад"};
     body=`<input class="search" id="aq" aria-label="Поиск учеников" type="search" placeholder="Поиск по имени или коду приглашения" value="${esc(Aq)}" autocomplete="off">
      <div class="card card-list"><div class="lb">${rows.map((u,i)=>`<div class="lb-row"><span class="lb-rank">${i+1}</span><span class="avatar sm">${esc(u.avatar||"🙂")}</span><div class="lb-name"><b>${esc(u.name||"Без имени")}</b><small style="display:block;color:var(--muted);font-weight:700;font-size:12px;line-height:1.35">${esc(u.level||"A0")} · серия ${u.streak||0} · уроков ${u.lessons||0}<br>${ago(u.t)}${u.refBy?" · пригл. "+esc(u.refBy):""}</small></div><span class="lb-xp">${u.xp||0} XP</span></div>`).join("")||`<p class="help" style="padding:12px;margin:0">Никого не нашлось.</p>`}</div></div>
-     <p class="help" style="margin:0">Показаны те, у кого есть профиль в рейтинге. Сортировка — по последнему заходу.</p>`;
+     <p class="help" style="margin:0">Показаны ученики с профилем. Сортировка — по последнему заходу.</p>`;
   }else if(Atab==="reports"){
     const by={};(adminReports||[]).forEach(r=>{const k=r.tr||"?";by[k]=(by[k]||0)+1});const top=Object.entries(by).sort((a,b)=>b[1]-a[1]).slice(0,5);
     body=(top.length?`<div class="card stack"><h3 style="margin:0">Чаще всего жалуются на</h3>${top.map(([k,n])=>`<div style="display:flex;justify-content:space-between;font-weight:800"><span>${esc(k)}</span><span>${n}</span></div>`).join("")}</div>`:"")+reportsAdmin();
@@ -4253,7 +4188,7 @@ let clubRows=null,clubSub=false,clubFix=null,clubBusy=false,clubLast=0,clubDraft
 const BAD_RE=/(https?:\/\/|www\.|t\.me|\b[a-z0-9-]+\.(ru|com|net|org|me|tr|io)\b|@[a-z0-9_]{4,}|\+?\d[\d\s\-()]{8,}\d)/i;
 function subClub(){
   if(clubSub||!DB)return;clubSub=true;
-  try{DB.collection("chat").limit(400).onSnapshot(s=>{clubRows=s.docs.map(d=>({id:d.id,...d.data()}));if(view==="rating"&&Rtab==="club")renderClubList()},()=>{clubRows=clubRows||[];clubSub=false})}catch(e){clubSub=false}
+  try{DB.collection("chat").limit(400).onSnapshot(s=>{clubRows=s.docs.map(d=>({id:d.id,...d.data()}));if(view==="rating")renderClubList()},()=>{clubRows=clubRows||[];clubSub=false})}catch(e){clubSub=false}
 }
 function clubMsgs(){
   const out=[],likes={};
@@ -4796,7 +4731,7 @@ function finishScene(){
 
 document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{view=b.dataset.v;if(view==="courses")sub=null;if(view==="cards")Cdeck=null;if(view==="dict"){Dpb=null;Dconj=false}if(view==="train"&&T.type==="tutor"&&!chatTurns.length)T.type="choice_tr";render();window.scrollTo({top:0})});
 const hv=(location.hash||"").slice(1);
-if(["courses","cards","train","dict","rating","profile","settings"].includes(hv))view=hv;
+if(["courses","cards","train","dict","profile","settings"].includes(hv)||(hv==="rating"&&CLUB_ON))view=hv;
 if(hv==="conj"&&typeof CONJ!=="undefined"){view="dict";Dconj=true}
 applyZoom();applyTheme();applyVolume();render();
 if(loadIssue==="broken")setTimeout(()=>toast("⚠️","Сохранённый прогресс повреждён","Начинаем с чистого листа. Если есть файл с прогрессом — восстановите его: Настройки → Данные"),900);
