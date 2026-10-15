@@ -1408,8 +1408,8 @@ function makeLegal(F, O) {
     sections: [
       ["1. Кто отвечает за приложение", opKnown ? `Оператор персональных данных — ${opLine()}. Связаться: ${contact}.`
         : "Эту версию приложения опубликовал её владелец на платформе Claude компании Anthropic. Приложение доступно только тем, с кем владелец поделился ссылкой. С вопросами о данных обращайтесь " + contact + "."],
-      ["2. Какие данные собираются", "• Профиль — только если вы его создали: имя и аватар.\n• Учебные данные: пройденные уроки, результаты, опыт по дням, карточки, ошибки, избранные фразы.\n• Код приглашения и промокоды, которые вы ввели.\n• Сообщения об ошибках в заданиях — если вы их отправляете.\n• Записи голоса в упражнениях на произношение — не сохраняются (см. раздел 4)."],
-      ["3. Где хранятся данные и кто их видит", "Данные хранятся в хранилище платформы Claude (Anthropic, США) и в памяти вашего браузера.\n• Учебный прогресс — в личном разделе, который видите только вы.\n• Карточка ученика (имя, аватар, опыт, уровень, код приглашения) создаётся, только если у вас есть профиль. Её видит владелец приложения в списке учеников; по ней работают приглашения, поэтому технически она доступна и другим участникам приложения. Общего рейтинга в приложении нет.\n• Сообщения об ошибках видит владелец приложения."],
+      ["2. Какие данные собираются", "• Профиль — только если вы его создали: имя и аватар.\n• Учебные данные: пройденные уроки, результаты, опыт по дням, карточки, ошибки, избранные фразы.\n• Сообщения об ошибках в заданиях — если вы их отправляете.\n• Записи голоса в упражнениях на произношение — не сохраняются (см. раздел 4)."],
+      ["3. Где хранятся данные и кто их видит", "Данные хранятся в хранилище платформы Claude (Anthropic, США) и в памяти вашего браузера.\n• Учебный прогресс — в личном разделе, который видите только вы.\n• Карточка ученика (имя, аватар, опыт, пройденный курс) создаётся, только если у вас есть профиль. Её видит владелец приложения в списке учеников; технически она доступна и другим участникам приложения. Общего рейтинга в приложении нет.\n• Сообщения об ошибках видит владелец приложения."],
       ["4. Распознавание речи", speech + " " + asrOff],
       ["5. Ваши права", "• Удалить профиль и карточку ученика: Настройки → Данные → «Удалить профиль». Прогресс при этом останется.\n• Удалить прогресс: Настройки → «Сбросить весь прогресс».\n• Узнать, какие данные о вас хранятся, исправить или удалить их — обратитесь " + contact + "."],
       ["6. " + kids[0], kids[1]],
@@ -1443,10 +1443,10 @@ function makeLegal(F, O) {
     sections: [
       ["1. Оператор", opKnown ? opLine() + (has("email") ? ", e-mail: " + O.email : "") + "." : mode === "claude" ? "Владелец этой версии приложения на платформе Claude (Anthropic)." : "Сведения об операторе не заполнены."],
       ["2. Цели обработки", mode === "claude"
-        ? "Сохранение учебного прогресса; список учеников для владельца приложения; приглашения друзей; обработка сообщений об ошибках."
+        ? "Сохранение учебного прогресса; список учеников для владельца приложения; обработка сообщений об ошибках."
         : "Регистрация и вход; сохранение прогресса; приём оплаты и начисления по партнёрской программе; проверка произношения; напоминания в Telegram (если подключены); ответы на обращения."],
       ["3. Перечень данных", mode === "claude"
-        ? "Имя или псевдоним, аватар; учебные данные (прогресс, результаты, карточки); код приглашения; сообщения об ошибках."
+        ? "Имя или псевдоним, аватар; учебные данные (прогресс, результаты, карточки); сообщения об ошибках."
         : "Адрес электронной почты; имя или псевдоним, аватар; учебные данные; код приглашения и сведения о приглашённых; сведения о платежах (без данных карт); запись фразы для проверки произношения (без сохранения); идентификатор чата Telegram и время напоминаний; IP-адрес, тип браузера и время входа."],
       ["4. Действия с данными", "Сбор, запись, систематизация, накопление, хранение, уточнение, извлечение, использование, передача лицам, указанным в Политике конфиденциальности, обезличивание, блокирование, удаление, уничтожение. Обработка автоматизированная" + (mode === "claude" ? ", в хранилище платформы Claude (Anthropic, США)." : ", с использованием баз данных на территории Российской Федерации.")],
       ["5. Срок действия и отзыв", mode === "claude"
@@ -1472,7 +1472,6 @@ function makeLegal(F, O) {
   else if (mode === "claude") tsec = [...common,
     ["Доступ", "Приложение работает внутри Claude и доступно тем, с кем им поделился владелец. Оплаты в этой версии нет."],
     ["Профиль", "Профиль необязателен. Ваше имя и аватар видит владелец приложения в списке учеников — не используйте оскорбительные или чужие имена."],
-    ["Приглашения и промокоды", "Бонусы за приглашения и промокоды — игровые (опыт) и денежной ценности не имеют."],
     ai, materials, liability,
     ["Изменения условий", "Условия могут меняться; новая редакция публикуется в приложении."]];
   else tsec = [...common,
@@ -1480,7 +1479,6 @@ function makeLegal(F, O) {
     ["Бесплатные и платные функции", "Курс «Старт» (уровень A0), карточки, словарь и игры на словах этого курса доступны бесплатно. Платный доступ — покупка отдельного уровня (A1, A2, B1 или B2): он открывает уроки, конспекты, экзамен, слова и истории этого уровня навсегда, без подписки. Цена указана в приложении перед оплатой."],
     ["Оплата и возврат", `• Оплата принимается через ${PAY.who}: банковской картой, через СБП или другим способом, доступным на странице оплаты. Данные карт вводятся на странице ${PAY.short}, мы их не получаем.\n• Каждый платёж разовый. Подписок и автоматических списаний нет.\n• Часть стоимости можно оплатить бонусами партнёрской программы.\n• Возврат: если вы не прошли ни одного урока купленного уровня, деньги можно вернуть в течение 14 дней после оплаты по заявке ${contact}. В остальных случаях заявление рассматривается по Закону «О защите прав потребителей». Возврат идёт тем же способом, которым была оплата; доступ к уровню после возврата закрывается.\n• Чек направляется на e-mail аккаунта.`],
     ["Партнёрская программа", "• У каждого ученика есть личная ссылка-приглашение.\n• Когда приглашённый вами человек покупает уровень, вам начисляется 10% от суммы его платежа на бонусный счёт в приложении. Бонус становится доступен через 14 дней после оплаты, если платёж не был возвращён; при возврате бонус аннулируется.\n• Бонусами можно оплатить часть стоимости своего уровня. Бонусы не обмениваются на деньги.\n• Когда друг регистрируется по вашей ссылке, вы оба получаете игровой бонус — опыт. Денежной ценности он не имеет.\n• Запрещено приглашать самого себя, создавать фиктивные аккаунты и распространять ссылку через спам. При нарушении бонусы аннулируются."],
-    ["Промокоды", "Промокод даёт указанную в нём награду один раз на аккаунт и не обменивается на деньги."],
     ai, materials,
     [liability[0], liability[1] + " Мы не отвечаем за сбои платёжных сервисов, операторов связи и провайдеров интернета."],
     ["Удаление аккаунта", "Вы можете удалить аккаунт в любой момент в профиле аккаунта. Мы можем ограничить доступ при нарушении этого соглашения, сообщив причину."],
@@ -2446,8 +2444,9 @@ const WEB=typeof WEB_BUILD!=="undefined"&&WEB_BUILD;
 // Switched off for now by the owner (October 2026) to keep the app calm and simple: daily quests and the chest,
 // the day streak (with freezes and rest days), the AI tutor, AI role-play scenes, the students' club, everything above the course list
 // on «Курсы» (daily goal, quick practice, mistakes, goal-based tips, tip of the day, placement card), the daily XP goal
-// setting and the simple mode. Their code stays; set a flag to true to bring a feature back.
-const FEAT={quests:false,streak:false,tutor:false,club:false,homeExtras:false,goal:false,simple:false,scenes:false};
+// setting, the simple mode, XP levels and titles, promo codes, invitations by code (the website invites by link) and the
+// admin button in the profile (the owner opens the admin panel at …#admin). Their code stays; set a flag to true to bring a feature back.
+const FEAT={quests:false,streak:false,tutor:false,club:false,homeExtras:false,goal:false,simple:false,scenes:false,levels:false,promo:false,refCode:false,adminInProfile:false};
 const CLUB_ON=FEAT.club&&!WEB; // the students' chat never runs on the public website until moderation is in place
 const SRV=typeof ACC!=="undefined"?ACC:null;
 const paidOK=ci=>!SRV||SRV.paidOK(ci);
@@ -2655,8 +2654,9 @@ async function initSync(){
     myCode=(SRV&&SRV.me&&SRV.me.refCode)||await refCodeOf(myId);
     lbCol=db.collection("leaderboard");lbRef=lbCol.doc(myId);
     applyFreezes();
+    if(location.hash==="#admin"&&isOwner)view="admin";
     render();
-    if(needsOnboarding()&&!L)showOnboarding();
+    if(needsOnboarding()&&!L&&view!=="admin")showOnboarding();
     if(Object.keys(S.xp).length||S.profile){persist()}
     checkReferrals();
   }catch(e){remote=null;syncMode="local";applyFreezes();render()}
@@ -2666,7 +2666,7 @@ function lbData(){
   const t=today(),mon=mondayOf(t);let wk=0;for(let i=0;i<7;i++)wk+=S.xp[addDays(mon,i)]||0;
   const s=streakInfo();
   return {xp:totalXp(),week:mon,weekXp:wk,...(FEAT.streak?{streak:s.cur}:{}),level:cshort(currentCourse()),lessons:Object.values(S.lessons).filter(x=>x.done).length,
-    name:(S.profile&&S.profile.name)||"",avatar:(S.profile&&S.profile.avatar)||"",refCode:myCode||"",refBy:S.refBy||"",t:Date.now()};
+    name:(S.profile&&S.profile.name)||"",avatar:(S.profile&&S.profile.avatar)||"",...(FEAT.refCode?{refCode:myCode||"",refBy:S.refBy||""}:{}),t:Date.now()};
 }
 let saving=Promise.resolve(),lastSaveOk=0;
 function persist(){
@@ -3124,7 +3124,7 @@ function finishSession(){
   else if(grew&&FEAT.streak){party=true;head=streakCelebration(before.alive?before.cur:after.cur-1,after.cur)}
   else{party=L.wrong===0;head=`<div class="mascot-row"><div class="big-icon">${catSVG("happy",104)}</div><div class="speech">${esc(L.wrong===0?"Ни одной ошибки! Harika!":PRAISE[Math.floor(Math.random()*PRAISE.length)])}</div></div><h2 style="color:var(--gold)">${lesson?"Урок пройден!":"Тренировка завершена!"}</h2>`}
   $("#lbody").innerHTML=`<div class="result">${head}
-    ${(()=>{const v=lvlInfo();return `<div class="lvl-mini"><span>Уровень ${v.n}</span><div class="pbar"><i style="width:${v.pct}%;background:var(--violet)"></i></div><span>${v.into}/${v.need}</span></div>`})()}<div class="result-cards"><div class="rc"><small>Опыт</small><b data-count="${xp}" data-prefix="+">+0</b></div><div class="rc t"><small>Точность</small><b>${acc}%</b></div><div class="rc c"><small>Время</small><b>${mm}</b></div></div>
+    ${FEAT.levels?(()=>{const v=lvlInfo();return `<div class="lvl-mini"><span>Уровень ${v.n}</span><div class="pbar"><i style="width:${v.pct}%;background:var(--violet)"></i></div><span>${v.into}/${v.need}</span></div>`})():""}<div class="result-cards"><div class="rc"><small>Опыт</small><b data-count="${xp}" data-prefix="+">+0</b></div><div class="rc t"><small>Точность</small><b>${acc}%</b></div><div class="rc c"><small>Время</small><b>${mm}</b></div></div>
     ${L.wrong===0?`<p style="margin:0;font-weight:800;color:var(--ok)">Без единой ошибки!</p>`:""}
     ${unlocked?`<p style="margin:0;font-weight:900">${esc(unlocked)}</p>`:""}</div>`;
   $("#lcheck").innerHTML=`<div class="check-in"><button class="btn primary" id="ldone">Продолжить</button></div>`;
@@ -3350,7 +3350,7 @@ async function checkReferrals(){
     if(SRV.me.refBy&&!S.refBy){S.refBy=SRV.me.refBy;S.bonus+=50;persist();toast("🎁","Вы пришли по приглашению","+50 XP в подарок")}
     const inv=Math.min(1000,+SRV.me.invited||0);let n=0;for(let i=S.refClaimed.filter(x=>/^srv:/.test(x)).length;i<inv;i++){S.refClaimed.push("srv:"+i);S.bonus+=50;if(FEAT.streak)S.freezes+=1;n++}
     if(n){persist();toast("🤝",`Друзей присоединилось: ${n}`,`+${50*n} XP`+(FEAT.streak?` и ${n} ${n===1?"заморозка":"заморозки"} серии`:""));if(view==="profile")render()}return}
-  if(!lbCol||!myCode)return;
+  if(!FEAT.refCode||!lbCol||!myCode)return;
   try{const s=await lbCol.where("refBy","==",myCode).limit(50).get();let n=0;
     s.docs.forEach(d=>{if(d.id!==myId&&!S.refClaimed.includes(d.id)){S.refClaimed.push(d.id);S.bonus+=50;if(FEAT.streak)S.freezes+=1;n++}});
     if(n){persist();toast("🤝",`Друзей присоединилось: ${n}`,`+${50*n} XP`+(FEAT.streak?` и ${n} ${n===1?"заморозка":"заморозки"} серии`:""));if(view==="profile")render()}
@@ -3644,26 +3644,26 @@ function viewProfile(){
       <div class="kpi" style="color:var(--turq)">${I.book}<div><b>${learned}</b><span>слов и фраз</span></div></div>
       <div class="kpi" style="color:var(--ok)">${I.target}<div><b>${avg}%</b><span>средняя точность</span></div></div>
     </div>
-    <div class="card stack"><h3>Пригласить друга</h3>
-      ${SRV&&SRV.me&&myCode?inviteLinkHTML():syncMode==="account"&&myCode?`<p class="help" style="margin:0">Поделитесь приложением и дайте другу этот код. Когда друг введёт его, вы оба получите +50 XP${FEAT.streak?" и заморозку серии":""}.</p>
+    ${FEAT.refCode||(SRV&&SRV.health)?`<div class="card stack"><h3>Пригласить друга</h3>
+      ${SRV&&SRV.me&&myCode?inviteLinkHTML():FEAT.refCode&&syncMode==="account"&&myCode?`<p class="help" style="margin:0">Поделитесь приложением и дайте другу этот код. Когда друг введёт его, вы оба получите +50 XP${FEAT.streak?" и заморозку серии":""}.</p>
         <div class="codebox" id="myCode">${myCode}</div><button class="btn sm" id="copyCode">Скопировать приглашение</button>
         <p class="help" style="margin:0">Приглашено друзей: ${S.refClaimed.length}</p>
         ${S.refBy?`<p class="help" style="margin:0">Вас пригласили по коду ${esc(S.refBy)}.</p>`:`<div class="row"><input class="inp code" id="refIn" aria-label="Код приглашения друга" maxlength="6" placeholder="Код друга" autocomplete="off"><button class="btn sm" style="width:auto" id="refGo">Ввести</button></div>${refMsg?`<p class="help" style="margin:0;color:var(--bad)">${esc(refMsg)}</p>`:""}`}`
         :`<p class="help" style="margin:0">${WEB?(SRV&&SRV.health?"Войдите в аккаунт — здесь появится ваша личная ссылка-приглашение.":"Приглашения заработают вместе с аккаунтами на сайте."):"Приглашения работают, когда вы вошли в аккаунт Claude."}</p>`}
-    </div>
+    </div>`:""}
     ${SRV&&SRV.health&&SRV.me?`<div class="card stack"><h3>Партнёрская программа</h3>
       <p class="help" style="margin:0">Когда друг, который пришёл по вашей ссылке, покупает уровень, вы получаете <b style="color:var(--ink)">${SRV.health.refPercent||10}% от оплаченной суммы</b> бонусами. Через 14 дней бонусы становятся доступны — ими можно оплатить часть следующего уровня.</p>
       <div class="kpis"><div class="kpi" style="color:var(--ok)">${I.gift}<div><b>${((SRV.me.bonus&&SRV.me.bonus.available||0)/100).toLocaleString("ru-RU")} ₽</b><span>доступно</span></div></div><div class="kpi" style="color:var(--cobalt)">${I.user}<div><b>${SRV.me.invited||0}</b><span>приглашено</span></div></div></div>
       ${SRV.me.bonus&&SRV.me.bonus.hold?`<p class="help" style="margin:0">Ещё ${(SRV.me.bonus.hold/100).toLocaleString("ru-RU")} ₽ станут доступны после 14 дней.</p>`:""}
       <p class="help" style="margin:0">Условия — в <a href="#" class="link" data-legal="terms">Пользовательском соглашении</a>.</p>
     </div>`:""}
-    <div class="card stack"><h3>Промокод</h3>
+    ${FEAT.promo?`<div class="card stack"><h3>Промокод</h3>
       <div class="row"><input class="inp code" id="promoIn" aria-label="Промокод" maxlength="24" placeholder="Введите промокод" autocomplete="off"><button class="btn sm" style="width:auto" id="promoGo" aria-label="Применить промокод">${I.gift}</button></div>
       ${promoMsg?`<p class="help" style="margin:0;color:var(--bad)">${esc(promoMsg)}</p>`:""}
-    </div>
-    ${isOwner&&DB?`<button class="deck" id="openAdmin"><span class="ico" style="background:#3B3F5C">${I.target}</span><div><b>Админка</b><small>Ученики, сообщения об ошибках, промокоды</small></div><span style="width:24px;color:var(--muted)">${I.play}</span></button>`:""}
+    </div>`:""}
+    ${FEAT.adminInProfile&&isOwner&&DB?`<button class="deck" id="openAdmin"><span class="ico" style="background:#3B3F5C">${I.target}</span><div><b>Админка</b><small>Ученики, сообщения об ошибках, промокоды</small></div><span style="width:24px;color:var(--muted)">${I.play}</span></button>`:""}
     <div class="card"><h3>Курсы</h3>${COURSES.map((c,ci)=>{const nd=c.lessons.filter(isDone).length;return `<div class="crow"><span class="badge b${ci}">${cshort(ci)}</span><div><b>${esc(cname(ci))}</b><small>${coursePassed(ci)?"экзамен сдан на "+S.lessons[examOf(ci).key].best+"%":courseOpen(ci)?nd+" из "+c.lessons.length+" уроков":"закрыт"}</small></div><span class="pc">${Math.round(nd/c.lessons.length*100)}%</span></div>`}).join("")}</div>
-    <div class="card"><h3>Опыт за 14 дней</h3><p class="help" style="margin:0 0 10px">Пунктир — цель дня, ${P.goal} XP.</p>${xpChart()}</div>
+    <div class="card"><h3>Опыт за 14 дней</h3><p class="help" style="margin:0 0 10px">${FEAT.goal?`Пунктир — цель дня, ${P.goal} XP.`:"Сколько опыта вы набирали каждый день."}</p>${xpChart()}</div>
     <div class="card"><h3 style="margin-bottom:10px">${monthName()}</h3>${calendar()}
       <div class="legend">меньше <i style="background:var(--bg);border:1px solid var(--line)"></i><i style="background:var(--cobalt-soft)"></i><i style="background:var(--cobalt)"></i><i style="background:var(--cobalt-dk)"></i> больше XP</div></div>
   </div>`;
@@ -3751,10 +3751,10 @@ function calendar(){
 }
 function xpChart(){
   const t=today(),days=[...Array(14)].map((_,i)=>addDays(t,i-13)),vals=days.map(d=>S.xp[d]||0);
-  const top=Math.ceil(Math.max(P.goal*1.5,...vals)/10)*10;
+  const top=Math.ceil(Math.max(FEAT.goal?P.goal*1.5:10,...vals)/10)*10;
   const W=340,H=170,pl=26,pr=4,pt=10,pb=24,cw=(W-pl-pr)/14,bw=Math.min(16,cw-4),y=v=>pt+(H-pt-pb)*(1-v/top);
   let g="";[0,top/2,top].forEach(v=>{g+=`<line class="grid-line" x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}"/><text x="${pl-6}" y="${y(v)+4}" text-anchor="end">${Math.round(v)}</text>`});
-  g+=`<line class="goal-line" x1="${pl}" x2="${W-pr}" y1="${y(P.goal)}" y2="${y(P.goal)}"/>`;
+  if(FEAT.goal)g+=`<line class="goal-line" x1="${pl}" x2="${W-pr}" y1="${y(P.goal)}" y2="${y(P.goal)}"/>`;
   days.forEach((d,i)=>{const x=pl+i*cw+(cw-bw)/2,v=vals[i],hg=Math.max(0,y(0)-y(v));
     if(v>0){const r=Math.min(4,hg);g+=`<path class="bar-r ${d===t?"today":""}" d="M${x},${y(0)} v${-(hg-r)} q0,${-r} ${r},${-r} h${bw-2*r} q${r},0 ${r},${r} v${hg-r} z"><title>${+d.slice(8)}.${d.slice(5,7)}: ${v} XP</title></path>`}
     if(i%2===1||d===t)g+=`<text x="${x+bw/2}" y="${H-10}" text-anchor="middle" ${d===t?'style="fill:var(--ink)"':""}>${d===t?"сег.":+d.slice(8)}</text>`});
@@ -3830,7 +3830,7 @@ function showOnboarding(){
     ${profileForm()}
     <button class="btn" id="obGuest">Продолжить без профиля</button>
     <p class="help" style="margin:0">Без профиля открыты все уроки, практика, карточки и словарь, а прогресс сохраняется ${syncMode==="account"?"в вашем аккаунте":"в этом браузере"}. Профиль можно создать позже в разделе «Профиль».</p>
-    ${syncMode==="account"?`<div class="field"><label for="obRef">Код приглашения от друга (необязательно)</label><input class="inp code" id="obRef" maxlength="6" placeholder="ABC123" autocomplete="off"></div><p class="help" id="obMsg" style="margin:0;color:var(--bad)"></p>`:""}
+    ${FEAT.refCode&&syncMode==="account"?`<div class="field"><label for="obRef">Код приглашения от друга (необязательно)</label><input class="inp code" id="obRef" maxlength="6" placeholder="ABC123" autocomplete="off"></div><p class="help" id="obMsg" style="margin:0;color:var(--bad)"></p>`:""}
   </div></div>`;
   wireProfileForm(true);
   const obl=$("#obLogin");if(obl)obl.onclick=()=>SRV.openAuth("login");
@@ -4214,10 +4214,12 @@ const LVL_TITLES=[[30,"Легенда"],[20,"Эксперт"],[15,"Мастер"
 const lvlTitle=n=>LVL_TITLES.find(([k])=>n>=k)[1];
 function lvlInfo(){const x=totalXp(),n=lvlOf(x),a=lvlXp(n),b=lvlXp(n+1);return {n,x,into:x-a,need:b-a,pct:(x-a)/(b-a)*100,title:lvlTitle(n)}}
 function checkLevelUp(){
+  if(!FEAT.levels)return;
   const n=lvlOf(totalXp());if(S.lvlSeen==null){S.lvlSeen=n;return}
   if(n>S.lvlSeen){S.lvlSeen=n;saveLocal();setTimeout(()=>{toast("⭐",`Новый уровень: ${n}`,n%5===0||n===10?`Звание «${lvlTitle(n)}»`:`До уровня ${n+1} — ${lvlXp(n+1)-totalXp()} XP`);confetti();chime(true)},L?1600:300)}
 }
 function levelCard(){
+  if(!FEAT.levels)return "";
   const v=lvlInfo();
   return `<div class="lvl-card"><div class="lvl-badge" aria-label="Уровень ${v.n}"><small>ур.</small><b>${v.n}</b></div><div style="flex:1;min-width:0"><b class="lvl-t">${esc(v.title)}</b><div class="pbar"><i style="width:${v.pct}%;background:var(--violet)"></i></div><small class="help">${v.into} / ${v.need} XP до уровня ${v.n+1}</small></div></div>`;
 }
@@ -4590,7 +4592,7 @@ async function weeklyCard(){
   const lessonsDone=Object.values(S.lessons).filter(v=>v.done).length;
   if(FEAT.streak){tile(80,690,`+${wk}`,"XP за неделю","#FFC93C");tile(560,690,`${days}/7`,"дней занятий","#58CC02")}
   else{tile(80,690,String(lessonsDone),"уроков пройдено","#58CC02");tile(560,690,cshort(currentCourse()),"мой уровень","#FFC93C")}
-  tile(80,920,String(words),"слов выучено","#1CB0F6");tile(560,920,`ур. ${lv.n}`,lv.title,"#CE82FF");
+  tile(80,920,String(words),"слов выучено","#1CB0F6");if(FEAT.levels)tile(560,920,`ур. ${lv.n}`,lv.title,"#CE82FF");else tile(560,920,String(totalXp()),"опыта всего","#CE82FF");
   x.fillStyle="#C9D1F5";x.font=font(700,34);x.fillText("Учу турецкий по 10 минут в день.",80,1220);
   x.fillStyle="#FFC93C";x.font=font(800,34);x.fillText(myCode?`Мой код приглашения: ${myCode}`:"Присоединяйтесь!",80,1275);
   const blob=await new Promise(r=>c.toBlob(r,"image/png"));
