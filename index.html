@@ -102,6 +102,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 18px}
     <div class="cta"><a class="btn gold" href="app/">Начать бесплатно</a><a class="btn ghost" href="#how">Как это устроено</a></div>
     <p class="note">Курс «Старт» (алфавит, приветствия, числа, семья, первые глаголы) — бесплатно и без регистрации.</p>
     <p class="beta" id="beta">Идёт бета-тест: сейчас все уровни открыты бесплатно. Будем рады вашим отзывам!</p>
+
   </div>
   <div class="phones" aria-hidden="true">
     <div class="phone a"><img src="img/home.webp" alt="" width="540" height="1169"></div>
@@ -185,7 +186,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 18px}
     <div class="card"><div class="ic" style="background:#E4ECFB">🏠</div><h3>Живёте в Турции</h3><p>Врач, документы, разговоры с соседями: уровни A2–B2 для настоящей жизни.</p></div>
     <div class="card"><div class="ic" style="background:#FDE3E1">📺</div><h3>Любите турецкие сериалы</h3><p>Начните понимать героев без субтитров.</p></div>
     <div class="card"><div class="ic" style="background:#FFF3D1">☕</div><h3>Хотите тренировать память</h3><p>Крупные кнопки, спокойный темп и медленная озвучка — удобно в любом возрасте.</p></div>
-    <div class="card"><div class="ic" style="background:#EEE6FB">👨‍👩‍👧</div><h3>Учитесь вместе с семьёй</h3><p>Пригласите близких по своему коду — у каждого будет свой прогресс.</p></div>
+    <div class="card"><div class="ic" style="background:#EEE6FB">👨‍👩‍👧</div><h3>Учитесь вместе с семьёй</h3><p>Отправьте близким свою ссылку-приглашение — у каждого будет свой прогресс.</p></div>
     <div class="card"><div class="ic" style="background:#FFE9D1">🎯</div><h3>Уже немного знаете язык</h3><p>Пройдите тест уровня — начнёте с той темы, где остановились.</p></div>
   </div>
 </div></section>
@@ -248,6 +249,12 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 18px}
   var hero=document.querySelector(".hero"),cta=document.getElementById("stickyCta");
   if("IntersectionObserver" in window)new IntersectionObserver(function(es){cta.classList.toggle("on",!es[0].isIntersecting)}).observe(hero);
 })();
+// Invitation link …/?ref=CODE: remember it for the app (same site, 30 days; the first link wins) and greet the visitor.
+(function(){try{var m=/[?&]ref=([A-Za-z0-9]{4,8})/.exec(location.search);if(!m)return;var k="turkce.ref",c=m[1].toUpperCase(),cur=null;
+  try{cur=JSON.parse(localStorage.getItem(k)||"null")}catch(e){}
+  if(!(cur&&cur.code&&Date.now()-cur.at<2592e6))localStorage.setItem(k,JSON.stringify({code:c,at:Date.now()}));
+  var n=document.getElementById("refNote");if(n)n.style.display="block";
+  history.replaceState(null,"",location.pathname+location.hash)}catch(e){}})();
 fetch("api/health").then(r=>{if(!r.ok)throw 0;return r.json()}).then(h=>{if(!h||!h.ok)throw 0}).catch(()=>{document.getElementById("beta").style.display="block"});
 </script>
 </body></html>
