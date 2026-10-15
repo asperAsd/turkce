@@ -276,6 +276,7 @@ select,.search{font:700 17px var(--font);padding:12px;border-radius:14px;border:
 .kpi svg{width:30px;height:30px;flex:0 0 auto}
 .kpi b{display:block;font-size:22px;font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--ink)}
 .kpi span{font-size:14px;color:var(--muted);font-weight:700}
+.kpis.k3{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.kpis.k3 .kpi{flex-direction:column;align-items:flex-start;gap:6px;padding:12px 10px}.kpis.k3 .kpi svg{width:26px;height:26px}.kpis.k3 .kpi span{font-size:13px;line-height:1.25;display:block}
 .chart-wrap{overflow-x:auto}
 .chart-wrap svg{width:100%;height:auto;min-width:260px}
 .chart-wrap text{font-family:var(--font);fill:var(--muted);font-size:10px;font-weight:700}
@@ -1478,7 +1479,7 @@ function makeLegal(F, O) {
     ["Аккаунт", "• Регистрация — по адресу электронной почты.\n• Указывайте действующий e-mail: через него восстанавливается доступ.\n• Не передавайте доступ к аккаунту другим людям. Вы отвечаете за действия в своём аккаунте."],
     ["Бесплатные и платные функции", "Курс «Старт» (уровень A0), карточки, словарь и игры на словах этого курса доступны бесплатно. Платный доступ — покупка отдельного уровня (A1, A2, B1 или B2): он открывает уроки, конспекты, экзамен, слова и истории этого уровня навсегда, без подписки. Цена указана в приложении перед оплатой."],
     ["Оплата и возврат", `• Оплата принимается через ${PAY.who}: банковской картой, через СБП или другим способом, доступным на странице оплаты. Данные карт вводятся на странице ${PAY.short}, мы их не получаем.\n• Каждый платёж разовый. Подписок и автоматических списаний нет.\n• Часть стоимости можно оплатить бонусами партнёрской программы.\n• Возврат: если вы не прошли ни одного урока купленного уровня, деньги можно вернуть в течение 14 дней после оплаты по заявке ${contact}. В остальных случаях заявление рассматривается по Закону «О защите прав потребителей». Возврат идёт тем же способом, которым была оплата; доступ к уровню после возврата закрывается.\n• Чек направляется на e-mail аккаунта.`],
-    ["Партнёрская программа", "• У каждого ученика есть личная ссылка-приглашение.\n• Когда приглашённый вами человек покупает уровень, вам начисляется 10% от суммы его платежа на бонусный счёт в приложении. Бонус становится доступен через 14 дней после оплаты, если платёж не был возвращён; при возврате бонус аннулируется.\n• Бонусами можно оплатить часть стоимости своего уровня. Бонусы не обмениваются на деньги.\n• Когда друг регистрируется по вашей ссылке, вы оба получаете игровой бонус — опыт. Денежной ценности он не имеет.\n• Запрещено приглашать самого себя, создавать фиктивные аккаунты и распространять ссылку через спам. При нарушении бонусы аннулируются."],
+    ["Партнёрская программа", "• У каждого ученика есть личная ссылка-приглашение.\n• Когда приглашённый вами человек покупает уровень, вам начисляется 10% от суммы его платежа на бонусный счёт в приложении. Бонус становится доступен через 14 дней после оплаты, если платёж не был возвращён; при возврате бонус аннулируется.\n• Бонусами можно оплатить часть стоимости своего уровня. Бонусы не обмениваются на деньги.\n• Запрещено приглашать самого себя, создавать фиктивные аккаунты и распространять ссылку через спам. При нарушении бонусы аннулируются."],
     ai, materials,
     [liability[0], liability[1] + " Мы не отвечаем за сбои платёжных сервисов, операторов связи и провайдеров интернета."],
     ["Удаление аккаунта", "Вы можете удалить аккаунт в любой момент в профиле аккаунта. Мы можем ограничить доступ при нарушении этого соглашения, сообщив причину."],
@@ -2191,7 +2192,7 @@ const ACC=(()=>{
   function clearRef(){try{localStorage.removeItem(REF_KEY)}catch(e){}try{sessionStorage.removeItem(REF_KEY)}catch(e){}}
   async function applyStoredRef(){const code=refFromUrl();if(!code||!me)return;
     if(me.refBy||code===me.refCode){clearRef();return}
-    try{const r=await api("POST","/api/ref",{code});me=r.me||me;clearRef();toast("🎁","Приглашение друга принято","+50 XP вам в подарок");track("ref_applied");render()}
+    try{const r=await api("POST","/api/ref",{code});me=r.me||me;clearRef();toast("🎁","Приглашение друга принято","Спасибо, что пришли по ссылке друга");track("ref_applied");render()}
     catch(e){clearRef()}}
 
   // ---- auth sheets ----
@@ -2445,8 +2446,9 @@ const WEB=typeof WEB_BUILD!=="undefined"&&WEB_BUILD;
 // the day streak (with freezes and rest days), the AI tutor, AI role-play scenes, the students' club, everything above the course list
 // on «Курсы» (daily goal, quick practice, mistakes, goal-based tips, tip of the day, placement card), the daily XP goal
 // setting, the simple mode, XP levels and titles, promo codes, invitations by code (the website invites by link) and the
-// admin button in the profile (the owner opens the admin panel at …#admin). Their code stays; set a flag to true to bring a feature back.
-const FEAT={quests:false,streak:false,tutor:false,club:false,homeExtras:false,goal:false,simple:false,scenes:false,levels:false,promo:false,refCode:false,adminInProfile:false};
+// admin button in the profile (the owner opens the admin panel at …#admin), and XP («energy» ⚡) everywhere it was shown —
+// it is still counted inside (activity calendar, reminders). Their code stays; set a flag to true to bring a feature back.
+const FEAT={quests:false,streak:false,tutor:false,club:false,homeExtras:false,goal:false,simple:false,scenes:false,levels:false,promo:false,refCode:false,adminInProfile:false,xp:false};
 const CLUB_ON=FEAT.club&&!WEB; // the students' chat never runs on the public website until moderation is in place
 const SRV=typeof ACC!=="undefined"?ACC:null;
 const paidOK=ci=>!SRV||SRV.paidOK(ci);
@@ -3124,7 +3126,7 @@ function finishSession(){
   else if(grew&&FEAT.streak){party=true;head=streakCelebration(before.alive?before.cur:after.cur-1,after.cur)}
   else{party=L.wrong===0;head=`<div class="mascot-row"><div class="big-icon">${catSVG("happy",104)}</div><div class="speech">${esc(L.wrong===0?"Ни одной ошибки! Harika!":PRAISE[Math.floor(Math.random()*PRAISE.length)])}</div></div><h2 style="color:var(--gold)">${lesson?"Урок пройден!":"Тренировка завершена!"}</h2>`}
   $("#lbody").innerHTML=`<div class="result">${head}
-    ${FEAT.levels?(()=>{const v=lvlInfo();return `<div class="lvl-mini"><span>Уровень ${v.n}</span><div class="pbar"><i style="width:${v.pct}%;background:var(--violet)"></i></div><span>${v.into}/${v.need}</span></div>`})():""}<div class="result-cards"><div class="rc"><small>Опыт</small><b data-count="${xp}" data-prefix="+">+0</b></div><div class="rc t"><small>Точность</small><b>${acc}%</b></div><div class="rc c"><small>Время</small><b>${mm}</b></div></div>
+    ${FEAT.levels?(()=>{const v=lvlInfo();return `<div class="lvl-mini"><span>Уровень ${v.n}</span><div class="pbar"><i style="width:${v.pct}%;background:var(--violet)"></i></div><span>${v.into}/${v.need}</span></div>`})():""}<div class="result-cards">${FEAT.xp?`<div class="rc"><small>Опыт</small><b data-count="${xp}" data-prefix="+">+0</b></div>`:""}<div class="rc t"><small>Точность</small><b>${acc}%</b></div><div class="rc c"><small>Время</small><b>${mm}</b></div></div>
     ${L.wrong===0?`<p style="margin:0;font-weight:800;color:var(--ok)">Без единой ошибки!</p>`:""}
     ${unlocked?`<p style="margin:0;font-weight:900">${esc(unlocked)}</p>`:""}</div>`;
   $("#lcheck").innerHTML=`<div class="check-in"><button class="btn primary" id="ldone">Продолжить</button></div>`;
@@ -3319,7 +3321,7 @@ function renderCard(){
     const xp=C.done;
     $("#cbar").style.width="100%";$("#cleft").textContent="";
     $("#cbody").innerHTML=`<div class="result"><div class="big-icon" style="color:var(--ok)">${I.cards}</div><h2 style="color:var(--ok)">Повторение завершено!</h2>
-      <div class="result-cards"><div class="rc"><small>Опыт</small><b>+${xp}</b></div><div class="rc t"><small>Карточек</small><b>${C.done}</b></div><div class="rc c"><small>Снова</small><b>${C.again}</b></div></div></div>`;
+      <div class="result-cards">${FEAT.xp?`<div class="rc"><small>Опыт</small><b>+${xp}</b></div>`:""}<div class="rc t"><small>Карточек</small><b>${C.done}</b></div><div class="rc c"><small>Снова</small><b>${C.again}</b></div></div></div>`;
     $("#ccheck").innerHTML=`<div class="check-in"><button class="btn primary" id="cdone">Готово</button></div>`;$("#cdone").onclick=endCards;chime(true);return;
   }
   const w=C.q[0];const dir=P.cardDir==="mix"?(C.done%2?"ru":"tr"):P.cardDir;
@@ -3347,13 +3349,13 @@ function grade(g){
 async function checkReferrals(){
   // on our server the invite count comes from the server (learner cards are private); inside Claude — from the shared learner cards
   if(SRV){if(!SRV.me)return;
-    if(SRV.me.refBy&&!S.refBy){S.refBy=SRV.me.refBy;S.bonus+=50;persist();toast("🎁","Вы пришли по приглашению","+50 XP в подарок")}
+    if(SRV.me.refBy&&!S.refBy){S.refBy=SRV.me.refBy;S.bonus+=50;persist();toast("🎁","Вы пришли по приглашению",FEAT.xp?"+50 XP в подарок":"Спасибо, что вы с нами!")}
     const inv=Math.min(1000,+SRV.me.invited||0);let n=0;for(let i=S.refClaimed.filter(x=>/^srv:/.test(x)).length;i<inv;i++){S.refClaimed.push("srv:"+i);S.bonus+=50;if(FEAT.streak)S.freezes+=1;n++}
-    if(n){persist();toast("🤝",`Друзей присоединилось: ${n}`,`+${50*n} XP`+(FEAT.streak?` и ${n} ${n===1?"заморозка":"заморозки"} серии`:""));if(view==="profile")render()}return}
+    if(n){persist();toast("🤝",`Друзей присоединилось: ${n}`,FEAT.xp?`+${50*n} XP`+(FEAT.streak?` и ${n} ${n===1?"заморозка":"заморозки"} серии`:""):"Спасибо, что делитесь приложением!");if(view==="profile")render()}return}
   if(!FEAT.refCode||!lbCol||!myCode)return;
   try{const s=await lbCol.where("refBy","==",myCode).limit(50).get();let n=0;
     s.docs.forEach(d=>{if(d.id!==myId&&!S.refClaimed.includes(d.id)){S.refClaimed.push(d.id);S.bonus+=50;if(FEAT.streak)S.freezes+=1;n++}});
-    if(n){persist();toast("🤝",`Друзей присоединилось: ${n}`,`+${50*n} XP`+(FEAT.streak?` и ${n} ${n===1?"заморозка":"заморозки"} серии`:""));if(view==="profile")render()}
+    if(n){persist();toast("🤝",`Друзей присоединилось: ${n}`,FEAT.xp?`+${50*n} XP`+(FEAT.streak?` и ${n} ${n===1?"заморозка":"заморозки"} серии`:""):"Спасибо, что делитесь приложением!");if(view==="profile")render()}
   }catch(e){}
 }
 async function applyRefCode(code){
@@ -3404,7 +3406,7 @@ function scrollChat(){const c=$("#chatEnd");if(c)c.scrollIntoView({block:"end"})
 function renderTop(){
   const f=$("#topStreak");if(!FEAT.streak){if(f)f.remove()}else{const s=streakInfo();f.innerHTML=`<i class="${s.alive?"fl-anim":""}">${I.flame}</i>${s.cur}`;f.classList.toggle("off",!s.alive);
   f.title=s.alive?`${s.cur} ${dni(s.cur)} подряд`:"Пройдите урок сегодня, чтобы сохранить серию";}
-  $("#topXp").innerHTML=`<i>${I.bolt}</i>${totalXp()}`;
+  {const tx=$("#topXp");if(!FEAT.xp){if(tx)tx.remove()}else tx.innerHTML=`<i>${I.bolt}</i>${totalXp()}`}
   $("#topLvl").textContent=cshort(currentCourse());
   const g=$("#topGear");if(g&&!g.innerHTML){g.innerHTML=I.gear;g.onclick=openSettings}if(g)g.setAttribute("aria-pressed",view==="settings");
 }
@@ -3638,8 +3640,8 @@ function viewProfile(){
     ${SRV?SRV.accountCard():""}
     ${FEAT.streak?`    <div class="card streak-card"><div style="width:64px;height:64px;color:${s.alive?"var(--flame)":"var(--muted)"}">${I.flame}</div>
       <div><div class="num">${s.cur}</div><p>${dni(s.cur)} подряд · рекорд ${s.best} · ❄️ заморозок: ${S.freezes}</p></div><div class="week-strip">${strip}</div></div>`:""}
-    <div class="kpis">
-      <div class="kpi" style="color:var(--gold)">${I.bolt}<div><b>${totalXp()}</b><span>всего XP</span></div></div>
+    <div class="kpis ${FEAT.xp?"":"k3"}">
+      ${FEAT.xp?`<div class="kpi" style="color:var(--gold)">${I.bolt}<div><b>${totalXp()}</b><span>всего XP</span></div></div>`:""}
       <div class="kpi" style="color:var(--cobalt)">${I.star}<div><b>${lessonsDone}</b><span>уроков пройдено</span></div></div>
       <div class="kpi" style="color:var(--turq)">${I.book}<div><b>${learned}</b><span>слов и фраз</span></div></div>
       <div class="kpi" style="color:var(--ok)">${I.target}<div><b>${avg}%</b><span>средняя точность</span></div></div>
@@ -3663,9 +3665,9 @@ function viewProfile(){
     </div>`:""}
     ${FEAT.adminInProfile&&isOwner&&DB?`<button class="deck" id="openAdmin"><span class="ico" style="background:#3B3F5C">${I.target}</span><div><b>Админка</b><small>Ученики, сообщения об ошибках, промокоды</small></div><span style="width:24px;color:var(--muted)">${I.play}</span></button>`:""}
     <div class="card"><h3>Курсы</h3>${COURSES.map((c,ci)=>{const nd=c.lessons.filter(isDone).length;return `<div class="crow"><span class="badge b${ci}">${cshort(ci)}</span><div><b>${esc(cname(ci))}</b><small>${coursePassed(ci)?"экзамен сдан на "+S.lessons[examOf(ci).key].best+"%":courseOpen(ci)?nd+" из "+c.lessons.length+" уроков":"закрыт"}</small></div><span class="pc">${Math.round(nd/c.lessons.length*100)}%</span></div>`}).join("")}</div>
-    <div class="card"><h3>Опыт за 14 дней</h3><p class="help" style="margin:0 0 10px">${FEAT.goal?`Пунктир — цель дня, ${P.goal} XP.`:"Сколько опыта вы набирали каждый день."}</p>${xpChart()}</div>
+    ${FEAT.xp?`<div class="card"><h3>Опыт за 14 дней</h3><p class="help" style="margin:0 0 10px">${FEAT.goal?`Пунктир — цель дня, ${P.goal} XP.`:"Сколько опыта вы набирали каждый день."}</p>${xpChart()}</div>`:""}
     <div class="card"><h3 style="margin-bottom:10px">${monthName()}</h3>${calendar()}
-      <div class="legend">меньше <i style="background:var(--bg);border:1px solid var(--line)"></i><i style="background:var(--cobalt-soft)"></i><i style="background:var(--cobalt)"></i><i style="background:var(--cobalt-dk)"></i> больше XP</div></div>
+      <div class="legend">меньше <i style="background:var(--bg);border:1px solid var(--line)"></i><i style="background:var(--cobalt-soft)"></i><i style="background:var(--cobalt)"></i><i style="background:var(--cobalt-dk)"></i>${FEAT.xp?" больше XP":" больше занятий"}</div></div>
   </div>`;
 }
 let prevView="profile";
@@ -3718,7 +3720,7 @@ function viewSettings(){
 // Invitations on the website go by a personal link: the friend opens it, registers, and the server links the accounts.
 function refLink(){try{return new URL("../?ref="+encodeURIComponent(myCode),location.href.split("#")[0]).href}catch(e){return location.origin+"/?ref="+myCode}}
 function inviteLinkHTML(){const pct=(SRV.health&&SRV.health.refPercent)||10,n=+SRV.me.invited||0;
-  return `<p class="help" style="margin:0">Отправьте другу свою ссылку. Когда он зарегистрируется по ней, вы оба получите +50 XP, а когда он купит уровень — вам ${pct}% от суммы бонусами.</p>
+  return `<p class="help" style="margin:0">Отправьте другу свою ссылку. ${FEAT.xp?`Когда он зарегистрируется по ней, вы оба получите +50 XP, а когда он купит уровень — вам ${pct}% от суммы бонусами.`:`Когда друг, пришедший по ней, купит уровень, вам начислится ${pct}% от суммы бонусами — ими можно оплатить свой уровень.`}</p>
     <div class="codebox link" id="myLink">${esc(refLink())}</div>
     <div class="grid2"><button class="btn sm" id="copyLink">Скопировать ссылку</button><button class="btn sm" id="shareLink">Поделиться</button></div>
     <p class="help" style="margin:0">Пришли по вашей ссылке: ${n}</p>${SRV.me.refBy?`<p class="help" style="margin:0">Вы пришли по приглашению друга.</p>`:""}`}
@@ -3746,7 +3748,7 @@ function monthName(){const m=["Январь","Февраль","Март","Апр
 function calendar(){
   const [y,m]=today().split("-").map(Number);const first=new Date(y,m-1,1),n=new Date(y,m,0).getDate(),lead=(first.getDay()+6)%7;
   let h=["Пн","Вт","Ср","Чт","Пт","Сб","Вс"].map(x=>`<span class="h">${x}</span>`).join("");for(let i=0;i<lead;i++)h+=`<span></span>`;
-  for(let d=1;d<=n;d++){const k=y+"-"+String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0");const x=S.xp[k]||0;const lv=x===0?"":x<P.goal?"l1":x<P.goal*2?"l2":"l3";h+=`<span class="c ${lv} ${k===today()?"now":""}" title="${d}: ${x} XP">${d}</span>`}
+  for(let d=1;d<=n;d++){const k=y+"-"+String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0");const x=S.xp[k]||0;const lv=x===0?"":x<P.goal?"l1":x<P.goal*2?"l2":"l3";h+=`<span class="c ${lv} ${k===today()?"now":""}" title="${FEAT.xp?d+": "+x+" XP":d+(x?" — занимались":"")}">${d}</span>`}
   return `<div class="cal">${h}</div>`;
 }
 function xpChart(){
@@ -3808,7 +3810,7 @@ function wireDataCard(){
       r.onload=()=>{const b=parseBackup(String(r.result||""));f.value="";
         if(b.err){box.innerHTML=`<p class="help" role="alert" style="margin:0;color:var(--bad);font-weight:800">${esc(b.err)}</p>`;return}
         const sm=progressSummary(b.state),d=b.date?new Date(b.date):null;
-        box.innerHTML=`<div class="info"><b class="h">В файле${d&&!isNaN(d)?" от "+d.toLocaleDateString("ru-RU"):""}</b>${sm.xp} XP · уроков пройдено: ${sm.lessonsDone} · дней занятий: ${sm.days} · карточек: ${sm.cards+sm.ownCards}${sm.profile?" · профиль «"+esc(sm.profile)+"»":""}</div>
+        box.innerHTML=`<div class="info"><b class="h">В файле${d&&!isNaN(d)?" от "+d.toLocaleDateString("ru-RU"):""}</b>${FEAT.xp?sm.xp+" XP · ":""}уроков пройдено: ${sm.lessonsDone} · дней занятий: ${sm.days} · карточек: ${sm.cards+sm.ownCards}${sm.profile?" · профиль «"+esc(sm.profile)+"»":""}</div>
           <button class="btn primary" id="impMerge">Объединить с текущим прогрессом</button>
           <button class="btn badb" id="impReplace">Заменить текущий прогресс файлом</button><button class="btn" id="impCancel">Отмена</button>`;
         $("#impMerge").onclick=()=>applyBackup(b,"merge");$("#impReplace").onclick=()=>applyBackup(b,"replace");$("#impCancel").onclick=()=>{box.innerHTML=""};$("#impMerge").focus()};
@@ -4167,8 +4169,8 @@ function renderStory(){
   $("#sbar").style.width="100%";
   b.innerHTML=`<div class="l-in stack result"><div class="mascot-row" style="justify-content:center"><div class="big-icon">${catSVG("happy",104)}</div><div class="speech">${ST.ok===st.q.length?"Всё поняли! Harika!":"Хорошо! Перечитайте, чтобы закрепить."}</div></div>
     <h2 style="color:var(--gold);text-align:center">${ST.listen?"История прослушана!":"История прочитана!"}</h2>
-    <div class="result-cards"><div class="rc"><small>Опыт</small><b data-count="${xp}" data-prefix="+">+0</b></div><div class="rc"><small>Ответы</small><b>${ST.ok}/${st.q.length}</b></div><div class="rc"><small>${ST.listen?"Подсказок":"Фраз"}</small><b>${ST.listen?ST.peek:st.lines.length}</b></div></div>
-    ${pure?`<p class="help" style="text-align:center;margin:0">🎧 Поняли всё на слух, без текста: +5 XP</p>`:""}</div>`;
+    <div class="result-cards">${FEAT.xp?`<div class="rc"><small>Опыт</small><b data-count="${xp}" data-prefix="+">+0</b></div>`:""}<div class="rc"><small>Ответы</small><b>${ST.ok}/${st.q.length}</b></div><div class="rc"><small>${ST.listen?"Подсказок":"Фраз"}</small><b>${ST.listen?ST.peek:st.lines.length}</b></div></div>
+    ${pure?`<p class="help" style="text-align:center;margin:0">🎧 Поняли всё на слух, без текста${FEAT.xp?": +5 XP":" — отлично!"}</p>`:""}</div>`;
   c.className="check";c.innerHTML=`<div class="check-in"><button class="btn primary" id="sdone">Готово</button></div>`;
   $("#sdone").onclick=closeStory;chime(true);animateCounts(b);if(first||ST.ok===st.q.length)confetti();
   (ST.questsDone||[]).forEach((t,i)=>setTimeout(()=>toast("🏅","Задание дня выполнено",t),1100+i*600));ST.questsDone=[];
@@ -4587,12 +4589,15 @@ async function weeklyCard(){
   if(FEAT.streak){
   x.save();x.translate(80,320);x.scale(13,13);x.fillStyle="#FF8A00";x.fill(p);x.fillStyle="#FFD34D";x.fill(p2);x.restore();
   x.fillStyle="#FF8A00";x.font=font(900,190);x.fillText(String(s.cur),420,520);x.fillStyle="#fff";x.font=font(800,48);x.fillText(s.cur===1?"день подряд":([2,3,4].includes(s.cur%10)&&![12,13,14].includes(s.cur%100)?"дня подряд":"дней подряд"),420,590);
-  }else{x.fillStyle="#FFC93C";x.font=font(900,190);x.fillText(`+${wk}`,80,520);x.fillStyle="#fff";x.font=font(800,48);x.fillText("XP за неделю",80,590)}
+  }else if(FEAT.xp){x.fillStyle="#FFC93C";x.font=font(900,190);x.fillText(`+${wk}`,80,520);x.fillStyle="#fff";x.font=font(800,48);x.fillText("XP за неделю",80,590)}
+  else{x.fillStyle="#FFC93C";x.font=font(900,190);x.fillText(String(words),80,520);x.fillStyle="#fff";x.font=font(800,48);x.fillText(words%10===1&&words%100!==11?"слово выучено":"слов и фраз выучено",80,590)}
   const tile=(tx,ty,big,small,col)=>{x.fillStyle="rgba(255,255,255,.08)";x.beginPath();x.roundRect(tx,ty,440,200,28);x.fill();x.fillStyle=col;x.font=font(900,84);x.fillText(big,tx+36,ty+105);x.fillStyle="#C9D1F5";x.font=font(800,34);x.fillText(small,tx+36,ty+160)};
   const lessonsDone=Object.values(S.lessons).filter(v=>v.done).length;
   if(FEAT.streak){tile(80,690,`+${wk}`,"XP за неделю","#FFC93C");tile(560,690,`${days}/7`,"дней занятий","#58CC02")}
   else{tile(80,690,String(lessonsDone),"уроков пройдено","#58CC02");tile(560,690,cshort(currentCourse()),"мой уровень","#FFC93C")}
-  tile(80,920,String(words),"слов выучено","#1CB0F6");if(FEAT.levels)tile(560,920,`ур. ${lv.n}`,lv.title,"#CE82FF");else tile(560,920,String(totalXp()),"опыта всего","#CE82FF");
+  if(FEAT.xp||FEAT.streak)tile(80,920,String(words),"слов выучено","#1CB0F6");else tile(80,920,String(Object.keys(S.stories||{}).length),"историй прочитано","#1CB0F6");
+  if(FEAT.levels)tile(560,920,`ур. ${lv.n}`,lv.title,"#CE82FF");else if(FEAT.xp)tile(560,920,String(totalXp()),"опыта всего","#CE82FF");
+  else{const acc=Object.values(S.lessons).map(v=>v.best).filter(Boolean);tile(560,920,(acc.length?Math.round(acc.reduce((a,b)=>a+b,0)/acc.length):0)+"%","точность","#CE82FF")}
   x.fillStyle="#C9D1F5";x.font=font(700,34);x.fillText("Учу турецкий по 10 минут в день.",80,1220);
   x.fillStyle="#FFC93C";x.font=font(800,34);x.fillText(myCode?`Мой код приглашения: ${myCode}`:"Присоединяйтесь!",80,1275);
   const blob=await new Promise(r=>c.toBlob(r,"image/png"));
@@ -4771,7 +4776,7 @@ function finishScene(){
   questBump("story",1);persist();track("scene_done",{id:sc.id,mine,fixes});
   $("#scbody").innerHTML=`<div class="l-in stack result"><div class="mascot-row" style="justify-content:center"><div class="big-icon">${catSVG("happy",104)}</div><div class="speech">${goal?"Задача выполнена! Harika!":"Хороший разговор!"}</div></div>
     <h2 style="color:var(--gold);text-align:center">Сценка «${esc(sc.t)}»</h2>
-    <div class="result-cards"><div class="rc"><small>Опыт</small><b data-count="${xp}" data-prefix="+">+0</b></div><div class="rc"><small>Ваших реплик</small><b>${mine}</b></div><div class="rc"><small>Исправлений</small><b>${fixes}</b></div></div>
+    <div class="result-cards">${FEAT.xp?`<div class="rc"><small>Опыт</small><b data-count="${xp}" data-prefix="+">+0</b></div>`:""}<div class="rc"><small>Ваших реплик</small><b>${mine}</b></div><div class="rc"><small>Исправлений</small><b>${fixes}</b></div></div>
     ${fixes?`<div class="info"><b class="h">Запомните</b>${SC.turns.filter(t=>t.who==="me"&&t.fix).map(t=>`<p style="margin:6px 0 0">${esc(t.text)} → <b>${esc(t.fix.better)}</b></p>`).join("")}</div>`:""}
     ${recs.length?`<div class="stack" style="gap:8px"><span class="flabel">Что повторить</span>${recs.map(l=>`<button class="deck" data-reclesson="${l.key}"><span class="ico" style="background:#2255C4">${I.book}</span><div><b>${esc(l.t)}</b><small>${esc(cname(l.ci))} · урок ${l.n}${lessonOpen(l)?"":" · пока закрыт"}</small></div><span style="width:24px;color:var(--muted)">${I.play}</span></button>`).join("")}</div>`:""}</div>`;
   const c=$("#sccheck");c.className="check";c.innerHTML=`<div class="check-in"><button class="btn primary" id="scdone">Готово</button></div>`;$("#scdone").onclick=closeScene;
