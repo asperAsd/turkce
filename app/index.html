@@ -570,6 +570,7 @@ pre.codes{background:var(--bg);border:2px dashed var(--line-strong);border-radiu
 .buy-list{margin:0;padding-left:20px;display:grid;gap:4px;font-weight:700}
 .buy-price{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--line);padding-top:10px}
 .buy-price b{font-size:28px;font-weight:900}
+.buy-all{border:2px solid var(--ok);background:var(--ok-soft);margin:4px 0 6px}.buy-all .btn{width:100%}
 .cap{min-height:100px}
 .cookie-bar{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:85;background:var(--ink);color:#fff;border-radius:16px;padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;font-size:14px;font-weight:700;max-width:640px;margin:0 auto;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .cookie-bar a{color:var(--gold)}.cookie-bar div{display:flex;gap:8px}.cookie-bar .btn{width:auto}
@@ -1478,17 +1479,17 @@ function makeLegal(F, O) {
     ["Изменения условий", "Условия могут меняться; новая редакция публикуется в приложении."]];
   else tsec = [...common,
     ["Аккаунт", "• Регистрация — по адресу электронной почты.\n• Указывайте действующий e-mail: через него восстанавливается доступ.\n• Не передавайте доступ к аккаунту другим людям. Вы отвечаете за действия в своём аккаунте."],
-    ["Бесплатные и платные функции", "Курс «Старт» (уровень A0), карточки, словарь и игры на словах этого курса доступны бесплатно. Платный доступ — покупка отдельного уровня (A1, A2, B1 или B2): он открывает уроки, конспекты, экзамен, слова и истории этого уровня навсегда, без подписки. Цена в рублях указана на сайте и в приложении перед оплатой."],
-    ["Как оказывается услуга", `Услуга — доступ к материалам уровня в приложении через интернет. Доступ открывается в вашем аккаунте автоматически сразу после того, как банк подтвердит оплату, обычно в течение минуты. Если доступ не открылся в течение часа, напишите ${contact}. Чтобы заниматься, нужны браузер и интернет; уже загруженные уроки работают и без сети.`],
-    ["Оплата и возврат", `• Оплата принимается через ${PAY.who}: банковской картой, через СБП или другим способом, доступным на странице оплаты. Данные карт вводятся на странице ${PAY.short}, мы их не получаем.\n• Каждый платёж разовый. Подписок и автоматических списаний нет.\n• Часть стоимости можно оплатить бонусами партнёрской программы.\n• Отказ и возврат: вы можете отказаться от купленного уровня в любой момент, написав ${contact}. Мы вернём оплаченную сумму за вычетом стоимости уроков этого уровня, которые вы уже прошли (цена уровня делится на число уроков уровня). Если вы не прошли ни одного урока, возвращаем всё. Деньги возвращаются в течение 10 дней после заявки тем же способом, которым была оплата; на возврат выдаётся чек. После возврата доступ к уровню закрывается.\n• Если оплата прошла, а доступ не открылся, или деньги списались дважды, напишите нам — вернём лишнее полностью.\n• Чек направляется на e-mail аккаунта.\n• Нажимая «Оплатить», вы принимаете условия этой оферты.`],
-    ["Партнёрская программа", "• У каждого ученика есть личная ссылка-приглашение.\n• Когда приглашённый вами человек покупает уровень, вам начисляется 10% от суммы его платежа на бонусный счёт в приложении. Бонус становится доступен через 14 дней после оплаты, если платёж не был возвращён; при возврате бонус аннулируется.\n• Бонусами можно оплатить часть стоимости своего уровня. Бонусы не обмениваются на деньги.\n• Запрещено приглашать самого себя, создавать фиктивные аккаунты и распространять ссылку через спам. При нарушении бонусы аннулируются."],
+    ["Что входит в доступ", "• Без оплаты можно создать аккаунт, посмотреть программу курсов, пройти тест уровня и пользоваться справочными разделами: словарём, разговорником и таблицами спряжения глаголов.\n• Обучение — уроки, конспекты, экзамены, практика, карточки и истории всех курсов (уровни A0, A1, A2, B1 и B2) — открывается одной покупкой полного доступа. Отдельные уровни не продаются.\n• Доступ предоставляется бессрочно, на всё время работы сервиса, без подписки.\n• Курсы проходятся по порядку: следующий открывается после экзамена предыдущего или по результатам теста уровня.\n• Цена в рублях указана на сайте и в приложении перед оплатой."],
+    ["Как оказывается услуга", `Услуга — доступ к материалам всех курсов приложения через интернет. Доступ открывается в вашем аккаунте автоматически сразу после того, как банк подтвердит оплату, обычно в течение минуты. Если доступ не открылся в течение часа, напишите ${contact}. Чтобы заниматься, нужны браузер и интернет; уже загруженные уроки работают и без сети.`],
+    ["Оплата и возврат", `• Оплата принимается через ${PAY.who}: банковской картой, через СБП или другим способом, доступным на странице оплаты. Данные карт вводятся на странице ${PAY.short}, мы их не получаем.\n• Каждый платёж разовый. Подписок и автоматических списаний нет.\n• Часть стоимости можно оплатить бонусами партнёрской программы.\n• Отказ и возврат: вы можете отказаться от купленного доступа в любой момент, написав ${contact}. Мы вернём оплаченную сумму за вычетом стоимости уроков, которые вы уже прошли (цена доступа делится на общее число уроков во всех курсах). Если вы не прошли ни одного урока, возвращаем всё. Деньги возвращаются в течение 10 дней после заявки тем же способом, которым была оплата; на возврат выдаётся чек. После возврата доступ закрывается.\n• Если оплата прошла, а доступ не открылся, или деньги списались дважды, напишите нам — вернём лишнее полностью.\n• Чек направляется на e-mail аккаунта.\n• Нажимая «Оплатить», вы принимаете условия этой оферты.`],
+    ["Партнёрская программа", "• У каждого ученика есть личная ссылка-приглашение.\n• Когда приглашённый вами человек оплачивает доступ, вам начисляется 10% от суммы его платежа на бонусный счёт в приложении. Бонус становится доступен через 14 дней после оплаты, если платёж не был возвращён; при возврате бонус аннулируется.\n• Бонусами можно оплатить часть стоимости своего доступа, если он ещё не куплен. Бонусы не обмениваются на деньги.\n• Запрещено приглашать самого себя, создавать фиктивные аккаунты и распространять ссылку через спам. При нарушении бонусы аннулируются."],
     ai, materials,
     [liability[0], liability[1] + " Мы не отвечаем за сбои платёжных сервисов, операторов связи и провайдеров интернета."],
     ["Удаление аккаунта", "Вы можете удалить аккаунт в любой момент в профиле аккаунта. Мы можем ограничить доступ при нарушении этого соглашения, сообщив причину."],
     ["Изменения соглашения", "Мы можем изменять соглашение, публикуя новую редакцию в приложении. Если вы не согласны с изменениями, вы можете прекратить пользоваться сервисом и запросить возврат по правилам раздела об оплате."],
     ["Реквизиты и контакты", opKnown ? [O.owner, "ИНН " + O.inn, regLine, has("address") ? "Адрес: " + O.address : "", has("email") ? "E-mail: " + O.email : "", has("phone") ? "Телефон: " + O.phone : ""].filter(Boolean).join("\n") : "Сведения об операторе не заполнены."]];
   const terms = { title: mode === "server" ? "Пользовательское соглашение (публичная оферта)" : "Пользовательское соглашение", updated,
-    intro: (draftNote ? draftNote + " " : "") + (mode === "server" ? `Это соглашение — публичная оферта ${who} (ст. 437 ГК РФ): условия пользования приложением «CepteTurk» и покупки доступа к его уровням. Регистрируясь, вы принимаете условия пользования; оплачивая уровень — условия покупки.` : `Это соглашение — условия пользования приложением «CepteTurk», которое предоставляет ${who}. Пользуясь приложением, вы принимаете эти условия.`),
+    intro: (draftNote ? draftNote + " " : "") + (mode === "server" ? `Это соглашение — публичная оферта ${who} (ст. 437 ГК РФ): условия пользования приложением «CepteTurk» и покупки доступа к его курсам. Регистрируясь, вы принимаете условия пользования; оплачивая доступ — условия покупки.` : `Это соглашение — условия пользования приложением «CepteTurk», которое предоставляет ${who}. Пользуясь приложением, вы принимаете эти условия.`),
     sections: tsec.map(([h, t], i) => [(i + 1) + ". " + h, t]) };
 
   return { privacy, consent, terms, missing, mode, pdConsent: mode !== "static" };
@@ -2156,7 +2157,10 @@ const ACC=(()=>{
 
   // ---- helpers ----
   const rub=k=>(k/100).toLocaleString("ru-RU",{maximumFractionDigits:2});
-  const price=()=>health?health.price:300000;
+  const price=()=>health?(health.product?health.product.price:health.price):499000;
+  // What is sold: one product, lifetime access to every level (the server says which levels it covers).
+  const product=()=>(health&&health.product)||{id:"ALL",name:"Полный доступ к CepteTurk",levels:COURSES.map(c=>c.id)};
+  const hasAccess=()=>!!me&&(me.isAdmin||product().levels.every(l=>me.levels.includes(l)));
   function layer(html,cls){
     close();const el=document.createElement("div");el.id="accLayer";el.className="sheet-bg";el.style.zIndex="65";
     el.innerHTML=`<div class="sheet ${cls||""}" role="dialog">${html}</div>`;document.body.appendChild(el);
@@ -2205,10 +2209,10 @@ const ACC=(()=>{
     el.querySelectorAll("[data-am]").forEach(b=>b.onclick=()=>openAuth(b.dataset.am));
     const body=el.querySelector("#accBody");
     if(mode==="register"){
-      body.innerHTML=`<h2>Аккаунт ученика</h2><p class="help" style="margin:0">Прогресс сохранится на всех устройствах, а платные уровни откроются навсегда.</p>
+      body.innerHTML=`<h2>Аккаунт ученика</h2><p class="help" style="margin:0">Прогресс сохранится на всех устройствах, а купленный доступ останется с вами навсегда.</p>
         <div class="field"><label for="aEmail">Почта</label><input class="inp" id="aEmail" type="email" autocomplete="email" inputmode="email" maxlength="200" placeholder="name@mail.ru"></div>
         ${pwField("aPw","Пароль","new-password",true)}
-        ${refFromUrl()?`<p class="help ref-note" style="margin:0">🎁 Вы пришли по приглашению друга — после регистрации вы оба получите бонус.</p>`:""}
+        ${refFromUrl()?`<p class="help ref-note" style="margin:0">🎁 Вы пришли по приглашению друга — оно сохранится в вашем аккаунте при регистрации.</p>`:""}
         <label class="consent"><input type="checkbox" id="aT"><span>Я принимаю <a href="#" class="link" data-legal="terms">Пользовательское соглашение</a> и ознакомлен(а) с <a href="#" class="link" data-legal="privacy">Политикой конфиденциальности</a></span></label>
         <label class="consent"><input type="checkbox" id="aP"><span>Даю <a href="#" class="link" data-legal="consent">согласие на обработку персональных данных</a></span></label>
         <div class="cap" hidden></div><p class="acc-msg" hidden></p>
@@ -2274,13 +2278,14 @@ const ACC=(()=>{
   // ---- account card in profile ----
   function accountCard(){
     if(!health)return "";
-    if(!me)return `<div class="card stack acc-card"><h3 style="margin:0">Аккаунт</h3><p class="help" style="margin:0">Создайте аккаунт: прогресс сохранится на всех устройствах, а купленные уровни останутся с вами навсегда.</p>
+    if(!me)return `<div class="card stack acc-card"><h3 style="margin:0">Аккаунт</h3><p class="help" style="margin:0">Создайте аккаунт: прогресс сохранится на всех устройствах, а купленный доступ останется с вами навсегда.</p>
       <div class="grid2"><button class="btn primary sm" data-acc="register">Создать аккаунт</button><button class="btn sm" data-acc="login">Войти</button></div></div>`;
-    const lv=me.levels.length?me.levels.join(", "):"только бесплатный курс «Старт»";
+    const lv=hasAccess()?"полный, навсегда":me.levels.length?"уровни "+me.levels.join(", "):"не куплен";
     return `<div class="card stack acc-card"><h3 style="margin:0">Аккаунт</h3>
       <div class="acc-row"><span>Почта</span><b>${esc(me.email)}</b></div>
-      ${me.emailVerified?`<div class="acc-row"><span>Статус</span><b style="color:var(--ok)">почта подтверждена</b></div>`:`<div class="save-ok warn" style="margin:0"><span>Подтвердите почту — без этого не получится купить уровень. Письмо уже отправлено.</span></div><button class="btn sm" data-acc="resend">Отправить письмо ещё раз</button>`}
-      <div class="acc-row"><span>Открытые уровни</span><b>${esc(lv)}</b></div>
+      ${me.emailVerified?`<div class="acc-row"><span>Статус</span><b style="color:var(--ok)">почта подтверждена</b></div>`:`<div class="save-ok warn" style="margin:0"><span>Подтвердите почту — без этого не получится оплатить доступ. Письмо уже отправлено.</span></div><button class="btn sm" data-acc="resend">Отправить письмо ещё раз</button>`}
+      <div class="acc-row"><span>Доступ к курсам</span><b>${esc(lv)}</b></div>
+      ${hasAccess()?"":`<button class="btn good sm" data-acc="buy">Открыть полный доступ — ${priceLabel()}</button>`}
       ${me.bonus&&(me.bonus.available||me.bonus.hold)?`<div class="acc-row"><span>Бонусы партнёра</span><b>${rub(me.bonus.available)} ₽${me.bonus.hold?` <small style="color:var(--muted)">+ ${rub(me.bonus.hold)} ₽ ждут 14 дней</small>`:""}</b></div>`:""}
       <div class="acc-row"><span>Двухфакторная защита</span><b>${me.totp?`<span style="color:var(--ok)">включена</span>`:"выключена"}</b></div>
       <div class="grid2"><button class="btn sm" data-acc="${me.totp?"2fa-off":"2fa-on"}">${me.totp?"Отключить 2FA":"Включить 2FA"}</button><button class="btn sm" data-acc="password">Сменить пароль</button></div>
@@ -2293,7 +2298,7 @@ const ACC=(()=>{
       if(a==="register"||a==="login")openAuth(a);
       else if(a==="resend")api("POST","/api/auth/resend-verify",{}).then(()=>toast("✉️","Письмо отправлено","Проверьте и папку «Спам»")).catch(e=>toast("⚠️",e.message,""));
       else if(a==="2fa-on")open2faSetup();else if(a==="2fa-off")open2faOff();else if(a==="password")openPassword();
-      else if(a==="logout")logout(false);else if(a==="logout-all")logout(true);else if(a==="export")exportData();else if(a==="delete")openDelete();});
+      else if(a==="logout")logout(false);else if(a==="logout-all")logout(true);else if(a==="export")exportData();else if(a==="delete")openDelete();else if(a==="buy")buyCourse();});
   }
   async function logout(all){try{await api("POST",all?"/api/auth/logout-all":"/api/auth/logout",{})}catch(e){}
     try{localStorage.removeItem("turkce.v3");localStorage.removeItem("turkce.v3.broken")}catch(e){}done(all?"Вы вышли на всех устройствах":"Вы вышли из аккаунта")}
@@ -2304,7 +2309,7 @@ const ACC=(()=>{
       try{await api("POST","/api/auth/password",{old:el.querySelector("#cOld").value,password:el.querySelector("#cNew").value});close();toast("🔑","Пароль изменён","")}catch(e){busy(btn,false);msgBox(el,e.message)}};
   }
   function openDelete(){
-    const el=layer(`<h2>Удалить аккаунт?</h2><p class="help" style="margin:0">Прогресс, карточки и профиль будут удалены безвозвратно. Купленные уровни пропадут. Записи об оплатах мы обязаны хранить по закону — они останутся без привязки к вам.</p>
+    const el=layer(`<h2>Удалить аккаунт?</h2><p class="help" style="margin:0">Прогресс, карточки и профиль будут удалены безвозвратно. Купленный доступ пропадёт. Записи об оплатах мы обязаны хранить по закону — они останутся без привязки к вам.</p>
       ${pwField("dPw","Введите пароль для подтверждения","current-password",false)}<p class="acc-msg" hidden></p><div class="grid2"><button class="btn" id="dNo">Отмена</button><button class="btn badb" id="dGo">Удалить</button></div>`);
     wirePw(el);el.querySelector("#dNo").onclick=close;
     el.querySelector("#dGo").onclick=async()=>{const btn=el.querySelector("#dGo");busy(btn,true);
@@ -2337,42 +2342,44 @@ const ACC=(()=>{
       try{await api("POST","/api/2fa/disable",{password:el.querySelector("#oPw").value,code:el.querySelector("#oCode").value.trim()});me.totp=false;close();render();toast("🛡️","2FA отключена","")}catch(e){busy(btn,false);msgBox(el,e.message)}};
   }
 
-  // ---- paid levels ----
+  // ---- paid access ----
+  // With a server every level the product covers is closed until the learner buys access; without one (the beta) all is open.
   const paywall=()=>!!health;
-  function paidOK(ci){if(!paywall()||ci===0)return true;const id=COURSES[ci].id;return !!me&&(me.isAdmin||me.levels.includes(id))}
+  function paidOK(ci){if(!paywall())return true;const id=COURSES[ci].id;if(!(health.paidLevels||product().levels).includes(id))return true;return !!me&&(me.isAdmin||me.levels.includes(id))}
   function priceLabel(){return rub(price())+" ₽"}
-  function buyCourse(ci){
-    const c=COURSES[ci];
-    if(!me){toast("🔐","Сначала войдите","Покупка привязывается к аккаунту");return openAuth("register")}
+  function buyCourse(){
+    const pr=product(),cs=COURSES.filter(c=>pr.levels.includes(c.id)),n=cs.reduce((a,c)=>a+c.lessons.length,0);
+    if(!me){toast("🔐","Сначала создайте аккаунт","Доступ привязывается к аккаунту и работает на всех устройствах");return openAuth("register")}
+    if(hasAccess()){toast("✅","Доступ уже открыт","Все курсы ваши — навсегда");return}
     const bonus=me.bonus?Math.min(me.bonus.available,price()):0;
-    const eligible=ci===0||coursePassed(ci-1);
-    const el=layer(`<span class="kicker">${esc(c.level)}</span><h2>Курс ${esc(c.name)}</h2>
-      <ul class="buy-list"><li>${c.lessons.length} уроков с конспектами и экзаменом</li><li>Слова, игры и истории уровня</li><li>Доступ навсегда, без подписки</li></ul>
+    const span=cs.length>1?"Уровни "+cs[0].id+"–"+cs[cs.length-1].id:cs.length?"Уровень "+cs[0].id:"";
+    const el=layer(`<span class="kicker">${esc(span)}</span><h2>${esc(pr.name)}</h2>
+      <ul class="buy-list"><li>${cs.length} курс${cs.length===1?"":cs.length<5?"а":"ов"} от алфавита до B2: ${n} уроков с конспектами и экзаменами</li><li>Карточки, словарь, игры и истории-диалоги</li><li>Прогресс в аккаунте — на всех устройствах</li><li>Один платёж, доступ навсегда, без подписки</li></ul>
       <div class="buy-price"><span>Стоимость</span><b>${priceLabel()}</b></div>
       ${bonus?`<label class="toggle" for="bBonus">Списать бонусы партнёра: ${rub(bonus)} ₽<input type="checkbox" id="bBonus" checked></label>`:""}
-      ${eligible?"":`<p class="help" style="margin:0">Курс откроется для занятий после экзамена предыдущего уровня или теста уровня. Купить можно уже сейчас.</p>`}
+      <p class="help" style="margin:0">Курсы идут по порядку: следующий открывается после экзамена предыдущего. Если вы уже знаете язык, пройдите тест уровня — он откроет нужный курс сразу.</p>
       ${me.emailVerified?"":`<div class="save-ok warn" style="margin:0"><span>Подтвердите почту — на неё придёт чек. Письмо уже отправлено.</span></div><button class="btn sm" id="bResend">Отправить письмо ещё раз</button>`}
       <p class="acc-msg" hidden></p>
       <button class="btn good" id="bGo" ${me.emailVerified?"":"disabled"}>Оплатить ${priceLabel()}</button>
       <p class="help" style="margin:0">${health.payProvider==="yookassa"?"Оплата на странице ЮKassa: СБП, банковская карта, SberPay, T-Pay.":"Оплата на защищённой странице Т-Банка: банковская карта или СБП."} Данные карты вводятся на странице банка, мы их не видим. Чек придёт на ${esc(me.email)}. Платёж разовый, без подписки и автосписаний.</p>
-      <p class="help" style="margin:0">Нажимая «Оплатить», вы принимаете <a href="#" class="link" data-legal="terms">оферту</a>: доступ к уровню открывается сразу после оплаты, от него можно отказаться и вернуть деньги за непройденные уроки.</p>
+      <p class="help" style="margin:0">Нажимая «Оплатить», вы принимаете <a href="#" class="link" data-legal="terms">оферту</a>: доступ открывается сразу после оплаты, от него можно отказаться и вернуть деньги за непройденные уроки.</p>
       ${health.payProvider==="mock"?`<p class="help" style="margin:0;color:var(--bad);font-weight:800">Тестовый режим: деньги не списываются.</p>`:""}`);
     const bb=el.querySelector("#bBonus"),go=el.querySelector("#bGo");
     const upd=()=>{if(bb)go.textContent="Оплатить "+rub(price()-(bb.checked?bonus:0))+" ₽"+(bb.checked&&bonus>=price()?" — бонусами":"")};if(bb){bb.onchange=upd;upd()}
     const rs=el.querySelector("#bResend");if(rs)rs.onclick=()=>api("POST","/api/auth/resend-verify",{}).then(()=>toast("✉️","Письмо отправлено","")).catch(e=>toast("⚠️",e.message,""));
-    go.onclick=async()=>{busy(go,true,"Переходим к оплате…");track("checkout_start",{level:c.id});
-      try{const r=await api("POST","/api/checkout",{level:c.id,useBonus:!!(bb&&bb.checked)});
-        if(r.granted){close();await refreshMe();celebrate(c);return}
+    go.onclick=async()=>{busy(go,true,"Переходим к оплате…");track("checkout_start",{level:pr.id});
+      try{const r=await api("POST","/api/checkout",{product:pr.id,useBonus:!!(bb&&bb.checked)});
+        if(r.granted){close();await refreshMe();celebrate();return}
         location.href=r.url}
       catch(e){busy(go,false);msgBox(el,e.message)}};
   }
   async function refreshMe(){try{me=(await api("GET","/api/me")).me}catch(e){}}
-  function celebrate(c){track("purchase_paid",{level:c.id});render();confetti();chime(true);toast("🎉",`Курс ${c.name} открыт!`,"Доступ навсегда. Удачи в учёбе!")}
+  function celebrate(){track("purchase_paid",{level:product().id});render();confetti();chime(true);toast("🎉","Полный доступ открыт!","Все курсы ваши — навсегда. Удачи в учёбе!")}
   async function waitPurchase(id){
     const el=layer(`<h2>Проверяем оплату…</h2><p class="help" style="margin:0">Обычно это занимает несколько секунд.</p>`);el.onclick=null;
     for(let i=0;i<20;i++){
       try{const r=await api("GET","/api/purchases/"+encodeURIComponent(id));
-        if(r.status==="paid"){me=r.me;close();const c=COURSES.find(x=>x.id===r.level);celebrate(c||{id:r.level,name:r.level});return}
+        if(r.status==="paid"){me=r.me;close();celebrate();return}
         if(r.status==="canceled"||r.status==="failed"){close();toast("↩️","Оплата отменена","Деньги не списаны. Можно попробовать ещё раз.");return}}
       catch(e){if(e.status===401||e.status===404){close();return}}
       await new Promise(r=>setTimeout(r,i<5?1500:3000));
@@ -2388,7 +2395,7 @@ const ACC=(()=>{
     await ready;
     applyStoredRef();
     if(flash)toast("✅",flash,"");
-    if(q.get("verified")==="1"){await refreshMe();toast("✉️","Почта подтверждена","Теперь можно покупать уровни");render()}
+    if(q.get("verified")==="1"){await refreshMe();toast("✉️","Почта подтверждена","Теперь можно оплатить доступ");render()}
     else if(q.get("verified")==="0")toast("⚠️","Ссылка устарела","Отправьте письмо ещё раз из профиля");
     if(q.get("reset"))openReset(q.get("reset"));
     if(q.get("purchase")&&me)waitPurchase(q.get("purchase"));
@@ -2408,25 +2415,25 @@ const ACC=(()=>{
         <div class="rc"><small>Выручка всего</small><b>${rub(s.paid.sum)} ₽</b></div><div class="rc"><small>За 30 дней</small><b>${rub(s.paid30.sum)} ₽</b></div>
         <div class="rc"><small>Покупок</small><b>${s.paid.n}</b></div><div class="rc"><small>Возвратов</small><b>${s.refunded.n}</b></div>
         <div class="rc"><small>Аккаунтов</small><b>${s.users}</b></div><div class="rc"><small>Активны за 7 дней</small><b>${s.active7}</b></div></div>
-      <div class="card stack"><h3 style="margin:0">Покупки</h3>${adm.purchases.length?adm.purchases.slice(0,100).map(p=>`<div class="crow"><span class="badge" style="background:${p.status==="paid"?"var(--ok)":p.status==="refunded"?"var(--bad)":"var(--muted)"}">${esc(p.level)}</span><div><b>${rub(p.amount)} ₽${p.bonus_used?` + ${rub(p.bonus_used)} ₽ бонусами`:""} · ${st[p.status]||p.status}</b><small>${esc(p.user_email||"")} · ${new Date(p.created).toLocaleString("ru-RU")}</small></div>${p.status==="paid"?`<button class="btn sm" data-refund="${esc(p.id)}">Возврат</button>`:""}</div>`).join(""):`<p class="help" style="margin:0">Покупок пока нет.</p>`}</div>
-      <div class="card stack"><h3 style="margin:0">Партнёры (10%)</h3>${adm.partners.length?adm.partners.map(p=>`<div class="crow"><span class="badge" style="background:var(--violet)">%</span><div><b>${esc(p.email)} · код ${esc(p.ref_code)}</b><small>доступно ${rub(Math.max(0,p.available-p.spent-p.paid_out))} ₽ · ждут ${rub(p.hold)} ₽ · выплачено ${rub(p.paid_out)} ₽</small></div><button class="btn sm" data-payout="${esc(p.id)}">Выплата</button></div>`).join(""):`<p class="help" style="margin:0">Начислений пока нет.</p>`}</div>
-      <p class="help" style="margin:0">Платежи: ${s.payProvider==="mock"?"тестовый режим":"ЮKassa"} · ошибок у учеников за сутки: ${s.errors24}</p>`;
+      <div class="card stack"><h3 style="margin:0">Покупки</h3>${adm.purchases.length?adm.purchases.slice(0,100).map(p=>`<div class="crow"><span class="badge" style="background:${p.status==="paid"?"var(--ok)":p.status==="refunded"?"var(--bad)":"var(--muted)"}">${esc(p.level==="ALL"?"Всё":p.level)}</span><div><b>${rub(p.amount)} ₽${p.bonus_used?` + ${rub(p.bonus_used)} ₽ бонусами`:""} · ${st[p.status]||p.status}</b><small>${esc(p.user_email||"")} · ${new Date(p.created).toLocaleString("ru-RU")}</small></div>${p.status==="paid"?`<button class="btn sm" data-refund="${esc(p.id)}">Возврат</button>`:""}</div>`).join(""):`<p class="help" style="margin:0">Покупок пока нет.</p>`}</div>
+      <div class="card stack"><h3 style="margin:0">Партнёры (${health.refPercent||10}%)</h3>${adm.partners.length?adm.partners.map(p=>`<div class="crow"><span class="badge" style="background:var(--violet)">%</span><div><b>${esc(p.email)} · код ${esc(p.ref_code)}</b><small>доступно ${rub(Math.max(0,p.available-p.spent-p.paid_out))} ₽ · ждут ${rub(p.hold)} ₽ · выплачено ${rub(p.paid_out)} ₽</small></div><button class="btn sm" data-payout="${esc(p.id)}">Выплата</button></div>`).join(""):`<p class="help" style="margin:0">Начислений пока нет.</p>`}</div>
+      <p class="help" style="margin:0">Платежи: ${({mock:"тестовый режим",tbank:"Т-Банк",yookassa:"ЮKassa"})[s.payProvider]||esc(s.payProvider)} · ошибок у учеников за сутки: ${s.errors24}</p>`;
   }
   function wireAdmin(v){
-    // Refund by the offer: the price minus the lessons of this level the learner has taken; the sum can be changed
+    // Refund by the offer: the price minus the lessons the learner has taken (of every level the purchase opened); the sum can be changed
     v.querySelectorAll("[data-refund]").forEach(b=>b.onclick=async()=>{const id=b.dataset.refund,row=b.closest(".crow");busy(b,true);
       let qt;try{qt=await api("GET",`/api/admin/purchases/${id}/refund-quote`)}catch(e){busy(b,false);toast("⚠️",e.message,"");return}
-      const c=COURSES.find(x=>x.id===qt.level),total=c?c.lessons.length:0,done=Math.min(qt.lessonsDone,total);
+      const lv=qt.levels||[qt.level],total=COURSES.filter(x=>lv.includes(x.id)).reduce((a,x)=>a+x.lessons.length,0),done=Math.min(qt.lessonsDone,total);
       const sugg=total?Math.floor(qt.amount*(total-done)/total/100)*100:qt.amount;
       const box=document.createElement("div");box.className="stack refund-box";box.style.gap="8px";
-      box.innerHTML=`<p class="help" style="margin:0">Оплачено ${rub(qt.amount)} ₽. Пройдено уроков уровня: ${done} из ${total}. По оферте к возврату: <b>${rub(sugg)} ₽</b>.</p>
+      box.innerHTML=`<p class="help" style="margin:0">Оплачено ${rub(qt.amount)} ₽. Пройдено уроков: ${done} из ${total}. По оферте к возврату: <b>${rub(sugg)} ₽</b>.</p>
         <label class="flabel" for="rfSum">Сумма возврата, ₽</label><input class="inp" id="rfSum" type="number" min="0" max="${qt.amount/100}" step="1" value="${sugg/100}">
         <div class="grid2"><button class="btn sm" data-rfno>Отмена</button><button class="btn sm badb" data-rfgo>Вернуть и закрыть доступ</button></div>`;
       row.after(box);b.remove();
       box.querySelector("[data-rfno]").onclick=()=>{adm=null;render()};
       box.querySelector("[data-rfgo]").onclick=async ev=>{const go=ev.currentTarget,amount=Math.round(+box.querySelector("#rfSum").value*100);
         if(!(amount>=0&&amount<=qt.amount)){toast("⚠️","Сумма — от 0 до "+rub(qt.amount)+" ₽","");return}
-        busy(go,true);try{const r=await api("POST",`/api/admin/purchases/${id}/refund`,{amount});toast("↩️","Возврат оформлен",rub(r.amount)+" ₽ · уровень у ученика закрыт");adm=null;render()}catch(e){busy(go,false);toast("⚠️",e.message,"")}};});
+        busy(go,true);try{const r=await api("POST",`/api/admin/purchases/${id}/refund`,{amount});toast("↩️","Возврат оформлен",rub(r.amount)+" ₽ · доступ у ученика закрыт");adm=null;render()}catch(e){busy(go,false);toast("⚠️",e.message,"")}};});
     v.querySelectorAll("[data-payout]").forEach(b=>b.onclick=async()=>{const s=prompt("Сумма выплаты, ₽");if(!s)return;try{await api("POST","/api/admin/payouts",{userId:b.dataset.payout,amount:Math.round(parseFloat(s.replace(",","."))*100),note:"выплата"});toast("💸","Выплата отмечена","");adm=null;render()}catch(e){toast("⚠️",e.message,"")}});
   }
   async function applyRef(code){await api("POST","/api/ref",{code});await refreshMe()}
@@ -3128,7 +3135,7 @@ function finishSession(){
     const c=S.lessons[lesson.key]||{};const wasDone=!!c.done;
     S.lessons[lesson.key]={done:!!(c.done||passed),best:Math.max(c.best||0,acc),times:(c.times||0)+1};
     if(!wasDone&&passed){
-      if(lesson.exam&&lesson.ci+1<COURSES.length)unlocked=paidOK(lesson.ci+1)?`Открыт новый курс: ${COURSES[lesson.ci+1].name} — ${COURSES[lesson.ci+1].level}`:`Экзамен сдан! Курс ${COURSES[lesson.ci+1].name} можно открыть на странице «Курсы»`;
+      if(lesson.exam&&lesson.ci+1<COURSES.length)unlocked=paidOK(lesson.ci+1)?`Открыт новый курс: ${COURSES[lesson.ci+1].name} — ${COURSES[lesson.ci+1].level}`:`Экзамен сдан! Курс ${COURSES[lesson.ci+1].name} откроется с полным доступом — он на странице «Курсы»`;
       else if(!lesson.exam){const nx=COURSES[lesson.ci].lessons[lesson.n];if(nx)unlocked=`Открыт урок ${nx.n}: ${nx.t}`}
     }
   }
@@ -3426,6 +3433,11 @@ function renderTop(){
   $("#topLvl").textContent=cshort(currentCourse());
   const g=$("#topGear");if(g&&!g.innerHTML){g.innerHTML=I.gear;g.onclick=openSettings}if(g)g.setAttribute("aria-pressed",view==="settings");
 }
+// With a server and nothing bought, learning waits for access: courses, practice and cards. The dictionary, phrasebook,
+// conjugator and the level test stay open as a reference (the phrasebook and grammar are public pages on the site too).
+const noAccess=()=>!!SRV&&!COURSES.some((c,ci)=>paidOK(ci));
+function buyAllCard(){return `<div class="card stack buy-all"><h3 style="margin:0">Полный доступ ко всем курсам</h3><p class="help" style="margin:0">${COURSES.length} курсов от алфавита до B2, ${COURSES.reduce((a,c)=>a+c.lessons.length,0)} уроков с конспектами, карточки, игры и истории. Один платёж — навсегда, без подписки.</p><button class="btn good" id="buyAll">Открыть доступ — ${SRV.priceLabel()}</button></div>`}
+const viewLocked=(t,lead)=>`<h1 class="sec-title">${t}</h1><p class="sec-lead">${lead}</p>`+buyAllCard();
 let lastViewKey="";
 function render(){
   renderTop();
@@ -3433,7 +3445,8 @@ function render(){
   document.querySelectorAll(".nav button").forEach(b=>{if(b.dataset.v===view)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
   const v=$("#view");
   v.innerHTML=view==="courses"?(sub&&sub.notes!=null?viewNotes(sub.notes):sub&&sub.ci!=null?viewCourse(sub.ci):viewCourses())
-    :view==="cards"?viewCards():view==="train"?viewTrain():view==="dict"?viewDict():view==="rating"?viewRating():view==="admin"?viewAdmin():view==="settings"?viewSettings():viewProfile();
+    :view==="cards"?(noAccess()?viewLocked("Карточки","Интервальное повторение слов из уроков и ваши собственные карточки — откроются вместе с курсами."):viewCards())
+    :view==="train"?(noAccess()?viewLocked("Практика","Упражнения и игры на словах из уроков: вордл, пары на время, диктант и другие — откроются вместе с курсами."):viewTrain()):view==="dict"?viewDict():view==="rating"?viewRating():view==="admin"?viewAdmin():view==="settings"?viewSettings():viewProfile();
   wireView();
   if(vk!==lastViewKey){v.classList.remove("anim-in");void v.offsetWidth;v.classList.add("anim-in");lastViewKey=vk}
 }
@@ -3457,16 +3470,18 @@ function viewCourses(){
   const plCard=showPl&&currentCourse()===0?`<button class="deck" style="margin-top:14px" id="plStart"><span class="ico" style="background:#12908A">${I.target}</span><div><b>Уже знаете турецкий?</b><small>Пройдите тест уровня — засчитаем то, что вы знаете</small></div><span style="width:24px;color:var(--muted)">${I.play}</span></button>`:"";
   const extras=FEAT.homeExtras?goalCard()+`<button class="btn primary" id="quickGo" style="margin-top:12px">${I.dumbbell} Быстрая практика · 5 минут</button>`+mistakesCard()+questCard()+aimCard()+tipCard():"";
   // only the courses by level; a lesson the learner saved half-way stays reachable here
-  return extras+resumeCard()+(FEAT.homeExtras?plCard:"")+`<h1 class="sec-title">Курсы</h1><p class="sec-lead">Каждый уровень — отдельный курс. Следующий открывается после экзамена предыдущего.</p>
+  // with a server and no purchase yet: one offer for the whole course instead of a price on every level
+  const buy=SRV&&COURSES.some((c,ci)=>!paidOK(ci))?buyAllCard():"";
+  return extras+resumeCard()+(FEAT.homeExtras?plCard:"")+buy+`<h1 class="sec-title">Курсы</h1><p class="sec-lead">Каждый уровень — отдельный курс. Следующий открывается после экзамена предыдущего.</p>
   <div class="courses">${COURSES.map((c,ci)=>{
     const open=courseOpen(ci),passed=coursePassed(ci),nd=c.lessons.filter(isDone).length;
     const unpaid=!paidOK(ci),elig=ci===0||coursePassed(ci-1);
-    const tag=passed?`<span class="state-tag done">Пройден</span>`:open?`<span class="state-tag now">Идёт</span>`:unpaid?`<span class="state-tag buy">${SRV.priceLabel()}</span>`:"";
+    const tag=passed?`<span class="state-tag done">Пройден</span>`:open?`<span class="state-tag now">Идёт</span>`:"";
     return `<button class="course ${open?"":"locked"} ${unpaid?"buyable":""} ${ci===cc&&open&&!passed?"cur":""}" data-course="${ci}">
       <span class="badge b${ci}">${open?cshort(ci):I.lock}</span>
       <div><span class="lv">${esc(c.level)}</span><h3>${esc(ci?"Курс "+c.name:"Старт — с нуля")} ${tag}</h3><p>${esc(c.desc.replace(/\.\s*\d+ урок\S*\.?$/,"."))}</p>
       ${open?`<div class="pbar blue"><i style="width:${nd/c.lessons.length*100}%"></i></div><div class="meta"><span>${nd} из ${c.lessons.length} уроков</span><span>${passed?"экзамен "+S.lessons[examOf(ci).key].best+"%":""}</span></div>`
-        :`<div class="meta"><span>${unpaid&&elig?"Нажмите, чтобы открыть курс навсегда":`Откроется после экзамена ${esc(ci===1?"курса «Старт»":COURSES[ci-1].name)}${unpaid?" · купить можно заранее":""}`}</span></div>`}</div></button>`}).join("")}</div>`;
+        :`<div class="meta"><span>${unpaid&&elig?"Откроется после оплаты полного доступа":`Откроется после экзамена ${esc(ci===1?"курса «Старт»":COURSES[ci-1].name)}`}</span></div>`}</div></button>`}).join("")}</div>`;
 }
 function viewCourse(ci){
   const c=COURSES[ci],cur=currentLessonIdx(ci);
@@ -3736,11 +3751,11 @@ function viewSettings(){
 // Invitations on the website go by a personal link: the friend opens it, registers, and the server links the accounts.
 function refLink(){try{return new URL("../?ref="+encodeURIComponent(myCode),location.href.split("#")[0]).href}catch(e){return location.origin+"/?ref="+myCode}}
 function inviteLinkHTML(){const pct=(SRV.health&&SRV.health.refPercent)||10,n=+SRV.me.invited||0;
-  return `<p class="help" style="margin:0">Отправьте другу свою ссылку. ${FEAT.xp?`Когда он зарегистрируется по ней, вы оба получите +50 XP, а когда он купит уровень — вам ${pct}% от суммы бонусами.`:`Когда друг, пришедший по ней, купит уровень, вам начислится ${pct}% от суммы бонусами — ими можно оплатить свой уровень.`}</p>
+  return `<p class="help" style="margin:0">Отправьте другу свою ссылку. ${FEAT.xp?`Когда он зарегистрируется по ней, вы оба получите +50 XP, а когда он оплатит доступ — вам ${pct}% от суммы бонусами.`:`Когда друг, пришедший по ней, оплатит доступ, вам начислится ${pct}% от суммы бонусами — ими можно оплатить часть своего доступа, если он ещё не куплен.`}</p>
     <div class="codebox link" id="myLink">${esc(refLink())}</div>
     <div class="grid2"><button class="btn sm" id="copyLink">Скопировать ссылку</button><button class="btn sm" id="shareLink">Поделиться</button></div>
     <p class="help" style="margin:0">Пришли по вашей ссылке: ${n}</p>${SRV.me.refBy?`<p class="help" style="margin:0">Вы пришли по приглашению друга.</p>`:""}`}
-async function shareInvite(){const url=refLink(),text="Учу турецкий в «CepteTurk» — попробуй, курс «Старт» бесплатный.";
+async function shareInvite(){const url=refLink(),text="Учу турецкий в CepteTurk: короткие уроки с конспектами по-русски и живой озвучкой. Присоединяйся!";
   if(navigator.share){try{await navigator.share({title:"CepteTurk",text,url});return}catch(e){if(e&&e.name==="AbortError")return}}
   copyInvite()}
 async function copyInvite(){const url=refLink();try{await navigator.clipboard.writeText(url);toast("🔗","Ссылка скопирована","Отправьте её другу в любом мессенджере")}catch(e){const el=$("#myLink");if(el){const r=document.createRange();r.selectNodeContents(el);const sel=getSelection();sel.removeAllRanges();sel.addRange(r)}toast("🔗","Скопируйте ссылку","Она выделена — нажмите «Копировать»")}}
@@ -3883,7 +3898,7 @@ function wireView(){
   v.querySelectorAll("[data-notes]").forEach(b=>b.onclick=()=>{sub={notes:+b.dataset.notes};render();window.scrollTo({top:0});preloadPacks([COURSES[+b.dataset.notes].id,"common"])});
   v.querySelectorAll("[data-lesson]").forEach(b=>b.onclick=()=>openLesson(b.dataset.lesson));
   v.querySelectorAll("[data-ask]").forEach(b=>b.onclick=()=>openTutor(b.dataset.ask));
-  const pls=$("#plStart");if(pls)pls.onclick=startPlacement;const plr=$("#plRetake");if(plr)plr.onclick=startPlacement;
+  const pls=$("#plStart");if(pls)pls.onclick=startPlacement;const ba=$("#buyAll");if(ba)ba.onclick=()=>SRV.buyCourse();const plr=$("#plRetake");if(plr)plr.onclick=startPlacement;
 const adl=$("#adLoad");if(adl)adl.onclick=loadPromos;
   const adm=$("#adMake");if(adm)adm.onclick=async()=>{const code=$("#adCode").value.trim().toUpperCase();if(code.length<4){toast("⚠️","Код слишком короткий","Минимум 4 символа");return}
     const h=await sha("promo:"+code);try{await DB.doc("promos/"+h).set({xp:Math.max(0,Math.min(1000,+$("#adXp").value||0)),freezes:$("#adFr")?Math.max(0,Math.min(10,+$("#adFr").value||0)):0,label:code.slice(0,2)+"•••"+code.slice(-1),created:Date.now()});toast("🎁","Промокод создан",code);await loadPromos()}catch(e){toast("⚠️","Не удалось создать промокод","Создавать коды может только владелец")}};
@@ -4639,7 +4654,7 @@ function pbOrdered(){const a=aimOf();if(!a||!a.pb.length)return pbAll();const r=
 function nextStep(){
   if(S.resume){const r=S.resume;const l=r.lessonKey?findLesson(r.lessonKey):null;return {kind:"resume",title:"Продолжить: "+(l?l.t:(r.only&&TYPES[r.only]?TYPES[r.only].name:"тренировка"))}}
   const cc=currentCourse();
-  if(!courseOpen(cc))return !paidOK(cc)?{kind:"buy",ci:cc,title:"Открыть "+cname(cc)}:{kind:"practice",title:"Повторение · 5 минут"};
+  if(!courseOpen(cc))return !paidOK(cc)?{kind:"buy",ci:cc,title:"Открыть полный доступ"}:{kind:"practice",title:"Повторение · 5 минут"};
   const ls=COURSES[cc].lessons,i=currentLessonIdx(cc);
   if(i<ls.length)return {kind:"lesson",l:ls[i],title:(ls[i].exam?"Экзамен: ":"Урок "+ls[i].n+": ")+ls[i].t+" · "+cshort(cc)};
   return {kind:"practice",title:"Повторение · 5 минут"};
