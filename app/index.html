@@ -2,15 +2,15 @@
 <html lang="ru"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Türkçe каждый день — приложение</title>
+<title>CepteTurk — приложение</title>
 <meta name="description" content="Турецкий для русскоязычных: курсы от алфавита до B2, игры, истории с живой озвучкой и карточки.">
 <meta name="theme-color" content="#2255C4">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Türkçe">
-<meta property="og:title" content="Türkçe каждый день — турецкий по 10 минут в день">
+<meta name="apple-mobile-web-app-title" content="CepteTurk">
+<meta property="og:title" content="CepteTurk — турецкий по 10 минут в день">
 <meta property="og:description" content="Курсы от нуля до B2, конспекты по-русски, живая озвучка и карточки.">
 <meta property="og:image" content="https://asperasd.github.io/turkce/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -1362,7 +1362,7 @@ const GLOSS_RAW = `acele=спешка|acı=острый; горький|açabili
 const GLOSS = Object.fromEntries(GLOSS_RAW.split("|").map(p => { const i = p.indexOf("="); return [p.slice(0, i).trim(), p.slice(i + 1).trim()]; }));
 
 const LEGAL_MODE="static";const LEGAL_PAY="tbank";const LEGAL_OWNER={"owner":"","inn":"","ogrn":"","address":"","email":"","phone":"","hosting":"","mailer":""};
-// Legal texts of «Türkçe каждый день». They depend on the build, because each build really does different things with data:
+// Legal texts of «CepteTurk». They depend on the build, because each build really does different things with data:
 //   "static" — the public website without a server (GitHub Pages): no accounts, everything stays in the browser;
 //   "claude" — the version inside Claude (Anthropic): progress, rating and club live in the Claude platform storage;
 //   "server" — the website with our own server: accounts, payments, AI, Telegram.
@@ -1375,7 +1375,7 @@ function makeLegal(F, O) {
   const PAY = F.pay === "yookassa" ? { who: "ЮKassa (ООО НКО «ЮМани»)", short: "ЮKassa" } : { who: "АО «ТБанк» (интернет-эквайринг Т-Банка)", short: "Т-Банка" };
   const feedback = F.feedback || "https://github.com/asperAsd/turkce/issues";
   const has = k => typeof O[k] === "string" && O[k].trim() !== "";
-  const need = mode === "server" ? ["owner", "inn", "address", "email", "hosting", "mailer"] : [];
+  const need = mode === "server" ? ["owner", "inn", "address", "email", "phone", "hosting", "mailer"] : [];
   const missing = need.filter(k => !has(k));
   const opLine = () => [O.owner, has("inn") ? "ИНН " + O.inn : "", has("ogrn") ? "ОГРН/ОГРНИП " + O.ogrn : "", has("address") ? "адрес: " + O.address : ""].filter(Boolean).join(", ");
   const opKnown = has("owner") && has("inn");
@@ -1393,10 +1393,10 @@ function makeLegal(F, O) {
   // ---------------- privacy ----------------
   let privacy;
   if (mode === "static") privacy = { title: "Политика конфиденциальности", updated,
-    intro: "Эта политика объясняет, какие данные затрагивает бета-версия приложения «Türkçe каждый день» на сайте и где они хранятся. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
+    intro: "Эта политика объясняет, какие данные затрагивает бета-версия приложения «CepteTurk» на сайте и где они хранятся. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
     sections: [
       ["1. Кто отвечает за приложение", opKnown ? `Приложение публикует ${opLine()}. Связаться: ${contact}.`
-        : `Бета-версию публикует автор проекта «Türkçe каждый день» на GitHub. В этой версии нет регистрации, аккаунтов и нашего сервера, поэтому автор не получает ваших персональных данных. Вопросы и сообщения — ${contact}.`],
+        : `Бета-версию публикует автор проекта «CepteTurk» на GitHub. В этой версии нет регистрации, аккаунтов и нашего сервера, поэтому автор не получает ваших персональных данных. Вопросы и сообщения — ${contact}.`],
       ["2. Что хранится и где", "• Имя и аватар профиля (если вы его создали), учебный прогресс, карточки и настройки хранятся только в памяти вашего браузера (localStorage) на этом устройстве. На сервер они не отправляются.\n• Файл с прогрессом, который вы сохранили сами, хранится там, куда вы его сохранили.\n• Сайт и записи озвучки загружаются с хостинга GitHub Pages (GitHub, Inc., США). Как любой веб-сервер, он получает IP-адрес и технические сведения о запросе (браузер, время). Эти журналы нам не передаются.\n• Шрифт загружается с серверов Google Fonts — Google получает IP-адрес и сведения о браузере." + (F.metrika ? "\n• Яндекс Метрика (ООО «Яндекс») — только если вы разрешили cookie в появившемся окне: обезличенная статистика посещений." : "")],
       ["3. Проверка произношения", speech + " " + asrOff],
       ["4. Сообщения об ошибках в заданиях", "Кнопка «Сообщить об ошибке» открывает страницу GitHub с подготовленным текстом. Сообщение отправится, только если вы сами опубликуете его там, и будет видно всем."],
@@ -1405,7 +1405,7 @@ function makeLegal(F, O) {
       ["7. Изменения политики", "Мы можем обновлять эту политику. Дата последней редакции указана вверху."]
     ]};
   else if (mode === "claude") privacy = { title: "Политика конфиденциальности", updated,
-    intro: "Эта политика объясняет, какие данные собирает версия приложения «Türkçe каждый день», работающая внутри Claude, зачем и где они хранятся. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
+    intro: "Эта политика объясняет, какие данные собирает версия приложения «CepteTurk», работающая внутри Claude, зачем и где они хранятся. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
     sections: [
       ["1. Кто отвечает за приложение", opKnown ? `Оператор персональных данных — ${opLine()}. Связаться: ${contact}.`
         : "Эту версию приложения опубликовал её владелец на платформе Claude компании Anthropic. Приложение доступно только тем, с кем владелец поделился ссылкой. С вопросами о данных обращайтесь " + contact + "."],
@@ -1417,7 +1417,7 @@ function makeLegal(F, O) {
       ["7. Изменения политики", "Мы можем обновлять эту политику. О существенных изменениях сообщим в приложении. Дата последней редакции указана вверху."]
     ]};
   else privacy = { title: "Политика конфиденциальности", updated,
-    intro: (draftNote ? draftNote + " " : "") + "Эта политика объясняет, какие данные собирает приложение «Türkçe каждый день», зачем, где они хранятся и как ими управлять. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
+    intro: (draftNote ? draftNote + " " : "") + "Эта политика объясняет, какие данные собирает приложение «CepteTurk», зачем, где они хранятся и как ими управлять. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
     sections: [
       ["1. Кто обрабатывает данные", opKnown ? `Оператор персональных данных — ${opLine()}. Связаться с оператором можно ${contact}.` : "Сведения об операторе не заполнены."],
       ["2. Какие данные мы собираем", "• Аккаунт: адрес электронной почты; пароль — только в виде хэша; секрет двухфакторной защиты, если вы её включили.\n• Профиль: имя, аватар.\n• Учебные данные: пройденные уроки, результаты, опыт по дням, карточки и расписание повторений.\n• Партнёрская программа: ваш код приглашения, кто пригласил вас, начисления.\n• Платежи: сумма, дата, статус и идентификатор платежа. Данные банковских карт получает только платёжный сервис.\n• Telegram: идентификатор чата с нашим ботом и время напоминаний — если вы подключили напоминания.\n• Технические данные: IP-адрес и тип браузера при входе, время входа, сообщения о сбоях приложения." + (F.metrika ? "\n• Обезличенная статистика посещений (Яндекс Метрика) — только если вы разрешили cookie." : "")],
@@ -1440,7 +1440,7 @@ function makeLegal(F, O) {
     intro: "В этой версии приложения согласие на обработку персональных данных не требуется: регистрации нет, а профиль и прогресс хранятся только в вашем браузере и никому не передаются.",
     sections: [["Когда понадобится согласие", "Если на сайте появятся аккаунты или оплата, перед их использованием мы попросим отдельное согласие и покажем его полный текст с данными оператора."]] };
   else consent = { title: "Согласие на обработку персональных данных", updated,
-    intro: (draftNote ? draftNote + " " : "") + "Отмечая галочку «Даю согласие на обработку персональных данных», я, пользователь приложения «Türkçe каждый день», свободно, своей волей и в своём интересе даю согласие на обработку моих персональных данных на условиях ниже (ст. 9 Федерального закона № 152-ФЗ «О персональных данных»).",
+    intro: (draftNote ? draftNote + " " : "") + "Отмечая галочку «Даю согласие на обработку персональных данных», я, пользователь приложения «CepteTurk», свободно, своей волей и в своём интересе даю согласие на обработку моих персональных данных на условиях ниже (ст. 9 Федерального закона № 152-ФЗ «О персональных данных»).",
     sections: [
       ["1. Оператор", opKnown ? opLine() + (has("email") ? ", e-mail: " + O.email : "") + "." : mode === "claude" ? "Владелец этой версии приложения на платформе Claude (Anthropic)." : "Сведения об операторе не заполнены."],
       ["2. Цели обработки", mode === "claude"
@@ -1457,7 +1457,7 @@ function makeLegal(F, O) {
     ]};
 
   // ---------------- terms ----------------
-  const who = opKnown ? `${O.owner}, ИНН ${O.inn}` : mode === "claude" ? "владельцем этой версии приложения" : mode === "static" ? "автором проекта «Türkçe каждый день»" : "оператором сервиса";
+  const who = opKnown ? `${O.owner}, ИНН ${O.inn}` : mode === "claude" ? "владельцем этой версии приложения" : mode === "static" ? "автором проекта «CepteTurk»" : "оператором сервиса";
   const common = [
     ["Что это за сервис", "Приложение помогает самостоятельно учить турецкий язык: курсы по уровням, конспекты, упражнения, карточки, словарь, озвучка и истории. Сервис не является образовательной организацией и не выдаёт документов об образовании."],
   ];
@@ -1477,16 +1477,17 @@ function makeLegal(F, O) {
     ["Изменения условий", "Условия могут меняться; новая редакция публикуется в приложении."]];
   else tsec = [...common,
     ["Аккаунт", "• Регистрация — по адресу электронной почты.\n• Указывайте действующий e-mail: через него восстанавливается доступ.\n• Не передавайте доступ к аккаунту другим людям. Вы отвечаете за действия в своём аккаунте."],
-    ["Бесплатные и платные функции", "Курс «Старт» (уровень A0), карточки, словарь и игры на словах этого курса доступны бесплатно. Платный доступ — покупка отдельного уровня (A1, A2, B1 или B2): он открывает уроки, конспекты, экзамен, слова и истории этого уровня навсегда, без подписки. Цена указана в приложении перед оплатой."],
-    ["Оплата и возврат", `• Оплата принимается через ${PAY.who}: банковской картой, через СБП или другим способом, доступным на странице оплаты. Данные карт вводятся на странице ${PAY.short}, мы их не получаем.\n• Каждый платёж разовый. Подписок и автоматических списаний нет.\n• Часть стоимости можно оплатить бонусами партнёрской программы.\n• Возврат: если вы не прошли ни одного урока купленного уровня, деньги можно вернуть в течение 14 дней после оплаты по заявке ${contact}. В остальных случаях заявление рассматривается по Закону «О защите прав потребителей». Возврат идёт тем же способом, которым была оплата; доступ к уровню после возврата закрывается.\n• Чек направляется на e-mail аккаунта.`],
+    ["Бесплатные и платные функции", "Курс «Старт» (уровень A0), карточки, словарь и игры на словах этого курса доступны бесплатно. Платный доступ — покупка отдельного уровня (A1, A2, B1 или B2): он открывает уроки, конспекты, экзамен, слова и истории этого уровня навсегда, без подписки. Цена в рублях указана на сайте и в приложении перед оплатой."],
+    ["Как оказывается услуга", `Услуга — доступ к материалам уровня в приложении через интернет. Доступ открывается в вашем аккаунте автоматически сразу после того, как банк подтвердит оплату, обычно в течение минуты. Если доступ не открылся в течение часа, напишите ${contact}. Чтобы заниматься, нужны браузер и интернет; уже загруженные уроки работают и без сети.`],
+    ["Оплата и возврат", `• Оплата принимается через ${PAY.who}: банковской картой, через СБП или другим способом, доступным на странице оплаты. Данные карт вводятся на странице ${PAY.short}, мы их не получаем.\n• Каждый платёж разовый. Подписок и автоматических списаний нет.\n• Часть стоимости можно оплатить бонусами партнёрской программы.\n• Отказ и возврат: вы можете отказаться от купленного уровня в любой момент, написав ${contact}. Мы вернём оплаченную сумму за вычетом стоимости уроков этого уровня, которые вы уже прошли (цена уровня делится на число уроков уровня). Если вы не прошли ни одного урока, возвращаем всё. Деньги возвращаются в течение 10 дней после заявки тем же способом, которым была оплата; на возврат выдаётся чек. После возврата доступ к уровню закрывается.\n• Если оплата прошла, а доступ не открылся, или деньги списались дважды, напишите нам — вернём лишнее полностью.\n• Чек направляется на e-mail аккаунта.\n• Нажимая «Оплатить», вы принимаете условия этой оферты.`],
     ["Партнёрская программа", "• У каждого ученика есть личная ссылка-приглашение.\n• Когда приглашённый вами человек покупает уровень, вам начисляется 10% от суммы его платежа на бонусный счёт в приложении. Бонус становится доступен через 14 дней после оплаты, если платёж не был возвращён; при возврате бонус аннулируется.\n• Бонусами можно оплатить часть стоимости своего уровня. Бонусы не обмениваются на деньги.\n• Запрещено приглашать самого себя, создавать фиктивные аккаунты и распространять ссылку через спам. При нарушении бонусы аннулируются."],
     ai, materials,
     [liability[0], liability[1] + " Мы не отвечаем за сбои платёжных сервисов, операторов связи и провайдеров интернета."],
     ["Удаление аккаунта", "Вы можете удалить аккаунт в любой момент в профиле аккаунта. Мы можем ограничить доступ при нарушении этого соглашения, сообщив причину."],
     ["Изменения соглашения", "Мы можем изменять соглашение, публикуя новую редакцию в приложении. Если вы не согласны с изменениями, вы можете прекратить пользоваться сервисом и запросить возврат по правилам раздела об оплате."],
     ["Реквизиты и контакты", opKnown ? [O.owner, "ИНН " + O.inn + (has("ogrn") ? ", ОГРН/ОГРНИП " + O.ogrn : ""), has("address") ? "Адрес: " + O.address : "", has("email") ? "E-mail: " + O.email : "", has("phone") ? "Телефон: " + O.phone : ""].filter(Boolean).join("\n") : "Сведения об операторе не заполнены."]];
-  const terms = { title: "Пользовательское соглашение", updated,
-    intro: (draftNote ? draftNote + " " : "") + `Это соглашение — условия пользования приложением «Türkçe каждый день», которое предоставляет ${who}. Пользуясь приложением, вы принимаете эти условия.`,
+  const terms = { title: mode === "server" ? "Пользовательское соглашение (публичная оферта)" : "Пользовательское соглашение", updated,
+    intro: (draftNote ? draftNote + " " : "") + (mode === "server" ? `Это соглашение — публичная оферта ${who} (ст. 437 ГК РФ): условия пользования приложением «CepteTurk» и покупки доступа к его уровням. Регистрируясь, вы принимаете условия пользования; оплачивая уровень — условия покупки.` : `Это соглашение — условия пользования приложением «CepteTurk», которое предоставляет ${who}. Пользуясь приложением, вы принимаете эти условия.`),
     sections: tsec.map(([h, t], i) => [(i + 1) + ". " + h, t]) };
 
   return { privacy, consent, terms, missing, mode, pdConsent: mode !== "static" };
@@ -2322,7 +2323,7 @@ const ACC=(()=>{
       try{const r=await api("POST","/api/2fa/enable",{code:el.querySelector("#eCode").value.trim()});me.totp=true;showRecovery(r.recoveryCodes)}catch(e){busy(btn,false);msgBox(el,e.message)}};
   }
   function showRecovery(codes){
-    const txt="Türkçe каждый день — запасные коды для входа\nКаждый код работает один раз.\n\n"+codes.join("\n");
+    const txt="CepteTurk — запасные коды для входа\nКаждый код работает один раз.\n\n"+codes.join("\n");
     const el=layer(`<h2>Сохраните запасные коды</h2><p class="help" style="margin:0">Если потеряете телефон, войдёте с одним из этих кодов. Каждый работает один раз. Мы показываем их только сейчас.</p>
       <pre class="codes">${codes.map(esc).join("\n")}</pre><button class="btn sm" id="rDl">Скачать файлом</button><button class="btn primary" id="rOk">Коды сохранены</button>`);
     el.onclick=null;
@@ -2352,7 +2353,8 @@ const ACC=(()=>{
       ${me.emailVerified?"":`<div class="save-ok warn" style="margin:0"><span>Подтвердите почту — на неё придёт чек. Письмо уже отправлено.</span></div><button class="btn sm" id="bResend">Отправить письмо ещё раз</button>`}
       <p class="acc-msg" hidden></p>
       <button class="btn good" id="bGo" ${me.emailVerified?"":"disabled"}>Оплатить ${priceLabel()}</button>
-      <p class="help" style="margin:0">Оплата через ЮKassa: СБП, банковская карта, SberPay, T-Pay. Данные карты вводятся на стороне ЮKassa, мы их не видим. Чек придёт на ${esc(me.email)}. Условия возврата — в <a href="#" class="link" data-legal="terms">соглашении</a>.</p>
+      <p class="help" style="margin:0">${health.payProvider==="yookassa"?"Оплата на странице ЮKassa: СБП, банковская карта, SberPay, T-Pay.":"Оплата на защищённой странице Т-Банка: банковская карта или СБП."} Данные карты вводятся на странице банка, мы их не видим. Чек придёт на ${esc(me.email)}. Платёж разовый, без подписки и автосписаний.</p>
+      <p class="help" style="margin:0">Нажимая «Оплатить», вы принимаете <a href="#" class="link" data-legal="terms">оферту</a>: доступ к уровню открывается сразу после оплаты, от него можно отказаться и вернуть деньги за непройденные уроки.</p>
       ${health.payProvider==="mock"?`<p class="help" style="margin:0;color:var(--bad);font-weight:800">Тестовый режим: деньги не списываются.</p>`:""}`);
     const bb=el.querySelector("#bBonus"),go=el.querySelector("#bGo");
     const upd=()=>{if(bb)go.textContent="Оплатить "+rub(price()-(bb.checked?bonus:0))+" ₽"+(bb.checked&&bonus>=price()?" — бонусами":"")};if(bb){bb.onchange=upd;upd()}
@@ -2410,7 +2412,20 @@ const ACC=(()=>{
       <p class="help" style="margin:0">Платежи: ${s.payProvider==="mock"?"тестовый режим":"ЮKassa"} · ошибок у учеников за сутки: ${s.errors24}</p>`;
   }
   function wireAdmin(v){
-    v.querySelectorAll("[data-refund]").forEach(b=>b.onclick=async()=>{if(b.dataset.c!=="1"){b.dataset.c="1";b.textContent="Точно вернуть?";return}busy(b,true);try{await api("POST",`/api/admin/purchases/${b.dataset.refund}/refund`,{});toast("↩️","Возврат оформлен","Уровень у ученика закрыт");adm=null;render()}catch(e){busy(b,false);toast("⚠️",e.message,"")}});
+    // Refund by the offer: the price minus the lessons of this level the learner has taken; the sum can be changed
+    v.querySelectorAll("[data-refund]").forEach(b=>b.onclick=async()=>{const id=b.dataset.refund,row=b.closest(".crow");busy(b,true);
+      let qt;try{qt=await api("GET",`/api/admin/purchases/${id}/refund-quote`)}catch(e){busy(b,false);toast("⚠️",e.message,"");return}
+      const c=COURSES.find(x=>x.id===qt.level),total=c?c.lessons.length:0,done=Math.min(qt.lessonsDone,total);
+      const sugg=total?Math.floor(qt.amount*(total-done)/total/100)*100:qt.amount;
+      const box=document.createElement("div");box.className="stack refund-box";box.style.gap="8px";
+      box.innerHTML=`<p class="help" style="margin:0">Оплачено ${rub(qt.amount)} ₽. Пройдено уроков уровня: ${done} из ${total}. По оферте к возврату: <b>${rub(sugg)} ₽</b>.</p>
+        <label class="flabel" for="rfSum">Сумма возврата, ₽</label><input class="inp" id="rfSum" type="number" min="0" max="${qt.amount/100}" step="1" value="${sugg/100}">
+        <div class="grid2"><button class="btn sm" data-rfno>Отмена</button><button class="btn sm badb" data-rfgo>Вернуть и закрыть доступ</button></div>`;
+      row.after(box);b.remove();
+      box.querySelector("[data-rfno]").onclick=()=>{adm=null;render()};
+      box.querySelector("[data-rfgo]").onclick=async ev=>{const go=ev.currentTarget,amount=Math.round(+box.querySelector("#rfSum").value*100);
+        if(!(amount>=0&&amount<=qt.amount)){toast("⚠️","Сумма — от 0 до "+rub(qt.amount)+" ₽","");return}
+        busy(go,true);try{const r=await api("POST",`/api/admin/purchases/${id}/refund`,{amount});toast("↩️","Возврат оформлен",rub(r.amount)+" ₽ · уровень у ученика закрыт");adm=null;render()}catch(e){busy(go,false);toast("⚠️",e.message,"")}};});
     v.querySelectorAll("[data-payout]").forEach(b=>b.onclick=async()=>{const s=prompt("Сумма выплаты, ₽");if(!s)return;try{await api("POST","/api/admin/payouts",{userId:b.dataset.payout,amount:Math.round(parseFloat(s.replace(",","."))*100),note:"выплата"});toast("💸","Выплата отмечена","");adm=null;render()}catch(e){toast("⚠️",e.message,"")}});
   }
   async function applyRef(code){await api("POST","/api/ref",{code});await refreshMe()}
@@ -3724,8 +3739,8 @@ function inviteLinkHTML(){const pct=(SRV.health&&SRV.health.refPercent)||10,n=+S
     <div class="codebox link" id="myLink">${esc(refLink())}</div>
     <div class="grid2"><button class="btn sm" id="copyLink">Скопировать ссылку</button><button class="btn sm" id="shareLink">Поделиться</button></div>
     <p class="help" style="margin:0">Пришли по вашей ссылке: ${n}</p>${SRV.me.refBy?`<p class="help" style="margin:0">Вы пришли по приглашению друга.</p>`:""}`}
-async function shareInvite(){const url=refLink(),text="Учу турецкий в «Türkçe каждый день» — попробуй, курс «Старт» бесплатный.";
-  if(navigator.share){try{await navigator.share({title:"Türkçe каждый день",text,url});return}catch(e){if(e&&e.name==="AbortError")return}}
+async function shareInvite(){const url=refLink(),text="Учу турецкий в «CepteTurk» — попробуй, курс «Старт» бесплатный.";
+  if(navigator.share){try{await navigator.share({title:"CepteTurk",text,url});return}catch(e){if(e&&e.name==="AbortError")return}}
   copyInvite()}
 async function copyInvite(){const url=refLink();try{await navigator.clipboard.writeText(url);toast("🔗","Ссылка скопирована","Отправьте её другу в любом мессенджере")}catch(e){const el=$("#myLink");if(el){const r=document.createRange();r.selectNodeContents(el);const sel=getSelection();sel.removeAllRanges();sel.addRange(r)}toast("🔗","Скопируйте ссылку","Она выделена — нажмите «Копировать»")}}
 function profileForm(){
@@ -3764,7 +3779,7 @@ function xpChart(){
 }
 
 /* ================= DATA: export, restore, profile removal ================= */
-const EXPORT_FORMAT="Türkçe каждый день — прогресс";
+const EXPORT_FORMAT="CepteTurk — прогресс";
 function progressSummary(st){const ls=Object.values(st.lessons||{}).filter(x=>x.done).length,xp=Object.values(st.xp||{}).reduce((a,b)=>a+(+b||0),0)+(+st.bonus||0);
   return {xp,lessonsDone:ls,days:Object.keys(st.xp||{}).length,cards:Object.keys(st.srs||{}).length,ownCards:(st.custom||[]).length,profile:st.profile?st.profile.name:null}}
 function exportJSON(){const st=JSON.parse(JSON.stringify(S));delete st.myReports;
@@ -3778,7 +3793,7 @@ function parseBackup(text){
   if(typeof text!=="string"||!text.trim())return {err:"Файл пустой"};
   if(text.length>8e6)return {err:"Файл слишком большой для файла прогресса"};
   let j;try{j=JSON.parse(text)}catch(e){return {err:"Файл повреждён: это не JSON"}}
-  if(!isObj(j)||j.app!=="turkce"||!isObj(j.state))return {err:"Это не файл прогресса «Türkçe каждый день»"};
+  if(!isObj(j)||j.app!=="turkce"||!isObj(j.state))return {err:"Это не файл прогресса «CepteTurk»"};
   const st=fixState(j.state);
   if(!Object.keys(st.xp).length&&!Object.keys(st.lessons).length&&!st.custom.length&&!Object.keys(st.srs).length&&!st.profile)return {err:"В файле нет прогресса"};
   return {state:st,prefs:isObj(j.prefs)?j.prefs:null,date:typeof j.exported==="string"?j.exported:(typeof j.at==="string"?j.at:"")};
@@ -3938,7 +3953,7 @@ const adl=$("#adLoad");if(adl)adl.onclick=loadPromos;
     const h=v.querySelector(".prof-head h2");if(h&&S.profile)h.textContent=S.profile.name;
     wireProfileForm(false);if(SRV)SRV.wireAccount(v);
     const pe=$("#pEdit");if(pe)pe.onclick=()=>{editProfile=true;render()};
-    const cc=$("#copyCode");if(cc)cc.onclick=async()=>{const txt=`Учу турецкий в приложении «Türkçe каждый день». Присоединяйся! Мой код приглашения: ${myCode}`;try{await navigator.clipboard.writeText(txt);toast("📋","Приглашение скопировано","Отправьте его другу")}catch(e){const r=document.createRange();r.selectNodeContents($("#myCode"));const s=getSelection();s.removeAllRanges();s.addRange(r)}};
+    const cc=$("#copyCode");if(cc)cc.onclick=async()=>{const txt=`Учу турецкий в приложении «CepteTurk». Присоединяйся! Мой код приглашения: ${myCode}`;try{await navigator.clipboard.writeText(txt);toast("📋","Приглашение скопировано","Отправьте его другу")}catch(e){const r=document.createRange();r.selectNodeContents($("#myCode"));const s=getSelection();s.removeAllRanges();s.addRange(r)}};
     const rgo=$("#refGo");if(rgo)rgo.onclick=async()=>{refMsg=(await applyRefCode($("#refIn").value))||"";render()};
     const pg=$("#promoGo");if(pg)pg.onclick=async()=>{promoMsg=(await applyPromo($("#promoIn").value))||"";render()};
     const pin=$("#promoIn");if(pin)pin.onkeydown=e=>{if(e.key==="Enter")pg.click()};
@@ -4568,7 +4583,7 @@ function icsReminder(){
   const t=(P.remind||"19:00").split(":"),now=new Date(),start=new Date(now.getFullYear(),now.getMonth(),now.getDate(),+t[0],+t[1]);if(start<now)start.setDate(start.getDate()+1);
   const f=d=>`${d.getFullYear()}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}T${String(d.getHours()).padStart(2,"0")}${String(d.getMinutes()).padStart(2,"0")}00`;
   const end=new Date(start.getTime()+15*60000),url=location.href.split("?")[0].split("#")[0];
-  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Turkce//RU","CALSCALE:GREGORIAN","BEGIN:VEVENT",`UID:turkce-daily-${Date.now()}@turkce`,`DTSTAMP:${f(new Date())}`,`DTSTART:${f(start)}`,`DTEND:${f(end)}`,"RRULE:FREQ=DAILY","SUMMARY:Турецкий — 10 минут 🔥",`DESCRIPTION:Урок дня в «Türkçe каждый день»: ${url}`,`URL:${url}`,"BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:Время для турецкого!","TRIGGER:PT0M","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Turkce//RU","CALSCALE:GREGORIAN","BEGIN:VEVENT",`UID:turkce-daily-${Date.now()}@turkce`,`DTSTAMP:${f(new Date())}`,`DTSTART:${f(start)}`,`DTEND:${f(end)}`,"RRULE:FREQ=DAILY","SUMMARY:Турецкий — 10 минут 🔥",`DESCRIPTION:Урок дня в «CepteTurk»: ${url}`,`URL:${url}`,"BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:Время для турецкого!","TRIGGER:PT0M","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
   return ics;
 }
 async function downloadText(name,data,type){
@@ -4582,7 +4597,7 @@ async function weeklyCard(){
   const g=x.createLinearGradient(0,0,0,1350);g.addColorStop(0,"#1C2A6B");g.addColorStop(1,"#0D1330");x.fillStyle=g;x.fillRect(0,0,1080,1350);
   const font=(w,s)=>`${w} ${s}px Nunito, "Segoe UI", Roboto, sans-serif`;
   x.fillStyle="#E30A17";x.beginPath();x.roundRect(80,90,110,80,18);x.fill();x.fillStyle="#fff";x.font=font(900,48);x.textAlign="center";x.fillText("TR",135,148);
-  x.textAlign="left";x.font=font(900,52);x.fillText("Türkçe каждый день",215,148);
+  x.textAlign="left";x.font=font(900,52);x.fillText("CepteTurk",215,148);
   x.fillStyle="#FFC93C";x.font=font(800,40);x.fillText("Мои итоги недели",80,270);
   const p=new Path2D("M12.3 1.8c1.2 3.6-.4 5.6-2.1 7.5-1.7 1.8-3.7 3.6-3.7 6.6a5.5 5.5 0 0 0 11 0c0-2.1-.9-3.8-2-5.1-.3 1.3-1 2.3-2.1 2.8.6-3.6-.1-7.8-1.1-11.8Z");
   const p2=new Path2D("M12 21.3c-1.8 0-3.1-1.3-3.1-3 0-1.9 1.4-2.9 2.3-4.3.4 1.1 1.2 1.6 1.9 1.5-.2 1 .3 1.8 1 2.3.6.4 1.1 1 1.1 1.9 0 1.5-1.4 2.6-3.2 2.6Z");
@@ -4602,7 +4617,7 @@ async function weeklyCard(){
   x.fillStyle="#FFC93C";x.font=font(800,34);x.fillText(myCode?`Мой код приглашения: ${myCode}`:"Присоединяйтесь!",80,1275);
   const blob=await new Promise(r=>c.toBlob(r,"image/png"));
   const file=new File([blob],"turkce-itogi.png",{type:"image/png"});
-  if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"Мои итоги недели",text:"Учу турецкий в «Türkçe каждый день»"});return}catch(e){if(e&&e.name==="AbortError")return}}
+  if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"Мои итоги недели",text:"Учу турецкий в «CepteTurk»"});return}catch(e){if(e&&e.name==="AbortError")return}}
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="turkce-itogi.png";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);toast("🖼️","Картинка сохранена","Поделитесь ею с друзьями");
 }
 function tipCard(){

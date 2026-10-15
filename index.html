@@ -2,13 +2,13 @@
 <html lang="ru"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Türkçe каждый день — турецкий с нуля до B2 по 10 минут в день</title>
+<title>CepteTurk — турецкий с нуля до B2 по 10 минут в день</title>
 <meta name="description" content="Приложение для изучения турецкого языка на русском: курсы от алфавита до B2, конспекты, игры, истории с живой озвучкой и карточки. Курс «Старт» — бесплатно.">
 <meta name="theme-color" content="#2255C4">
 <link rel="icon" type="image/png" href="app/icon-192.png">
 <link rel="apple-touch-icon" href="app/icon-180.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Türkçe каждый день — турецкий по 10 минут в день">
+<meta property="og:title" content="CepteTurk — турецкий по 10 минут в день">
 <meta property="og:description" content="Курсы от нуля до B2, конспекты по-русски, живая озвучка и карточки. Курс «Старт» бесплатно.">
 <meta property="og:image" content="https://asperasd.github.io/turkce/og.png">
 <meta property="og:url" content="https://asperasd.github.io/turkce/">
@@ -78,7 +78,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px;font-size:14px;color
 footer .wrap{display:flex;flex-wrap:wrap;gap:18px 30px;justify-content:space-between}
 footer nav{display:flex;flex-wrap:wrap;gap:8px 18px}
 .video{display:grid;grid-template-columns:auto 1fr;gap:44px;align-items:center}
-.video video{width:300px;aspect-ratio:9/16;border-radius:28px;background:#0D1330;box-shadow:0 24px 50px rgba(13,19,48,.25);display:block}
+.video video,.video .vshot{width:300px;aspect-ratio:540/1168;border-radius:28px;background:#0D1330;box-shadow:0 24px 50px rgba(13,19,48,.25);display:block;object-fit:cover}
 .ticks{list-style:none;padding:0;margin:0;display:grid;gap:14px}.ticks li{display:flex;gap:12px;align-items:flex-start;font-size:18px}
 .ticks li::before{content:"✓";flex:0 0 28px;height:28px;border-radius:50%;background:#DDF4E4;color:var(--ok);font-weight:900;display:grid;place-items:center}
 .sticky-cta{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:20;display:none}
@@ -86,12 +86,12 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 18px}
 :focus-visible{outline:3px solid var(--cobalt);outline-offset:3px;border-radius:8px}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}.reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
-@media (max-width:900px){.video{grid-template-columns:1fr}.video video{width:min(300px,100%);margin:0 auto}.hero .wrap{grid-template-columns:1fr}.phones{height:500px;max-width:420px;margin:0 auto;width:100%}.phone{width:200px}.phone.a{right:auto;left:10px}.grid,.steps{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.sticky-cta.on{display:block}footer{padding-bottom:90px}body{font-size:16px}.wrap{padding:0 16px}.hero{padding:34px 0 20px}.lead{font-size:18px}.grid,.steps,.prices{grid-template-columns:1fr}section{padding:48px 0}.phones{height:430px}.phone{width:170px}.phone.b{right:6px}header.top .btn{padding:9px 14px;font-size:14px}.logo span.n{display:none}}
+@media (max-width:900px){.video{grid-template-columns:1fr}.video video,.video .vshot{width:min(300px,100%);margin:0 auto}.hero .wrap{grid-template-columns:1fr}.phones{height:500px;max-width:420px;margin:0 auto;width:100%}.phone{width:200px}.phone.a{right:auto;left:10px}.grid,.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.sticky-cta.on{display:block}footer{padding-bottom:90px}body{font-size:16px}.wrap{padding:0 16px}.hero{padding:34px 0 20px}.lead{font-size:18px}.grid,.steps,.prices{grid-template-columns:1fr}section{padding:48px 0}.phones{height:430px}.phone{width:170px}.phone.b{right:6px}header.top .btn{padding:9px 14px;font-size:14px}.logo{font-size:17px}}
 @media (prefers-reduced-motion:no-preference){.flame path{transform-origin:50% 90%;transform-box:fill-box;animation:fl 1.6s ease-in-out infinite}@keyframes fl{50%{transform:scale(1.05,.95) skewX(2deg)}}}
 </style></head>
 <body>
-<header class="top"><div class="wrap"><a class="logo" href="./"><span class="tr">TR</span><span class="n">Türkçe каждый день</span></a><a class="btn primary sm" href="app/">Открыть приложение</a></div></header>
+<header class="top"><div class="wrap"><a class="logo" href="./"><span class="tr">TR</span><span class="n">CepteTurk</span></a><a class="btn primary sm" href="app/">Открыть приложение</a></div></header>
 
 <main>
 <section class="hero"><div class="wrap">
@@ -135,9 +135,8 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 18px}
 </div></section>
 
 <section><div class="wrap video">
-  <video controls playsinline preload="none" poster="img/promo-poster.webp" aria-label="Видео о приложении"><source src="promo.mp4" type="video/mp4"></video>
+  <img class="vshot" src="img/lesson.webp" alt="Урок в приложении CepteTurk: выбор правильного перевода" loading="lazy">
   <div>
-    <span class="kicker">25 секунд</span>
     <h2>Посмотрите, как это выглядит</h2>
     <ul class="ticks">
       <li>Курсы по уровням: от алфавита до B2, с конспектом к каждому уроку</li>
@@ -235,13 +234,13 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 18px}
 <div class="sticky-cta" id="stickyCta"><a class="btn gold" href="app/">Начать бесплатно</a></div>
 
 <footer><div class="wrap">
-  <div><b style="color:var(--ink)">Türkçe каждый день</b><br>Бета-версия: оплаты нет, все уровни бесплатны. <a href="https://github.com/asperAsd/turkce/issues">Обратная связь</a></div>
+  <div><b style="color:var(--ink)">CepteTurk</b><br>Бета-версия: оплаты нет, все уровни бесплатны. <a href="https://github.com/asperAsd/turkce/issues">Обратная связь</a></div>
   <nav><a href="razgovornik.html">Разговорник</a><a href="grammatika.html">Грамматика турецкого</a><a href="spryazhenie.html">Спряжение глаголов</a><a href="terms.html">Пользовательское соглашение</a><a href="privacy.html">Политика конфиденциальности</a><a href="consent.html">Согласие на обработку данных</a><a href="app/">Приложение</a></nav>
 </div></footer>
 <script>
 // During the beta (no server answering /api/health) all levels are free: show the note.
 (function(){
-  var els=document.querySelectorAll(".card,.lv,.price,details,.shots figure,.video video,.ticks li");
+  var els=document.querySelectorAll(".card,.lv,.price,details,.shots figure,.video .vshot,.ticks li");
   if("IntersectionObserver" in window&&!matchMedia("(prefers-reduced-motion: reduce)").matches){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{rootMargin:"0px 0px -8% 0px"});
     els.forEach(function(el,i){el.classList.add("reveal");el.style.transitionDelay=(i%3)*70+"ms";io.observe(el)});
