@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-CZhs/BNOA6UjLQkn7BLnsbWXqYuvXTOyhj+pF0fdv6g=' 'sha256-JrSvCYgE13F/QbsWB8cwmF0UxaYT+3Cti/D3Easvj3Q=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>CepteTurk — приложение</title>
 <meta name="description" content="Турецкий для русскоязычных: курсы от алфавита до B2, игры, истории с живой озвучкой и карточки.">
@@ -355,6 +356,7 @@ details.note-card summary::-webkit-details-marker{display:none}
 .save-ok.good{background:var(--ok-soft);color:var(--ok-dk)}
 .save-ok.warn{background:var(--gold-soft);color:var(--ink)}
 .save-ok.bad{background:var(--bad-soft,#FDE3E1);color:var(--ink)}
+.store-warn.upd{background:#173F99}
 .store-warn{position:sticky;top:0;z-index:90;background:#8E1F1A;color:#fff;font:700 14px/1.35 Nunito,system-ui,sans-serif;padding:10px 40px 10px 14px}.store-warn .link{color:#fff;text-decoration:underline;background:none;border:0;font:inherit;cursor:pointer;padding:0 4px}.store-warn .x{position:absolute;right:8px;top:6px;background:none;border:0;color:#fff;font-size:22px;cursor:pointer;width:32px;height:32px}
 .save-ok svg{width:20px;height:20px;flex:0 0 auto}
 .codebox{font-size:28px;font-weight:900;letter-spacing:.16em;text-align:center;background:var(--bg);border:2px dashed var(--line-strong);border-radius:14px;padding:10px;font-variant-numeric:tabular-nums}
@@ -1362,7 +1364,7 @@ const NOTES = {
 const GLOSS_RAW = `acele=спешка|acı=острый; горький|açabilir=может открыть|açılır=открывается|açıyorum=я открываю|açmak=открыть|adam=мужчина|adım=моё имя|adınız=ваше имя|afiyet=аппетит (afiyet olsun — приятного аппетита)|ağaç=дерево|ağrıyor=болит|ağzına=твоему рту (ağzına sağlık — хорошо сказано)|ahmet=Ахмет (имя)|aklıma=мне в голову|akşam=вечер; вечером|akşamlar=вечера (iyi akşamlar — добрый вечер)|alabilir=может взять|aldığın=который ты купил(а)|alerjim=моя аллергия|alırdım=я бы купила|alıyorum=я покупаю, беру|almak=брать, покупать|alo=алло|anahtarımı=мой ключ (вин.)|ankara'dan=чем Анкара; из Анкары|anlamadım=я не поняла|anlattı=рассказал(а)|anna=Анна|arabam=моя машина|arabamı=мою машину|aradığında=когда ты позвонил(а)|ararım=я позвоню|arayacağım=я позвоню|arıyor=звонит; ищет|arkadaşıma=моей подруге|arkadaşımla=с моей подругой|artık=уже; больше (yok artık — не может быть)|arz=представление (arz ederim — прошу, докладываю)|ateşim=мой жар (ateşim var — у меня температура)|ayda=в месяц|aydın=светлый (gözün aydın — поздравляю с радостной вестью)|ayırttık=мы забронировали|aynı=одинаковый, тот же|ayrı=отдельно, раздельно|bağlar=соединяет|bahçede=в саду|bakmayın=не смотрите (kusura bakmayın — извините)|bana=мне|başım=моя голова|başın=твоя голова (başın sağ olsun — соболезную)|başka=другой, ещё|başladım=я начала|başlamıştı=уже начался|başlasaydım=если бы я начала|bavulum=мой чемодан|bayramınız=ваш праздник|beklerken=пока ждала|bekleyen=который ждёт|belirtmek=отметить, указать|beni=меня|benim=мой; у меня|beşe=к пяти (beşe on var — без десяти пять)|bey=господин|bırakmak=оставить|bilen=который знает|bilgilerinize=к вашему сведению|biliyorum=я знаю|bilsem=если бы я знала|bilseydim=если бы я знала (тогда)|biraz=немного|birbirine=друг с другом|biri=кто-то, один (из)|biridir=является одним из|bizi=нас|bizim=наш|boğazım=моё горло|boş=пустой; свободный|boyattık=мы покрасили (наняв)|boylu=ростом (uzun boylu — высокий)|bozuk=сломанный (bozuk para — мелочь)|bozuldu=сломался|bu=это, этот|buçuk=с половиной|bulaşıkları=посуду|buluşalım=давай встретимся|buluştum=я встретилась|buna=этому (buna rağmen — несмотря на это)|bunu=это (вин.)|burada=здесь|buradan=отсюда|cana=душе (cana yakın — приятный)|canım=моя душа; дорогой (canım sıkılıyor — мне скучно)|çağırmamız=нам вызвать|çalışıyor=работает|çalışıyorum=я работаю|çalışmayı=работать (вин.)|çalışmıyor=не работает|çalıştı=работал(а)|çalıştım=я работала|çamaşır=бельё (çamaşır makinesi — стиральная машина)|çekmek=тянуть; снимать (деньги)|çevreyi=окружающую среду|çeyrek=четверть|çıkarım=я выхожу|çıkarır=вынесет|çıkış=выход; выезд|çıkıyorum=я выхожу|çıkmadık=мы не вышли|çıkmak=выходить|çıkmıştı=уже ушёл|çıktıktan=после того как вышла|çocuğu=ребёнка|çocuğum=мой ребёнок|çok=очень; много|çoktan=давно, уже|çöpü=мусор (вин.)|da=тоже; и|dans=танец|de=тоже; и|değil=не (с существительными)|değilim=я не|değişikliği=изменение|değiştirmek=поменять|deneyebilir=может примерить|denize=к морю|denizi=море (вин.)|derinden=глубоко|dışarı=наружу, на улицу|dikkat=внимание|dilerim=желаю, прошу (özür dilerim — извините)|dinlemeyi=слушать (вин.)|dinlendim=я отдохнула|dinlerim=я слушаю|dizim=моё колено|doğduğum=где я родилась|doğdum=я родилась|doğdun=ты родилась|doğdunuz=вы родились|doğru=правильный; правда|doğum=рождение (doğum günü — день рождения)|doktor=врач|doktora=к врачу|doktorsun=ты врач|dokuzda=в девять|dokuzdan=с девяти|döneceğini=что вернёшься|dönün=поверните|dönüşüm=переработка; возврат|dördü=четыре (вин., о времени)|döviz=валюта|durumu=состояние (hava durumu — прогноз погоды)|duruyor=стоит|duyuyorum=я чувствую; слышу|dünyanın=мира|eczane=аптека|edebilir=может сделать|eder=делает|ederim=я делаю (teşekkür ederim — спасибо)|edersiniz=вы делаете|ediyorum=я делаю|eğilir=гнётся|elin=руки (род.)|ellerini=свои руки|ellerinize=вашим рукам|emekli=пенсионер(ка)|emin=уверенный|en=самый|erken=рано|ertelendi=перенесли|eskiden=раньше|etkiledi=тронул, впечатлил|etkisi=его эффект (yan etkisi — побочный эффект)|etme=не делай (merak etme — не волнуйся)|etmek=делать (вспомогательный глагол)|etmeyin=не делайте|etsem=если бы я сделала (rica etsem — позвольте попросить)|ettiler=они сделали|ettim=я сделала|evde=дома|evden=из дома|eve=домой|evi=дом (вин.)|evim=мой дом|evimiz=наш дом|evlendiniz=вы поженились|evlenmiş=оказывается, женился|fabrikada=на фабрике|farkı=разница|faturayı=счёт (вин.)|fikir=мысль, идея|fikirde=во мнении (aynı fikirde — согласен)|film=фильм|filmi=фильм (вин.)|geceler=ночи (iyi geceler — спокойной ночи)|geç=поздно|geçiyor=проходит (çeyrek geçiyor — четверть …)|geçmiş=прошедший (geçmiş olsun — выздоравливайте)|gel=приходи|geldi=пришёл, приехал|geldiğimde=когда я пришла|geldiniz=вы пришли (hoş geldiniz — добро пожаловать)|geleceğini=что придёт|gelemedim=я не смогла прийти|gelen=который пришёл|gelince=когда придёт|gelir=придёт|gelirsen=если придёшь|geliyor=идёт (сюда), приходит|geliyoruz=мы приходим, мы из|gelmiş=оказывается, пришёл|gelmiyor=не приходит (sesiniz gelmiyor — вас не слышно)|gelsin=пусть придёт (kolay gelsin — удачи в работе)|genelde=обычно|gereğinin=необходимого|gerek=нужно|gerekiyor=нужно, требуется|geri=назад|gidelim=давай пойдём|giderim=я хожу|gidiş-dönüş=туда и обратно|gidiyor=идёт|gidiyorum=я иду, еду|gidiyoruz=мы идём, едем|gitmelisin=тебе надо пойти|gitmem=мне идти (gitmem lazım — мне надо идти); я не пойду|gittiniz=вы ездили|gönderildi=отправлено|göre=согласно (bana göre — по-моему)|görmemiştim=я не видела (раньше)|görüşebilir=может поговорить|görüşmek=видеться, разговаривать|görüşmesi=встреча, разговор (iş görüşmesi — собеседование)|gözün=твой глаз|gurur=гордость|güldürdün=ты рассмешил|gülerek=смеясь|günde=в день|günüm=мой день|günün=твой день|gürültü=шум|güzeldi=было красиво, хорошо|güzelmiş=говорят, красивый|haberleri=новости (вин.)|hadi=давай|hafta=неделя|haftada=в неделю|haklı=правый (haklısın — ты прав)|hâlâ=всё ещё|hangisi=который из них|hasta=больной|hastaydım=я болела|havale=перевод (денег)|hayal=мечта (hayal kırıklığı — разочарование)|hayalim=моя мечта|hayatımda=в моей жизни|hayatın=жизни|hayırlı=добрый, благой|hazırlanıyor=готовится|hem=и … (hem … hem de — и … и)|hepsi=все, всё|her=каждый|hesabı=счёт (вин.)|hesap=счёт|hiç=совсем; никогда; когда-нибудь|hoş=приятный|hoşuma=мне по душе (hoşuma gidiyor — мне нравится)|içer=пьёт|içerim=я пью|içilir=пьют (пассив)|içilmez=не пьют, не курят (пассив)|içim=моя душа, внутри (içim rahatladı — отлегло)|için=для; из-за|içiyordum=я пила; курила|içiyorum=я пью|içmem=я не пью; мне выпить|içmen=тебе пить|içmeye=пить (куда: içmeye gitmek)|içmiyorum=я не пью|idare=управление (idare eder — сойдёт)|ikinci=второй|iklim=климат|ilacı=лекарство (вин.)|ilacın=лекарства (род.)|ile=с|ilginç=интересный|ilk=первый|istanbul=Стамбул|istanbul'a=в Стамбул|istanbul'da=в Стамбуле|ister=хочет|isterim=я хотела бы|istersen=если хочешь|istifa=отставка (istifa etmek — уволиться)|istiyorum=я хочу|iş=работа; дело|işe=на работу; к делу|işiniz=ваша работа|işte=на работе; вот|işten=с работы|iyiyim=у меня всё хорошо|izledim=я посмотрела|izledin=ты посмотрела|izliyordum=я смотрела|izliyorum=я смотрю|kaçta=во сколько|kadar=до; столько (ne kadar — сколько)|kadın=женщина|kahvaltı=завтрак|kahvaltıdan=после завтрака (с sonra)|kahveden=чем кофе|kaldığım=что я опоздала, осталась|kaldık=мы остановились, жили|kalırız=мы останемся|kalkıyor=отправляется; встаёт|kalkıyorum=я встаю|kalkmak=вставать; отправляться|kalkmalıyım=мне надо вставать|kalmışım=оказывается, я (опоздала)|kan=кровь|kapılar=двери|kapıyı=дверь (вин.)|karar=решение|karışır=вмешивается|kartı=карта (kredi kartı — кредитная карта)|kartla=картой|kavga=ссора|kaybettim=я потеряла|kayboldu=потерялся|kedim=моя кошка|kenarında=на краю, у (deniz kenarında — у моря)|kestirdim=я подстриглась|keşke=если бы, жаль что не|kez=раз|kırıklığına=разочарованию|kırk=40|kısa=короткий; низкий|kıtayı=континент (вин.)|kızıma=моей дочери|ki=что (союз)|kişilik=на … человек (iki kişilik — на двоих)|kitabı=книгу (вин.)|klima=кондиционер|kolay=лёгкий|komşumuz=наш сосед|kontrolü=контроль|konuşabiliyorum=я могу говорить|konuşan=который говорит|konuştukça=чем больше говорю|konuşulur=говорят (пассив)|konuşur=говорит (konuşur musunuz — не могли бы вы говорить)|konuyu=тему|korumalıyız=мы должны беречь|koşarak=бегом|köyde=в деревне|kredi=кредит|kuru=курс (döviz kuru — курс валют)|kusura=на промах (kusura bakmayın — извините)|kuşak=поколение|kutlu=счастливый, праздничный|kültürünün=культуры|lazım=нужно|lezzetli=вкусный|lira=лира|maalesef=к сожалению|makinesi=машина, аппарат|markete=в магазин|marketten=из магазина|mayısta=в мае|memnun=довольный (memnun oldum — приятно познакомиться)|menü=меню|merak=любопытство; беспокойство|merkezindedir=находится в центре|mesaj=сообщение|mı=ли (вопрос)|mısın=ли ты|mi=ли (вопрос)|misafirperverlik=гостеприимство|misiniz=ли вы|miyim=ли я|moskova'dan=из Москвы|musun=ли ты|musunuz=ли вы|mutfağı=кухня (турецкая кухня)|mutfaklarından=из кухонь|mutluyum=я счастлива|mü=ли (вопрос)|mübarek=благословенный|müdürle=с директором, управляющим|müsait=свободный, удобный|müzik=музыка|nesi=что у него (nesi var — что может)|nice=много (nice yıllara — многая лета)|numaranızı=ваш номер|odalı=…комнатный|odanız=ваша комната, номер|odası=комната (yatak odası — спальня)|okuduğum=которую я читаю|okudukça=чем больше читаю|okula=в школу|okumayı=читать (вин.)|okurum=я читаю (обычно)|okuyorum=я читаю|olabilir=может быть|olabilirsiniz=вы можете быть|olacak=будет|olanı=тот, который (en ucuz olanı — самый дешёвый)|olarak=в качестве|olduğunu=что является|olduktan=после того как стала|oldum=я стала|olmalı=должно быть|olmalılar=они должно быть|olmasına=тому, что является (olmasına rağmen — несмотря на то что)|olsa=если бы было|olsun=пусть будет|olur=будет; ладно, можно|olursa=если будет|oluyor=становится|onu=его, её (вин.)|orada=там|otel=отель|otelde=в отеле|otobüsü=автобус (вин.)|oturan=который сидит|oturduğunu=где он живёт|oturuyorsunuz=вы живёте, сидите|otuz=30|ödedim=я оплатила|ödeyebilir=может оплатить|ödeyelim=давайте заплатим|öğreniyorum=я учу|öğrenmeye=учить (начать учить)|öğretmen=учитель|öğretmenim=я учитель|önce=раньше; перед|önemli=важный|örgü=вязание|örmek=вязать|örnek=пример|öte=другой, тот (öte yandan — с другой стороны)|özledim=я соскучилась|özür=извинение|para=деньги|param=мои деньги|paramı=мои деньги (вин.)|parçasıdır=является частью|parkta=в парке|pasaport=паспорт|pazara=на рынок|pencereyi=окно (вин.)|pişirdim=я приготовила|pişman=сожалеющий|rağmen=несмотря на|rahatladı=успокоился, отлегло|randevu=запись, встреча|renk=цвет|resim=картина, рисунок|rezervasyonum=моя бронь|rica=просьба (rica ederim — не за что)|roman=роман|rötar=задержка рейса|rusum=я русская|rusya'da=в России|saat=час; часы; время|sabah=утро; утром|saçımı=мои волосы|sağ=живой, здоровый; правый|sağlık=здоровье|sahneye=на сцену|sakla=храни|samanı=солому|seni=тебя|sesi=звук, голос|sesiniz=ваш голос|sevdiğim=который я люблю, любимый|sevinirim=я обрадуюсь|seviyorsun=ты любишь|seviyorum=я люблю|sık=частый (sık sık — часто)|sıkılıyor=сжимается (canım sıkılıyor — мне тоскливо)|sigara=сигарета|sinemaya=в кино|siparişiniz=ваш заказ|sizinle=с вами|soğukmuş=говорят, холодно|sokaktan=с улицы, по улице|son=последний|sonları=концы (hafta sonları — по выходным)|sonra=потом, после|sonu=конец (hafta sonu — выходные)|sonuç=результат|sordu=спросил(а)|sorun=проблема|sosyal=социальный|söyledi=сказал(а)|söylediklerini=то, что ты сказал|söylerdim=я бы сказала|söz=слово (söz vermek — обещать)|sunarız=представляем|suyu=воду (вин.)|şey=вещь (bir şey — что-то)|şeytan=чёрт, шайтан|şu=тот, вон тот|şunu=вот это (вин.)|tabii=конечно|tahlili=анализ|taksi=такси|tamirci=мастер по ремонту|tanıyorum=я знаю (кого-то)|tansiyonum=моё давление|tavsiye=совет|tek=один, одиночный|tekrar=снова, ещё раз|televizyon=телевизор|terfi=повышение|teşekkür=благодарность|teşekkürler=спасибо|toparlarsak=если подытожим|toplantı=собрание, встреча|torunumu=моего внука|tuvalet=туалет|türk=турецкий; турок|türkçe=турецкий язык|türkçeyi=турецкий язык (вин.)|uçağımız=наш самолёт|uçmamıştım=я не летала (раньше)|uğradım=я подверглась|unutmuş=оказывается, забыл|uyumadan=перед сном (не уснув)|uyuttum=я уложила спать|uyuyordum=я спала|uzak=далёкий, далеко|uzun=длинный; высокий|üzere=чтобы; вот-вот|varsa=если есть|ver=дай|vereyim=дам-ка, приведу|verir=даст|veriyorum=я даю|vermek=давать|ya=или; же|yağarsa=если пойдёт (дождь)|yağdığı=что шёл (дождь)|yağıyordu=шёл (дождь)|yağmur=дождь|yakın=близкий|yan=бок, сторона (yan etkisi — побочный эффект)|yandan=со стороны|yapacaksın=ты будешь делать|yaparsınız=вы делаете (обычно)|yapıldı=было сделано, построено|yapılmasını=чтобы было сделано|yapıyor=делает|yapıyordun=ты делала|yapıyorum=я делаю|yapmayı=делать (вин.)|yaptı=сделал(а)|yaptın=ты сделала|yaptırmam=мне сделать (через кого-то)|yardım=помощь|yaşadığım=где я живу|yaşadım=я жила|yaşamak=жить|yaşken=пока молодой, сырой|yatak=кровать|yatarım=я ложусь|yavaş=медленно|yazın=летом|yazıyorum=я пишу|yedide=в семь|yemekten=от еды (yemekten önce — перед едой)|yemem=я не ем|yer=место|yıka=мой (руки)|yıkarım=я помою|yıkattım=я отдала помыть|yıl=год|yılınız=ваш год|yıllara=к годам|yolda=в пути|yorgunum=я устала|yüksek=высокий|yürüdüm=я гуляла|yürürken=когда гуляю|yürüyerek=пешком|yürüyüşe=на прогулку|yüzden=по причине (bu yüzden — поэтому)|yüzerim=я плаваю|zaman=время (ne zaman — когда)|zamana=ко времени|zamanı=его время|zamanım=моё время|zamanın=твоё время|zengin=богатый|ziyaret=посещение|daha=ещё; более|dahil=включённый|dakika=минута|mektup=письмо|damlaya=капая (damlaya damlaya — капля за каплей)|bol=обильный, много (bol şans — удачи)|şans=удача`;
 const GLOSS = Object.fromEntries(GLOSS_RAW.split("|").map(p => { const i = p.indexOf("="); return [p.slice(0, i).trim(), p.slice(i + 1).trim()]; }));
 
-const LEGAL_MODE="static";const LEGAL_PARTNER={"refPercent":10,"payoutMin":1000,"taxRate":13};const LEGAL_PAY="tbank";const LEGAL_OWNER={"owner":"ИП Майшева Светлана Александровна","inn":"771596336468","ogrn":"326774600074694","regDate":"02.02.2026","regAuthority":"Межрайонная инспекция Федеральной налоговой службы № 46 по г. Москве","address":"г. Москва","email":"cepte_turk@mail.ru","phone":"","hosting":"","mailer":""};
+const LEGAL_MODE="static";const LEGAL_PHONE=false;const LEGAL_PARTNER={"refPercent":10,"payoutMin":1000,"taxRate":13};const LEGAL_PAY="tbank";const LEGAL_OWNER={"owner":"ИП Майшева Светлана Александровна","inn":"771596336468","ogrn":"326774600074694","regDate":"02.02.2026","regAuthority":"Межрайонная инспекция Федеральной налоговой службы № 46 по г. Москве","address":"г. Москва","email":"cepte_turk@mail.ru","phone":"","hosting":"","mailer":"","sms":""};
 // Legal texts of «CepteTurk». They depend on the build, because each build really does different things with data:
 //   "static" — the public website without a server (GitHub Pages): no accounts, everything stays in the browser;
 //   "claude" — the version inside Claude (Anthropic): progress, rating and club live in the Claude platform storage;
@@ -1379,7 +1381,9 @@ function makeLegal(F, O) {
   const PT = { refPercent: 10, payoutMin: 1000, taxRate: 13, ...(F.partner || {}) };
   const rubs = n => Number(n).toLocaleString("ru-RU");
   const has = k => typeof O[k] === "string" && O[k].trim() !== "";
-  const need = mode === "server" ? ["owner", "inn", "address", "email", "phone", "hosting", "mailer"] : [];
+  // sign-in by phone (PHONE_AUTH=1) adds the phone number and an SMS provider (owner.json "sms") to the documents
+  const phoneAuth = mode === "server" && !!F.phone;
+  const need = mode === "server" ? ["owner", "inn", "address", "email", "phone", "hosting", "mailer", ...(phoneAuth ? ["sms"] : [])] : [];
   const missing = need.filter(k => !has(k));
   const opLine = () => [O.owner, has("inn") ? "ИНН " + O.inn : "", has("ogrn") ? (/^ИП\s/.test(O.owner || "") ? "ОГРНИП " : "ОГРН ") + O.ogrn : "", has("address") ? "адрес: " + O.address : ""].filter(Boolean).join(", ");
   const opKnown = has("owner") && has("inn");
@@ -1425,11 +1429,11 @@ function makeLegal(F, O) {
     intro: (draftNote ? draftNote + " " : "") + "Эта политика объясняет, какие данные собирает приложение «CepteTurk», зачем, где они хранятся и как ими управлять. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
     sections: [
       ["1. Кто обрабатывает данные", opKnown ? `Оператор персональных данных — ${opLine()}. Связаться с оператором можно ${contact}.` : "Сведения об операторе не заполнены."],
-      ["2. Какие данные мы собираем", "• Аккаунт: адрес электронной почты; пароль — только в виде хэша; секрет двухфакторной защиты, если вы её включили.\n• Профиль: имя, аватар.\n• Учебные данные: пройденные уроки, результаты, опыт по дням, карточки и расписание повторений.\n• Партнёрская программа: ваш код приглашения, кто пригласил вас, начисления и выплаты.\n• Для выплаты партнёрского вознаграждения — только если вы запросили выплату: ФИО, дата рождения, ИНН, СНИЛС, паспортные данные, сведения о налоговом резидентстве, телефон для СБП или номер счёта и БИК банка.\n• Платежи: сумма, дата, статус и идентификатор платежа. Данные банковских карт получает только платёжный сервис.\n• Telegram: идентификатор чата с нашим ботом и время напоминаний — если вы подключили напоминания.\n• Технические данные: IP-адрес и тип браузера при входе, время входа, сообщения о сбоях приложения." + (F.metrika ? "\n• Обезличенная статистика посещений (Яндекс Метрика) — только если вы разрешили cookie." : "")],
+      ["2. Какие данные мы собираем", "• Аккаунт: адрес электронной почты; " + (phoneAuth ? "номер мобильного телефона, если вы входите по нему или привязали его; " : "") + "пароль — только в виде хэша; секрет двухфакторной защиты, если вы её включили.\n• Профиль: имя, аватар.\n• Учебные данные: пройденные уроки, результаты, опыт по дням, карточки и расписание повторений.\n• Партнёрская программа: ваш код приглашения, кто пригласил вас, начисления и выплаты.\n• Для выплаты партнёрского вознаграждения — только если вы запросили выплату: ФИО, дата рождения, ИНН, СНИЛС, паспортные данные, сведения о налоговом резидентстве, телефон для СБП или номер счёта и БИК банка.\n• Платежи: сумма, дата, статус и идентификатор платежа. Данные банковских карт получает только платёжный сервис.\n• Telegram: идентификатор чата с нашим ботом и время напоминаний — если вы подключили напоминания.\n• Технические данные: IP-адрес и тип браузера при входе, время входа, сообщения о сбоях приложения." + (F.metrika ? "\n• Обезличенная статистика посещений (Яндекс Метрика) — только если вы разрешили cookie." : "")],
       ["3. Зачем мы их используем", "• чтобы создать аккаунт и пускать вас в него;\n• чтобы сохранять прогресс и показывать его на любом устройстве;\n• чтобы принимать оплату, начислять и выплачивать вознаграждение по партнёрской программе, удерживать и перечислять налог с выплат и сдавать отчётность в налоговую и Социальный фонд;\n• чтобы проверять произношение;\n• чтобы присылать напоминания в Telegram, если вы их подключили;\n• чтобы отвечать на обращения, защищать аккаунты и предотвращать злоупотребления."],
       ["4. Правовые основания", "Ваше согласие, которое вы даёте при регистрации, и отдельное согласие на обработку данных для выплаты; исполнение договора (пользовательского соглашения); выполнение требований закона (учёт платежей, обязанности налогового агента)."],
       ["5. Где хранятся данные", `Персональные данные хранятся в базе данных на территории Российской Федерации (ч. 5 ст. 18 152-ФЗ), хостинг — ${has("hosting") ? O.hosting : "не указан"}. Настройки и копия прогресса также хранятся в памяти вашего браузера.`],
-      ["6. Кому мы передаём данные", `Только тем, кто помогает работать сервису, и только в нужном объёме:\n• хостинг-провайдер — ${has("hosting") ? O.hosting : "не указан"};\n• сервис отправки писем — ${has("mailer") ? O.mailer : "не указан"} — письма для подтверждения e-mail и восстановления пароля;\n• Yandex SmartCaptcha (ООО «Яндекс.Облако») — защита регистрации от ботов;\n• ${PAY.who} — приём оплаты;\n• ООО «Яндекс.Облако» — распознавание речи SpeechKit, если эта функция включена: передаётся запись фразы, без имени и контактов;\n• Telegram — напоминания, если вы подключили бота;\n• ФНС России и Социальный фонд России — сведения о выплатах партнёрам, удержанном налоге и страховых взносах, как требует закон;\n• банк, через который мы переводим выплаты, — ФИО получателя, телефон или реквизиты счёта и сумма.${F.metrika ? "\n• ООО «Яндекс» — Яндекс Метрика, если вы разрешили cookie." : ""}\nМы не продаём данные и не передаём их для рекламы.`],
+      ["6. Кому мы передаём данные", `Только тем, кто помогает работать сервису, и только в нужном объёме:\n• хостинг-провайдер — ${has("hosting") ? O.hosting : "не указан"};\n• сервис отправки писем — ${has("mailer") ? O.mailer : "не указан"} — письма для подтверждения e-mail и восстановления пароля;\n${phoneAuth ? `• ${has("sms") ? O.sms : "сервис отправки SMS не указан"} — отправка кодов для входа по номеру телефона (передаётся только номер и текст с кодом);\n` : ""}• Yandex SmartCaptcha (ООО «Яндекс.Облако») — защита регистрации от ботов;\n• ${PAY.who} — приём оплаты;\n• ООО «Яндекс.Облако» — распознавание речи SpeechKit, если эта функция включена: передаётся запись фразы, без имени и контактов;\n• Telegram — напоминания, если вы подключили бота;\n• ФНС России и Социальный фонд России — сведения о выплатах партнёрам, удержанном налоге и страховых взносах, как требует закон;\n• банк, через который мы переводим выплаты, — ФИО получателя, телефон или реквизиты счёта и сумма.${F.metrika ? "\n• ООО «Яндекс» — Яндекс Метрика, если вы разрешили cookie." : ""}\nМы не продаём данные и не передаём их для рекламы.`],
       ["7. Проверка произношения", speech + " " + asrOff],
       ["8. Сколько мы храним данные", "Пока действует ваш аккаунт. После удаления аккаунта данные удаляются, кроме сведений о платежах и выплатах партнёрам: их мы обязаны хранить 5 лет (налоговое законодательство и закон о бухгалтерском учёте). Данные для выплат хранятся в зашифрованном виде."],
       ["9. Ваши права", `В профиле аккаунта можно скачать свои данные («Скачать мои данные») и удалить аккаунт. Чтобы узнать, исправить данные или отозвать согласие, напишите оператору ${contact}. Мы ответим в течение 10 рабочих дней. Вы также вправе обратиться в Роскомнадзор.`],
@@ -1453,7 +1457,7 @@ function makeLegal(F, O) {
         : "Регистрация и вход; сохранение прогресса; приём оплаты и начисления по партнёрской программе; проверка произношения; напоминания в Telegram (если подключены); ответы на обращения."],
       ["3. Перечень данных", mode === "claude"
         ? "Имя или псевдоним, аватар; учебные данные (прогресс, результаты, карточки); сообщения об ошибках."
-        : "Адрес электронной почты; имя или псевдоним, аватар; учебные данные; код приглашения и сведения о приглашённых; сведения о платежах (без данных карт); запись фразы для проверки произношения (без сохранения); идентификатор чата Telegram и время напоминаний; IP-адрес, тип браузера и время входа. Данные для выплаты партнёрского вознаграждения (паспорт, ИНН, СНИЛС, реквизиты) обрабатываются по отдельному согласию, которое даётся в заявке на выплату."],
+        : "Адрес электронной почты; " + (phoneAuth ? "номер мобильного телефона (если вы входите по нему); " : "") + "имя или псевдоним, аватар; учебные данные; код приглашения и сведения о приглашённых; сведения о платежах (без данных карт); запись фразы для проверки произношения (без сохранения); идентификатор чата Telegram и время напоминаний; IP-адрес, тип браузера и время входа. Данные для выплаты партнёрского вознаграждения (паспорт, ИНН, СНИЛС, реквизиты) обрабатываются по отдельному согласию, которое даётся в заявке на выплату."],
       ["4. Действия с данными", "Сбор, запись, систематизация, накопление, хранение, уточнение, извлечение, использование, передача лицам, указанным в Политике конфиденциальности, обезличивание, блокирование, удаление, уничтожение. Обработка автоматизированная" + (mode === "claude" ? ", в хранилище платформы Claude (Anthropic, США)." : ", с использованием баз данных на территории Российской Федерации.")],
       ["5. Срок действия и отзыв", mode === "claude"
         ? "Согласие действует, пока у вас есть профиль. Чтобы отозвать его, удалите профиль: Настройки → Данные → «Удалить профиль»."
@@ -1509,7 +1513,7 @@ function makeLegal(F, O) {
   return { privacy, consent, terms, payee, missing, mode, pdConsent: mode !== "static" };
 }
 // The builds define LEGAL_MODE (and LEGAL_OWNER) before this file.
-const LEGAL = makeLegal({ mode: typeof LEGAL_MODE !== "undefined" ? LEGAL_MODE : "static", pay: typeof LEGAL_PAY !== "undefined" ? LEGAL_PAY : "tbank", partner: typeof LEGAL_PARTNER !== "undefined" ? LEGAL_PARTNER : undefined, metrika: typeof METRIKA_ID !== "undefined" && !!METRIKA_ID, feedback: typeof FEEDBACK_URL !== "undefined" ? FEEDBACK_URL.replace(/\/new$/, "") : undefined }, typeof LEGAL_OWNER !== "undefined" ? LEGAL_OWNER : {});
+const LEGAL = makeLegal({ mode: typeof LEGAL_MODE !== "undefined" ? LEGAL_MODE : "static", pay: typeof LEGAL_PAY !== "undefined" ? LEGAL_PAY : "tbank", partner: typeof LEGAL_PARTNER !== "undefined" ? LEGAL_PARTNER : undefined, phone: typeof LEGAL_PHONE !== "undefined" && LEGAL_PHONE, metrika: typeof METRIKA_ID !== "undefined" && !!METRIKA_ID, feedback: typeof FEEDBACK_URL !== "undefined" ? FEEDBACK_URL.replace(/\/new$/, "") : undefined }, typeof LEGAL_OWNER !== "undefined" ? LEGAL_OWNER : {});
 
 // Short dialogue stories with comprehension questions. g: speaker gender for voice choice.
 const STORIES = [
@@ -2218,10 +2222,11 @@ const ACC=(()=>{
   // ---- auth sheets ----
   async function openAuth(mode){
     if(!health){toast("⚠️","Вход пока недоступен","Аккаунты появятся в полной версии сайта");return}
-    mode=mode||"register";
-    const el=layer(`<div class="tabs2" style="margin-bottom:4px"><button data-am="register" aria-pressed="${mode==="register"}">Создать аккаунт</button><button data-am="login" aria-pressed="${mode==="login"}">Войти</button></div><div id="accBody"></div>`);
+    mode=mode||"register";if(mode==="phone"&&!health.phoneAuth)mode="login";
+    const el=layer(`<div class="tabs2" style="margin-bottom:4px"><button data-am="register" aria-pressed="${mode==="register"}">Создать аккаунт</button><button data-am="login" aria-pressed="${mode==="login"}">Войти</button>${health.phoneAuth?`<button data-am="phone" aria-pressed="${mode==="phone"}">По телефону</button>`:""}</div><div id="accBody"></div>`);
     el.querySelectorAll("[data-am]").forEach(b=>b.onclick=()=>openAuth(b.dataset.am));
     const body=el.querySelector("#accBody");
+    if(mode==="phone")return phoneAuth(body);
     if(mode==="register"){
       body.innerHTML=`<h2>Аккаунт ученика</h2><p class="help" style="margin:0">Прогресс сохранится на всех устройствах, а купленный доступ останется с вами навсегда.</p>
         <div class="field"><label for="aEmail">Почта</label><input class="inp" id="aEmail" type="email" autocomplete="email" inputmode="email" maxlength="200" placeholder="name@mail.ru"></div>
@@ -2258,6 +2263,64 @@ const ACC=(()=>{
       body.querySelector("#aGo").onclick=go;body.querySelector("#aPw").onkeydown=e=>{if(e.key==="Enter")go()};
     }
     setTimeout(()=>{const f=el.querySelector("#aEmail");if(f)f.focus()},50);
+  }
+  // Sign-in or sign-up by phone: a number, a code from SMS; a new number then needs the two consents.
+  async function phoneAuth(body,phone){
+    body.innerHTML=`<h2>Вход по телефону</h2><p class="help" style="margin:0">Пришлём код в SMS. Если аккаунта с этим номером ещё нет, мы его создадим.</p>
+      <div class="field"><label for="pPhone">Номер мобильного</label><input class="inp" id="pPhone" type="tel" autocomplete="tel" inputmode="tel" maxlength="18" placeholder="+7 900 123-45-67" value="${esc(phone||"")}"></div>
+      <div class="cap" hidden></div><p class="acc-msg" hidden></p><button class="btn primary" id="pGo">Получить код</button>`;
+    const cap=await captcha(body),go=body.querySelector("#pGo"),inp=body.querySelector("#pPhone");setTimeout(()=>inp.focus(),50);
+    const send=async()=>{busy(go,true);msgBox(body,"");const ph=inp.value.trim();
+      try{const r=await api("POST","/api/auth/phone/start",{phone:ph,captcha:cap.token()});phoneCode(body,ph,r)}catch(e){busy(go,false);cap.reset();msgBox(body,e.message)}};
+    go.onclick=send;inp.onkeydown=e=>{if(e.key==="Enter")send()};
+  }
+  function phoneCode(body,phone,r){
+    body.innerHTML=`<h2>Код из SMS</h2><p class="help" style="margin:0">Отправили на ${esc(r.masked)}. Код действует 5 минут.</p>
+      <input class="inp code" id="pCode" aria-label="Код из SMS" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456">
+      <p class="acc-msg" hidden></p><button class="btn primary" id="pOk">Войти</button>
+      <div class="grid2"><button class="btn sm" id="pAgain" disabled>Новый код через 60 с</button><button class="btn sm" id="pBack">Другой номер</button></div>`;
+    const inp=body.querySelector("#pCode"),ok=body.querySelector("#pOk"),again=body.querySelector("#pAgain");setTimeout(()=>inp.focus(),50);
+    let left=r.resendIn||60;const tick=setInterval(()=>{if(!document.body.contains(again)){clearInterval(tick);return}left--;if(left<=0){clearInterval(tick);again.disabled=false;again.textContent="Прислать новый код"}else again.textContent=`Новый код через ${left} с`},1000);
+    again.onclick=()=>phoneAuth(body,phone);body.querySelector("#pBack").onclick=()=>phoneAuth(body,"");
+    const check=async()=>{busy(ok,true);msgBox(body,"");
+      try{const v=await api("POST","/api/auth/phone/verify",{phone,code:inp.value.trim()});
+        if(v.need2fa)return open2faLogin(v.ticket);
+        if(v.needRegistration)return phoneConsent(body,v);
+        track("login");done("С возвращением!")}
+      catch(e){busy(ok,false);msgBox(body,e.message);inp.value="";if(e.code==="code_expired"||e.code==="too_many_attempts"){again.disabled=false;again.textContent="Прислать новый код"}}};
+    ok.onclick=check;inp.oninput=()=>{if(inp.value.replace(/\D/g,"").length===6)check()};
+  }
+  function phoneConsent(body,v){
+    body.innerHTML=`<h2>Новый аккаунт</h2><p class="help" style="margin:0">Номер ${esc(v.masked)} подтверждён. Осталось согласиться с условиями.</p>
+      ${refFromUrl()?`<p class="help ref-note" style="margin:0">🎁 Вы пришли по приглашению друга — оно сохранится в вашем аккаунте.</p>`:""}
+      <label class="consent"><input type="checkbox" id="aT"><span>Я принимаю <a href="#" class="link" data-legal="terms">Пользовательское соглашение</a> и ознакомлен(а) с <a href="#" class="link" data-legal="privacy">Политикой конфиденциальности</a></span></label>
+      <label class="consent"><input type="checkbox" id="aP"><span>Даю <a href="#" class="link" data-legal="consent">согласие на обработку персональных данных</a></span></label>
+      <p class="acc-msg" hidden></p><button class="btn primary" id="aGo">Создать аккаунт</button>`;
+    const go=body.querySelector("#aGo");
+    go.onclick=async()=>{if(!body.querySelector("#aT").checked||!body.querySelector("#aP").checked)return msgBox(body,"Отметьте обе галочки — без них мы не можем создать аккаунт.");
+      busy(go,true);try{await api("POST","/api/auth/phone/register",{ticket:v.ticket,consentTerms:true,consentPd:true,ref:refFromUrl()});track("register");clearRef();done("Аккаунт создан! Добавьте почту в профиле — на неё придёт чек после покупки.")}
+      catch(e){busy(go,false);msgBox(body,e.message);if(e.code==="ticket_expired")setTimeout(()=>openAuth("phone"),1500)}};
+  }
+  // Confirming a sensitive change: the password, or — for an account made by phone — a code sent to its number.
+  function reauthHTML(id){return me&&me.hasPassword?pwField(id,"Текущий пароль","current-password",false)
+    :`<div class="field"><label for="${id}">Код из SMS на ${esc(me&&me.phone||"ваш номер")}</label><div class="pw-row"><input class="inp code" id="${id}" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456"><button type="button" class="btn sm" data-reauth="${id}" style="width:auto">Получить код</button></div></div>`}
+  function wireReauth(el){wirePw(el);el.querySelectorAll("[data-reauth]").forEach(b=>b.onclick=async()=>{busy(b,true,"Отправляем…");try{await api("POST","/api/me/phone/reauth",{});b.textContent="Код отправлен";toast("📱","Код отправлен","Он действует 5 минут")}catch(e){busy(b,false);msgBox(el,e.message)}})}
+  const reauthValue=(el,id)=>me&&me.hasPassword?{password:el.querySelector("#"+id).value}:{phoneCode:el.querySelector("#"+id).value.trim()};
+  // Adding or replacing the phone: confirm with the password (or a code to the old number), then a code to the new number.
+  function openPhoneLink(){
+    const el=layer(`<h2>${me.phone?"Сменить телефон":"Привязать телефон"}</h2><p class="help" style="margin:0">По номеру можно будет входить кодом из SMS.</p>
+      <div class="field"><label for="lPhone">Номер мобильного</label><input class="inp" id="lPhone" type="tel" autocomplete="tel" inputmode="tel" maxlength="18" placeholder="+7 900 123-45-67"></div>
+      ${reauthHTML("lAuth")}<p class="acc-msg" hidden></p><button class="btn primary" id="lGo">Получить код на новый номер</button>
+      <div class="stack" id="lStep2" hidden><input class="inp code" id="lCode" aria-label="Код из SMS на новый номер" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="Код из SMS"><button class="btn primary" id="lOk">Привязать</button></div>`);
+    wireReauth(el);const go=el.querySelector("#lGo"),ok=el.querySelector("#lOk");let phone="";
+    go.onclick=async()=>{busy(go,true);msgBox(el,"");phone=el.querySelector("#lPhone").value.trim();
+      try{const r=await api("POST","/api/me/phone/start",{phone,...reauthValue(el,"lAuth")});go.hidden=true;el.querySelector("#lStep2").hidden=false;msgBox(el,"Код отправлен на "+r.masked,true);el.querySelector("#lCode").focus()}catch(e){busy(go,false);msgBox(el,e.message)}};
+    ok.onclick=async()=>{busy(ok,true);try{const r=await api("POST","/api/me/phone/verify",{phone,code:el.querySelector("#lCode").value.trim()});me=r.me;close();render();toast("📱","Телефон привязан","Теперь можно входить по коду из SMS")}catch(e){busy(ok,false);msgBox(el,e.message)}};
+  }
+  function openPhoneUnlink(){
+    const el=layer(`<h2>Отвязать телефон?</h2><p class="help" style="margin:0">Входить можно будет только по почте и паролю.</p>${reauthHTML("uAuth")}<p class="acc-msg" hidden></p><div class="grid2"><button class="btn" id="uNo">Отмена</button><button class="btn badb" id="uGo">Отвязать</button></div>`);
+    wireReauth(el);el.querySelector("#uNo").onclick=close;const go=el.querySelector("#uGo");
+    go.onclick=async()=>{busy(go,true);try{const r=await api("DELETE","/api/me/phone",reauthValue(el,"uAuth"));me=r.me;close();render();toast("📱","Телефон отвязан","")}catch(e){busy(go,false);msgBox(el,e.message)}};
   }
   function open2faLogin(ticket){
     const el=layer(`<h2>Код подтверждения</h2><p class="help" style="margin:0">Откройте приложение-аутентификатор (Google Authenticator, Яндекс Ключ) и введите 6 цифр.</p>
@@ -2296,12 +2359,15 @@ const ACC=(()=>{
       <div class="grid2"><button class="btn primary sm" data-acc="register">Создать аккаунт</button><button class="btn sm" data-acc="login">Войти</button></div></div>`;
     const lv=hasAccess()?"полный, навсегда":me.levels.length?"уровни "+me.levels.join(", "):"не куплен";
     return `<div class="card stack acc-card"><h3 style="margin:0">Аккаунт</h3>
-      <div class="acc-row"><span>Почта</span><b>${esc(me.email)}</b></div>
-      ${me.emailVerified?`<div class="acc-row"><span>Статус</span><b style="color:var(--ok)">почта подтверждена</b></div>`:`<div class="save-ok warn" style="margin:0"><span>Подтвердите почту — без этого не получится оплатить доступ. Письмо уже отправлено.</span></div><button class="btn sm" data-acc="resend">Отправить письмо ещё раз</button>`}
+      <div class="acc-row"><span>Почта</span><b>${me.email?esc(me.email):"не указана"}</b></div>
+      ${health.phoneAuth||me.phone?`<div class="acc-row"><span>Телефон</span><b>${me.phone?esc(me.phone):"не привязан"}</b></div>`:""}
+      ${!me.email?`<div class="save-ok warn" style="margin:0"><span>Добавьте почту: на неё придёт чек после покупки, и через неё можно будет восстановить доступ.</span></div>`:me.emailVerified?`<div class="acc-row"><span>Статус</span><b style="color:var(--ok)">почта подтверждена</b></div>`:`<div class="save-ok warn" style="margin:0"><span>Подтвердите почту — без этого не получится оплатить доступ. Письмо уже отправлено.</span></div><button class="btn sm" data-acc="resend">Отправить письмо ещё раз</button>`}
       <div class="acc-row"><span>Доступ к курсам</span><b>${esc(lv)}</b></div>
       ${hasAccess()?"":`<button class="btn good sm" data-acc="buy">Открыть полный доступ — ${priceLabel()}</button>`}
       <div class="acc-row"><span>Двухфакторная защита</span><b>${me.totp?`<span style="color:var(--ok)">включена</span>`:"выключена"}</b></div>
-      <div class="grid2"><button class="btn sm" data-acc="${me.totp?"2fa-off":"2fa-on"}">${me.totp?"Отключить 2FA":"Включить 2FA"}</button><button class="btn sm" data-acc="password">Сменить пароль</button></div>
+      <div class="grid2"><button class="btn sm" data-acc="email">${me.email?"Сменить почту":"Добавить почту"}</button>${health.phoneAuth?`<button class="btn sm" data-acc="phone">${me.phone?"Сменить телефон":"Привязать телефон"}</button>`:""}</div>
+      ${me.phone&&me.hasPassword&&me.emailVerified?`<button class="btn sm" data-acc="phone-off">Отвязать телефон</button>`:""}
+      <div class="grid2"><button class="btn sm" data-acc="${me.totp?"2fa-off":"2fa-on"}">${me.totp?"Отключить 2FA":"Включить 2FA"}</button>${me.hasPassword?`<button class="btn sm" data-acc="password">Сменить пароль</button>`:me.email?`<button class="btn sm" data-acc="setpw">Задать пароль</button>`:""}</div>
       <div class="grid2"><button class="btn sm" data-acc="logout">Выйти</button><button class="btn sm" data-acc="logout-all">Выйти на всех устройствах</button></div>
       <div class="grid2"><button class="btn sm" data-acc="export">Скачать мои данные</button><button class="btn sm badb" data-acc="delete">Удалить аккаунт</button></div>
       ${me.isAdmin&&!me.totp?`<p class="help" style="margin:0;color:var(--bad)">Вы администратор: включите 2FA, иначе админка не откроется.</p>`:""}</div>`;
@@ -2311,7 +2377,7 @@ const ACC=(()=>{
       if(a==="register"||a==="login")openAuth(a);
       else if(a==="resend")api("POST","/api/auth/resend-verify",{}).then(()=>toast("✉️","Письмо отправлено","Проверьте и папку «Спам»")).catch(e=>toast("⚠️",e.message,""));
       else if(a==="2fa-on")open2faSetup();else if(a==="2fa-off")open2faOff();else if(a==="password")openPassword();
-      else if(a==="logout")logout(false);else if(a==="logout-all")logout(true);else if(a==="export")exportData();else if(a==="delete")openDelete();else if(a==="buy")buyCourse();});
+      else if(a==="logout")logout(false);else if(a==="logout-all")logout(true);else if(a==="export")exportData();else if(a==="delete")openDelete();else if(a==="buy")buyCourse();else if(a==="email")openEmailChange();else if(a==="phone")openPhoneLink();else if(a==="phone-off")openPhoneUnlink();else if(a==="setpw")openForgot(me.email);});
     wirePartner(v);
   }
   async function logout(all){try{await api("POST",all?"/api/auth/logout-all":"/api/auth/logout",{})}catch(e){}
@@ -2324,10 +2390,10 @@ const ACC=(()=>{
   }
   function openDelete(){
     const el=layer(`<h2>Удалить аккаунт?</h2><p class="help" style="margin:0">Прогресс, карточки и профиль будут удалены безвозвратно. Купленный доступ пропадёт. Записи об оплатах мы обязаны хранить по закону — они останутся без привязки к вам.</p>
-      ${pwField("dPw","Введите пароль для подтверждения","current-password",false)}<p class="acc-msg" hidden></p><div class="grid2"><button class="btn" id="dNo">Отмена</button><button class="btn badb" id="dGo">Удалить</button></div>`);
-    wirePw(el);el.querySelector("#dNo").onclick=close;
+      ${reauthHTML("dPw")}<p class="acc-msg" hidden></p><div class="grid2"><button class="btn" id="dNo">Отмена</button><button class="btn badb" id="dGo">Удалить</button></div>`);
+    wireReauth(el);el.querySelector("#dNo").onclick=close;
     el.querySelector("#dGo").onclick=async()=>{const btn=el.querySelector("#dGo");busy(btn,true);
-      try{await api("DELETE","/api/me",{password:el.querySelector("#dPw").value});try{localStorage.removeItem("turkce.v3");localStorage.removeItem("turkce.v3.broken")}catch(e){}done("Аккаунт удалён")}catch(e){busy(btn,false);msgBox(el,e.message)}};
+      try{await api("DELETE","/api/me",reauthValue(el,"dPw"));try{localStorage.removeItem("turkce.v3");localStorage.removeItem("turkce.v3.broken")}catch(e){}done("Аккаунт удалён")}catch(e){busy(btn,false);msgBox(el,e.message)}};
   }
   let qrLib=null;
   function loadQr(){if(window.qrcode)return Promise.resolve(window.qrcode);if(qrLib)return qrLib;qrLib=new Promise(res=>{const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";s.onload=()=>res(window.qrcode);s.onerror=()=>res(null);document.head.appendChild(s)});return qrLib}
@@ -2350,10 +2416,19 @@ const ACC=(()=>{
     el.querySelector("#rDl").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type:"text/plain"}));a.download="turkce-recovery-codes.txt";document.body.appendChild(a);a.click();setTimeout(()=>a.remove(),500)};
     el.querySelector("#rOk").onclick=()=>{close();toast("🛡️","Двухфакторная защита включена","");render()};
   }
+  // A new address is confirmed by a link sent to it; the old address gets a notice when the change is done.
+  function openEmailChange(){
+    const el=layer(`<h2>${me.email?"Сменить почту":"Добавить почту"}</h2><p class="help" style="margin:0">${me.email?`Сейчас: ${esc(me.email)}. `:""}На новый адрес придёт ссылка — почта ${me.email?"сменится":"добавится"}, когда вы её откроете.</p>
+      <div class="field"><label for="eNew">Новая почта</label><input class="inp" id="eNew" type="email" autocomplete="email" maxlength="254"></div>
+      ${reauthHTML("ePw")}<p class="acc-msg" hidden></p><button class="btn primary" id="eGo">Отправить ссылку</button>`);
+    wireReauth(el);const go=el.querySelector("#eGo");
+    go.onclick=async()=>{busy(go,true);try{const r=await api("POST","/api/me/email",{email:el.querySelector("#eNew").value.trim(),...reauthValue(el,"ePw")});
+      busy(go,false);go.hidden=true;msgBox(el,`Письмо отправлено на ${r.sentTo}. Откройте ссылку из него — она действует сутки.`,true)}catch(e){busy(go,false);msgBox(el,e.message)}};
+  }
   function open2faOff(){
-    const el=layer(`<h2>Отключить 2FA?</h2>${pwField("oPw","Пароль","current-password",false)}<input class="inp code" id="oCode" aria-label="Код из приложения-аутентификатора" inputmode="numeric" maxlength="6" placeholder="Код из приложения"><p class="acc-msg" hidden></p><button class="btn badb" id="oGo">Отключить</button>`);
-    wirePw(el);el.querySelector("#oGo").onclick=async()=>{const btn=el.querySelector("#oGo");busy(btn,true);
-      try{await api("POST","/api/2fa/disable",{password:el.querySelector("#oPw").value,code:el.querySelector("#oCode").value.trim()});me.totp=false;close();render();toast("🛡️","2FA отключена","")}catch(e){busy(btn,false);msgBox(el,e.message)}};
+    const el=layer(`<h2>Отключить 2FA?</h2>${reauthHTML("oPw")}<input class="inp code" id="oCode" aria-label="Код из приложения-аутентификатора" inputmode="numeric" maxlength="6" placeholder="Код из приложения"><p class="acc-msg" hidden></p><button class="btn badb" id="oGo">Отключить</button>`);
+    wireReauth(el);el.querySelector("#oGo").onclick=async()=>{const btn=el.querySelector("#oGo");busy(btn,true);
+      try{await api("POST","/api/2fa/disable",{...reauthValue(el,"oPw"),code:el.querySelector("#oCode").value.trim()});me.totp=false;close();render();toast("🛡️","2FA отключена","")}catch(e){busy(btn,false);msgBox(el,e.message)}};
   }
 
   // ---- partner money ----
@@ -2469,12 +2544,14 @@ const ACC=(()=>{
     const q=new URLSearchParams(location.search);let changed=false;
     const ref=q.get("ref");if(ref){saveRef(ref);track("ref_visit");q.delete("ref");changed=true}
     const flash=(()=>{try{const f=sessionStorage.getItem("turkce.flash");sessionStorage.removeItem("turkce.flash");return f}catch(e){return null}})();
-    if(changed||q.has("purchase")||q.has("verified")||q.has("reset"))history.replaceState(null,"",location.pathname+(q.toString()&&!q.has("purchase")&&!q.has("verified")&&!q.has("reset")?"?"+q:""));
+    if(changed||q.has("purchase")||q.has("verified")||q.has("reset")||q.has("email_changed"))history.replaceState(null,"",location.pathname+(q.toString()&&!q.has("purchase")&&!q.has("verified")&&!q.has("reset")&&!q.has("email_changed")?"?"+q:""));
     await ready;
     applyStoredRef();
     if(flash)toast("✅",flash,"");
     if(q.get("verified")==="1"){await refreshMe();toast("✉️","Почта подтверждена","Теперь можно оплатить доступ");render()}
     else if(q.get("verified")==="0")toast("⚠️","Ссылка устарела","Отправьте письмо ещё раз из профиля");
+    if(q.get("email_changed")==="1"){await refreshMe();toast("✉️","Почта изменена","Теперь входите с новым адресом");render()}
+    else if(q.get("email_changed")==="0")toast("⚠️","Ссылка устарела","Запросите смену почты ещё раз в профиле");
     if(q.get("reset"))openReset(q.get("reset"));
     if(q.get("purchase")&&me)waitPurchase(q.get("purchase"));
     cookieBanner();
@@ -2483,7 +2560,15 @@ const ACC=(()=>{
 
   // ---- sales admin (server mode) ----
   let adm=null;
-  async function loadAdmin(){try{const [stats,purchases,partners,wd]=await Promise.all([api("GET","/api/admin/stats"),api("GET","/api/admin/purchases"),api("GET","/api/admin/referrals"),api("GET","/api/admin/withdrawals")]);adm={stats,purchases:purchases.purchases,partners:partners.partners,withdrawals:wd.withdrawals}}catch(e){adm={error:e.message}}render()}
+  // Owner actions with money or personal data need a fresh authenticator code (step-up), asked once per 10 minutes.
+  function askStepUp(){return new Promise((res,rej)=>{
+    const el=layer(`<h2>Подтвердите действие</h2><p class="help" style="margin:0">Введите код из приложения-аутентификатора. Следующие 10 минут возвраты, выплаты и данные партнёров будут доступны без нового кода.</p><input class="inp code" id="suCode" aria-label="Код из приложения-аутентификатора" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="Код из приложения"><p class="acc-msg" hidden></p><button class="btn good" id="suGo">Подтвердить</button>`);
+    el.onclick=e=>{if(e.target===el){close();rej(new Error("Действие отменено"))}};
+    const go=el.querySelector("#suGo"),inp=el.querySelector("#suCode");setTimeout(()=>inp.focus(),50);
+    const send=async()=>{busy(go,true);try{await api("POST","/api/auth/step-up",{code:inp.value.trim()});close();res()}catch(e){busy(go,false);msgBox(el,e.message)}};
+    go.onclick=send;inp.onkeydown=e=>{if(e.key==="Enter")send()}})}
+  async function apiStep(method,path,body){try{return await api(method,path,body)}catch(e){if(e.code!=="stepup_required")throw e;await askStepUp();return api(method,path,body)}}
+  async function loadAdmin(){try{const [stats,purchases,partners,wd]=await Promise.all([api("GET","/api/admin/stats"),api("GET","/api/admin/purchases"),api("GET","/api/admin/referrals"),api("GET","/api/admin/withdrawals").catch(e=>e.code==="owner_only"?{withdrawals:null}:Promise.reject(e))]);adm={stats,purchases:purchases.purchases,partners:partners.partners,withdrawals:wd.withdrawals}}catch(e){adm={error:e.message}}render()}
   function adminSalesHTML(){
     if(!health)return `<div class="card"><p class="help" style="margin:0">Продажи появятся, когда приложение будет работать на своём сервере.</p></div>`;
     if(!adm){loadAdmin();return `<div class="card"><p class="help" style="margin:0">Загружаю…</p></div>`}
@@ -2493,11 +2578,12 @@ const ACC=(()=>{
         <div class="rc"><small>Выручка всего</small><b>${rub(s.paid.sum)} ₽</b></div><div class="rc"><small>За 30 дней</small><b>${rub(s.paid30.sum)} ₽</b></div>
         <div class="rc"><small>Покупок</small><b>${s.paid.n}</b></div><div class="rc"><small>Возвратов</small><b>${s.refunded.n}</b></div>
         <div class="rc"><small>Аккаунтов</small><b>${s.users}</b></div><div class="rc"><small>Активны за 7 дней</small><b>${s.active7}</b></div></div>
-      <div class="card stack"><h3 style="margin:0">Покупки</h3>${adm.purchases.length?adm.purchases.slice(0,100).map(p=>`<div class="crow"><span class="badge" style="background:${p.status==="paid"?"var(--ok)":p.status==="refunded"?"var(--bad)":"var(--muted)"}">${esc(p.level==="ALL"?"Всё":p.level)}</span><div><b>${rub(p.amount)} ₽${p.bonus_used?` + ${rub(p.bonus_used)} ₽ бонусами`:""} · ${st[p.status]||p.status}</b><small>${esc(p.user_email||"")} · ${new Date(p.created).toLocaleString("ru-RU")}</small></div>${p.status==="paid"?`<button class="btn sm" data-refund="${esc(p.id)}">Возврат</button>`:""}</div>`).join(""):`<p class="help" style="margin:0">Покупок пока нет.</p>`}</div>
-      <div class="card stack"><h3 style="margin:0">Заявки на выплату</h3>${adm.withdrawals.length?adm.withdrawals.slice(0,100).map(w=>`<div class="stack wd-row" style="gap:6px" data-wdrow="${esc(w.id)}"><div class="crow"><span class="badge" style="background:${w.status==="paid"?"var(--ok)":w.status==="requested"?"var(--gold-dk)":"var(--muted)"}">₽</span><div><b>${rub(w.net)} ₽ к переводу · ${({requested:"ждёт выплаты",paid:"выплачено",rejected:"отклонено",canceled:"отменено"})[w.status]||w.status}</b><small>${esc(w.fio)} · ${esc(w.to)} · начислено ${rub(w.amount)} ₽, НДФЛ ${rub(w.tax)} ₽ · ${esc(w.email||"")} · ${new Date(w.created).toLocaleString("ru-RU")}${w.payRef?" · "+esc(w.payRef):""}${w.note?" · "+esc(w.note):""}</small></div></div>${w.status==="requested"?`<div class="grid2"><button class="btn sm" data-wdshow="${esc(w.id)}">Реквизиты</button><button class="btn sm" data-wdact="${esc(w.id)}">Выплачено / отклонить</button></div>`:""}</div>`).join(""):`<p class="help" style="margin:0">Заявок пока нет.</p>`}
-        <div class="stack" style="gap:6px"><span class="flabel">Выгрузка для бухгалтера (6-НДФЛ, РСВ)</span><div class="acc-row"><label for="wdFrom">С</label><input class="inp" type="date" id="wdFrom" style="max-width:220px"></div><div class="acc-row"><label for="wdTo">По</label><input class="inp" type="date" id="wdTo" style="max-width:220px"></div><button class="btn sm" id="wdCsv">Скачать выплаты за период (CSV)</button></div></div>
+      <div class="card stack"><h3 style="margin:0">Покупки</h3>${adm.purchases.length?adm.purchases.slice(0,100).map(p=>`<div class="crow"><span class="badge" style="background:${p.status==="paid"?"var(--ok)":p.status==="refunded"?"var(--bad)":"var(--muted)"}">${esc(p.level==="ALL"?"Всё":p.level)}</span><div><b>${rub(p.amount)} ₽${p.bonus_used?` + ${rub(p.bonus_used)} ₽ бонусами`:""} · ${st[p.status]||p.status}</b><small>${esc(p.user_email||"")} · ${new Date(p.created).toLocaleString("ru-RU")}</small></div>${p.status==="paid"&&me.isOwner?`<button class="btn sm" data-refund="${esc(p.id)}">Возврат</button>`:""}</div>`).join(""):`<p class="help" style="margin:0">Покупок пока нет.</p>`}</div>
+      <div class="card stack"><h3 style="margin:0">Заявки на выплату</h3>${!adm.withdrawals?`<p class="help" style="margin:0">Заявки и данные партнёров видит только владелец.</p>`:adm.withdrawals.length?adm.withdrawals.slice(0,100).map(w=>`<div class="stack wd-row" style="gap:6px" data-wdrow="${esc(w.id)}"><div class="crow"><span class="badge" style="background:${w.status==="paid"?"var(--ok)":w.status==="requested"?"var(--gold-dk)":"var(--muted)"}">₽</span><div><b>${rub(w.net)} ₽ к переводу · ${({requested:"ждёт выплаты",paid:"выплачено",rejected:"отклонено",canceled:"отменено"})[w.status]||w.status}</b><small>${esc(w.fio)} · ${esc(w.to)} · начислено ${rub(w.amount)} ₽, НДФЛ ${rub(w.tax)} ₽ · ${esc(w.email||"")} · ${new Date(w.created).toLocaleString("ru-RU")}${w.payRef?" · "+esc(w.payRef):""}${w.note?" · "+esc(w.note):""}</small></div></div>${w.status==="requested"?`<div class="grid2"><button class="btn sm" data-wdshow="${esc(w.id)}">Реквизиты</button><button class="btn sm" data-wdact="${esc(w.id)}">Выплачено / отклонить</button></div>`:""}</div>`).join(""):`<p class="help" style="margin:0">Заявок пока нет.</p>`}
+        ${!adm.withdrawals?"":`<div class="stack" style="gap:6px"><span class="flabel">Выгрузка для бухгалтера (6-НДФЛ, РСВ)</span><div class="acc-row"><label for="wdFrom">С</label><input class="inp" type="date" id="wdFrom" style="max-width:220px"></div><div class="acc-row"><label for="wdTo">По</label><input class="inp" type="date" id="wdTo" style="max-width:220px"></div><button class="btn sm" id="wdCsv">Скачать выплаты за период (CSV)</button></div>`}</div>
       <div class="card stack"><h3 style="margin:0">Партнёры (${health.refPercent||10}%)</h3>${adm.partners.length?adm.partners.map(p=>`<div class="crow"><span class="badge" style="background:var(--violet)">%</span><div><b>${esc(p.email)} · код ${esc(p.ref_code)}</b><small>можно вывести ${rub(Math.max(0,p.available-p.spent-p.paid_out))} ₽ · ждут ${rub(p.hold)} ₽ · выведено и в заявках ${rub(p.paid_out)} ₽</small></div></div>`).join(""):`<p class="help" style="margin:0">Начислений пока нет.</p>`}</div>
-      <p class="help" style="margin:0">Платежи: ${({mock:"тестовый режим",tbank:"Т-Банк",yookassa:"ЮKassa"})[s.payProvider]||esc(s.payProvider)} · ошибок у учеников за сутки: ${s.errors24}</p>`;
+      <p class="help" style="margin:0">Платежи: ${({mock:"тестовый режим",tbank:"Т-Банк",yookassa:"ЮKassa"})[s.payProvider]||esc(s.payProvider)} · ошибок у учеников за сутки: ${s.errors24} · неудачных оплат: ${s.payFailed24||0}</p>
+      ${s.security?`<div class="card stack"><h3 style="margin:0">Безопасность за сутки</h3>${[["login_failed","неверный пароль при входе"],["2fa_locked","блокировок второго шага"],["stepup_failed","неверных кодов подтверждения в админке"],["reauth_failed","неверных подтверждений действий"],["captcha_unavailable","запросов при сбое капчи"],["sms_budget_reached","остановок SMS по лимиту"],["ai_budget_reached","остановок ИИ по бюджету"],["payee_view","просмотров данных партнёров"],["payee_export","выгрузок для бухгалтера"]].map(([k,t])=>`<div class="acc-row"><span>${t}</span><b${(s.security[k]||0)>(k==="login_failed"?50:0)&&!/payee/.test(k)?' style="color:var(--bad)"':""}>${s.security[k]||0}</b></div>`).join("")}</div>`:""}`;
   }
   function wireAdmin(v){
     // Refund by the offer: the price minus the lessons the learner has taken (of every level the purchase opened); the sum can be changed
@@ -2513,10 +2599,10 @@ const ACC=(()=>{
       box.querySelector("[data-rfno]").onclick=()=>{adm=null;render()};
       box.querySelector("[data-rfgo]").onclick=async ev=>{const go=ev.currentTarget,amount=Math.round(+box.querySelector("#rfSum").value*100);
         if(!(amount>=0&&amount<=qt.amount)){toast("⚠️","Сумма — от 0 до "+rub(qt.amount)+" ₽","");return}
-        busy(go,true);try{const r=await api("POST",`/api/admin/purchases/${id}/refund`,{amount});toast("↩️","Возврат оформлен",rub(r.amount)+" ₽ · доступ у ученика закрыт");adm=null;render()}catch(e){busy(go,false);toast("⚠️",e.message,"")}};});
+        busy(go,true);try{const r=await apiStep("POST",`/api/admin/purchases/${id}/refund`,{amount});toast("↩️","Возврат оформлен",rub(r.amount)+" ₽ · доступ у ученика закрыт");adm=null;render()}catch(e){busy(go,false);toast("⚠️",e.message,"")}};});
     // Payout requests: show the full details to make the transfer, then mark it paid (with the payment reference) or reject it
     v.querySelectorAll("[data-wdshow]").forEach(b=>b.onclick=async()=>{const row=b.closest("[data-wdrow]");busy(b,true);
-      try{const {payee:p,withdrawal:w}=await api("GET","/api/admin/withdrawals/"+encodeURIComponent(b.dataset.wdshow));
+      try{const {payee:p,withdrawal:w}=await apiStep("GET","/api/admin/withdrawals/"+encodeURIComponent(b.dataset.wdshow));
         const lines=[["Сумма к переводу",rub(w.net)+" ₽"],["НДФЛ к перечислению",rub(w.tax)+" ₽"],["Получатель",p.fio],...(p.method==="sbp"?[["СБП, телефон",p.phone],["Банк",p.bank]]:[["Счёт",p.account],["БИК",p.bik],["Банк",p.bank||"—"]]),["Дата рождения",p.birth],["ИНН",p.inn],["СНИЛС",p.snils],["Паспорт",p.passport.slice(0,4)+" "+p.passport.slice(4)+", выдан "+p.issued+", "+p.issuer+", код "+p.code.slice(0,3)+"-"+p.code.slice(3)]];
         const box=document.createElement("div");box.className="card stack";box.style.gap="4px";box.innerHTML=lines.map(([k,x])=>`<div class="acc-row"><span>${esc(k)}</span><b style="user-select:all">${esc(x)}</b></div>`).join("");b.replaceWith(box)}
       catch(e){busy(b,false);toast("⚠️",e.message,"")}});
@@ -2524,11 +2610,12 @@ const ACC=(()=>{
       box.innerHTML=`<label class="flabel" for="wdRef">Номер платёжки или перевода</label><input class="inp" id="wdRef" maxlength="100"><button class="btn sm good" data-wdpaid>Отметить: выплачено</button>
         <label class="flabel" for="wdWhy">Причина отказа (увидит партнёр)</label><input class="inp" id="wdWhy" maxlength="300"><button class="btn sm badb" data-wdrej>Отклонить заявку</button>`;
       b.replaceWith(box);
-      box.querySelector("[data-wdpaid]").onclick=async ev=>{busy(ev.currentTarget,true);try{await api("POST",`/api/admin/withdrawals/${encodeURIComponent(id)}/paid`,{ref:box.querySelector("#wdRef").value.trim()});toast("💸","Выплата отмечена","Партнёр получит письмо");adm=null;render()}catch(e){busy(ev.currentTarget,false);toast("⚠️",e.message,"")}};
-      box.querySelector("[data-wdrej]").onclick=async ev=>{busy(ev.currentTarget,true);try{await api("POST",`/api/admin/withdrawals/${encodeURIComponent(id)}/reject`,{reason:box.querySelector("#wdWhy").value.trim()});toast("↩️","Заявка отклонена","Деньги вернулись на баланс партнёра");adm=null;render()}catch(e){busy(ev.currentTarget,false);toast("⚠️",e.message,"")}};});
+      box.querySelector("[data-wdpaid]").onclick=async ev=>{busy(ev.currentTarget,true);try{await apiStep("POST",`/api/admin/withdrawals/${encodeURIComponent(id)}/paid`,{ref:box.querySelector("#wdRef").value.trim()});toast("💸","Выплата отмечена","Партнёр получит письмо");adm=null;render()}catch(e){busy(ev.currentTarget,false);toast("⚠️",e.message,"")}};
+      box.querySelector("[data-wdrej]").onclick=async ev=>{busy(ev.currentTarget,true);try{await apiStep("POST",`/api/admin/withdrawals/${encodeURIComponent(id)}/reject`,{reason:box.querySelector("#wdWhy").value.trim()});toast("↩️","Заявка отклонена","Деньги вернулись на баланс партнёра");adm=null;render()}catch(e){busy(ev.currentTarget,false);toast("⚠️",e.message,"")}};});
     const csv=v.querySelector("#wdCsv");if(csv){const m=new Date(),f=v.querySelector("#wdFrom"),t=v.querySelector("#wdTo"),d=x=>x.toISOString().slice(0,10);
       if(!f.value)f.value=d(new Date(Date.UTC(m.getFullYear(),Math.floor(m.getMonth()/3)*3,1)));if(!t.value)t.value=d(m);
-      csv.onclick=async()=>{busy(csv,true);try{const r=await fetch(`/api/admin/withdrawals.csv?from=${f.value}&to=${t.value}`,{headers:H,credentials:"same-origin"});
+      csv.onclick=async()=>{busy(csv,true);try{const get=()=>fetch(`/api/admin/withdrawals.csv?from=${f.value}&to=${t.value}`,{headers:H,credentials:"same-origin"});let r=await get();
+        if(r.status===403){let j={};try{j=await r.clone().json()}catch(e){}if(j.error==="stepup_required"){await askStepUp();r=await get()}}
         if(!r.ok){let j={};try{j=await r.json()}catch(e){}throw new Error(j.message||"Не удалось выгрузить")}
         const a=document.createElement("a");a.href=URL.createObjectURL(await r.blob());a.download=`payouts-${f.value}-${t.value}.csv`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000)}
       catch(e){toast("⚠️",e.message,"")}busy(csv,false)}}
@@ -2683,12 +2770,13 @@ function fixState(x){
   o.bonus=numOr(x.bonus,0);o.freezes=numOr(x.freezes,0,0,50);o.saved=numOr(x.saved,0);o.resetAt=numOr(x.resetAt,0);
   o.frozen=strArr(x.frozen,400,10).filter(d=>DAY.test(d));o.refClaimed=strArr(x.refClaimed);o.promos=strArr(x.promos);o.fav=strArr(x.fav,2000,300);
   o.refBy=strOr(x.refBy,null,40);o.lvlSeen=x.lvlSeen==null?null:numOr(x.lvlSeen,null);
-  o.custom=Array.isArray(x.custom)?x.custom.filter(c=>isObj(c)&&typeof c.tr==="string"&&typeof c.ru==="string"&&c.tr.trim()).map((c,i)=>({...c,id:strOr(c.id,"c"+i+"-"+c.tr.length,40)})):[];
+  o.custom=Array.isArray(x.custom)?x.custom.filter(c=>isObj(c)&&typeof c.tr==="string"&&typeof c.ru==="string"&&c.tr.trim()).map((c,i)=>({...c,tr:c.tr.slice(0,200),ru:c.ru.slice(0,300),id:typeof c.id==="string"&&/^[\w-]{1,40}$/.test(c.id)?c.id:"c"+i+"-"+c.tr.length})):[];
   o.resume=isObj(x.resume)&&Array.isArray(x.resume.list)&&x.resume.list.length&&x.resume.list.every(e=>isObj(e)&&typeof e.type==="string")?{...x.resume,i:numOr(x.resume.i,0,0,x.resume.list.length-1)}:null;
-  o.placement=isObj(x.placement)?x.placement:null;
+  // the level test: numbers and a date only (a progress file is untrusted input)
+  o.placement=isObj(x.placement)?{passed:numOr(x.placement.passed,0,0,10),results:Array.isArray(x.placement.results)?x.placement.results.slice(0,10).map(v=>numOr(v,0,0,100)):[],date:typeof x.placement.date==="string"&&DAY.test(x.placement.date)?x.placement.date:"",...(x.placement.skipped?{skipped:true}:{}),...(x.placement.applied?{applied:true}:{})}:null;
   o.daily=isObj(x.daily)&&typeof x.daily.d==="string"?{...x.daily,p:isObj(x.daily.p)?x.daily.p:{}}:null;
   o.partner=isObj(x.partner)?{balance:numOr(x.partner.balance,0),history:Array.isArray(x.partner.history)?x.partner.history:[]}:{balance:0,history:[]};
-  if("myReports" in x)o.myReports=Array.isArray(x.myReports)?x.myReports.filter(isObj).slice(-30):[];
+  if("myReports" in x)o.myReports=Array.isArray(x.myReports)?x.myReports.filter(isObj).slice(-30).map(r=>{const c={};for(const [k,v] of Object.entries(r))if(/^[a-zA-Z]{1,16}$/.test(k)&&(typeof v==="string"||typeof v==="number"))c[k]=typeof v==="string"?v.slice(0,500):v;if(!/^[a-z0-9]{1,16}$/.test(String(c.rid||"")))c.rid=Date.now().toString(36);return c}):[];
   return o;
 }
 function fixPrefs(p){
@@ -2725,6 +2813,14 @@ function showStoreWarn(){
   el.innerHTML=`<b>Прогресс не сохраняется в этом браузере.</b> <span>${remote?"В аккаунте он сохраняется, но копии на устройстве нет.":"Похоже, включён приватный режим, закончилось место или сохранение запрещено. Сохраните прогресс в файл: Настройки → Данные."}</span> <button class="link" id="storeWarnGo">Открыть</button><button class="x" id="storeWarnX" aria-label="Скрыть предупреждение">×</button>`;
   el.querySelector("#storeWarnGo").onclick=()=>{openSettings();setTimeout(()=>{const d=$("#dataBox");if(d)d.scrollIntoView({block:"center"})},60)};
   el.querySelector("#storeWarnX").onclick=()=>el.remove();
+}
+// A new release took over the offline copy (service worker). The page keeps running the old code until it is reloaded,
+// so the learner is told, and never in the middle of a lesson: the notice waits until the lesson screen is closed.
+function updateReady(){
+  if(document.querySelector("#overlay .lesson")){setTimeout(updateReady,5000);return}
+  if($("#updBar"))return;const el=document.createElement("div");el.id="updBar";el.className="store-warn upd";el.setAttribute("role","status");
+  el.innerHTML=`<b>Вышла новая версия приложения.</b> <span>Прогресс сохранён.</span><button class="link" id="updGo">Обновить</button><button class="x" id="updX" aria-label="Позже">✕</button>`;
+  document.body.prepend(el);el.querySelector("#updGo").onclick=()=>{try{persist()}catch(e){}location.reload()};el.querySelector("#updX").onclick=()=>el.remove();
 }
 function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(S));if(!storageOK){storageOK=true;const w=$("#storeWarn");if(w)w.remove()}return true}catch(e){storageFailed(e);return false}}
 function applyZoom(){try{const z=P.zoom&&P.zoom!==1?P.zoom:1;document.documentElement.style.zoom=z===1?"":String(z);const n=document.querySelector(".nav");if(n)n.style.zoom=z===1?"":String(1/z)}catch(e){}}
@@ -3649,7 +3745,7 @@ function viewCards(){
         <button class="btn sm" id="cspeed" ${dk.cards.length>=6?"":"disabled"}>${I.clock} Подбор на время</button>
         ${dk.id==="own"?`<button class="btn" id="cadd">${I.plus} Создать карточку</button>${showAdd?addForm():""}`:""}
         <div class="card card-list"><div class="words-mini">${dk.cards.length?dk.cards.map(w=>{const s=S.srs[cardId(w)];const lbl=!s?"новая":s.d<=today()?"сегодня":"через "+ivlLabel(dayDiff(today(),s.d));
-          return wordRow({...w,ci:null},`<span class="mini">${lbl}${w.cid?`</span><button class="icon-btn" data-delc="${w.cid}" aria-label="Удалить карточку">${I.trash}</button>`:"</span>"}`)}).join(""):`<p class="help" style="margin:8px 0">${dk.id==="own"?"Создайте первую карточку: слово, которое хотите запомнить.":"Пока пусто. Пройдите уроки, и здесь появятся карточки."}</p>`}</div></div>
+          return wordRow({...w,ci:null},`<span class="mini">${lbl}${w.cid?`</span><button class="icon-btn" data-delc="${esc(w.cid)}" aria-label="Удалить карточку">${I.trash}</button>`:"</span>"}`)}).join(""):`<p class="help" style="margin:8px 0">${dk.id==="own"?"Создайте первую карточку: слово, которое хотите запомнить.":"Пока пусто. Пройдите уроки, и здесь появятся карточки."}</p>`}</div></div>
       </div>`;
   }
   const rc=reviewCards(ds);const st=deckStats({cards:rc});const due=st.due,nw=Math.min(st.nw,newLeft());
@@ -3658,7 +3754,7 @@ function viewCards(){
     <div class="card"><div class="row"><div style="flex:1"><h3>Сегодня</h3><p class="help" style="margin:0">${due} к повторению · ${nw} новых из «Выученных слов» · лимит новых ${P.newPerDay} в день</p></div></div>
       <button class="btn primary" style="margin-top:12px" id="cAll" ${due+nw?"":"disabled"}>${I.play} Начать повторение</button></div>
     <div class="field"><span class="flabel">Сторона карточки</span><div class="seg">${[["tr","Турецкий"],["ru","Русский"],["mix","Обе"]].map(([k,n])=>`<button data-cdir="${k}" aria-pressed="${P.cardDir===k}">${n}</button>`).join("")}</div></div>
-    ${ds.map(dk=>{const s=deckStats(dk);return `<button class="deck" data-deck="${dk.id}"><span class="ico" style="background:${dk.col}">${I[dk.ic]}</span><div><b>${esc(dk.name)}</b><small>${dk.cards.length} ${kart(dk.cards.length)} · ${esc(dk.desc)}</small>
+    ${ds.map(dk=>{const s=deckStats(dk);return `<button class="deck" data-deck="${esc(dk.id)}"><span class="ico" style="background:${dk.col}">${I[dk.ic]}</span><div><b>${esc(dk.name)}</b><small>${dk.cards.length} ${kart(dk.cards.length)} · ${esc(dk.desc)}</small>
       <div class="counts">${s.due?`<span class="cnt due">${s.due} повторить</span>`:""}${s.nw?`<span class="cnt new">${s.nw} новых</span>`:""}</div></div>${ringSVG(s.pct)}</button>`}).join("")}
    </div>`;
 }
@@ -3834,7 +3930,7 @@ function viewSettings(){
         <p class="help" style="margin:0">Скачается файл события — откройте его, и календарь будет каждый день напоминать о занятии.</p></div>
       ${SRV&&SRV.tgCard?SRV.tgCard():""}
     </div>
-    <div class="card stack"><h3>Уровень</h3><p class="help" style="margin:0">${S.placement&&S.placement.results&&S.placement.results.length?`Тест уровня от ${esc(S.placement.date)}: ${S.placement.results.map((r,i)=>cshort(i)+" — "+r+"%").join(", ")}.`:"Тест уровня ещё не пройден."}</p><button class="btn sm" id="plRetake">${I.target} Пройти тест уровня</button></div>
+    <div class="card stack"><h3>Уровень</h3><p class="help" style="margin:0">${S.placement&&S.placement.results&&S.placement.results.length?`Тест уровня от ${esc(S.placement.date)}: ${S.placement.results.map((r,i)=>cshort(i)+" — "+(+r||0)+"%").join(", ")}.`:"Тест уровня ещё не пройден."}</p><button class="btn sm" id="plRetake">${I.target} Пройти тест уровня</button></div>
     <div class="card stack"><h3>Документы</h3><button class="btn sm" data-legal="terms">${I.note} Пользовательское соглашение</button><button class="btn sm" data-legal="privacy">${I.note} Политика конфиденциальности</button><button class="btn sm" data-legal="consent">${I.note} Согласие на обработку данных</button></div>
     ${dataCard()}
     <div class="card" id="resetBox"><button class="danger" id="reset">Сбросить весь прогресс</button></div>
@@ -3865,7 +3961,7 @@ function adminHTML(){
     <input class="inp code" id="adCode" aria-label="Новый промокод" maxlength="24" placeholder="Новый код, например LETO2026" autocomplete="off">
     <div class="grid2"><div class="field"><label for="adXp">Опыт, XP</label><input class="inp" id="adXp" type="number" min="0" max="1000" value="100"></div>${FEAT.streak?`<div class="field"><label for="adFr">Заморозки</label><input class="inp" id="adFr" type="number" min="0" max="10" value="1"></div>`:""}</div>
     <button class="btn good" id="adMake">Создать промокод</button>
-    <div id="adList">${adminPromos?adminPromos.map(p=>`<div class="crow"><span class="badge" style="background:var(--violet)">${I.gift}</span><div><b>${esc(p.label)}</b><small>${p.xp||0} XP · заморозок ${p.freezes||0}</small></div><button class="icon-btn" data-delpromo="${p.id}" aria-label="Удалить промокод">${I.trash}</button></div>`).join("")||`<p class="help">Промокодов пока нет.</p>`:`<button class="btn sm" id="adLoad">Показать созданные</button>`}</div></div>`;
+    <div id="adList">${adminPromos?adminPromos.map(p=>`<div class="crow"><span class="badge" style="background:var(--violet)">${I.gift}</span><div><b>${esc(p.label)}</b><small>${p.xp||0} XP · заморозок ${p.freezes||0}</small></div><button class="icon-btn" data-delpromo="${esc(p.id)}" aria-label="Удалить промокод">${I.trash}</button></div>`).join("")||`<p class="help">Промокодов пока нет.</p>`:`<button class="btn sm" id="adLoad">Показать созданные</button>`}</div></div>`;
 }
 function monthName(){const m=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];const [y,mo]=today().split("-").map(Number);return m[mo-1]+" "+y}
 function calendar(){
@@ -4210,7 +4306,7 @@ let adminReports=null;
 async function loadReports(){try{const s=await DB.collection("reports").limit(500).get();adminReports=s.docs.flatMap(d=>((d.data().items)||[]).map(r=>({...r,id:d.id+":"+r.rid}))).sort((a,b)=>b.at-a.at);render()}catch(e){adminReports=[];render()}}
 function reportsAdmin(){
   return `<div class="card stack"><h3 style="margin:0">Сообщения об ошибках</h3>
-   ${adminReports?adminReports.map(r=>`<div class="crow"><span class="badge" style="background:var(--bad)">!</span><div><b>${esc(r.kind||"")}: ${esc(r.tr||"")}</b><small>${esc(r.ru||"")} · ${esc(r.where||"")} · ${esc(r.type||"")} · голос ${esc(r.voice||"")}${r.text?" · «"+esc(r.text)+"»":""}</small></div><button class="icon-btn" data-delrep="${r.id}" aria-label="Удалить">${I.trash}</button></div>`).join("")||`<p class="help" style="margin:0">Сообщений нет.</p>`:`<button class="btn sm" id="repLoad">Показать</button>`}</div>`;
+   ${adminReports?adminReports.map(r=>`<div class="crow"><span class="badge" style="background:var(--bad)">!</span><div><b>${esc(r.kind||"")}: ${esc(r.tr||"")}</b><small>${esc(r.ru||"")} · ${esc(r.where||"")} · ${esc(r.type||"")} · голос ${esc(r.voice||"")}${r.text?" · «"+esc(r.text)+"»":""}</small></div><button class="icon-btn" data-delrep="${esc(r.id)}" aria-label="Удалить">${I.trash}</button></div>`).join("")||`<p class="help" style="margin:0">Сообщений нет.</p>`:`<button class="btn sm" id="repLoad">Показать</button>`}</div>`;
 }
 
 /* ================= QUICK PRACTICE ================= */
@@ -4543,7 +4639,7 @@ function cjOut(){
 }
 function wireConj(v){
   const inp=$("#cjIn");
-  const refresh=()=>{const o=$("#cjOut");o.innerHTML=cjOut();wireCjOut(o)};
+  const refresh=()=>{const o=$("#cjOut");if(!o)return;o.innerHTML=cjOut();wireCjOut(o)};
   let tm=null;inp.oninput=()=>{clearTimeout(tm);const val=inp.value;tm=setTimeout(()=>{CJ.v=val;refresh()},VERB_LIST.some(x=>x[0]===val.trim().toLocaleLowerCase("tr"))?0:350)};
   v.querySelectorAll("[data-cjk]").forEach(b=>b.onclick=()=>{const s=inp.selectionStart??inp.value.length,e=inp.selectionEnd??s;inp.value=inp.value.slice(0,s)+b.dataset.cjk+inp.value.slice(e);inp.focus();inp.setSelectionRange(s+1,s+1);CJ.v=inp.value;refresh()});
   v.querySelectorAll("[data-cjv]").forEach(b=>b.onclick=()=>{CJ.v=inp.value=b.dataset.cjv;refresh()});
@@ -4921,5 +5017,5 @@ setTimeout(()=>{if(needsOnboarding()&&!L&&!C&&syncMode!=="account")showOnboardin
 
 </script>
 
-<script>if("serviceWorker" in navigator&&location.protocol!=="file:")window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));</script>
+<script>if("serviceWorker" in navigator&&location.protocol!=="file:")window.addEventListener("load",()=>{const had=!!navigator.serviceWorker.controller;navigator.serviceWorker.register("sw.js").catch(()=>{});navigator.serviceWorker.addEventListener("controllerchange",()=>{if(had&&typeof updateReady==="function")updateReady()})});</script>
 </body></html>
