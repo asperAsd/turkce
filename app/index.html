@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-Z5nElmF3iMcZ8EnVLU6EBFgdqTfgU1pOzI5qBye5mao=' 'sha256-+dAGd4lnpmqRd5EyE1vkwvjDT3FadZ1MTLaHRIkjdsk=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-Z5nElmF3iMcZ8EnVLU6EBFgdqTfgU1pOzI5qBye5mao=' 'sha256-yl0TXMua0hSPWVWBtaqkE/f0yOIj7zsVB8AAapwXo68=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <title>CepteTurk — приложение</title>
 <meta name="description" content="Турецкий для русскоязычных: курсы от алфавита до B2, игры, истории с живой озвучкой и карточки.">
@@ -262,7 +262,7 @@ select,.search{font:700 17px var(--font);padding:12px;border-radius:14px;border:
 .wd.on .dot{background:var(--flame);color:#fff}
 .wd.today{color:var(--ink)}
 .wd.today .dot{box-shadow:0 0 0 3px var(--gold-soft),0 0 0 5px var(--flame)}
-.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
 .kpi{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:12px 14px;display:flex;gap:10px;align-items:center}
 .kpi svg{width:30px;height:30px;flex:0 0 auto}
 .kpi b{display:block;font-size:22px;font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--ink)}
@@ -648,7 +648,7 @@ b,strong{font-weight:650}
 /* --- surfaces --- */
 .card,.note-card,.goal,.quests,.kpi,.lvl-card,.club,.speak-card,.flash{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--sh-1)}
 .card{padding:var(--s4) var(--s4)}
-.stack{gap:var(--s3)}
+.stack{gap:var(--s4)}
 .info{background:var(--surface-2);border-radius:var(--r-sm)}
 
 /* --- buttons: calm, rounded, one strong red action per screen --- */
@@ -709,9 +709,9 @@ select,.search,.inp,.type-in,.chat-in textarea,.sc-input textarea{border:1px sol
 .phead .back:hover{color:#fff}
 .phead .sec-title{color:#fff;margin-top:14px}
 .phead .sec-lead{color:var(--on-hero-2);margin-bottom:0;max-width:52ch}
-.pbody{position:relative;margin:-24px -16px 0;padding:20px 16px 0;background:var(--bg);border-radius:var(--r-xl) var(--r-xl) 0 0}
+.pbody{position:relative;margin:-24px -16px 0;padding:28px 16px 0;background:var(--bg);border-radius:var(--r-xl) var(--r-xl) 0 0}
 .pbody>:first-child{margin-top:0}
-.subnav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:4px;background:var(--surface-2);border-radius:var(--r-sm);margin-bottom:var(--s4)}
+.subnav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:4px;background:var(--surface-2);border-radius:var(--r-sm);margin-bottom:var(--s6)}
 .subnav button{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;border:0;border-radius:11px;background:none;font-weight:600;font-size:14px;color:var(--muted);cursor:pointer;min-width:0;padding:0 6px}
 .subnav button svg{width:18px;height:18px}
 .subnav button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -735,7 +735,7 @@ select,.search,.inp,.type-in,.chat-in textarea,.sc-input textarea{border:1px sol
 .hero-prog{display:inline-flex;align-items:center;gap:8px;color:var(--on-hero-2)}
 .hero-prog .pbar{width:84px;height:6px;margin:0;background:rgba(255,255,255,.24)}
 .hero-prog .pbar i{background:#FFD8A8}
-.home{position:relative;z-index:1;margin:-30px -16px 0;padding:0 16px;display:grid;gap:var(--s4)}
+.home{position:relative;z-index:1;margin:-30px -16px 0;padding:0 16px;display:grid;gap:var(--s6)}
 .cont{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:14px var(--s4);align-items:start;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-2)}
 .cont .kicker{display:block;margin-bottom:6px}
 .cont .num{display:block;color:var(--brand);font-weight:650;font-size:15px}
@@ -746,7 +746,7 @@ select,.search,.inp,.type-in,.chat-in textarea,.sc-input textarea{border:1px sol
 .cont-art{align-self:stretch;min-height:112px;border-radius:var(--r-md);overflow:hidden;position:relative;background:var(--surface-2)}
 .cont-art svg{position:absolute;inset:0;width:100%;height:100%}
 .cont-art .lvb{position:absolute;top:8px;right:8px;background:rgba(255,252,250,.92);color:#211B1B;font-weight:700;font-size:12.5px;border-radius:999px;padding:2px 9px}
-.qa{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.qa{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3)}
 .qa-i{display:flex;flex-direction:column;align-items:flex-start;gap:10px;text-align:left;min-width:0;min-height:112px;padding:14px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);box-shadow:var(--sh-1);cursor:pointer;color:var(--ink);transition:transform var(--t-fast) var(--ease),box-shadow var(--t-fast) var(--ease)}
 .qa-i>span:last-child{min-width:0}
 .qic{width:44px;height:44px;flex:0 0 auto;border-radius:14px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand)}
@@ -754,7 +754,7 @@ select,.search,.inp,.type-in,.chat-in textarea,.sc-input textarea{border:1px sol
 .qa-i b{display:block;font-size:15px;font-weight:650;line-height:1.25;hyphens:auto}
 .qa-i small{display:block;font-size:13px;color:var(--muted);line-height:1.3;margin-top:2px}
 .qa-i.locked .qic{background:var(--surface-2);color:var(--muted)}
-.sec-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 0}
+.sec-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 4px}
 .sec-row h2{font-size:20px;font-weight:700;margin:0}
 .more{display:inline-flex;align-items:center;gap:2px;background:none;border:0;padding:8px 0 8px 8px;font:600 15px var(--font);cursor:pointer;min-height:44px}
 .more svg{width:18px;height:18px}
@@ -775,7 +775,7 @@ select,.search,.inp,.type-in,.chat-in textarea,.sc-input textarea{border:1px sol
 .qa-i:active,.reco:active,.deck:active,.topic:active,.type-card:active,.lrow:active,.cat-card:active{transform:scale(.985)}
 
 /* --- lessons: level tabs and a readable list --- */
-.lv-tabs{position:relative;display:flex;gap:8px;overflow-x:auto;padding:2px 2px 4px;margin:0 -2px var(--s4);scrollbar-width:none}
+.lv-tabs{position:relative;display:flex;gap:10px;overflow-x:auto;padding:2px 2px 4px;margin:0 -2px var(--s5);scrollbar-width:none}
 .lv-tabs::-webkit-scrollbar{display:none}
 .lv-tab{position:relative;flex:0 0 auto;min-width:76px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--surface);cursor:pointer;color:var(--ink)}
 .lv-tab b{font-size:16px;font-weight:700;line-height:1.2}
@@ -783,7 +783,7 @@ select,.search,.inp,.type-in,.chat-in textarea,.sc-input textarea{border:1px sol
 .lv-tab[aria-current="true"]{background:var(--brand-fill);border-color:var(--brand-fill);color:#fff;box-shadow:var(--sh-brand)}
 .lv-tab[aria-current="true"] small{color:rgba(255,255,255,.86)}
 .lv-tab .i{width:14px;height:14px}
-.lv-sum{display:grid;gap:10px}
+.lv-sum{display:grid;gap:var(--s3)}
 .lv-sum .row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .lv-sum h2{margin:0;font-size:20px;font-weight:700}
 .lv-sum p{margin:0;color:var(--muted);font-size:15px}
@@ -791,7 +791,7 @@ select,.search,.inp,.type-in,.chat-in textarea,.sc-input textarea{border:1px sol
 .lv-sum .meta{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
 .lv-actions{display:flex;flex-wrap:wrap;gap:8px}
 .lv-actions .btn{width:auto}
-.llist{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:8px}
+.llist{list-style:none;margin:var(--s6) 0 0;padding:0;display:grid;gap:10px}
 .lrow{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:12px;align-items:center;width:100%;min-height:60px;text-align:left;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);cursor:pointer;color:var(--ink);box-shadow:var(--sh-1);transition:transform var(--t-fast) var(--ease),box-shadow var(--t-fast) var(--ease)}
 .lrow .n{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;background:var(--surface-2);color:var(--muted);font-variant-numeric:tabular-nums}
 .lrow .n svg{width:18px;height:18px}
@@ -812,7 +812,7 @@ select,.search,.inp,.type-in,.chat-in textarea,.sc-input textarea{border:1px sol
 .lv-locked p{margin:0;color:var(--muted)}
 
 /* --- practice: categories --- */
-.cats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.cats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3)}
 .cat-card{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;min-width:0;min-height:124px;padding:14px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);box-shadow:var(--sh-1);cursor:pointer;color:var(--ink);transition:transform var(--t-fast) var(--ease),box-shadow var(--t-fast) var(--ease)}
 .cat-card .qic{width:42px;height:42px}
 .cat-card b{display:block;font-size:16px;font-weight:650;line-height:1.25}
@@ -843,7 +843,7 @@ select,.search,.inp,.type-in,.chat-in textarea,.sc-input textarea{border:1px sol
 .prof-hero p{margin:2px 0 0;color:var(--on-hero-2);font-size:15px}
 .prof-hero .icon-btn{color:#fff;margin-left:auto}
 .prof-hero .icon-btn:hover{background:rgba(255,255,255,.14);color:#fff}
-.kpis.k3{gap:8px}
+.kpis.k3{gap:var(--s3)}
 .kpis.k3 .kpi{align-items:flex-start;text-align:left}
 .kpi{border-radius:var(--r-md)}
 .kpi svg{color:var(--brand)}
@@ -986,17 +986,21 @@ select,.search,.inp,.type-in,.chat-in textarea,.sc-input textarea{border:1px sol
   .nav button:hover:not([aria-current="page"]){background:var(--surface-2);color:var(--ink)}
   .app{max-width:none;margin:0 0 0 var(--rail-w);padding:0 clamp(24px,3vw,48px) 56px}
   #view{max-width:1080px;margin:0 auto}
-  .hero{margin:24px 0 0;border-radius:var(--r-xl);min-height:300px;padding:28px 36px 64px}
+  .hero{margin:28px 0 0;border-radius:var(--r-xl);min-height:300px;padding:32px 40px 40px}
   .hero::after{background:linear-gradient(90deg,rgba(20,10,16,.72) 0%,rgba(20,10,16,.2) 55%,rgba(20,10,16,0) 75%)}
-  .home{margin:-36px 24px 0;padding:0;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}
+  .home{margin:32px 0 0;padding:0;grid-template-columns:repeat(12,minmax(0,1fr));gap:28px}
   .home>.cont{grid-column:1/8}
-  .home>.qa{grid-column:8/13;grid-template-columns:repeat(2,minmax(0,1fr));align-self:start;margin-top:36px}
+  .home>.qa{grid-column:8/13;grid-template-columns:repeat(2,minmax(0,1fr));align-self:start;gap:var(--s4)}
   .home>.qa .qa-i{min-height:0;flex-direction:row;align-items:center}
   .hero .hero-brand{visibility:hidden}
   .home>.prog{grid-column:1/8}
   .home>.reco{grid-column:8/13;align-self:start}
-  .phead{margin:24px 0 0;border-radius:var(--r-xl);padding:12px 32px 52px}
-  .pbody{margin:-28px 24px 0;padding:24px 0 0;background:none;border-radius:0}
+  .phead{margin:28px 0 0;border-radius:var(--r-xl);padding:16px 40px 36px}
+  .pbody{margin:32px 0 0;padding:0;background:none;border-radius:0}
+  .stack{gap:var(--s5)}
+  .card{padding:var(--s5) var(--s6)}
+  .cats,.qa,.kpis.k3{gap:var(--s4)}
+  .llist{gap:12px}
   .pbody>.card:first-child,.pbody>.stack:first-child>.card:first-child{box-shadow:var(--sh-2)}
   .lesson .l-top,.lesson .l-body,.check-in{max-width:720px}
   .cats{grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -3193,6 +3197,10 @@ function readLS(k){try{return JSON.parse(localStorage.getItem(k)||"null")}catch(
 /* ---- state normalisation: saved progress may be empty, from an old version, partly damaged or edited by hand ---- */
 const isObj=v=>!!v&&typeof v==="object"&&!Array.isArray(v);
 const numOr=(v,d,min=0,max=1e9)=>{const n=+v;return Number.isFinite(n)?Math.min(max,Math.max(min,n)):d};
+// moments in ms (up to the year 2100); the plain default above stops at 1e9 and would turn a date into 12.01.1970
+const TS_MAX=4102444800000,tsOr=(v,d)=>numOr(v,d,0,TS_MAX);
+// a profile date that an older version cut to 1e9 is restored from the first day with activity
+const firstDay=x=>{const ks=Object.keys((x&&x.xp)||{}).filter(k=>/^\d{4}-\d\d-\d\d$/.test(k)).sort();const t=ks.length?Date.parse(ks[0]+'T12:00:00'):NaN;return Number.isFinite(t)?t:Date.now()};
 const strOr=(v,d,max=200)=>typeof v==="string"?v.slice(0,max):d;
 const strArr=(v,max=5000,len=200)=>Array.isArray(v)?[...new Set(v.filter(x=>typeof x==="string"&&x).map(x=>x.slice(0,len)))].slice(-max):[];
 const objMap=(v,ok)=>{const o={};if(isObj(v))for(const [k,x] of Object.entries(v))if(k!=="__proto__"&&ok(x))o[k]=x;return o};
@@ -3206,9 +3214,9 @@ function fixState(x){
   for(const [k,v] of Object.entries(objMap(x.mistakes,v=>numOr(v,0)>0)))o.mistakes[k]=Math.min(99,Math.round(+v));o.ach=objMap(x.ach,v=>!!v);o.srs=objMap(x.srs,isObj);
   o.newDone=objMap(x.newDone,v=>Number.isFinite(+v));o.stories=objMap(x.stories,isObj);o.scenes=objMap(x.scenes,isObj);
   if(isObj(x.stats))for(const k in o.stats)o.stats[k]=numOr(x.stats[k],0);
-  if(isObj(x.profile)&&typeof x.profile.name==="string"&&x.profile.name.trim())o.profile={...x.profile,name:x.profile.name.trim().slice(0,24),avatar:strOr(x.profile.avatar,"🦊",8),created:numOr(x.profile.created,Date.now()),u:numOr(x.profile.u,0),consent:isObj(x.profile.consent)?x.profile.consent:null};
-  o.guest=o.profile?null:(x.guest?numOr(x.guest,Date.now()):null);
-  o.bonus=numOr(x.bonus,0);o.freezes=numOr(x.freezes,0,0,50);o.saved=numOr(x.saved,0);o.resetAt=numOr(x.resetAt,0);
+  if(isObj(x.profile)&&typeof x.profile.name==="string"&&x.profile.name.trim())o.profile={...x.profile,name:x.profile.name.trim().slice(0,24),avatar:strOr(x.profile.avatar,"🦊",8),created:(c=>c>1e9?c:firstDay(x))(tsOr(x.profile.created,Date.now())),u:tsOr(x.profile.u,0),consent:isObj(x.profile.consent)?x.profile.consent:null};
+  o.guest=o.profile?null:(x.guest?tsOr(x.guest,Date.now()):null);
+  o.bonus=numOr(x.bonus,0);o.freezes=numOr(x.freezes,0,0,50);o.saved=tsOr(x.saved,0);o.resetAt=tsOr(x.resetAt,0);
   o.frozen=strArr(x.frozen,400,10).filter(d=>DAY.test(d));o.refClaimed=strArr(x.refClaimed);o.promos=strArr(x.promos);o.fav=strArr(x.fav,2000,300);
   o.refBy=strOr(x.refBy,null,40);o.lvlSeen=x.lvlSeen==null?null:numOr(x.lvlSeen,null);
   o.custom=Array.isArray(x.custom)?x.custom.filter(c=>isObj(c)&&typeof c.tr==="string"&&typeof c.ru==="string"&&c.tr.trim()).map((c,i)=>({...c,tr:c.tr.slice(0,200),ru:c.ru.slice(0,300),id:typeof c.id==="string"&&/^[\w-]{1,40}$/.test(c.id)?c.id:"c"+i+"-"+c.tr.length})):[];
