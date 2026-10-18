@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-kfEJ1nNw7LuS8wBI1V42iok/np9G+a3dOdPSXqC3L28='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-ESZJQD404nJnuF0k8khc69GGxnd4aG3RElgK5gpoYh4='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>CepteTurk — турецкий с нуля до B2 по 10 минут в день</title>
-<meta name="description" content="Приложение для изучения турецкого языка на русском: курсы от алфавита до B2, конспекты, игры, истории с живой озвучкой и карточки. Полный доступ ко всем уровням — 4 990 ₽ навсегда, без подписки.">
+<meta name="description" content="Приложение для изучения турецкого языка на русском: курсы от алфавита до B2, конспекты, истории с живой озвучкой, карточки и упражнения. Полный доступ ко всем уровням — 4 990 ₽ навсегда, без подписки.">
 <meta name="theme-color" content="#1B1118">
+<meta name="color-scheme" content="light">
 <link rel="icon" type="image/png" href="app/icon-192.png">
 <link rel="apple-touch-icon" href="app/icon-180.png">
 <meta property="og:type" content="website">
@@ -14,237 +15,382 @@
 <meta property="og:image" content="https://asperasd.github.io/turkce/og.png">
 <meta property="og:url" content="https://asperasd.github.io/turkce/">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="app/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:"Inter";font-style:normal;font-weight:400 500;font-display:swap;src:url(app/fonts/inter-400.woff2) format("woff2")}
 @font-face{font-family:"Inter";font-style:normal;font-weight:600 650;font-display:swap;src:url(app/fonts/inter-600.woff2) format("woff2")}
 @font-face{font-family:"Inter";font-style:normal;font-weight:700 900;font-display:swap;src:url(app/fonts/inter-700.woff2) format("woff2")}
-:root{--bg:#F8F4F0;--paper:#FFFCFA;--ink:#211B1B;--muted:#6E6663;--line:#EDE4DF;--cobalt:#C91F2C;--cobalt-dk:#A81925;--flame:#FF8A00;--gold:#FFC93C;--gold-soft:#FFF3D1;--ok:#2E9E55;--red:#E30A17;--navy:#0D1330}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:600 17px/1.55 Inter,"Segoe UI",Roboto,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-a{color:var(--cobalt)}
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-header.top{position:sticky;top:0;z-index:10;background:rgba(246,244,239,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:64px}
-.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:19px;color:var(--ink);text-decoration:none}
-.logo .tr{background:var(--red);color:#fff;border-radius:8px;padding:2px 7px;font-size:14px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;padding:14px 22px;font:900 17px Inter,system-ui,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .08s}
-.btn:active{transform:translateY(2px)}
-.btn.primary{background:var(--cobalt);color:#fff;box-shadow:0 4px 0 var(--cobalt-dk)}
-.btn.gold{background:var(--gold);color:var(--ink);box-shadow:0 4px 0 #C79A1C}
-.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
-.btn.sm{padding:10px 16px;font-size:15px}
-.hero{padding:56px 0 40px;overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
-.kicker{display:inline-block;font-size:13px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--flame);margin-bottom:12px}
-h1{font-size:clamp(36px,5.4vw,62px);line-height:1.04;font-weight:900;margin:0 0 18px;letter-spacing:-.01em}
-h1 em{font-style:normal;color:var(--cobalt)}
-.lead{font-size:20px;color:var(--muted);margin:0 0 26px;max-width:540px}
+/* The same design system as the app: a dark Istanbul dusk on top, cream sheets, one red accent, outline icons. */
+:root{
+  --brand:#C91F2C;--brand-dk:#A81925;--brand-soft:#FCE7E5;
+  --bg:#F8F4F0;--surface:#FFFCFA;--surface-2:#F3ECE7;--ink:#211B1B;--muted:#6E6663;--line:#EDE4DF;--line-strong:#DCCFC8;
+  --ok:#1F7A51;--ok-soft:#E4F3EA;--gold:#E6A64A;--gold-dk:#8A520C;--gold-soft:#FBF0DD;
+  --hero:#1B1118;--hero-2:#3A1624;--on-hero-2:rgba(255,255,255,.82);--warm:#F3C9A8;--focus:#1D5FD6;
+  --sh-1:0 1px 2px rgba(33,27,27,.04),0 4px 14px rgba(33,27,27,.05);--sh-2:0 2px 4px rgba(33,27,27,.05),0 12px 32px rgba(33,27,27,.09);
+  --sh-brand:0 6px 18px rgba(201,31,44,.26);
+  --r-xl:28px;--r-lg:22px;--r-md:18px;--r-sm:14px;
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--font);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+a{color:var(--brand)}
+svg{display:block}
+.i{width:1em;height:1em;flex:0 0 auto}
+h1,h2,h3{text-wrap:balance;letter-spacing:-.015em}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.narrow>*{max-width:860px}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* header */
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--hero) 92%,transparent);-webkit-backdrop-filter:saturate(1.3) blur(12px);backdrop-filter:saturate(1.3) blur(12px);color:#fff}
+header.top .wrap{display:flex;align-items:center;gap:18px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;color:#fff;text-decoration:none;letter-spacing:-.01em}
+.logo .emblem{width:32px;height:32px}
+.topnav{display:flex;gap:4px;margin-left:auto}
+.topnav a{color:var(--on-hero-2);text-decoration:none;font-weight:600;font-size:15px;padding:8px 12px;border-radius:10px}
+.topnav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:999px;padding:12px 26px;font:600 17px/1.2 var(--font);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform 150ms cubic-bezier(.2,.8,.2,1),background-color 150ms,box-shadow 150ms}
+.btn:active{transform:scale(.98)}
+.btn svg{width:20px;height:20px}
+.btn.primary{background:var(--brand);color:#fff;box-shadow:var(--sh-brand)}
+.btn.primary:hover{background:var(--brand-dk)}
+.btn.light{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.32)}
+.btn.light:hover{background:rgba(255,255,255,.18)}
+.btn.ghost{background:var(--surface);color:var(--ink);border-color:var(--line-strong)}
+.btn.sm{min-height:42px;padding:8px 18px;font-size:15px}
+
+/* hero: the same Istanbul dusk as the app's home screen */
+.hero{position:relative;isolation:isolate;overflow:hidden;background:var(--hero);color:#fff;min-height:clamp(560px,78vh,720px);display:flex}
+.hero-art{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,10,16,.55) 0%,rgba(20,10,16,.15) 45%,rgba(20,10,16,0) 65%),linear-gradient(90deg,rgba(20,10,16,.6) 0%,rgba(20,10,16,.1) 55%,rgba(20,10,16,0) 75%)}
+.hero .wrap{width:100%;padding-top:72px;padding-bottom:140px}
+.kicker{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hero .kicker{color:var(--warm)}
+.hero h1{font-size:clamp(38px,5.6vw,64px);line-height:1.05;font-weight:700;margin:14px 0 18px;max-width:13ch}
+.hero h1 em{font-style:normal;color:var(--warm)}
+.hero .lead{font-size:clamp(18px,1.6vw,20px);color:var(--on-hero-2);margin:0 0 30px;max-width:30em}
 .cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.note{font-size:14px;color:var(--muted);margin-top:14px}
-.beta{display:none;background:var(--gold-soft);border:2px dashed var(--gold);border-radius:14px;padding:10px 14px;font-size:15px;font-weight:800;margin-top:18px;max-width:540px}
-.phones{position:relative;height:600px}
-.phone{position:absolute;width:240px;border-radius:38px;background:#0B0F1E;padding:10px;box-shadow:0 30px 60px rgba(13,19,48,.25)}
-.phone img{display:block;width:100%;height:auto;border-radius:30px}
-.phone.a{right:150px;top:0;transform:rotate(-5deg)}.phone.b{right:0;top:60px;transform:rotate(5deg)}
-.flame{position:absolute;left:-10px;bottom:40px;width:110px;height:110px;filter:drop-shadow(0 10px 20px rgba(255,138,0,.35))}
-section{padding:64px 0}
-h2{font-size:clamp(28px,3.6vw,42px);line-height:1.1;font-weight:900;margin:0 0 14px}
-.sub{color:var(--muted);font-size:18px;margin:0 0 34px;max-width:680px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px}
-.card .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:26px;margin-bottom:12px}
-.card h3{margin:0 0 6px;font-size:20px;font-weight:900}.card p{margin:0;color:var(--muted);font-size:16px}
-.levels{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 0}
-.syl-lv summary{display:flex;align-items:center;gap:10px}.lvb{color:#fff;border-radius:8px;padding:2px 8px;font-size:14px;font-weight:900}
-.syl{columns:2;column-gap:28px;margin:14px 0 0;padding-left:24px;color:var(--muted);font-size:15px}.syl li{break-inside:avoid;margin:0 0 4px}.syl li.ex{color:var(--ink);font-weight:800}.syl li.rv{font-style:italic}
-@media (max-width:620px){.syl{columns:1}}
-.lv{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:10px 14px;font-weight:800}
-.lv b{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900}
-.lv small{display:block;color:var(--muted);font-weight:700;font-size:13px}
-.dark{background:var(--navy);color:#fff}.dark .sub,.dark .card p{color:#B9C1E3}.dark .card{background:#161E46;border-color:#26306A}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
-.steps .card{position:relative;padding-top:56px}.steps .card::before{counter-increment:s;content:counter(s);position:absolute;top:18px;left:22px;width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--ink);font-weight:900;display:grid;place-items:center}
-.shots{display:flex;gap:18px;overflow-x:auto;padding:4px 2px 18px;scroll-snap-type:x mandatory}
-.shots figure{margin:0;flex:0 0 220px;scroll-snap-align:start}.shots img{width:100%;border-radius:26px;border:8px solid #0B0F1E;display:block}
-.shots figcaption{font-size:15px;font-weight:800;margin-top:10px;text-align:center}
-.prices{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:820px}
-.price{background:var(--paper);border:2px solid var(--line);border-radius:24px;padding:26px}
-.price.main{border-color:var(--cobalt)}.prices.one{grid-template-columns:minmax(0,1fr);max-width:560px}
-.price .amt{font-size:40px;font-weight:900;margin:6px 0 2px}.price .per{color:var(--muted);font-size:15px}
-.price ul{padding-left:20px;margin:16px 0 20px;display:grid;gap:6px}
-.pay{color:var(--muted);font-size:15px;margin-top:18px}
-details{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px 20px;margin-bottom:10px}
-summary{font-weight:900;cursor:pointer;font-size:18px}details p{color:var(--muted);margin:10px 0 0}
-.final{text-align:center}.final .lead{margin:0 auto 24px}
-footer{border-top:1px solid var(--line);padding:30px 0 40px;font-size:14px;color:var(--muted)}
-footer .wrap{display:flex;flex-wrap:wrap;gap:18px 30px;justify-content:space-between}
-footer nav{display:flex;flex-wrap:wrap;gap:8px 18px}
-.video{display:grid;grid-template-columns:auto 1fr;gap:44px;align-items:center}
-.video video,.video .vshot{width:300px;aspect-ratio:540/1168;border-radius:28px;background:#0D1330;box-shadow:0 24px 50px rgba(13,19,48,.25);display:block;object-fit:cover}
-.ticks{list-style:none;padding:0;margin:0;display:grid;gap:14px}.ticks li{display:flex;gap:12px;align-items:flex-start;font-size:18px}
-.ticks li::before{content:"✓";flex:0 0 28px;height:28px;border-radius:50%;background:#DDF4E4;color:var(--ok);font-weight:900;display:grid;place-items:center}
-.sticky-cta{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:20;display:none}
-.sticky-cta .btn{width:100%;box-shadow:0 4px 0 #C79A1C,0 10px 30px rgba(13,19,48,.25)}
-:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px;border-radius:8px}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}.reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
-@media (max-width:900px){.video{grid-template-columns:1fr}.video video,.video .vshot{width:min(300px,100%);margin:0 auto}.hero .wrap{grid-template-columns:1fr}.phones{height:500px;max-width:420px;margin:0 auto;width:100%}.phone{width:200px}.phone.a{right:auto;left:10px}.grid,.steps{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.sticky-cta.on{display:block}footer{padding-bottom:90px}body{font-size:16px}.wrap{padding:0 16px}.hero{padding:34px 0 20px}.lead{font-size:18px}.grid,.steps,.prices{grid-template-columns:1fr}section{padding:48px 0}.phones{height:430px}.phone{width:170px}.phone.b{right:6px}header.top .btn{padding:9px 14px;font-size:14px}.logo{font-size:17px}}
-@media (prefers-reduced-motion:no-preference){.flame path{transform-origin:50% 90%;transform-box:fill-box;animation:fl 1.6s ease-in-out infinite}@keyframes fl{50%{transform:scale(1.05,.95) skewX(2deg)}}}
+.hero .note{margin:18px 0 0;font-size:15px;color:var(--on-hero-2);display:flex;align-items:center;gap:8px}
+.hero .note svg{width:18px;height:18px;color:var(--warm)}
+.beta,.refnote{display:none;margin:18px 0 0;max-width:30em;padding:12px 16px;border-radius:var(--r-sm);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);font-size:15px;color:#fff}
+
+/* the cream sheet that slides over the hero, as in the app */
+.sheet{position:relative;z-index:1;margin-top:-56px;background:var(--bg);border-radius:var(--r-xl) var(--r-xl) 0 0}
+section{padding:72px 0}
+.sheet>section:first-child{padding-top:40px}
+h2{font-size:clamp(28px,3.4vw,40px);line-height:1.12;font-weight:700;margin:0 0 12px}
+.sub{color:var(--muted);font-size:18px;margin:0 0 36px;max-width:40em}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--sh-1);padding:18px 20px}
+.fact b{display:block;font-size:clamp(26px,3vw,34px);font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.fact span{display:block;color:var(--muted);font-size:15px;margin-top:4px}
+
+/* cards with an icon */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-1);padding:22px}
+.card h3{margin:0 0 6px;font-size:19px;font-weight:650;line-height:1.3}
+.card p{margin:0;color:var(--muted);font-size:16px}
+.ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);margin-bottom:14px}
+.ic svg{width:22px;height:22px}
+
+/* screens */
+.screens{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;align-items:start;max-width:960px;margin:0 auto}
+.screens figure{margin:0;text-align:center}
+.phone{display:block;width:100%;max-width:280px;margin:0 auto;border-radius:36px;background:#120B10;padding:9px;box-shadow:0 24px 50px rgba(27,17,24,.22)}
+.phone img{display:block;width:100%;height:auto;border-radius:28px;aspect-ratio:540/1168;background:var(--surface-2)}
+.screens figcaption{margin-top:14px;font-weight:650}
+.screens figcaption small{display:block;color:var(--muted);font-weight:400;font-size:15px}
+.screens figure:nth-child(2){margin-top:40px}
+
+/* levels */
+.levels{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.lvl{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-1);overflow:hidden;display:flex;flex-direction:column}
+.lvl .art{position:relative;aspect-ratio:1/1;background:var(--surface-2)}
+.lvl .art svg{position:absolute;inset:0;width:100%;height:100%}
+.lvl .lvb{position:absolute;top:10px;left:10px;background:rgba(255,252,250,.94);color:var(--ink);font-weight:700;font-size:13px;border-radius:999px;padding:3px 10px}
+.lvl .t{padding:14px 16px 16px}
+.lvl b{display:block;font-weight:650}
+.lvl small{display:block;color:var(--muted);font-size:14px;line-height:1.4;margin-top:4px}
+.lvl .n{display:block;margin-top:8px;color:var(--brand);font-weight:600;font-size:14px}
+
+/* dark band */
+.dark{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(180deg,var(--hero),var(--hero-2));color:#fff}
+.dark::after{content:"";position:absolute;inset:auto 0 0 0;height:70%;z-index:-1;background:radial-gradient(90% 80% at 85% 120%,rgba(240,140,80,.28),transparent 60%)}
+.dark .sky{position:absolute;right:-2%;bottom:-2px;width:min(620px,80%);height:auto;color:rgba(255,255,255,.06);z-index:-1}
+.dark .sub{color:var(--on-hero-2)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;counter-reset:s;list-style:none;margin:0;padding:0}
+.steps li{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-lg);padding:22px}
+.steps li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;margin-bottom:14px}
+.steps h3{margin:0 0 6px;font-size:19px;font-weight:650}
+.steps p{margin:0;color:var(--on-hero-2)}
+
+/* differences: a calm two-column list */
+.ticks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px}
+.ticks li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:14px;align-items:start;padding:16px 0;border-top:1px solid var(--line)}
+.ticks .ck{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--ok-soft);color:var(--ok)}
+.ticks .ck svg{width:18px;height:18px}
+.ticks b{display:block;font-weight:650;font-size:18px}
+.ticks span{display:block;color:var(--muted);margin-top:2px}
+
+/* who: small cards */
+.who{grid-template-columns:repeat(3,minmax(0,1fr))}
+.who .card{display:grid;grid-template-columns:46px minmax(0,1fr);gap:14px;align-items:start;padding:18px}
+.who .ic{margin:0}
+.who h3{font-size:17px}
+.who p{font-size:15px}
+
+/* program */
+.syl-lv{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--sh-1);padding:14px 18px;margin-bottom:10px}
+.syl-lv summary{display:flex;align-items:center;gap:12px;font-weight:600;cursor:pointer;list-style:none;min-height:36px}
+.syl-lv summary::-webkit-details-marker{display:none}
+.syl-lv summary::after{content:"";margin-left:auto;width:10px;height:10px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg) translateY(-3px);transition:transform 150ms}
+.syl-lv[open] summary::after{transform:rotate(-135deg) translateY(-3px)}
+.lvb2{color:#fff;border-radius:10px;min-width:42px;height:32px;display:inline-grid;place-items:center;font-size:14px;font-weight:700;padding:0 8px}
+.syl{columns:2;column-gap:32px;margin:14px 0 4px;padding-left:24px;color:var(--muted);font-size:15px}
+.syl li{break-inside:avoid;margin:0 0 4px}.syl li.ex{color:var(--ink);font-weight:650}.syl li.rv{font-style:italic}
+
+/* workbooks */
+.wbs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.wb{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-1);overflow:hidden;display:flex;flex-direction:column}
+.wb-art{position:relative;aspect-ratio:4/3;background:var(--surface-2)}.wb-art svg{position:absolute;inset:0;width:100%;height:100%}
+.wb .t{padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px;flex:1}
+.wb b{font-weight:650}.wb small{color:var(--muted);font-size:14px}
+.wb .btn{margin-top:auto;align-self:flex-start;margin-top:10px}
+.wb-lock{display:inline-flex;align-items:center;gap:6px;margin-top:10px;color:var(--muted);font-size:14px;font-weight:600}.wb-lock svg{width:16px;height:16px}
+/* price */
+.price{max-width:560px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--sh-2);padding:30px;position:relative;overflow:hidden}
+.price::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:var(--brand)}
+.price .amt{font-size:46px;font-weight:700;margin:6px 0 0;letter-spacing:-.02em}
+.price .per{color:var(--muted);font-size:15px}
+.price ul{list-style:none;padding:0;margin:20px 0 24px;display:grid;gap:10px}
+.price li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start}
+.price li svg{width:20px;height:20px;color:var(--ok);margin-top:3px}
+.pay{color:var(--muted);font-size:15px;margin:18px 0 0;max-width:40em}
+
+/* faq */
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 20px;margin-bottom:10px}
+.faq summary{font-weight:650;cursor:pointer;font-size:18px;list-style:none;display:flex;gap:12px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";margin-left:auto;font-size:24px;line-height:1;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--muted);margin:10px 0 0}
+
+/* final */
+.final{text-align:center;padding:96px 0 120px}
+.final h2{font-size:clamp(32px,4vw,46px)}
+.final .sub{margin:0 auto 28px}
+
+footer{background:var(--hero);color:var(--on-hero-2);padding:36px 0 44px;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px 36px;justify-content:space-between}
+footer b{color:#fff}
+footer a{color:var(--warm)}
+footer nav{display:flex;flex-wrap:wrap;gap:8px 18px;max-width:640px}
+.sticky-cta{position:fixed;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:30;display:none}
+.sticky-cta .btn{width:100%;box-shadow:var(--sh-brand),0 10px 30px rgba(27,17,24,.25)}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease}.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}.btn{transition:none}}
+
+/* wide screens: the skyline moves to the right half and fades in, so the text sits on the plain dusk */
+@media (min-width:1001px){
+  .hero{background:linear-gradient(180deg,#1B1118 0%,#2A1219 55%,#3A1624 100%)}
+  .hero-art{left:auto;right:0;width:74%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 32%);mask-image:linear-gradient(90deg,transparent 0,#000 32%)}
+  .hero::after{background:linear-gradient(180deg,rgba(20,10,16,.4) 0%,rgba(20,10,16,0) 40%)}
+}
+@media (max-width:1000px){
+  .levels,.wbs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .grid,.who{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .topnav{display:none}
+  header.top .btn{margin-left:auto}
+  .screens{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:18px;margin:0 -24px;padding:6px 24px 18px;scrollbar-width:none}
+  .screens::-webkit-scrollbar{display:none}
+  .screens figure{flex:0 0 min(240px,68vw);scroll-snap-align:center}
+  .screens figure:nth-child(2){margin-top:0}
+  .steps,.ticks{grid-template-columns:1fr}
+  .ticks{gap:0}
+}
+@media (max-width:620px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  .screens{margin:0 -16px;padding-inline:16px}
+  header.top .wrap{height:58px}
+  .logo{font-size:17px}.logo .emblem{width:28px;height:28px}
+  .hero{min-height:0}
+  .hero .wrap{padding-top:44px;padding-bottom:200px}
+  .hero::after{background:linear-gradient(180deg,rgba(20,10,16,.72) 0%,rgba(20,10,16,.35) 50%,rgba(20,10,16,0) 75%)}
+  .cta .btn{flex:1 1 100%}
+  section{padding:52px 0}
+  .grid,.who,.levels{grid-template-columns:1fr}
+  .wbs{grid-template-columns:1fr 1fr}
+  .grid .card{display:grid;grid-template-columns:46px minmax(0,1fr);gap:4px 14px;align-items:start;padding:18px}
+  .grid .card .ic{margin:0;grid-row:1/3}
+  .grid .card h3{font-size:17px}.grid .card p{font-size:15px}
+  .levels .lvl{flex-direction:row}
+  .levels .lvl .art{flex:0 0 112px;aspect-ratio:auto;min-height:112px}
+  .syl{columns:1}
+  .price{padding:24px}
+  .sticky-cta.on{display:block}
+  footer{padding-bottom:96px}
+}
 </style></head>
 <body>
-<header class="top"><div class="wrap"><a class="logo" href="./"><span class="tr">TR</span><span class="n">CepteTurk</span></a><a class="btn primary sm" href="app/">Открыть приложение</a></div></header>
+<header class="top"><div class="wrap">
+  <a class="logo" href="./"><svg class="emblem" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="#C91F2C" d="M6 2.5h12A3.5 3.5 0 0 1 21.5 6v9.5A3.5 3.5 0 0 1 18 19H10.5L5.6 22.3c-.5.3-1.1 0-1.1-.6V18.6A3.5 3.5 0 0 1 2.5 15.5V6A3.5 3.5 0 0 1 6 2.5Z"/><g fill="#fff"><path d="M14.21 7.05A5.2 5.2 0 1 0 14.21 14.55A4.25 4.25 0 1 1 14.21 7.05Z"/><path d="M13.30 10.80L14.82 10.23L14.89 8.61L15.90 9.88L17.46 9.45L16.57 10.80L17.46 12.15L15.90 11.72L14.89 12.99L14.82 11.37Z"/></g></svg><span>CepteTurk</span></a>
+  <nav class="topnav" aria-label="Разделы страницы"><a href="#features">Возможности</a><a href="#program">Программа</a><a href="#workbooks">Тетради</a><a href="#price">Цена</a><a href="#faq">Вопросы</a></nav>
+  <a class="btn primary sm" href="app/">Открыть приложение</a>
+</div></header>
 
 <main>
-<section class="hero"><div class="wrap">
-  <div>
-    <span class="kicker">Турецкий на русском языке</span>
-    <h1>Турецкий с нуля до&nbsp;<em>B2</em> по 10&nbsp;минут в&nbsp;день</h1>
-    <p class="lead">Короткие уроки с понятными конспектами, игры, истории с живой озвучкой и карточки для повторения — в спокойном темпе, без гонки. Работает в браузере на телефоне и компьютере.</p>
-    <div class="cta"><a class="btn gold" href="app/">Начать учиться</a><a class="btn ghost" href="#price">Цена: 4 990 ₽</a></div>
-    <p class="note">Все 5 курсов от алфавита до B2 — за один платёж, навсегда и без подписки.</p>
-    <p class="beta" id="beta">Идёт бета-тест: пока продажи не запущены, все курсы открыты бесплатно. Будем рады вашим отзывам!</p>
+<section class="hero" aria-labelledby="h1"><svg class="hero-art" viewBox="0 0 1200 600" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false"><defs><linearGradient id="hs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B1118"/><stop offset=".34" stop-color="#3A1624"/><stop offset=".6" stop-color="#83302E"/><stop offset=".78" stop-color="#CC5F33"/><stop offset=".88" stop-color="#EDA160"/></linearGradient><radialGradient id="hg" cx="600" cy="500" r="560" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFE0A8" stop-opacity=".9"/><stop offset=".22" stop-color="#F4A766" stop-opacity=".5"/><stop offset="1" stop-color="#F4A766" stop-opacity="0"/></radialGradient><linearGradient id="hw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A2427"/><stop offset="1" stop-color="#170C11"/></linearGradient></defs><rect width="1200" height="600" fill="url(#hs)"/><rect width="1200" height="600" fill="url(#hg)"/><g fill="#FFE9D2"><circle cx="140" cy="60" r="1.4" opacity="0.7"/><circle cx="310" cy="120" r="1.1" opacity="0.5"/><circle cx="470" cy="48" r="1.3" opacity="0.6"/><circle cx="690" cy="92" r="1" opacity="0.5"/><circle cx="820" cy="40" r="1.4" opacity="0.7"/><circle cx="1150" cy="120" r="1.1" opacity="0.5"/><circle cx="1010" cy="70" r="1" opacity="0.45"/></g><path d="M985 96a26 26 0 1 0 20 43a21 21 0 1 1 -20 -43Z" fill="#FFE2B8" opacity=".9"/><g fill="#F7B27A" opacity=".26"><ellipse cx="320" cy="300" rx="170" ry="4"/><ellipse cx="420" cy="322" rx="110" ry="3"/><ellipse cx="760" cy="262" rx="120" ry="3"/></g><circle cx="600" cy="506" r="40" fill="#FFD597"/><path fill="#8A4141" opacity=".55" d="M0 506 C120 494 230 500 340 492 S560 488 650 496 S900 502 1000 490 S1150 488 1200 494 V530 H0Z"/><g fill="#FFC985" opacity=".55"><circle cx="20" cy="503" r="1.4"/><circle cx="57" cy="507" r="1.4"/><circle cx="94" cy="506" r="1.4"/><circle cx="131" cy="505" r="1.4"/><circle cx="168" cy="504" r="1.4"/><circle cx="205" cy="503" r="1.4"/><circle cx="242" cy="507" r="1.4"/><circle cx="279" cy="506" r="1.4"/><circle cx="316" cy="505" r="1.4"/><circle cx="353" cy="504" r="1.4"/><circle cx="390" cy="503" r="1.4"/><circle cx="427" cy="507" r="1.4"/><circle cx="464" cy="506" r="1.4"/><circle cx="501" cy="505" r="1.4"/><circle cx="538" cy="504" r="1.4"/><circle cx="575" cy="503" r="1.4"/><circle cx="612" cy="507" r="1.4"/><circle cx="649" cy="506" r="1.4"/><circle cx="686" cy="505" r="1.4"/><circle cx="723" cy="504" r="1.4"/><circle cx="760" cy="503" r="1.4"/><circle cx="797" cy="507" r="1.4"/><circle cx="834" cy="506" r="1.4"/><circle cx="871" cy="505" r="1.4"/><circle cx="908" cy="504" r="1.4"/><circle cx="945" cy="503" r="1.4"/><circle cx="982" cy="507" r="1.4"/><circle cx="1019" cy="506" r="1.4"/><circle cx="1056" cy="505" r="1.4"/><circle cx="1093" cy="504" r="1.4"/><circle cx="1130" cy="503" r="1.4"/><circle cx="1167" cy="507" r="1.4"/></g><g fill="#5E2632" transform="translate(430 514) scale(0.42) translate(-850 -520)"><rect x="640" y="468" width="420" height="53"/><rect x="696" y="436" width="308" height="36"/><path d="M715 439 A30 28 0 0 1 775 439 Z"/><rect x="744.1" y="397" width="1.8" height="14"/><circle cx="745" cy="395" r="2.2"/><path d="M925 439 A30 28 0 0 1 985 439 Z"/><rect x="954.1" y="397" width="1.8" height="14"/><circle cx="955" cy="395" r="2.2"/><path d="M750 429 A42 34 0 0 1 834 429 Z"/><path d="M866 429 A42 34 0 0 1 950 429 Z"/><rect x="780" y="396" width="140" height="42"/><rect x="776" y="392" width="148" height="7" rx="2"/><path d="M782 395 A68 64 0 0 1 918 395 Z"/><rect x="849.1" y="317" width="1.8" height="14"/><circle cx="850" cy="315" r="2.2"/><path d="M650 471 A22 20 0 0 1 694 471 Z"/><rect x="671.1" y="437" width="1.8" height="14"/><circle cx="672" cy="435" r="2.2"/><path d="M1006 471 A22 20 0 0 1 1050 471 Z"/><rect x="1027.1" y="437" width="1.8" height="14"/><circle cx="1028" cy="435" r="2.2"/><rect x="651.0" y="300" width="10" height="170"/><rect x="647.0" y="337" width="18" height="5" rx="1.5"/><rect x="647.0" y="385" width="18" height="5" rx="1.5"/><path d="M650.5 301 L656 254 L661.5 301 Z"/><rect x="655.2" y="242" width="1.6" height="14"/><rect x="717.0" y="318" width="10" height="152"/><rect x="713.0" y="351" width="18" height="5" rx="1.5"/><rect x="713.0" y="394" width="18" height="5" rx="1.5"/><path d="M716.5 319 L722 272 L727.5 319 Z"/><rect x="721.2" y="260" width="1.6" height="14"/><rect x="973.0" y="318" width="10" height="152"/><rect x="969.0" y="351" width="18" height="5" rx="1.5"/><rect x="969.0" y="394" width="18" height="5" rx="1.5"/><path d="M972.5 319 L978 272 L983.5 319 Z"/><rect x="977.2" y="260" width="1.6" height="14"/><rect x="1039.0" y="300" width="10" height="170"/><rect x="1035.0" y="337" width="18" height="5" rx="1.5"/><rect x="1035.0" y="385" width="18" height="5" rx="1.5"/><path d="M1038.5 301 L1044 254 L1049.5 301 Z"/><rect x="1043.2" y="242" width="1.6" height="14"/></g><g fill="#3A1822"><rect x="120" y="400" width="44" height="120"/><rect x="114" y="396" width="56" height="8" rx="2"/><path d="M114 397 L142 340 L170 397Z"/><rect x="141" y="326" width="2" height="16"/><path d="M30 520 V474 h28 v-10 h30 v10 h20 v46Z"/><path d="M172 520 V460 h36 v-8 h26 v8 h20 v60Z"/><path d="M252 520 V482 h40 v-6 h22 v6 h30 v38Z"/></g><g fill="#F7B867" opacity=".6"><rect x="134" y="410" width="4" height="8" rx="2"/><rect x="146" y="410" width="4" height="8" rx="2"/><rect x="190" y="476" width="4" height="7" rx="2"/><rect x="214" y="488" width="4" height="7" rx="2"/><rect x="60" y="486" width="4" height="7" rx="2"/></g><g id="hm"><g fill="#1D0E15" transform="translate(860 521) scale(1) translate(-850 -520)"><rect x="640" y="468" width="420" height="53"/><rect x="696" y="436" width="308" height="36"/><path d="M715 439 A30 28 0 0 1 775 439 Z"/><rect x="744.1" y="397" width="1.8" height="14"/><circle cx="745" cy="395" r="2.2"/><path d="M925 439 A30 28 0 0 1 985 439 Z"/><rect x="954.1" y="397" width="1.8" height="14"/><circle cx="955" cy="395" r="2.2"/><path d="M750 429 A42 34 0 0 1 834 429 Z"/><path d="M866 429 A42 34 0 0 1 950 429 Z"/><rect x="780" y="396" width="140" height="42"/><rect x="776" y="392" width="148" height="7" rx="2"/><path d="M782 395 A68 64 0 0 1 918 395 Z"/><rect x="849.1" y="317" width="1.8" height="14"/><circle cx="850" cy="315" r="2.2"/><path d="M650 471 A22 20 0 0 1 694 471 Z"/><rect x="671.1" y="437" width="1.8" height="14"/><circle cx="672" cy="435" r="2.2"/><path d="M1006 471 A22 20 0 0 1 1050 471 Z"/><rect x="1027.1" y="437" width="1.8" height="14"/><circle cx="1028" cy="435" r="2.2"/><rect x="651.0" y="300" width="10" height="170"/><rect x="647.0" y="337" width="18" height="5" rx="1.5"/><rect x="647.0" y="385" width="18" height="5" rx="1.5"/><path d="M650.5 301 L656 254 L661.5 301 Z"/><rect x="655.2" y="242" width="1.6" height="14"/><rect x="717.0" y="318" width="10" height="152"/><rect x="713.0" y="351" width="18" height="5" rx="1.5"/><rect x="713.0" y="394" width="18" height="5" rx="1.5"/><path d="M716.5 319 L722 272 L727.5 319 Z"/><rect x="721.2" y="260" width="1.6" height="14"/><rect x="973.0" y="318" width="10" height="152"/><rect x="969.0" y="351" width="18" height="5" rx="1.5"/><rect x="969.0" y="394" width="18" height="5" rx="1.5"/><path d="M972.5 319 L978 272 L983.5 319 Z"/><rect x="977.2" y="260" width="1.6" height="14"/><rect x="1039.0" y="300" width="10" height="170"/><rect x="1035.0" y="337" width="18" height="5" rx="1.5"/><rect x="1035.0" y="385" width="18" height="5" rx="1.5"/><path d="M1038.5 301 L1044 254 L1049.5 301 Z"/><rect x="1043.2" y="242" width="1.6" height="14"/></g><g fill="#F7B867" transform="translate(860 521) scale(1) translate(-850 -520)"><rect x="710" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="734" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="758" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="782" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="806" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="830" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="854" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="878" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="902" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="926" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="950" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="974" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="998" y="488" width="5" height="10" rx="2.5" opacity=".8"/><rect x="792" y="406" width="4" height="9" rx="2" opacity=".7"/><rect x="808" y="406" width="4" height="9" rx="2" opacity=".7"/><rect x="824" y="406" width="4" height="9" rx="2" opacity=".7"/><rect x="840" y="406" width="4" height="9" rx="2" opacity=".7"/><rect x="856" y="406" width="4" height="9" rx="2" opacity=".7"/><rect x="872" y="406" width="4" height="9" rx="2" opacity=".7"/><rect x="888" y="406" width="4" height="9" rx="2" opacity=".7"/><rect x="904" y="406" width="4" height="9" rx="2" opacity=".7"/></g></g><rect x="0" y="518" width="1200" height="8" fill="#1D0E15"/><rect x="0" y="526" width="1200" height="74" fill="url(#hw)"/><use href="#hm" transform="matrix(1 0 0 -1 0 1050)" opacity=".16"/><rect x="535.0" y="535" width="130" height="3" rx="1.5" fill="#FFC27A" opacity="0.6"/><rect x="564.0" y="546" width="96" height="3" rx="1.5" fill="#FFC27A" opacity="0.5"/><rect x="525.0" y="557" width="150" height="3" rx="1.5" fill="#FFC27A" opacity="0.34"/><rect x="572.0" y="569" width="80" height="3" rx="1.5" fill="#FFC27A" opacity="0.32"/><rect x="540.0" y="582" width="120" height="3" rx="1.5" fill="#FFC27A" opacity="0.22"/><g fill="none" stroke="#2A1219" stroke-width="2.4" stroke-linecap="round" opacity=".65"><path d="M520 230 q9 -8 18 0 q9 -8 18 0"/><path d="M584 262 q7 -6 14 0 q7 -6 14 0"/><path d="M1110 200 q8 -7 16 0 q8 -7 16 0"/></g></svg><div class="wrap">
+  <span class="kicker">Турецкий на русском языке</span>
+  <h1 id="h1">Турецкий с нуля до&nbsp;<em>B2</em> по&nbsp;10&nbsp;минут в&nbsp;день</h1>
+  <p class="lead">Короткие уроки с понятными конспектами, истории с живой озвучкой и карточки для повторения — в спокойном темпе, без гонки. Работает в браузере на телефоне и компьютере.</p>
+  <div class="cta"><a class="btn primary" href="app/">Начать учиться <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a><a class="btn light" href="#program">Программа курса</a></div>
+  
+    <p class="beta" id="beta">Идёт бета-тест: все курсы сейчас открыты бесплатно. Будем рады вашим отзывам!</p>
 
-  </div>
-  <div class="phones" aria-hidden="true">
-    <div class="phone a"><img src="img/home.webp" alt="" width="540" height="1168"></div>
-    <div class="phone b"><img src="img/lesson.webp" alt="" width="540" height="1168"></div>
-    <svg class="flame" viewBox="0 0 24 24"><path fill="#FF8A00" d="M12.3 1.8c1.2 3.6-.4 5.6-2.1 7.5-1.7 1.8-3.7 3.6-3.7 6.6a5.5 5.5 0 0 0 11 0c0-2.1-.9-3.8-2-5.1-.3 1.3-1 2.3-2.1 2.8.6-3.6-.1-7.8-1.1-11.8Z"/><path fill="#FFD34D" d="M12 21.3c-1.8 0-3.1-1.3-3.1-3 0-1.9 1.4-2.9 2.3-4.3.4 1.1 1.2 1.6 1.9 1.5-.2 1 .3 1.8 1 2.3.6.4 1.1 1 1.1 1.9 0 1.5-1.4 2.6-3.2 2.6Z"/></svg>
+</div></section>
+
+<div class="sheet">
+<section aria-label="CepteTurk в цифрах"><div class="wrap">
+  <div class="facts">
+    <div class="fact"><b>5</b><span>уровней — от алфавита до B2</span></div>
+    <div class="fact"><b>116</b><span>уроков с конспектами</span></div>
+    <div class="fact"><b>800+</b><span>слов и фраз с озвучкой</span></div>
+    <div class="fact"><b>33</b><span>историй-диалогов</span></div>
   </div>
 </div></section>
 
-<section id="how"><div class="wrap">
+<section id="features"><div class="wrap">
   <h2>Всё, чтобы заговорить, а не просто «пройти уровень»</h2>
   <p class="sub">Мы взяли лучшее из популярных приложений и исправили то, на что жалуются их ученики: нет лимитов на уроки, грамматика объяснена по-русски, озвучка живая.</p>
   <div class="grid">
-    <div class="card"><div class="ic" style="background:#E4ECFB">📚</div><h3>5 курсов: от алфавита до B2</h3><p>116 уроков с конспектами. Каждый уровень заканчивается экзаменом, а тест уровня засчитает то, что вы уже знаете.</p></div>
-    <div class="card"><div class="ic" style="background:#FFF3D1">🎮</div><h3>Игры, а не зубрёжка</h3><p>Вордл, пары на время, сборка фраз, диктант и аудирование — 12 видов заданий.</p></div>
-    <div class="card"><div class="ic" style="background:#DDF3F1">🔊</div><h3>Живая озвучка</h3><p>Каждое слово и фраза озвучены нейросетью без «роботизированного» акцента. Можно выбрать голос и замедлить речь.</p></div>
-    <div class="card"><div class="ic" style="background:#FDE3E1">📖</div><h3>33 истории-диалога</h3><p>Такси, аптека, аренда квартиры, банк, собеседование: жизненные сцены с разными голосами и вопросами. Можно слушать без текста.</p></div>
-    <div class="card"><div class="ic" style="background:#FCE4EF">🎙️</div><h3>Говорите вслух</h3><p>Приложение слушает и подсвечивает каждое слово: зелёным — верно, жёлтым — почти, красным — стоит повторить.</p></div>
-    <div class="card"><div class="ic" style="background:#EEE6FB">📶</div><h3>Работает без интернета</h3><p>Откройте приложение один раз — уроки и уже загруженная озвучка будут работать и без сети, например в самолёте.</p></div>
-    <div class="card"><div class="ic" style="background:#E4F4E8">🧭</div><h3>Под вашу цель</h3><p>Поездка, переезд или сериалы: фразы и истории подбираются под то, зачем вам турецкий. Есть крупный шрифт и тёмная тема.</p></div>
-    <div class="card"><div class="ic" style="background:#FFE9D1">🎯</div><h3>Спокойный темп</h3><p>Без соревнований, счётчиков и сгорающих серий. Занимайтесь, когда удобно, — пропустили день, ничего не потеряно.</p></div>
-    <div class="card"><div class="ic" style="background:#EEE6FB">🃏</div><h3>Карточки, словарь, спряжение</h3><p>800+ слов с интервальным повторением. Нажмите на любое турецкое слово — появится перевод, а кнопкой «+» оно уйдёт в карточки. Любой глагол — во всех временах.</p></div>
-  </div>
-  <div class="levels">
-    <div class="lv"><b style="background:#58A6FF">A0</b><span>Старт<small>с нуля · алфавит и первые фразы</small></span></div>
-    <div class="lv"><b style="background:#3FA34D">A1</b><span>Начальный<small>город, покупки, прошедшее время</small></span></div>
-    <div class="lv"><b style="background:#E8B416">A2</b><span>Элементарный<small>будущее время, условия, ресторан</small></span></div>
-    <div class="lv"><b style="background:#FF8A00">B1</b><span>Средний<small>пассив, причастия, мнение</small></span></div>
-    <div class="lv"><b style="background:#B45CE0">B2</b><span>Выше среднего<small>работа, культура, официальный стиль</small></span></div>
+    <div class="card"><div class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></div><h3>Пять уровней от алфавита до B2</h3><p>116 уроков с конспектами. Каждый уровень заканчивается экзаменом, а тест уровня засчитает то, что вы уже знаете.</p></div>
+    <div class="card"><div class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg></div><h3>Живая озвучка</h3><p>Каждое слово и фраза озвучены естественными голосами. Можно выбрать голос и замедлить речь.</p></div>
+    <div class="card"><div class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"/></svg></div><h3>33 истории-диалога</h3><p>Такси, аптека, аренда квартиры, банк, собеседование: жизненные сцены с вопросами. Можно слушать без текста.</p></div>
+    <div class="card"><div class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19v3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><rect x="9" y="2" width="6" height="13" rx="3"/></svg></div><h3>Говорите вслух</h3><p>Приложение слушает и подсвечивает каждое слово: что получилось, а что стоит повторить.</p></div>
+    <div class="card"><div class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg></div><h3>Карточки, словарь, спряжение</h3><p>800+ слов с интервальным повторением. Нажмите на турецкое слово — появится перевод. Любой глагол — во всех временах.</p></div>
+    <div class="card"><div class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/></svg></div><h3>Работает без интернета</h3><p>Откройте приложение один раз — уроки и загруженная озвучка будут работать и без сети, например в самолёте.</p></div>
   </div>
 </div></section>
 
-<section><div class="wrap video">
-  <img class="vshot" src="img/lesson.webp" alt="Урок в приложении CepteTurk: выбор правильного перевода" loading="lazy">
-  <div>
-    <h2>Посмотрите, как это выглядит</h2>
-    <ul class="ticks">
-      <li>Курсы по уровням: от алфавита до B2, с конспектом к каждому уроку</li>
-      <li>Вордл, пары на время и другие игры на словах из уроков</li>
-      <li>Карточки с интервальным повторением и работа над ошибками</li>
-      <li>Нейронная озвучка: фразы звучат естественно, слово подсвечивается</li>
-    </ul>
-    <div class="cta" style="margin-top:26px"><a class="btn gold" href="app/">Открыть приложение</a></div>
+<section id="look" aria-labelledby="lookH"><div class="wrap">
+  <h2 id="lookH">Как это выглядит</h2>
+  <p class="sub">Главная подсказывает следующий шаг, уроки идут по порядку, а практика собрана по темам.</p>
+  <div class="screens">
+    <figure><span class="phone"><img src="img/home.webp" alt="Главная: приветствие, следующий урок, быстрый доступ и прогресс" width="540" height="1168" loading="lazy"></span><figcaption>Главная<small>Следующий урок и прогресс</small></figcaption></figure>
+    <figure><span class="phone"><img src="img/lesson.webp" alt="Задание урока: выбрать перевод турецкой фразы" width="540" height="1168" loading="lazy"></span><figcaption>Урок<small>Задания с подсказками</small></figcaption></figure>
+    <figure><span class="phone"><img src="img/practice.webp" alt="Практика: аудирование, произношение, слова, грамматика, игры, истории" width="540" height="1168" loading="lazy"></span><figcaption>Практика<small>Упражнения, карточки, словарь</small></figcaption></figure>
   </div>
 </div></section>
 
-<section style="background:#FFFFFF;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
-  <h2>Чем мы отличаемся</h2>
+<section id="levels" aria-labelledby="lvH"><div class="wrap">
+  <h2 id="lvH">Пять уровней</h2>
+  <p class="sub">Следующий уровень открывается после экзамена предыдущего. Уже знаете основы — пройдите тест уровня.</p>
+  <div class="levels"><div class="lvl"><div class="art"><svg class="thumb-art" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><defs><linearGradient id="ttb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6D8B8"/><stop offset="1" stop-color="#E9A877"/></linearGradient></defs><rect width="120" height="120" fill="url(#ttb)"/><circle cx="92" cy="30" r="13" fill="#FBE7C8"/><path d="M14 92 V70 h10 v-8 h8 v8 h8 V92Z" fill="#C98A64" opacity=".55"/><path d="M86 92 V60 l6 -10 l6 10 V92Z" fill="#C98A64" opacity=".55"/><ellipse cx="60" cy="98" rx="38" ry="8" fill="#B9202B"/><ellipse cx="60" cy="96" rx="34" ry="6" fill="#F4EBE4"/><path d="M41 34 h38 c0 9 -9 16 -9 26 c0 10 8 15 8 25 c0 6 -4 9 -9 9 h-18 c-5 0 -9 -3 -9 -9 c0 -10 8 -15 8 -25 c0 -10 -9 -17 -9 -26Z" fill="#FFF8F1" opacity=".55" stroke="#FFFFFF" stroke-width="1.5"/><path d="M45.5 44 h29 c-2 6 -6.5 10 -6.5 16 c0 9 8 14 8 24 c0 5 -3.5 8 -8 8 h-16 c-4.5 0 -8 -3 -8 -8 c0 -10 8 -15 8 -24 c0 -6 -4.5 -10 -6.5 -16Z" fill="#B23A1C"/><path d="M49 46 h8 c-1 5 -3 8 -3 12" fill="none" stroke="#E2774A" stroke-width="2.5" stroke-linecap="round" opacity=".7"/><path d="M52 26 c-4 -5 4 -8 0 -13 M64 26 c-4 -5 4 -8 0 -13" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity=".8"/></svg><span class="lvb">A0</span></div><div class="t"><b>Старт — с нуля</b><small>Алфавит, приветствия, числа, семья, первые глаголы.</small><span class="n">30 уроков</span></div></div><div class="lvl"><div class="art"><svg class="thumb-art" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><defs><linearGradient id="tsb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7DCC0"/><stop offset="1" stop-color="#EDB585"/></linearGradient></defs><rect width="120" height="120" fill="url(#tsb)"/><ellipse cx="60" cy="96" rx="44" ry="8" fill="#C98A64" opacity=".45"/><circle cx="60" cy="62" r="33" fill="none" stroke="#B5642A" stroke-width="20"/><circle cx="60" cy="62" r="33" fill="none" stroke="#D88B45" stroke-width="13"/><path d="M36 46 a33 33 0 0 1 30 -16" fill="none" stroke="#F0B26E" stroke-width="5" stroke-linecap="round" opacity=".8"/><ellipse cx="92.7" cy="66.7" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(9 92.7 66.7)"/><ellipse cx="91.7" cy="71.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(18 91.7 71.3)"/><ellipse cx="87.8" cy="79.8" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(36 87.8 79.8)"/><ellipse cx="84.9" cy="83.6" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(45 84.9 83.6)"/><ellipse cx="77.8" cy="89.8" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(63 77.8 89.8)"/><ellipse cx="73.7" cy="92.0" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(72 73.7 92.0)"/><ellipse cx="64.7" cy="94.7" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(90 64.7 94.7)"/><ellipse cx="60.0" cy="95.0" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(99 60.0 95.0)"/><ellipse cx="50.7" cy="93.7" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(117 50.7 93.7)"/><ellipse cx="46.3" cy="92.0" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(126 46.3 92.0)"/><ellipse cx="38.4" cy="86.9" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(144 38.4 86.9)"/><ellipse cx="35.0" cy="83.6" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(153 35.0 83.6)"/><ellipse cx="30.0" cy="75.7" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(171 30.0 75.7)"/><ellipse cx="28.3" cy="71.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(180 28.3 71.3)"/><ellipse cx="27.0" cy="62.0" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(198 27.0 62.0)"/><ellipse cx="27.3" cy="57.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(207 27.3 57.3)"/><ellipse cx="30.0" cy="48.2" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(225 30.0 48.2)"/><ellipse cx="32.3" cy="44.1" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(234 32.3 44.1)"/><ellipse cx="38.4" cy="37.0" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(252 38.4 37.0)"/><ellipse cx="42.2" cy="34.2" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(261 42.2 34.2)"/><ellipse cx="50.8" cy="30.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(279 50.8 30.3)"/><ellipse cx="55.4" cy="29.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(288 55.4 29.3)"/><ellipse cx="64.8" cy="29.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(306 64.8 29.3)"/><ellipse cx="69.4" cy="30.4" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(315 69.4 30.4)"/><ellipse cx="77.9" cy="34.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(333 77.9 34.3)"/><ellipse cx="81.7" cy="37.1" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(342 81.7 37.1)"/><ellipse cx="87.8" cy="44.2" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(360 87.8 44.2)"/><ellipse cx="90.1" cy="48.4" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(369 90.1 48.4)"/><ellipse cx="92.7" cy="57.4" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(387 92.7 57.4)"/></svg><span class="lvb">A1</span></div><div class="t"><b>Начальный</b><small>Цвета, тело, одежда, погода, город, покупки, падежи, прошедшее время.</small><span class="n">28 уроков</span></div></div><div class="lvl"><div class="art"><svg class="thumb-art" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><defs><linearGradient id="trb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3D7C2"/><stop offset="1" stop-color="#E2A884"/></linearGradient></defs><rect width="120" height="120" fill="url(#trb)"/><path d="M0 98 H120" stroke="#8C5A48" stroke-width="3"/><path d="M0 106 H120" stroke="#8C5A48" stroke-width="2" opacity=".6"/><path d="M60 22 L48 34 M60 22 L72 34" stroke="#3A2A2A" stroke-width="2.5" fill="none"/><path d="M30 14 H90" stroke="#3A2A2A" stroke-width="1.5" opacity=".6"/><rect x="20" y="34" width="80" height="58" rx="10" fill="#C91F2C"/><rect x="20" y="70" width="80" height="6" fill="#F4EBE4"/><rect x="24" y="30" width="72" height="8" rx="4" fill="#A81925"/><rect x="27" y="42" width="14" height="20" rx="3" fill="#FFE7C2"/><rect x="45" y="42" width="14" height="20" rx="3" fill="#FFE7C2"/><rect x="61" y="42" width="14" height="20" rx="3" fill="#FFE7C2"/><rect x="79" y="42" width="14" height="20" rx="3" fill="#FFE7C2"/><rect x="52" y="78" width="16" height="12" rx="2" fill="#A81925"/><circle cx="35" cy="96" r="6" fill="#2B1D1E"/><circle cx="85" cy="96" r="6" fill="#2B1D1E"/><circle cx="35" cy="96" r="2" fill="#9A8B85"/><circle cx="85" cy="96" r="2" fill="#9A8B85"/></svg><span class="lvb">A2</span></div><div class="t"><b>Элементарный</b><small>Будущее время, «могу» и «надо», сравнения, ресторан, отель, телефон, условия.</small><span class="n">22 урока</span></div></div><div class="lvl"><div class="art"><svg class="thumb-art" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><defs><linearGradient id="tfb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2D6C4"/><stop offset="1" stop-color="#9FC3CF"/></linearGradient></defs><rect width="120" height="120" fill="url(#tfb)"/><circle cx="28" cy="30" r="11" fill="#FCE6C6"/><path d="M74 26 q5 -5 10 0 q5 -5 10 0" fill="none" stroke="#2B1D1E" stroke-width="2.2" stroke-linecap="round"/><rect x="56" y="38" width="10" height="20" rx="1" fill="#C91F2C"/><rect x="56" y="36" width="10" height="6" fill="#2B1D1E"/><rect x="30" y="54" width="62" height="14" rx="3" fill="#FFFFFF"/><rect x="36" y="58" width="6" height="6" rx="1" fill="#6E8C99"/><rect x="46" y="58" width="6" height="6" rx="1" fill="#6E8C99"/><rect x="56" y="58" width="6" height="6" rx="1" fill="#6E8C99"/><rect x="66" y="58" width="6" height="6" rx="1" fill="#6E8C99"/><rect x="76" y="58" width="6" height="6" rx="1" fill="#6E8C99"/><path d="M14 68 H106 L96 86 H24Z" fill="#2B1D1E"/><path d="M18 74 H102" stroke="#FFFFFF" stroke-width="2"/><path d="M0 92 q10 -5 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 V120 H0Z" fill="#4F7F90"/><path d="M8 102 q8 -4 16 0 M50 108 q8 -4 16 0 M88 100 q8 -4 16 0" fill="none" stroke="#DDEEF2" stroke-width="2" stroke-linecap="round"/></svg><span class="lvb">B1</span></div><div class="t"><b>Средний</b><small>Пассив, причастия, косвенная речь, мнение, банк, новости, идиомы.</small><span class="n">21 урок</span></div></div><div class="lvl"><div class="art"><svg class="thumb-art" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><defs><linearGradient id="tgb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4CDB0"/><stop offset="1" stop-color="#D9875E"/></linearGradient></defs><rect width="120" height="120" fill="url(#tgb)"/><circle cx="86" cy="34" r="14" fill="#FDE3BE"/><path d="M0 96 V80 h14 v-8 h12 v8 h10 v16Z M84 96 V76 h12 v-6 h10 v6 h14 v20Z" fill="#A8574A" opacity=".55"/><rect x="44" y="44" width="32" height="56" fill="#7A3A36"/><rect x="44" y="44" width="10" height="56" fill="#8E4943"/><rect x="40" y="40" width="40" height="7" rx="2" fill="#5A2A2B"/><path d="M40 41 L60 10 L80 41Z" fill="#4A2226"/><rect x="59.2" y="2" width="1.6" height="10" fill="#4A2226"/><rect x="50" y="54" width="5" height="8" rx="2.5" fill="#FFD9A0"/><rect x="50" y="74" width="5" height="8" rx="2.5" fill="#FFD9A0"/><rect x="58" y="54" width="5" height="8" rx="2.5" fill="#FFD9A0"/><rect x="58" y="74" width="5" height="8" rx="2.5" fill="#FFD9A0"/><rect x="66" y="54" width="5" height="8" rx="2.5" fill="#FFD9A0"/><rect x="66" y="74" width="5" height="8" rx="2.5" fill="#FFD9A0"/><path d="M0 100 H120 V120 H0Z" fill="#5A2A2B"/></svg><span class="lvb">B2</span></div><div class="t"><b>Выше среднего</b><small>Связки для рассуждений, сложные времена, работа, культура, пословицы, официальный и разговорный стиль.</small><span class="n">15 уроков</span></div></div></div>
+</div></section>
+
+<section class="dark" aria-labelledby="howH"><svg class="sky" viewBox="700 80 500 160" aria-hidden="true" focusable="false"><path d="M758 238V214H1002V238Z M780 214V196H980V214ZM778 196A14 12 0 0 1 806 196ZM954 196A14 12 0 0 1 982 196ZM798 186A30 20 0 0 1 858 186ZM902 186A30 20 0 0 1 962 186ZM830 197V186H930V197Z M846 186V168H914V186ZM838 168A42 36 0 0 1 922 168ZM878.8 132V118h2.4V132ZM741 238V110L744 92L747 110V238ZM738 122h12v3h-12ZM738 156h12v3h-12ZM1013 238V110L1016 92L1019 110V238ZM1010 122h12v3h-12ZM1010 156h12v3h-12ZM769 238V126L772 108L775 126V238ZM766 138h12v3h-12ZM766 172h12v3h-12ZM985 238V126L988 108L991 126V238ZM982 138h12v3h-12ZM982 172h12v3h-12ZM1034.4 238V223.1H1185.6V238Z M1048 223.1V212H1172V223.1ZM1046.8 212A8.7 7.4 0 0 1 1064.1 212ZM1155.9 212A8.7 7.4 0 0 1 1173.2 212ZM1059.2 205.8A18.6 12.4 0 0 1 1096.4 205.8ZM1123.6 205.8A18.6 12.4 0 0 1 1160.8 205.8ZM1079 212.6V205.8H1141V212.6Z M1088.9 205.8V194.6H1131.1V205.8ZM1084 194.6A26 22.3 0 0 1 1136 194.6ZM1109.3 172.3V163.6h1.5V172.3ZM1023.8 238V158.6L1025.7 147.5L1027.5 158.6V238ZM1022 166.1h7.4v1.9h-7.4ZM1022 187.2h7.4v1.9h-7.4ZM1192.5 238V158.6L1194.3 147.5L1196.2 158.6V238ZM1190.6 166.1h7.4v1.9h-7.4ZM1190.6 187.2h7.4v1.9h-7.4ZM1041.2 238V168.6L1043 157.4L1044.9 168.6V238ZM1039.3 176h7.4v1.9h-7.4ZM1039.3 197.1h7.4v1.9h-7.4ZM1175.1 238V168.6L1177 157.4L1178.8 168.6V238ZM1173.2 176h7.4v1.9h-7.4ZM1173.2 197.1h7.4v1.9h-7.4Z" fill="currentColor"/></svg><div class="wrap">
+  <h2 id="howH">Как проходят занятия</h2>
+  <p class="sub">Урок занимает 10–15 минут — хоть в очереди, хоть за утренним чаем.</p>
+  <ol class="steps">
+    <li><h3>Читаете короткий конспект</h3><p>Правило объяснено простыми словами на русском, с примерами и озвучкой.</p></li>
+    <li><h3>Закрепляете в заданиях</h3><p>Перевод, аудирование, сборка фраз и игры. Ошибки повторяются в конце урока, пока не запомнятся.</p></li>
+    <li><h3>Повторяете карточками</h3><p>Слова возвращаются именно тогда, когда вы начинаете их забывать.</p></li>
+  </ol>
+</div></section>
+
+<section aria-labelledby="diffH"><div class="wrap">
+  <h2 id="diffH">Чем мы отличаемся</h2>
   <p class="sub">Мы собрали жалобы учеников на популярные приложения и сделали иначе.</p>
-  <div class="grid diff-grid">
-    <div class="card"><h3>Без «энергии» и жизней</h3><p>Занимайтесь сколько хотите: никаких лимитов на уроки и ожидания, пока что-то восстановится.</p></div>
-    <div class="card"><h3>Грамматика по-русски</h3><p>Конспект к каждому уроку, а при ошибке — кнопка «Почему так?» с правилом и подсветкой разницы в ответе.</p></div>
-    <div class="card"><h3>Работа над ошибками</h3><p>Слова, в которых вы ошибались, собираются в отдельную тренировку — она входит в доступ, без доплат.</p></div>
-    <div class="card"><h3>Разговорник на каждый день</h3><p>Готовые фразы для поездки, переезда и сериалов. Нажмите ⤢ — фраза крупно на весь экран, можно показать собеседнику.</p></div>
-    <div class="card"><h3>Напоминание, когда удобно</h3><p>Выберите время — телефон сам напомнит о занятии через календарь.</p></div>
-    <div class="card"><h3>Покупка, а не подписка</h3><p>Один платёж — и все пять курсов от A0 до B2 остаются с вами навсегда. Никаких ежемесячных списаний и доплат за уровни.</p></div>
+  <ul class="ticks">
+    <li><span class="ck"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Без «энергии» и жизней</b><span>Занимайтесь сколько хотите: никаких лимитов на уроки и ожидания, пока что-то восстановится.</span></div></li>
+    <li><span class="ck"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Грамматика по-русски</b><span>Конспект к каждому уроку, а при ошибке — кнопка «Почему так?» с правилом и подсветкой разницы в ответе.</span></div></li>
+    <li><span class="ck"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Работа над ошибками</b><span>Слова, в которых вы ошибались, собираются в отдельную тренировку.</span></div></li>
+    <li><span class="ck"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Разговорник на каждый день</b><span>Готовые фразы для поездки, переезда и сериалов. Любую фразу можно показать собеседнику крупно.</span></div></li>
+    <li><span class="ck"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Спокойный темп</b><span>Без соревнований и сгорающих серий: пропустили день — ничего не потеряно.</span></div></li>
+    
+    <li><span class="ck"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Удобно в любом возрасте</b><span>Крупный шрифт, тёмная тема и медленная озвучка включаются в настройках.</span></div></li>
+  </ul>
+</div></section>
+
+<section aria-labelledby="whoH" style="padding-top:24px"><div class="wrap">
+  <h2 id="whoH">Кому подойдёт</h2>
+  <div class="grid who">
+    <div class="card"><div class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2"/><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14"/><path d="M10 20h4"/><circle cx="16" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></svg></div><div><h3>Едете в Турцию</h3><p>Поздороваться, заказать, спросить дорогу и цену — уже после курса «Старт».</p></div></div>
+    <div class="card"><div class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><div><h3>Живёте в Турции</h3><p>Врач, документы, разговоры с соседями: уровни A2–B2 для настоящей жизни.</p></div></div>
+    <div class="card"><div class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><path d="m17 2-5 5-5-5"/></svg></div><div><h3>Любите турецкие сериалы</h3><p>Начните понимать героев без субтитров.</p></div></div>
+    <div class="card"><div class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></div><div><h3>Тренируете память</h3><p>Крупные кнопки, спокойный темп и медленная озвучка.</p></div></div>
+    <div class="card"><div class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg></div><div><h3>Учитесь всей семьёй</h3><p>У каждого — свой профиль и прогресс в своём браузере.</p></div></div>
+    <div class="card"><div class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div><h3>Уже немного знаете язык</h3><p>Тест уровня засчитает то, что вы знаете, — начнёте с нужной темы.</p></div></div>
   </div>
 </div></section>
 
-<section class="dark"><div class="wrap">
-  <h2>Как проходят занятия</h2>
-  <p class="sub">Уроки рассчитаны на 10–15 минут, и проходить их можно в любое время, хоть в очереди, хоть за утренним чаем.</p>
-  <div class="steps">
-    <div class="card"><h3>Читаете короткий конспект</h3><p>Правило объяснено простыми словами на русском, с примерами и озвучкой.</p></div>
-    <div class="card"><h3>Закрепляете в заданиях</h3><p>Перевод, аудирование, сборка фраз и игры. Ошибки повторяются в конце урока, пока не запомнятся.</p></div>
-    <div class="card"><h3>Повторяете карточками</h3><p>Слова возвращаются именно тогда, когда вы начинаете их забывать.</p></div>
-  </div>
-  <div class="shots" style="margin-top:34px">
-    <figure><img src="img/home.webp" alt="Главный экран: текущий урок, быстрый доступ и прогресс" loading="lazy"><figcaption>Главная: следующий урок</figcaption></figure>
-    <figure><img src="img/path.webp" alt="Уровни A0–B2 и список уроков курса" loading="lazy"><figcaption>Уроки по уровням</figcaption></figure>
-    <figure><img src="img/lesson.webp" alt="Задание урока" loading="lazy"><figcaption>Задания с подсказками</figcaption></figure>
-    <figure><img src="img/story.webp" alt="История-диалог" loading="lazy"><figcaption>Истории с озвучкой</figcaption></figure>
-    <figure><img src="img/voices.webp" alt="Выбор голоса" loading="lazy"><figcaption>Выбор голоса</figcaption></figure>
-  </div>
+<section id="program" aria-labelledby="progH"><div class="wrap narrow">
+  <h2 id="progH">Программа курса</h2>
+  <p class="sub">Все 116 уроков по уровням. Грамматика, жизненные ситуации и истории идут вместе.</p>
+  <details class="syl-lv"><summary><span class="lvb2" style="background:#C91F2C">A0</span> Старт — с нуля · 30 уроков · 6 историй</summary><ol class="syl"><li>Алфавит и особые буквы</li><li>Много: -lar / -ler</li><li>Приветствия</li><li>Вежливые слова</li><li>Это, то: bu, şu, o</li><li>Числа</li><li class="rv">Повторение недели 1</li><li>Я, ты, он</li><li>Рассказ о себе</li><li>Вопросительные слова</li><li>Вопрос mı и «не»</li><li>Прилагательные</li><li>Цены</li><li class="rv">Повторение недели 2</li><li>Семья</li><li>Есть / нет: var, yok</li><li>Где: -da / -de / -ta / -te</li><li>В кафе</li><li>Дни и время</li><li>Куда и откуда</li><li class="rv">Повторение недели 3</li><li>Глаголы</li><li>Сейчас: -iyor</li><li>Вопрос и «не» в настоящем</li><li>Мой день</li><li>Хочу, понимаю</li><li>Поездка</li><li class="rv">Повторение недели 4</li><li class="rv">Большое повторение</li><li class="ex">Экзамен курса «Старт»</li></ol></details>
+  <details class="syl-lv"><summary><span class="lvb2" style="background:#B4572A">A1</span> Начальный · 28 уроков · 8 историй</summary><ol class="syl"><li>Цвета</li><li>Тело</li><li>Одежда</li><li>С чем и без чего: -lı / -sız</li><li>Погода и времена года</li><li>Месяцы</li><li>Первый, второй: -ıncı</li><li>Время на часах</li><li>Дом и комнаты</li><li>Город</li><li>Транспорт</li><li>Просьбы и команды</li><li>Покупки</li><li>Фрукты и овощи</li><li>Кого? Что? Окончание -ı</li><li>Куда? Окончание -a</li><li>Откуда? Окончание -dan</li><li>С кем? С чем? ile, -la</li><li>Чей? Окончание -ın</li><li>Составные слова: otobüs durağı</li><li>Над, под, рядом</li><li>Прошедшее время -dı</li><li>Выходные</li><li>Хобби</li><li>Чувства</li><li>У врача</li><li>Приглашение</li><li class="ex">Экзамен A1</li></ol></details>
+  <details class="syl-lv"><summary><span class="lvb2" style="background:#8A3E6E">A2</span> Элементарный · 22 урока · 9 историй</summary><ol class="syl"><li>Будущее время -acak</li><li>Могу: -ebil</li><li>Надо: lazım, gerek, -malı</li><li>Чтобы и вынужден: -mak için, zorunda</li><li>Сравнение: daha, en</li><li>Привычки: широкое время</li><li>Как часто?</li><li>Внешность и характер</li><li>Работа и профессии</li><li>В ресторане</li><li>В отеле</li><li>Как пройти</li><li>По телефону</li><li>Праздники и поздравления</li><li>Прошлое: вопросы о жизни</li><li>Говорят, что…: -mış</li><li>Было в процессе: -iyordu</li><li>Союзы</li><li>До, после, когда</li><li>Если: -sa</li><li>Дома и по хозяйству</li><li class="ex">Экзамен A2</li></ol></details>
+  <details class="syl-lv"><summary><span class="lvb2" style="background:#2E6E6B">B1</span> Средний · 21 урок · 7 историй</summary><ol class="syl"><li>Пассив</li><li>Причастия на -an</li><li>Причастия на -dığı</li><li>Косвенная речь</li><li>Мнение</li><li>Здоровье</li><li>Путешествие</li><li>Вежливые просьбы и жалобы</li><li>Сделать чужими руками: -dır</li><li>Друг друга и себя</li><li>Новости</li><li>Природа</li><li>Деньги и банк</li><li>Устойчивые выражения</li><li>Составные глаголы</li><li>Новые слова из старых: -cı, -lık, -cık</li><li>Если бы: -saydı</li><li>Пока, делая: -ken, -arak</li><li>Пока не…: -ene kadar, -madan</li><li>Рассказ о жизни</li><li class="ex">Экзамен B1</li></ol></details>
+  <details class="syl-lv"><summary><span class="lvb2" style="background:#5A3A2E">B2</span> Выше среднего · 15 уроков · 3 истории</summary><ol class="syl"><li>Связки для рассуждений</li><li>Потому что и несмотря на</li><li>Чем больше, тем…</li><li>Давнопрошедшее: -mıştı</li><li>Предположения</li><li>Работа и карьера</li><li>Культура и искусство</li><li>Общество</li><li>Тонкие чувства</li><li>Пословицы</li><li>Официальный стиль</li><li>Разговорный язык</li><li>Спор и дискуссия</li><li>О Турции</li><li class="ex">Экзамен B2</li></ol></details>
 </div></section>
 
-<section><div class="wrap">
-  <h2>Кому подойдёт</h2>
-  <div class="grid">
-    <div class="card"><div class="ic" style="background:#DDF3F1">🏖️</div><h3>Едете в Турцию</h3><p>Поздороваться, заказать, спросить дорогу и цену — уже после курса «Старт».</p></div>
-    <div class="card"><div class="ic" style="background:#E4ECFB">🏠</div><h3>Живёте в Турции</h3><p>Врач, документы, разговоры с соседями: уровни A2–B2 для настоящей жизни.</p></div>
-    <div class="card"><div class="ic" style="background:#FDE3E1">📺</div><h3>Любите турецкие сериалы</h3><p>Начните понимать героев без субтитров.</p></div>
-    <div class="card"><div class="ic" style="background:#FFF3D1">☕</div><h3>Хотите тренировать память</h3><p>Крупные кнопки, спокойный темп и медленная озвучка — удобно в любом возрасте.</p></div>
-    <div class="card"><div class="ic" style="background:#EEE6FB">👨‍👩‍👧</div><h3>Учитесь вместе с семьёй</h3><p>У каждого — свой профиль и свой прогресс в своём браузере.</p></div>
-    <div class="card"><div class="ic" style="background:#FFE9D1">🎯</div><h3>Уже немного знаете язык</h3><p>Пройдите тест уровня — начнёте с той темы, где остановились.</p></div>
-  </div>
+<section id="workbooks" aria-labelledby="wbH"><div class="wrap">
+  <h2 id="wbH">Рабочие тетради для печати</h2>
+  <p class="sub">К каждому уровню — тетрадь A4: конспекты, слова, упражнения, которые пишут от руки, истории с вопросами и ответы в конце. Пока идёт бета-тест, все тетради бесплатны.</p>
+  <div class="wbs"><div class="wb"><div class="wb-art"><svg class="thumb-art" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><defs><linearGradient id="ttb-wb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6D8B8"/><stop offset="1" stop-color="#E9A877"/></linearGradient></defs><rect width="120" height="120" fill="url(#ttb-wb)"/><circle cx="92" cy="30" r="13" fill="#FBE7C8"/><path d="M14 92 V70 h10 v-8 h8 v8 h8 V92Z" fill="#C98A64" opacity=".55"/><path d="M86 92 V60 l6 -10 l6 10 V92Z" fill="#C98A64" opacity=".55"/><ellipse cx="60" cy="98" rx="38" ry="8" fill="#B9202B"/><ellipse cx="60" cy="96" rx="34" ry="6" fill="#F4EBE4"/><path d="M41 34 h38 c0 9 -9 16 -9 26 c0 10 8 15 8 25 c0 6 -4 9 -9 9 h-18 c-5 0 -9 -3 -9 -9 c0 -10 8 -15 8 -25 c0 -10 -9 -17 -9 -26Z" fill="#FFF8F1" opacity=".55" stroke="#FFFFFF" stroke-width="1.5"/><path d="M45.5 44 h29 c-2 6 -6.5 10 -6.5 16 c0 9 8 14 8 24 c0 5 -3.5 8 -8 8 h-16 c-4.5 0 -8 -3 -8 -8 c0 -10 8 -15 8 -24 c0 -6 -4.5 -10 -6.5 -16Z" fill="#B23A1C"/><path d="M49 46 h8 c-1 5 -3 8 -3 12" fill="none" stroke="#E2774A" stroke-width="2.5" stroke-linecap="round" opacity=".7"/><path d="M52 26 c-4 -5 4 -8 0 -13 M64 26 c-4 -5 4 -8 0 -13" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity=".8"/></svg></div><div class="t"><b>A0 · Старт — с нуля</b><small>73 страницы · 0,7 МБ</small><a class="btn ghost sm" href="pdf/cepteturk-A0.pdf" download><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> Скачать PDF</a></div></div><div class="wb"><div class="wb-art"><svg class="thumb-art" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><defs><linearGradient id="tsb-wb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7DCC0"/><stop offset="1" stop-color="#EDB585"/></linearGradient></defs><rect width="120" height="120" fill="url(#tsb-wb)"/><ellipse cx="60" cy="96" rx="44" ry="8" fill="#C98A64" opacity=".45"/><circle cx="60" cy="62" r="33" fill="none" stroke="#B5642A" stroke-width="20"/><circle cx="60" cy="62" r="33" fill="none" stroke="#D88B45" stroke-width="13"/><path d="M36 46 a33 33 0 0 1 30 -16" fill="none" stroke="#F0B26E" stroke-width="5" stroke-linecap="round" opacity=".8"/><ellipse cx="92.7" cy="66.7" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(9 92.7 66.7)"/><ellipse cx="91.7" cy="71.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(18 91.7 71.3)"/><ellipse cx="87.8" cy="79.8" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(36 87.8 79.8)"/><ellipse cx="84.9" cy="83.6" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(45 84.9 83.6)"/><ellipse cx="77.8" cy="89.8" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(63 77.8 89.8)"/><ellipse cx="73.7" cy="92.0" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(72 73.7 92.0)"/><ellipse cx="64.7" cy="94.7" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(90 64.7 94.7)"/><ellipse cx="60.0" cy="95.0" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(99 60.0 95.0)"/><ellipse cx="50.7" cy="93.7" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(117 50.7 93.7)"/><ellipse cx="46.3" cy="92.0" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(126 46.3 92.0)"/><ellipse cx="38.4" cy="86.9" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(144 38.4 86.9)"/><ellipse cx="35.0" cy="83.6" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(153 35.0 83.6)"/><ellipse cx="30.0" cy="75.7" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(171 30.0 75.7)"/><ellipse cx="28.3" cy="71.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(180 28.3 71.3)"/><ellipse cx="27.0" cy="62.0" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(198 27.0 62.0)"/><ellipse cx="27.3" cy="57.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(207 27.3 57.3)"/><ellipse cx="30.0" cy="48.2" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(225 30.0 48.2)"/><ellipse cx="32.3" cy="44.1" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(234 32.3 44.1)"/><ellipse cx="38.4" cy="37.0" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(252 38.4 37.0)"/><ellipse cx="42.2" cy="34.2" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(261 42.2 34.2)"/><ellipse cx="50.8" cy="30.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(279 50.8 30.3)"/><ellipse cx="55.4" cy="29.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(288 55.4 29.3)"/><ellipse cx="64.8" cy="29.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(306 64.8 29.3)"/><ellipse cx="69.4" cy="30.4" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(315 69.4 30.4)"/><ellipse cx="77.9" cy="34.3" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(333 77.9 34.3)"/><ellipse cx="81.7" cy="37.1" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(342 81.7 37.1)"/><ellipse cx="87.8" cy="44.2" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(360 87.8 44.2)"/><ellipse cx="90.1" cy="48.4" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(369 90.1 48.4)"/><ellipse cx="92.7" cy="57.4" rx="1.8" ry="1" fill="#FFF3DC" transform="rotate(387 92.7 57.4)"/></svg></div><div class="t"><b>A1 · Начальный</b><small>60 страниц · 0,7 МБ</small><a class="btn ghost sm" href="pdf/cepteturk-A1.pdf" download><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> Скачать PDF</a></div></div><div class="wb"><div class="wb-art"><svg class="thumb-art" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><defs><linearGradient id="trb-wb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3D7C2"/><stop offset="1" stop-color="#E2A884"/></linearGradient></defs><rect width="120" height="120" fill="url(#trb-wb)"/><path d="M0 98 H120" stroke="#8C5A48" stroke-width="3"/><path d="M0 106 H120" stroke="#8C5A48" stroke-width="2" opacity=".6"/><path d="M60 22 L48 34 M60 22 L72 34" stroke="#3A2A2A" stroke-width="2.5" fill="none"/><path d="M30 14 H90" stroke="#3A2A2A" stroke-width="1.5" opacity=".6"/><rect x="20" y="34" width="80" height="58" rx="10" fill="#C91F2C"/><rect x="20" y="70" width="80" height="6" fill="#F4EBE4"/><rect x="24" y="30" width="72" height="8" rx="4" fill="#A81925"/><rect x="27" y="42" width="14" height="20" rx="3" fill="#FFE7C2"/><rect x="45" y="42" width="14" height="20" rx="3" fill="#FFE7C2"/><rect x="61" y="42" width="14" height="20" rx="3" fill="#FFE7C2"/><rect x="79" y="42" width="14" height="20" rx="3" fill="#FFE7C2"/><rect x="52" y="78" width="16" height="12" rx="2" fill="#A81925"/><circle cx="35" cy="96" r="6" fill="#2B1D1E"/><circle cx="85" cy="96" r="6" fill="#2B1D1E"/><circle cx="35" cy="96" r="2" fill="#9A8B85"/><circle cx="85" cy="96" r="2" fill="#9A8B85"/></svg></div><div class="t"><b>A2 · Элементарный</b><small>54 страницы · 0,7 МБ</small><a class="btn ghost sm" href="pdf/cepteturk-A2.pdf" download><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> Скачать PDF</a></div></div><div class="wb"><div class="wb-art"><svg class="thumb-art" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><defs><linearGradient id="tfb-wb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2D6C4"/><stop offset="1" stop-color="#9FC3CF"/></linearGradient></defs><rect width="120" height="120" fill="url(#tfb-wb)"/><circle cx="28" cy="30" r="11" fill="#FCE6C6"/><path d="M74 26 q5 -5 10 0 q5 -5 10 0" fill="none" stroke="#2B1D1E" stroke-width="2.2" stroke-linecap="round"/><rect x="56" y="38" width="10" height="20" rx="1" fill="#C91F2C"/><rect x="56" y="36" width="10" height="6" fill="#2B1D1E"/><rect x="30" y="54" width="62" height="14" rx="3" fill="#FFFFFF"/><rect x="36" y="58" width="6" height="6" rx="1" fill="#6E8C99"/><rect x="46" y="58" width="6" height="6" rx="1" fill="#6E8C99"/><rect x="56" y="58" width="6" height="6" rx="1" fill="#6E8C99"/><rect x="66" y="58" width="6" height="6" rx="1" fill="#6E8C99"/><rect x="76" y="58" width="6" height="6" rx="1" fill="#6E8C99"/><path d="M14 68 H106 L96 86 H24Z" fill="#2B1D1E"/><path d="M18 74 H102" stroke="#FFFFFF" stroke-width="2"/><path d="M0 92 q10 -5 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 V120 H0Z" fill="#4F7F90"/><path d="M8 102 q8 -4 16 0 M50 108 q8 -4 16 0 M88 100 q8 -4 16 0" fill="none" stroke="#DDEEF2" stroke-width="2" stroke-linecap="round"/></svg></div><div class="t"><b>B1 · Средний</b><small>43 страницы · 0,6 МБ</small><a class="btn ghost sm" href="pdf/cepteturk-B1.pdf" download><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> Скачать PDF</a></div></div><div class="wb"><div class="wb-art"><svg class="thumb-art" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><defs><linearGradient id="tgb-wb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4CDB0"/><stop offset="1" stop-color="#D9875E"/></linearGradient></defs><rect width="120" height="120" fill="url(#tgb-wb)"/><circle cx="86" cy="34" r="14" fill="#FDE3BE"/><path d="M0 96 V80 h14 v-8 h12 v8 h10 v16Z M84 96 V76 h12 v-6 h10 v6 h14 v20Z" fill="#A8574A" opacity=".55"/><rect x="44" y="44" width="32" height="56" fill="#7A3A36"/><rect x="44" y="44" width="10" height="56" fill="#8E4943"/><rect x="40" y="40" width="40" height="7" rx="2" fill="#5A2A2B"/><path d="M40 41 L60 10 L80 41Z" fill="#4A2226"/><rect x="59.2" y="2" width="1.6" height="10" fill="#4A2226"/><rect x="50" y="54" width="5" height="8" rx="2.5" fill="#FFD9A0"/><rect x="50" y="74" width="5" height="8" rx="2.5" fill="#FFD9A0"/><rect x="58" y="54" width="5" height="8" rx="2.5" fill="#FFD9A0"/><rect x="58" y="74" width="5" height="8" rx="2.5" fill="#FFD9A0"/><rect x="66" y="54" width="5" height="8" rx="2.5" fill="#FFD9A0"/><rect x="66" y="74" width="5" height="8" rx="2.5" fill="#FFD9A0"/><path d="M0 100 H120 V120 H0Z" fill="#5A2A2B"/></svg></div><div class="t"><b>B2 · Выше среднего</b><small>29 страниц · 0,5 МБ</small><a class="btn ghost sm" href="pdf/cepteturk-B2.pdf" download><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> Скачать PDF</a></div></div></div>
 </div></section>
 
-<section id="program"><div class="wrap" style="max-width:820px">
-  <h2>Программа курса</h2>
-  <p class="sub">Все 116 уроков по уровням — смотрите, что вас ждёт. Грамматика, ситуации и истории идут вместе.</p>
-  <details class="syl-lv"><summary><span class="lvb" style="background:#58A6FF">A0</span> Старт — с нуля · 30 уроков · 6 историй</summary><ol class="syl"><li>Алфавит и особые буквы</li><li>Много: -lar / -ler</li><li>Приветствия</li><li>Вежливые слова</li><li>Это, то: bu, şu, o</li><li>Числа</li><li class="rv">Повторение недели 1</li><li>Я, ты, он</li><li>Рассказ о себе</li><li>Вопросительные слова</li><li>Вопрос mı и «не»</li><li>Прилагательные</li><li>Цены</li><li class="rv">Повторение недели 2</li><li>Семья</li><li>Есть / нет: var, yok</li><li>Где: -da / -de / -ta / -te</li><li>В кафе</li><li>Дни и время</li><li>Куда и откуда</li><li class="rv">Повторение недели 3</li><li>Глаголы</li><li>Сейчас: -iyor</li><li>Вопрос и «не» в настоящем</li><li>Мой день</li><li>Хочу, понимаю</li><li>Поездка</li><li class="rv">Повторение недели 4</li><li class="rv">Большое повторение</li><li class="ex">Экзамен курса «Старт»</li></ol></details>
-  <details class="syl-lv"><summary><span class="lvb" style="background:#3FA34D">A1</span> Начальный · 28 уроков · 8 историй</summary><ol class="syl"><li>Цвета</li><li>Тело</li><li>Одежда</li><li>С чем и без чего: -lı / -sız</li><li>Погода и времена года</li><li>Месяцы</li><li>Первый, второй: -ıncı</li><li>Время на часах</li><li>Дом и комнаты</li><li>Город</li><li>Транспорт</li><li>Просьбы и команды</li><li>Покупки</li><li>Фрукты и овощи</li><li>Кого? Что? Окончание -ı</li><li>Куда? Окончание -a</li><li>Откуда? Окончание -dan</li><li>С кем? С чем? ile, -la</li><li>Чей? Окончание -ın</li><li>Составные слова: otobüs durağı</li><li>Над, под, рядом</li><li>Прошедшее время -dı</li><li>Выходные</li><li>Хобби</li><li>Чувства</li><li>У врача</li><li>Приглашение</li><li class="ex">Экзамен A1</li></ol></details>
-  <details class="syl-lv"><summary><span class="lvb" style="background:#E8B416">A2</span> Элементарный · 22 урока · 9 историй</summary><ol class="syl"><li>Будущее время -acak</li><li>Могу: -ebil</li><li>Надо: lazım, gerek, -malı</li><li>Чтобы и вынужден: -mak için, zorunda</li><li>Сравнение: daha, en</li><li>Привычки: широкое время</li><li>Как часто?</li><li>Внешность и характер</li><li>Работа и профессии</li><li>В ресторане</li><li>В отеле</li><li>Как пройти</li><li>По телефону</li><li>Праздники и поздравления</li><li>Прошлое: вопросы о жизни</li><li>Говорят, что…: -mış</li><li>Было в процессе: -iyordu</li><li>Союзы</li><li>До, после, когда</li><li>Если: -sa</li><li>Дома и по хозяйству</li><li class="ex">Экзамен A2</li></ol></details>
-  <details class="syl-lv"><summary><span class="lvb" style="background:#FF8A00">B1</span> Средний · 21 урок · 7 историй</summary><ol class="syl"><li>Пассив</li><li>Причастия на -an</li><li>Причастия на -dığı</li><li>Косвенная речь</li><li>Мнение</li><li>Здоровье</li><li>Путешествие</li><li>Вежливые просьбы и жалобы</li><li>Сделать чужими руками: -dır</li><li>Друг друга и себя</li><li>Новости</li><li>Природа</li><li>Деньги и банк</li><li>Устойчивые выражения</li><li>Составные глаголы</li><li>Новые слова из старых: -cı, -lık, -cık</li><li>Если бы: -saydı</li><li>Пока, делая: -ken, -arak</li><li>Пока не…: -ene kadar, -madan</li><li>Рассказ о жизни</li><li class="ex">Экзамен B1</li></ol></details>
-  <details class="syl-lv"><summary><span class="lvb" style="background:#B45CE0">B2</span> Выше среднего · 15 уроков · 3 истории</summary><ol class="syl"><li>Связки для рассуждений</li><li>Потому что и несмотря на</li><li>Чем больше, тем…</li><li>Давнопрошедшее: -mıştı</li><li>Предположения</li><li>Работа и карьера</li><li>Культура и искусство</li><li>Общество</li><li>Тонкие чувства</li><li>Пословицы</li><li>Официальный стиль</li><li>Разговорный язык</li><li>Спор и дискуссия</li><li>О Турции</li><li class="ex">Экзамен B2</li></ol></details>
-</div></section>
-
-<section id="price" style="background:#FFFFFF;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
-  <h2>Цена</h2>
+<section id="price" aria-labelledby="priceH"><div class="wrap">
+  <h2 id="priceH">Цена</h2>
   <p class="sub">Без подписки и автосписаний: платите один раз — и все курсы остаются с вами навсегда.</p>
-  <div class="prices one">
-    <div class="price main"><b>Полный доступ к CepteTurk</b><div class="amt">4 990 ₽</div><div class="per">один платёж · доступ навсегда</div>
-      <ul><li>Все 5 курсов от алфавита до B2: 116 уроков с конспектами и экзаменами</li><li>800+ слов, карточки с интервальным повторением, 12 видов заданий и игр</li><li>33 истории-диалога с живой озвучкой</li><li>Прогресс хранится в браузере, его можно перенести файлом</li><li>Без лимитов на уроки и доплат за уровни</li></ul><a class="btn primary" href="app/">Открыть приложение</a></div>
-  </div>
+  <div class="price"><b>Полный доступ к CepteTurk</b><div class="amt">4 990 ₽</div><div class="per">один платёж · доступ навсегда</div>
+    <ul><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Все 5 уровней от алфавита до B2: 116 уроков с конспектами и экзаменами</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>800+ слов, карточки с интервальным повторением, 12 видов заданий и игр</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>33 истории-диалога с живой озвучкой</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Прогресс хранится в браузере, его можно перенести файлом</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Рабочие тетради PDF ко всем уровням — для печати</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Без лимитов на уроки и доплат за уровни</span></li></ul>
+    <a class="btn primary" href="app/">Открыть приложение <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
   <p class="pay">Сейчас идёт открытый бета-тест: оплата не принимается, все курсы открыты бесплатно. Цена начнёт действовать с запуском продаж.</p>
 </div></section>
 
-<section><div class="wrap" style="max-width:820px">
-  <h2>Вопросы и ответы</h2>
+<section id="faq" class="faq" aria-labelledby="faqH"><div class="wrap narrow">
+  <h2 id="faqH">Вопросы и ответы</h2>
   <details><summary>Нужно ли что-то знать заранее?</summary><p>Нет. Курс «Старт» начинается с алфавита и особых турецких букв. Если вы уже учили язык, пройдите тест уровня — он займёт 5–10 минут.</p></details>
   <details><summary>Сколько времени нужно в день?</summary><p>Достаточно 10–15 минут. Лучше понемногу, но регулярно: напоминание в календаре телефона поможет не забывать.</p></details>
   <details><summary>Нужно ли устанавливать приложение?</summary><p>Нет, всё работает в браузере. На телефоне сайт можно добавить на главный экран — он будет открываться как обычное приложение.</p></details>
-  <details><summary>Сохранится ли мой прогресс?</summary><p>Да, в вашем браузере на этом устройстве. Аккаунтов в бета-версии нет, поэтому на другое устройство прогресс переносится файлом: Настройки → Данные → «Скачать копию», затем «Загрузить копию».</p></details>
+  <details><summary>Сохранится ли мой прогресс?</summary><p>Да, в вашем браузере на этом устройстве. Аккаунтов в бета-версии нет, поэтому на другое устройство прогресс переносится файлом: Профиль → «Данные и резервная копия» → «Сохранить прогресс в файл», а на новом устройстве — «Восстановить из файла».</p></details>
   <details><summary>Насколько можно доверять урокам?</summary><p>Программа построена по уровням CEFR (A1–B2), каждое слово и фраза озвучены. Если заметите неточность — нажмите «Ошибка в задании?» под заданием: мы читаем каждое сообщение и исправляем материалы.</p></details>
   <details><summary>Это подписка?</summary><p>Нет. Вы платите один раз 4 990 ₽ — и все курсы (A0, A1, A2, B1 и B2) остаются у вас навсегда, без ежемесячных списаний.</p></details>
-  <details><summary>Можно ли посмотреть до покупки?</summary><p>Да: программа всех курсов — на этой странице, а <a href="razgovornik.html">разговорник</a>, <a href="grammatika.html">грамматика</a> и <a href="spryazhenie.html">спряжение глаголов</a> открыты всем. В приложении без оплаты можно пройти тест уровня. А если после покупки поймёте, что не подходит, — вернём деньги за уроки, которые вы ещё не прошли.</p></details>
+  <details><summary>Можно ли посмотреть до покупки?</summary><p>Да, и не только посмотреть: пока идёт бета-тест, все курсы открыты бесплатно. Ещё всем открыты <a href="razgovornik.html">разговорник</a>, <a href="grammatika.html">грамматика</a> и <a href="spryazhenie.html">спряжение глаголов</a>.</p></details>
   <details><summary>Можно ли потренировать разговор?</summary><p>Да. В упражнениях «скажите вслух» приложение распознаёт вашу речь и подсвечивает каждое слово. А истории-диалоги можно проходить на слух и повторять реплики за дикторами.</p></details>
   <details><summary>Как оплатить и можно ли вернуть деньги?</summary><p>Пока идёт бета-тест, оплата не принимается. После запуска продаж оплатить можно будет картой или через СБП, а от доступа можно будет отказаться в любой момент и вернуть деньги за уроки, которые вы ещё не прошли.</p></details>
   <details><summary>Как вы защищаете мои данные?</summary><p>В бета-версии нет аккаунтов: профиль и прогресс хранятся только в вашем браузере и никуда не отправляются. Удалить их можно в настройках. Подробнее — в <a href="privacy.html">политике конфиденциальности</a>.</p></details>
 </div></section>
 
-<section class="final dark"><div class="wrap">
-  <h2>Merhaba! Начнём?</h2>
-  <p class="lead" style="color:#B9C1E3">Первый урок займёт 10 минут. Все курсы — за один платёж, навсегда.</p>
-  <a class="btn gold" href="app/">Начать учиться</a>
+<section class="final dark" aria-labelledby="finH"><svg class="sky" viewBox="700 80 500 160" aria-hidden="true" focusable="false"><path d="M758 238V214H1002V238Z M780 214V196H980V214ZM778 196A14 12 0 0 1 806 196ZM954 196A14 12 0 0 1 982 196ZM798 186A30 20 0 0 1 858 186ZM902 186A30 20 0 0 1 962 186ZM830 197V186H930V197Z M846 186V168H914V186ZM838 168A42 36 0 0 1 922 168ZM878.8 132V118h2.4V132ZM741 238V110L744 92L747 110V238ZM738 122h12v3h-12ZM738 156h12v3h-12ZM1013 238V110L1016 92L1019 110V238ZM1010 122h12v3h-12ZM1010 156h12v3h-12ZM769 238V126L772 108L775 126V238ZM766 138h12v3h-12ZM766 172h12v3h-12ZM985 238V126L988 108L991 126V238ZM982 138h12v3h-12ZM982 172h12v3h-12ZM1034.4 238V223.1H1185.6V238Z M1048 223.1V212H1172V223.1ZM1046.8 212A8.7 7.4 0 0 1 1064.1 212ZM1155.9 212A8.7 7.4 0 0 1 1173.2 212ZM1059.2 205.8A18.6 12.4 0 0 1 1096.4 205.8ZM1123.6 205.8A18.6 12.4 0 0 1 1160.8 205.8ZM1079 212.6V205.8H1141V212.6Z M1088.9 205.8V194.6H1131.1V205.8ZM1084 194.6A26 22.3 0 0 1 1136 194.6ZM1109.3 172.3V163.6h1.5V172.3ZM1023.8 238V158.6L1025.7 147.5L1027.5 158.6V238ZM1022 166.1h7.4v1.9h-7.4ZM1022 187.2h7.4v1.9h-7.4ZM1192.5 238V158.6L1194.3 147.5L1196.2 158.6V238ZM1190.6 166.1h7.4v1.9h-7.4ZM1190.6 187.2h7.4v1.9h-7.4ZM1041.2 238V168.6L1043 157.4L1044.9 168.6V238ZM1039.3 176h7.4v1.9h-7.4ZM1039.3 197.1h7.4v1.9h-7.4ZM1175.1 238V168.6L1177 157.4L1178.8 168.6V238ZM1173.2 176h7.4v1.9h-7.4ZM1173.2 197.1h7.4v1.9h-7.4Z" fill="currentColor"/></svg><div class="wrap">
+  <h2 id="finH">Merhaba! Начнём?</h2>
+  <p class="sub">Первый урок займёт 10 минут. Пока идёт бета-тест, все курсы открыты бесплатно.</p>
+  <a class="btn primary" href="app/">Начать учиться <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
 </div></section>
+</div>
 </main>
-<div class="sticky-cta" id="stickyCta"><a class="btn gold" href="app/">Начать учиться</a></div>
+<div class="sticky-cta" id="stickyCta"><a class="btn primary" href="app/">Начать учиться</a></div>
 
 <footer><div class="wrap">
-  <div><b style="color:var(--ink)">CepteTurk</b><br>ИП Майшева Светлана Александровна, ИНН 771596336468, ОГРНИП 326774600074694 · <a href="mailto:cepte_turk@mail.ru">cepte_turk@mail.ru</a></div>
-  <nav><a href="razgovornik.html">Разговорник</a><a href="grammatika.html">Грамматика турецкого</a><a href="spryazhenie.html">Спряжение глаголов</a><a href="terms.html">Пользовательское соглашение</a><a href="privacy.html">Политика конфиденциальности</a><a href="consent.html">Согласие на обработку данных</a><a href="app/">Приложение</a></nav>
+  <div><b>CepteTurk</b><br>ИП Майшева Светлана Александровна, ИНН 771596336468, ОГРНИП 326774600074694 · <a href="mailto:cepte_turk@mail.ru">cepte_turk@mail.ru</a></div>
+  <nav aria-label="Ссылки"><a href="razgovornik.html">Разговорник</a><a href="grammatika.html">Грамматика турецкого</a><a href="spryazhenie.html">Спряжение глаголов</a><a href="terms.html">Пользовательское соглашение</a><a href="privacy.html">Политика конфиденциальности</a><a href="consent.html">Согласие на обработку данных</a><a href="app/">Приложение</a></nav>
 </div></footer>
 <script>
 (function(){
-  var els=document.querySelectorAll(".card,.lv,.price,details,.shots figure,.video .vshot,.ticks li");
+  var els=document.querySelectorAll(".fact,.card,.lvl,.screens figure,.steps li,.ticks li,.price,.faq details,.syl-lv");
   if("IntersectionObserver" in window&&!matchMedia("(prefers-reduced-motion: reduce)").matches){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{rootMargin:"0px 0px -8% 0px"});
-    els.forEach(function(el,i){el.classList.add("reveal");el.style.transitionDelay=(i%3)*70+"ms";io.observe(el)});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{rootMargin:"0px 0px -6% 0px"});
+    els.forEach(function(el,i){el.classList.add("reveal");el.style.transitionDelay=(i%3)*60+"ms";io.observe(el)});
   }
   var hero=document.querySelector(".hero"),cta=document.getElementById("stickyCta");
   if("IntersectionObserver" in window)new IntersectionObserver(function(es){cta.classList.toggle("on",!es[0].isIntersecting)}).observe(hero);
