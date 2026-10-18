@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-5txVH3d6lnNgcSlh1ECWA1EEhMd6rW+GY0ihUwXibOo=' 'sha256-rt+rKfI0ehHguzQwN5KPyxU0H1onA1k1P+lUPYbl6x8=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-5txVH3d6lnNgcSlh1ECWA1EEhMd6rW+GY0ihUwXibOo=' 'sha256-d00oys5dKtWErMX0LLbKoPfjj8SmkU8QvJvPql7keO4=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <title>CepteTurk — приложение</title>
 <meta name="description" content="Турецкий для русскоязычных: курсы от алфавита до B2, игры, истории с живой озвучкой и карточки.">
@@ -3802,6 +3802,7 @@ async function clipUrl(v,text){
 const hasClip=t=>PACK.has(t)&&!(typeof NOAUDIO!=="undefined"&&NOAUDIO.has(t));
 const ttsTr=()=>{try{return speechSynthesis.getVoices().some(x=>/^tr/i.test(x.lang))}catch(e){return false}};
 const audible=t=>hasClip(t)||ttsTr();
+try{let had=ttsTr();speechSynthesis.addEventListener("voiceschanged",()=>{const has=ttsTr();if(has&&!had&&!L&&!ST&&typeof render==="function")render();had=has})}catch(e){}
 let playSeq=0;
 const SILENT="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=";
 document.addEventListener("pointerdown",function unlock(){document.removeEventListener("pointerdown",unlock,true);try{if(!player.src){player.src=SILENT;player.play().catch(()=>{})}}catch(e){}},true);
@@ -5407,17 +5408,20 @@ function preloadStory(st){const vs=new Set();Object.values(st.cast).forEach(g=>v
 function closeStory(){ST=null;$("#overlay").innerHTML="";document.body.style.overflow="";try{player.pause()}catch(e){};render()}
 function storyLineHTML(st,k){
   const [who,tr,ru]=st.lines[k];const g=st.cast[who];const right=who!==ST.left;const hid=ST.listen&&!ST.rev.has(k);
-  return `<div class="story-line ${right?"r":""}"><span class="who">${g==="f"?"👩":"👨"}</span><div class="bub ${hid?"hid":""}" data-ru="${esc(ru)}" ${hid?`role="button" tabindex="0" data-reveal="${k}" aria-label="Показать текст реплики"`:""}><b>${esc(who)}</b><div class="t">${hid?`<span class="dots">${I.headphones}<span aria-hidden="true">· · · · ·</span></span><small>нажмите, чтобы увидеть текст</small>`:trHTML(tr)}</div><div class="ru" ${ST.ru&&!hid?"":"hidden"}>${esc(ru)}</div></div>${audible(tr)?`<button class="say sm" data-sline="${k}" aria-label="Послушать">${I.speaker}</button>`:`<span class="say-ph" aria-hidden="true"></span>`}</div>`;
+  return `<div class="story-line ${right?"r":""}"><span class="who">${g==="f"?"👩":"👨"}</span><div class="bub ${hid?"hid":""}" data-ru="${esc(ru)}" ${hid?`role="button" tabindex="0" data-reveal="${k}" aria-label="Показать текст реплики"`:""}><b>${esc(who)}</b><div class="t">${hid?`<span class="dots">${I.headphones}<span aria-hidden="true">· · · · ·</span></span><small>нажмите, чтобы увидеть текст</small>`:trHTML(tr)}</div><div class="ru" ${ST.ru&&!hid?"":"hidden"}>${esc(ru)}</div></div><button class="say sm" data-sline="${k}" aria-label="Послушать">${I.speaker}</button></div>`;
 }
-function wireReveal(root){root.querySelectorAll("[data-reveal]").forEach(b=>{const go=()=>{const k=+b.dataset.reveal;ST.rev.add(k);ST.peek++;const tmp=document.createElement("div");tmp.innerHTML=storyLineHTML(ST.st,k);const n=tmp.firstElementChild;b.closest(".story-line").replaceWith(n);const sb=n.querySelector("[data-sline]");if(sb)sb.onclick=e=>{e.stopPropagation();sayLine(k)}};b.onclick=go;b.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}}})}
-function sayLine(k){const [who,tr]=ST.st.lines[k];speak(tr,false,voiceForGender(ST.st.cast[who]))}
+function wireReveal(root){root.querySelectorAll("[data-reveal]").forEach(b=>{const go=()=>{const k=+b.dataset.reveal;ST.rev.add(k);ST.peek++;const tmp=document.createElement("div");tmp.innerHTML=storyLineHTML(ST.st,k);const n=tmp.firstElementChild;b.closest(".story-line").replaceWith(n);const sb=n.querySelector("[data-sline]");if(sb)sb.onclick=e=>{e.stopPropagation();sayLine(k,true)}};b.onclick=go;b.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}}})}
+// every line has a play button; a line without a recording is read by the browser's Turkish voice, and where there is none the button says so
+function sayLine(k,byTap){const [who,tr]=ST.st.lines[k];if(!audible(tr)){if(byTap)noVoiceHint();return}speak(tr,false,voiceForGender(ST.st.cast[who]))}
+let noVoiceAt=0;
+function noVoiceHint(){if(Date.now()-noVoiceAt<20000)return;noVoiceAt=Date.now();toast("🔈","У этой реплики пока нет записи","В этом браузере нет турецкого голоса, чтобы её прочитать. В Edge, на телефоне или на Mac она прозвучит.")}
 function renderStory(){
   const st=ST.st,b=$("#sbody"),c=$("#scheck");const total=st.lines.length+st.q.length;
   $("#sbar").style.width=((ST.phase==="read"?ST.i+1:st.lines.length+ST.qi)/total*100)+"%";
   if(ST.phase==="read"){
     if(ST.i===0)b.innerHTML=`<div class="l-in stack"><span class="kicker">${ST.listen?"На слух":"История"} · ${esc(cshort(st.ci))}</span><h2 style="margin:0">${esc(st.t)}</h2>${ST.listen?`<p class="help" style="margin:0">Слушайте внимательно. Если не поняли — нажмите кнопку озвучки ещё раз или на реплику, чтобы увидеть текст.</p>`:""}<div class="stack" id="slines" style="gap:12px"></div></div>`;
     const box=$("#slines");box.insertAdjacentHTML("beforeend",storyLineHTML(st,ST.i));
-    {const sb=box.lastElementChild.querySelector("[data-sline]");if(sb)sb.onclick=e=>{e.stopPropagation();sayLine(+e.currentTarget.dataset.sline)}}wireReveal(box.lastElementChild);
+    {const sb=box.lastElementChild.querySelector("[data-sline]");if(sb)sb.onclick=e=>{e.stopPropagation();sayLine(+e.currentTarget.dataset.sline,true)}}wireReveal(box.lastElementChild);
     box.lastElementChild.scrollIntoView({block:"end",behavior:reduceMotion()?"auto":"smooth"});
     sayLine(ST.i);
     const last=ST.i===st.lines.length-1;c.className="check";
