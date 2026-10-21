@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-fnUTDdNMazPi4YYuTk3wD3fxG/mJ0PSXcAriH9aS4Rk=' 'sha256-loUd/H43WNFHyvIyusDYXD9aF+zhC6KX2Jqg9tTBhEk=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-5qbdYM8PRAaygeC8v8QpkPJD1YucNTUTPub3z+vNMWA=' 'sha256-gVSH46LqwrvdbHQB/nXVHMoWSUHjuvRoO2ciYs1Fm2U=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <title>CepteTurk — приложение</title>
 <meta name="description" content="Турецкий для русскоязычных: курсы от алфавита до B2, игры, истории с живой озвучкой и карточки.">
@@ -290,6 +290,7 @@ select,.search{font:700 17px var(--font);padding:12px;border-radius:14px;border:
 .crow b{font-weight:900}
 .crow small{display:block;color:var(--muted);font-weight:700;font-size:13px}
 .crow .cert-btn{width:auto;padding:6px 12px;min-height:36px;gap:6px}.cert-btn svg{width:16px;height:16px}
+.cert-how{margin:14px 0 8px}
 .cert-prev{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--surface-2);aspect-ratio:2400/1697}
 .cert-prev img{display:block;width:100%;height:100%;object-fit:contain}
 .crow .pc{font-weight:900;font-variant-numeric:tabular-nums}
@@ -662,7 +663,8 @@ b,strong{font-weight:650}
 .btn:active{transform:scale(.98);border-bottom-width:1px}
 .btn svg{width:20px;height:20px}
 .btn.primary,.btn.good{background:var(--brand-fill);border-color:var(--brand-fill);color:var(--on-brand);box-shadow:var(--sh-brand)}
-.btn.primary:hover,.btn.good:hover{background:var(--brand-dk);border-color:var(--brand-dk)}
+/* hover only where there is a mouse: on a phone the last tap «sticks» as hover, and the disabled «Проверить» of the next question looked active */
+@media (hover:hover){.btn.primary:hover:not(:disabled),.btn.good:hover:not(:disabled){background:var(--brand-dk);border-color:var(--brand-dk)}}
 .btn.badb{background:var(--bad);border-color:var(--bad);color:#fff}
 .btn:disabled{background:var(--locked);border-color:var(--locked);color:var(--muted);box-shadow:none}
 .link,.back,.more{color:var(--brand)}
@@ -884,7 +886,7 @@ select,.search,.inp,.type-in,.chat-in textarea,.sc-input textarea{border:1px sol
 .bubble{border:1px solid var(--line);background:var(--surface);border-radius:var(--r-md);font-weight:600;box-shadow:var(--sh-1)}
 .opts{gap:10px}
 .opt{border:1px solid var(--line-strong);border-radius:var(--r-md);background:var(--surface);padding:14px 16px;font-size:18px;font-weight:500;min-height:58px;box-shadow:var(--sh-1);transition:border-color var(--t-fast) var(--ease),background-color var(--t-fast) var(--ease),transform var(--t-fast) var(--ease)}
-.opt:hover:not(:disabled){border-color:var(--brand)}
+@media (hover:hover){.opt:hover:not(:disabled){border-color:var(--brand)}}
 .opt .k{border:1px solid var(--line-strong);border-radius:8px;font-weight:600;width:28px;height:28px}
 .opt.sel{border-color:var(--brand);background:var(--brand-soft);color:var(--ink);box-shadow:inset 0 0 0 1px var(--brand)}
 .opt.sel .k{border-color:var(--brand);color:var(--brand)}
@@ -1888,10 +1890,10 @@ function makeLegal(F, O) {
     sections: [
       ["1. Кто отвечает за приложение", opKnown ? `Приложение публикует ${opLine()}. Связаться: ${contact}.`
         : `Бета-версию публикует автор проекта «CepteTurk» на GitHub. В этой версии нет регистрации, аккаунтов и нашего сервера, поэтому автор не получает ваших персональных данных. Вопросы и сообщения — ${contact}.`],
-      ["2. Что хранится и где", "• Имя и аватар профиля (если вы его создали), учебный прогресс, карточки и настройки хранятся только в памяти вашего браузера (localStorage) на этом устройстве. На сервер они не отправляются.\n• Файл с прогрессом, который вы сохранили сами, хранится там, куда вы его сохранили.\n• Сайт и записи озвучки загружаются с хостинга GitHub Pages (GitHub, Inc., США). Как любой веб-сервер, он получает IP-адрес и технические сведения о запросе (браузер, время). Эти журналы нам не передаются.\n• Шрифт загружается с серверов Google Fonts — Google получает IP-адрес и сведения о браузере." + (F.metrika ? "\n• Яндекс Метрика (ООО «Яндекс») — только если вы разрешили cookie в появившемся окне: обезличенная статистика посещений." : "")],
+      ["2. Что хранится и где", "• Имя и аватар профиля (если вы его создали), учебный прогресс, карточки и настройки хранятся только в памяти вашего браузера (localStorage) на этом устройстве. На сервер они не отправляются.\n• Сайт и записи озвучки загружаются с хостинга GitHub Pages (GitHub, Inc., США). Как любой веб-сервер, он получает IP-адрес и технические сведения о запросе (браузер, время). Эти журналы нам не передаются.\n• Шрифт загружается с серверов Google Fonts — Google получает IP-адрес и сведения о браузере." + (F.metrika ? "\n• Яндекс Метрика (ООО «Яндекс») — только если вы разрешили cookie в появившемся окне: обезличенная статистика посещений." : "")],
       ["3. Проверка произношения", speech + " " + asrOff],
       ["4. Сообщения об ошибках в заданиях", "Кнопка «Сообщить об ошибке» открывает страницу GitHub с подготовленным текстом. Сообщение отправится, только если вы сами опубликуете его там, и будет видно всем."],
-      ["5. Управление данными", "• Сохранить копию прогресса: Настройки → Данные → «Сохранить прогресс в файл».\n• Удалить всё: Настройки → «Сбросить весь прогресс» или очистите данные сайта в браузере.\n• Профиль можно не создавать: приложение работает и без него."],
+      ["5. Управление данными", "• Удалить всё: Настройки → «Сбросить весь прогресс» или очистите данные сайта в браузере.\n• Профиль можно не создавать: приложение работает и без него."],
       ["6. " + kids[0], kids[1]],
       ["7. Изменения политики", "Мы можем обновлять эту политику. Дата последней редакции указана вверху."]
     ]};
@@ -1957,7 +1959,7 @@ function makeLegal(F, O) {
   const liability = ["Ограничение ответственности", "Мы стараемся, чтобы сервис работал без сбоев, но не гарантируем непрерывную работу и не отвечаем за результат обучения, который зависит от регулярности занятий."];
   let tsec;
   if (mode === "static") tsec = [...common,
-    ["Бета-версия", "Это тестовая версия. Все уровни доступны бесплатно, оплаты и подписок нет. Прогресс хранится только в вашем браузере: если очистить данные сайта или сменить устройство, он пропадёт — сохраняйте копию в файл (Настройки → Данные)."],
+    ["Бета-версия", "Это тестовая версия. Все уровни доступны бесплатно, оплаты и подписок нет. Прогресс хранится только в вашем браузере: если очистить данные сайта или сменить устройство, он пропадёт."],
     ["Профиль", "Профиль (имя и аватар) необязателен и хранится только в вашем браузере."],
     materials, liability,
     ["Обратная связь", "Сообщить об ошибке или задать вопрос можно " + contact + "."]];
@@ -4210,7 +4212,9 @@ function choiceWire(e,isRight,correctText,speakOpts,sayOnAnswer,okNote){
   const btns=[...$("#lbody").querySelectorAll(".opt")];
   const sel=i=>{if(L.answered)return;btns.forEach(b=>b.classList.remove("sel"));btns[i].classList.add("sel");L.state.sel=i;if(speakOpts&&btns[i].dataset.sp)speak(btns[i].dataset.sp);enableCheck(true)};
   btns.forEach((b,i)=>b.onclick=()=>sel(i));
-  L.keyHandler=ev=>{const n=+ev.key;if(n>=1&&n<=btns.length&&!L.answered)sel(n-1)};
+  // 1…5 choose, Enter checks the chosen answer (on a focused button Enter is that button's own click)
+  L.keyHandler=ev=>{if(L.answered)return;const n=+ev.key;if(n>=1&&n<=btns.length)sel(n-1);
+    else if(ev.key==="Enter"&&L.state.sel!=null&&!(ev.target&&ev.target.closest&&ev.target.closest("button,a"))){ev.preventDefault();const g=$("#lgo");if(g&&!g.disabled)g.click()}};
   L.checkFn=()=>{const i=L.state.sel;const ok=isRight(e.opts[i]);btns.forEach((b,j)=>{b.disabled=true;if(isRight(e.opts[j]))b.classList.add("right")});if(!ok)btns[i].classList.add("wrong");answer(ok,correctText,sayOnAnswer||(e.w&&e.w.tr),false,ok?okNote:undefined)};
 }
 document.addEventListener("keydown",ev=>{if(L&&L.keyHandler&&!(ev.target&&/TEXTAREA|INPUT/.test(ev.target.tagName)))L.keyHandler(ev)});
@@ -4270,7 +4274,7 @@ function finishSession(){
   const secs=Math.round((Date.now()-L.start)/1000),mm=Math.floor(secs/60)+":"+String(secs%60).padStart(2,"0");
   $("#lcheck").className="check";$("#lbar").style.width="100%";
   let head,party=false;
-  if(lesson&&lesson.exam&&!passed)head=`<div class="big-icon">${catSVG("sad",110)}</div><h2>Пока не сдано</h2><p class="res-p">Нужно 80% правильных ответов с первой попытки. Повторите слова курса в «Карточках» или «Практике» и попробуйте снова.</p>`;
+  if(lesson&&lesson.exam&&!passed)head=`<div class="big-icon">${catSVG("sad",110)}</div><h2>Пока не сдано</h2><p class="res-p">Нужно 80% правильных ответов с первой попытки — тогда ${lesson.ci+1<COURSES.length?"откроется следующий курс и ":""}будет сертификат. Повторите слова курса в «Карточках» или «Практике» и попробуйте снова.</p>`;
   else if(lesson&&lesson.exam){party=true;head=`<div class="big-icon ic gold">${I.trophy}</div><h2>Экзамен сдан!</h2>`}
   else if(grew&&FEAT.streak){party=true;head=streakCelebration(before.alive?before.cur:after.cur-1,after.cur)}
   else{party=L.wrong===0;head=`<div class="mascot-row"><div class="big-icon">${catSVG("happy",104)}</div><div class="speech">${esc(L.wrong===0?"Ни одной ошибки! Harika!":PRAISE[Math.floor(Math.random()*PRAISE.length)])}</div></div><h2>${lesson?"Урок пройден!":"Тренировка завершена!"}</h2>`}
@@ -4741,9 +4745,10 @@ function viewNotes(ci){
     <div class="stack">${c.lessons.map(l=>noteHTML(l,false)).join("")}</div>`;
 }
 function lockReason(l){
-  if(!paidOK(l.ci)&&(l.ci===0||coursePassed(l.ci-1)))return "Урок откроется после оплаты полного доступа.";
-  if(l.ci>0&&!coursePassed(l.ci-1))return `Урок откроется, когда вы сдадите экзамен ${l.ci===1?"курса «Старт»":"курса "+esc(COURSES[l.ci-1].name)}.`;
-  return "Урок откроется, когда вы пройдёте предыдущие уроки этого курса.";
+  const w=l.exam?"Экзамен":"Урок";
+  if(!paidOK(l.ci)&&(l.ci===0||coursePassed(l.ci-1)))return `${w} откроется после оплаты полного доступа.`;
+  if(l.ci>0&&!coursePassed(l.ci-1))return `${w} откроется, когда вы сдадите экзамен ${l.ci===1?"курса «Старт»":"курса "+esc(COURSES[l.ci-1].name)}.`;
+  return l.exam?"Экзамен откроется, когда вы пройдёте уроки этого курса.":"Урок откроется, когда вы пройдёте предыдущие уроки этого курса.";
 }
 function findLesson(key){for(const c of COURSES)for(const l of c.lessons)if(l.key===key)return l}
 function openLesson(key){
@@ -4753,11 +4758,12 @@ function openLesson(key){
     <span class="kicker">${esc(cname(l.ci))} · ${l.exam?"экзамен":"урок "+l.n} · ${ws.length} ${slov(ws.length)}</span><h2>${esc(l.t)}</h2>
     ${!open?`<div class="info">${lockReason(l)}</div>${noteHTML(l,true)}${!paidOK(l.ci)&&(l.ci===0||coursePassed(l.ci-1))&&SRV?`<button class="btn primary" id="buyAll">Открыть доступ — ${esc(SRV.priceLabel())}</button>`:""}`:`
       ${noteHTML(l,true)}
-      ${l.exam?`<div class="info"><b class="h">Условие</b>${len} заданий по всему курсу. Чтобы открыть следующий курс, нужно 80% правильных ответов с первой попытки.</div>`:""}
+      ${l.exam?`<div class="info"><b class="h">Условие</b>${len} заданий по всему курсу. Чтобы ${l.ci+1<COURSES.length?"открыть следующий курс и ":""}получить именной сертификат, нужно 80% правильных ответов с первой попытки.</div>`:""}
       ${l.task?`<div class="info"><b class="h">Задание в тетрадь</b>${esc(l.task)}</div>`:""}
       ${!l.exam&&!l.review&&l.words.length?`<div class="info"><b class="h">Слова урока</b><div class="words-mini">${l.words.map(w=>wordRow({...w,ci:null})).join("")}</div></div>`:""}
-      <button class="btn primary" id="sgo">${done?(l.exam?"Пересдать":"Повторить урок"):(l.exam?"Начать экзамен":"Начать урок")}</button>${l.exam&&certOk(l.ci)?`<button class="btn" id="scert">${I.trophy} Сертификат</button>`:""}
+      <button class="btn primary" id="sgo">${done?(l.exam?"Пересдать":"Повторить урок"):(l.exam?"Начать экзамен":"Начать урок")}</button>
       ${FEAT.tutor&&sampleApi?`<button class="btn" data-ask="${l.key}">${I.chat} Спросить репетитора</button>`:""}`}
+    ${l.exam?`<button class="btn" id="scert">${I.trophy} ${certOk(l.ci)?"Сертификат":"Образец сертификата"}</button>`:""}
     <button class="btn" id="sclose">Закрыть</button></div></div>`;
   wireSay($("#overlay"));
   $("#overlay").querySelectorAll("[data-ask]").forEach(b=>b.onclick=()=>openTutor(b.dataset.ask));
@@ -4985,7 +4991,8 @@ function viewProfile(){
       ${promoMsg?`<p class="help" style="margin:0;color:var(--bad)">${esc(promoMsg)}</p>`:""}
     </div>`:""}
     ${FEAT.adminInProfile&&isOwner&&DB?`<button class="deck" id="openAdmin"><span class="ico">${I.target}</span><div><b>Админка</b><small>Ученики, сообщения об ошибках, промокоды</small></div>${I.go}</button>`:""}
-    <div class="card"><h3>Курсы</h3>${COURSES.map((c,ci)=>{const nd=c.lessons.filter(isDone).length;return `<div class="crow"><span class="badge b${ci}">${cshort(ci)}</span><div><b>${esc(cname(ci))}</b><small>${coursePassed(ci)?"экзамен сдан на "+S.lessons[examOf(ci).key].best+"%":courseOpen(ci)?nd+" из "+c.lessons.length+" уроков":"закрыт"}</small></div>${certOk(ci)?`<button class="btn sm cert-btn" data-cert="${ci}" aria-label="Сертификат ${esc(cname(ci))}">${I.trophy} Сертификат</button>`:`<span class="pc">${Math.round(nd/c.lessons.length*100)}%</span>`}</div>`}).join("")}</div>
+    <div class="card"><h3>Курсы</h3>${COURSES.map((c,ci)=>{const nd=c.lessons.filter(isDone).length;return `<div class="crow"><span class="badge b${ci}">${cshort(ci)}</span><div><b>${esc(cname(ci))}</b><small>${coursePassed(ci)?(S.lessons[examOf(ci).key].times?"экзамен сдан на "+S.lessons[examOf(ci).key].best+"%":"засчитан по тесту уровня"):courseOpen(ci)?nd+" из "+c.lessons.length+" уроков":"закрыт"}</small></div>${certOk(ci)?`<button class="btn sm cert-btn" data-cert="${ci}" aria-label="Сертификат ${esc(cname(ci))}">${I.trophy} Сертификат</button>`:`<span class="pc">${Math.round(nd/c.lessons.length*100)}%</span>`}</div>`}).join("")}
+      ${(()=>{const cc=currentCourse(),nc=!certOk(cc)?cc:COURSES.findIndex((c,ci)=>!certOk(ci));return nc<0?"":`<p class="help cert-how">За каждый сданный экзамен уровня — сертификат с вашим именем в PDF.</p><button class="btn sm cert-btn" data-cert-how="${nc}">${I.trophy} Посмотреть образец</button>`})()}</div>
     ${FEAT.xp?`<div class="card"><h3>Опыт за 14 дней</h3><p class="help" style="margin:0 0 10px">${FEAT.goal?`Пунктир — цель дня, ${P.goal} XP.`:"Сколько опыта вы набирали каждый день."}</p>${xpChart()}</div>`:""}
     <div class="card"><h3 style="margin-bottom:10px">${monthName()}</h3>${calendar()}
       <div class="legend">меньше <i style="background:var(--bg);border:1px solid var(--line)"></i><i style="background:var(--cobalt-soft)"></i><i style="background:var(--cobalt)"></i><i style="background:var(--cobalt-dk)"></i>${FEAT.xp?" больше XP":" больше занятий"}</div></div>
@@ -5145,7 +5152,7 @@ function showOnboarding(){
     <p class="help" style="margin:0">Профиль — это ваше имя и аватар${CLUB_ON?", с ним можно писать в клубе учеников":""}. Его можно не создавать. ${syncMode==="account"&&SRV?"Вы вошли в аккаунт — прогресс сохраняется автоматически.":syncMode==="account"?"Вход выполнен через ваш аккаунт Claude — пароль не нужен, прогресс будет сохраняться автоматически.":"Прогресс сохраняется автоматически."}</p>
     ${profileForm(true)}
     <button class="btn" id="obGuest">Продолжить без профиля</button>
-    <p class="help" style="margin:0">Без профиля всё работает так же, а прогресс сохраняется ${syncMode==="account"?"в вашем аккаунте":"в этом браузере"}. Профиль можно создать позже в разделе «Профиль».</p>
+    <p class="help" style="margin:0">Без профиля всё работает так же, а прогресс сохраняется автоматически${syncMode==="account"?" в вашем аккаунте":""}. Профиль можно создать позже в разделе «Профиль».</p>
     ${FEAT.refCode&&syncMode==="account"?`<div class="field"><label for="obRef">Код приглашения от друга (необязательно)</label><input class="inp code" id="obRef" maxlength="6" placeholder="ABC123" autocomplete="off"></div><p class="help" id="obMsg" style="margin:0;color:var(--bad)"></p>`:""}
   </div></div>`;
   wireProfileForm(true);
@@ -5187,6 +5194,7 @@ function wireView(){
   const cc=v.querySelector(".cat-chips [aria-current]");if(cc){const r=cc.parentElement;r.scrollLeft+=cc.getBoundingClientRect().left-r.getBoundingClientRect().left-(r.clientWidth-cc.offsetWidth)/2}
   v.querySelectorAll("[data-ask]").forEach(b=>b.onclick=()=>openTutor(b.dataset.ask));
   document.querySelectorAll("[data-cert]").forEach(b=>b.onclick=()=>openCert(+b.dataset.cert));
+  document.querySelectorAll("[data-cert-how]").forEach(b=>b.onclick=()=>certHow(+b.dataset.certHow));
   const odc=$("#openDocs");if(odc)odc.onclick=openDocs;const owb=$("#openWb");if(owb)owb.onclick=openWorkbooks;
   const pls=$("#plStart");if(pls)pls.onclick=startPlacement;const ba=$("#buyAll");if(ba)ba.onclick=()=>SRV.buyCourse();const plr=$("#plRetake");if(plr)plr.onclick=startPlacement;
 const adl=$("#adLoad");if(adl)adl.onclick=loadPromos;
@@ -5841,6 +5849,7 @@ async function sttOnServer(blob){
 function renderSpeak(body,e){
   L.state.tries=L.state.tries||0;L.state.myUrl=null;
   const inLesson=!L.only,mode=ASR?"asr":serverStt()&&canRecord()?"server":null,rec=canRecord();
+  const mineHelp=!rec?"":mode==="asr"&&!spParallel()?", а «Записать себя» запишет вас отдельно, чтобы сравнить с диктором":", а «Мой голос» даст сравнить вас с диктором";
   body.innerHTML=`<span class="tag">Произношение</span><h2 class="l-title">Послушайте и повторите вслух</h2>
     <div class="speak-card"><div class="t">${trHTML(e.w.tr)}</div><div class="ru">${esc(e.w.ru)}</div></div>
     <div class="speak-btns">
@@ -5848,7 +5857,7 @@ function renderSpeak(body,e){
       <button class="btn rec" id="spRec" ${mode?"":"disabled"} aria-pressed="false">${I.mic} Сказать</button>
       ${rec?`<button class="btn" id="spMine" disabled>${I.play} Мой голос</button>`:""}
     </div>
-    <p class="help sp-info" id="spInfo">${mode?"Нажмите «Сказать», произнесите фразу целиком и нажмите «Стоп». Приложение проверит каждое слово, а «Мой голос» даст сравнить вас с диктором.":"На этом устройстве нет распознавания речи, поэтому проверить произношение нельзя. Откройте приложение в Chrome или Safari."}</p>
+    <p class="help sp-info" id="spInfo">${mode?`Нажмите «Сказать», произнесите фразу целиком и нажмите «Стоп». Приложение проверит каждое слово${mineHelp}.`:"На этом устройстве нет распознавания речи, поэтому проверить произношение нельзя. Откройте приложение в Chrome или Safari."}</p>
     <div id="spRes" aria-live="polite"></div>`;
   const rb=$("#spRec"),mine=$("#spMine");
   $("#spNative").onclick=()=>{if(recState&&recState.on)stopRecording();speak(e.w.tr)};
@@ -5963,13 +5972,16 @@ const certOk=ci=>{const e=S.lessons[examOf(ci).key];return !!(e&&e.done&&e.times
 const certLevel=ci=>ci?`${COURSES[ci].id} · ${COURSES[ci].level}`:"A0 · Старт с нуля";
 function certData(ci,name){
   const e=S.lessons[examOf(ci).key];if(!e.on){e.on=today();persist()} // passed before dates were kept: the first certificate fixes it
-  const [y,m,d]=e.on.split("-").map(Number),date=new Date(y,m-1,d).toLocaleDateString("ru-RU",{day:"numeric",month:"long",year:"numeric"}).replace(/\s*г\.?$/,"");
   // the number is a short fingerprint of name, level and date: the same certificate always gets the same number
   let h=2166136261;for(const ch of name+"|"+COURSES[ci].id+"|"+e.on){h^=ch.codePointAt(0);h=Math.imul(h,16777619)>>>0}
   const A="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let code="";for(let i=0;i<6;i++){code+=A[h%32];h=Math.imul(h^(h>>>15),2246822519)>>>0}
-  const site=/^https?:$/.test(location.protocol)?(location.host+location.pathname.replace(/\/app\/.*$|\/[^/]*$/,"/")).replace(/\/$/,""):"CepteTurk";
-  return {ci,name,level:certLevel(ci),lessons:COURSES[ci].lessons.length,score:e.best,on:e.on,date,no:`CT-${COURSES[ci].id}-${code}`,site};
+  return {ci,name,level:certLevel(ci),lessons:COURSES[ci].lessons.length,score:e.best,on:e.on,date:certDate(e.on),no:`CT-${COURSES[ci].id}-${code}`,site:certSite()};
 }
+const certDate=on=>{const [y,m,d]=on.split("-").map(Number);return new Date(y,m-1,d).toLocaleDateString("ru-RU",{day:"numeric",month:"long",year:"numeric"}).replace(/\s*г\.?$/,"")};
+const certSite=()=>/^https?:$/.test(location.protocol)?(location.host+location.pathname.replace(/\/app\/.*$|\/[^/]*$/,"/")).replace(/\/$/,""):"CepteTurk";
+// before the exam: the same certificate with a watermark, so the learner sees what they are working towards
+const certSample=ci=>({ci,name:"Ваше имя",level:certLevel(ci),lessons:COURSES[ci].lessons.length,score:90,on:today(),date:certDate(today()),no:`CT-${COURSES[ci].id}-000000`,site:certSite(),sample:true});
+const certThumb=cv=>{const s=document.createElement("canvas");s.width=960;s.height=Math.round(960*CERT_H/CERT_W);s.getContext("2d").drawImage(cv,0,0,s.width,s.height);return s.toDataURL("image/jpeg",.85)};
 const CERT_W=2400,CERT_H=1697; // A4 landscape at about 205 dpi
 async function certCanvas(c){
   try{loadFonts();await Promise.all(["400","600","700"].map(w=>document.fonts.load(`${w} 64px Inter`)))}catch(e){}
@@ -6009,6 +6021,7 @@ async function certCanvas(c){
   col("Дата",c.date,L0);col("Номер",c.no,L0+700);col("Выдан",c.site,L0+1320);
   x.fillStyle="#6E6663";x.font=font(400,28);
   x.fillText("Подтверждает прохождение курса в приложении CepteTurk. Не является документом об образовании государственного образца.",L0,CERT_H-120);
+  if(c.sample){x.save();x.translate(CERT_W/2,CERT_H/2+40);x.rotate(-.36);x.textAlign="center";x.fillStyle="rgba(201,31,44,.16)";x.font=font(700,330);x.fillText("ОБРАЗЕЦ",0,110);x.restore()}
   return cv;
 }
 // one page, one JPEG: catalog, pages, page, image, drawing and the document's title; offsets are counted in bytes
@@ -6039,8 +6052,21 @@ async function saveBlob(name,blob){
   if(dlApi){try{await dlApi.save({filename:name,data:new Uint8Array(await blob.arrayBuffer())});return true}catch(e){}}
   try{const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);return true}catch(e){return false}
 }
+// not earned yet: the sample, what is missing and the way to the exam
+function certHow(ci){
+  const ex=examOf(ci),e=S.lessons[ex.key]||{},open=lessonOpen(ex);
+  const why=e.done&&!e.times?"Этот уровень засчитан по тесту уровня, а сертификат выдаётся за сданный экзамен. ":e.times?`Ваш лучший результат на экзамене — ${e.best||0}%. `:"";
+  const el=sheetLayer(`<span class="kicker">${esc(certLevel(ci))}</span><h2>Сертификат уровня</h2>
+    <div class="cert-prev"><img id="certImg" alt="Образец сертификата" width="${CERT_W}" height="${CERT_H}"></div>
+    <div class="info">${esc(why)}Сдайте итоговый экзамен уровня на 80% или выше — и сертификат с вашим именем можно будет скачать в PDF.${open?"":" "+lockReason(ex)}</div>
+    ${open?`<button class="btn primary" id="certExam">${e.done||e.times?"Сдать экзамен":"Перейти к экзамену"}</button>`:""}
+    <button class="btn" data-close>Закрыть</button>`,"certLayer",80);
+  certCanvas(certSample(ci)).then(cv=>{const img=el.querySelector("#certImg");if(img)img.src=certThumb(cv)});
+  const go=el.querySelector("#certExam");if(go)go.onclick=()=>{el.remove();openLesson(ex.key)};
+  el.querySelector("[data-close]").onclick=()=>el.remove();
+}
 function openCert(ci){
-  if(!certOk(ci)){toast("🏆","Сертификата пока нет","Он появится, когда вы сдадите экзамен курса на 80% или выше");return}
+  if(!certOk(ci))return certHow(ci);
   const nm=S.certName||(S.profile&&S.profile.name)||"";
   const el=sheetLayer(`<span class="kicker">${esc(certLevel(ci))}</span><h2>Сертификат</h2>
     <div class="cert-prev"><img id="certImg" alt="Сертификат: предпросмотр" width="${CERT_W}" height="${CERT_H}"></div>
@@ -6051,8 +6077,7 @@ function openCert(ci){
     <button class="btn" data-close>Закрыть</button>`,"certLayer",80);
   const inp=el.querySelector("#certName"),img=el.querySelector("#certImg");let tm=null,seq=0;
   const name=()=>inp.value.replace(/\s+/g," ").trim().slice(0,60);
-  const preview=async()=>{const my=++seq,c=certData(ci,name()||"Ваше имя"),cv=await certCanvas(c);if(my!==seq)return;
-    const small=document.createElement("canvas");small.width=960;small.height=Math.round(960*CERT_H/CERT_W);small.getContext("2d").drawImage(cv,0,0,small.width,small.height);img.src=small.toDataURL("image/jpeg",.85)};
+  const preview=async()=>{const my=++seq,c=certData(ci,name()||"Ваше имя"),cv=await certCanvas(c);if(my===seq)img.src=certThumb(cv)};
   inp.oninput=()=>{clearTimeout(tm);tm=setTimeout(preview,250)};preview();
   const ready=()=>{const n=name();if(n.length<2){inp.focus();inp.setAttribute("aria-invalid","true");toast("✍️","Напишите имя","Оно будет на сертификате");return null}
     inp.removeAttribute("aria-invalid");if(S.certName!==n){S.certName=n;persist()}return n};
