@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-fnUTDdNMazPi4YYuTk3wD3fxG/mJ0PSXcAriH9aS4Rk=' 'sha256-eqS0T+wimgV98CcEkYR8PUdes2Fy6vLA5yV1p6g1xFo=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-fnUTDdNMazPi4YYuTk3wD3fxG/mJ0PSXcAriH9aS4Rk=' 'sha256-loUd/H43WNFHyvIyusDYXD9aF+zhC6KX2Jqg9tTBhEk=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <title>CepteTurk — приложение</title>
 <meta name="description" content="Турецкий для русскоязычных: курсы от алфавита до B2, игры, истории с живой озвучкой и карточки.">
@@ -289,6 +289,9 @@ select,.search{font:700 17px var(--font);padding:12px;border-radius:14px;border:
 .crow .badge{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:900}
 .crow b{font-weight:900}
 .crow small{display:block;color:var(--muted);font-weight:700;font-size:13px}
+.crow .cert-btn{width:auto;padding:6px 12px;min-height:36px;gap:6px}.cert-btn svg{width:16px;height:16px}
+.cert-prev{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--surface-2);aspect-ratio:2400/1697}
+.cert-prev img{display:block;width:100%;height:100%;object-fit:contain}
 .crow .pc{font-weight:900;font-variant-numeric:tabular-nums}
 .toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:800}
 .toggle input{width:26px;height:26px;accent-color:var(--cobalt)}
@@ -3595,7 +3598,7 @@ function addDays(s,n){const [y,m,d]=s.split("-").map(Number);const t=new Date(y,
 function mondayOf(s){const [y,m,d]=s.split("-").map(Number);const wd=(new Date(y,m-1,d).getDay()+6)%7;return addDays(s,-wd)}
 function dayDiff(a,b){const p=s=>{const [y,m,d]=s.split("-").map(Number);return Date.UTC(y,m-1,d)};return Math.round((p(b)-p(a))/864e5)}
 const LS="turkce.v3";
-const blank=()=>({xp:{},lessons:{},mistakes:{},profile:null,guest:null,bonus:0,freezes:0,frozen:[],refBy:null,refClaimed:[],promos:[],ach:{},stats:{perfect:0,cards:0,matchBest:0,tutor:0,hang:0,early:0,night:0},srs:{},custom:[],newDone:{},resume:null,saved:0,resetAt:0,placement:null,partner:{balance:0,history:[]},daily:null,stories:{},scenes:{},fav:[],lvlSeen:null});
+const blank=()=>({xp:{},lessons:{},mistakes:{},profile:null,guest:null,bonus:0,freezes:0,frozen:[],refBy:null,refClaimed:[],promos:[],ach:{},stats:{perfect:0,cards:0,matchBest:0,tutor:0,hang:0,early:0,night:0},srs:{},custom:[],newDone:{},resume:null,saved:0,resetAt:0,placement:null,partner:{balance:0,history:[]},daily:null,stories:{},scenes:{},fav:[],lvlSeen:null,certName:null});
 let S=blank();
 const P_DEFAULTS={voice:"f",taps:true,rate:1,diff:"medium",goal:20,sound:true,cardDir:"tr",newPerDay:10,vol:1,sfx:1,theme:"auto",simple:false,aim:null,asr:true,speakLessons:true,listen:false};
 let P={...P_DEFAULTS};
@@ -3612,7 +3615,7 @@ const strOr=(v,d,max=200)=>typeof v==="string"?v.slice(0,max):d;
 const strArr=(v,max=5000,len=200)=>Array.isArray(v)?[...new Set(v.filter(x=>typeof x==="string"&&x).map(x=>x.slice(0,len)))].slice(-max):[];
 const objMap=(v,ok)=>{const o={};if(isObj(v))for(const [k,x] of Object.entries(v))if(k!=="__proto__"&&ok(x))o[k]=x;return o};
 const DAY=/^\d{4}-\d\d-\d\d$/;
-function normLessons(ls){const o={};for(const [k,v] of Object.entries(isObj(ls)?ls:{})){if(!isObj(v)||k==="__proto__")continue;const key=/^\d+$/.test(k)?"A0-"+k:k;const c=o[key]||{};o[key]={done:!!(c.done||v.done),best:Math.max(c.best||0,numOr(v.best,0,0,100)),times:Math.max(c.times||0,numOr(v.times,0,0,1e6))}}return o}
+function normLessons(ls){const o={};for(const [k,v] of Object.entries(isObj(ls)?ls:{})){if(!isObj(v)||k==="__proto__")continue;const key=/^\d+$/.test(k)?"A0-"+k:k;const c=o[key]||{};const on=[c.on,typeof v.on==="string"&&DAY.test(v.on)?v.on:null].filter(Boolean).sort()[0];o[key]={done:!!(c.done||v.done),best:Math.max(c.best||0,numOr(v.best,0,0,100)),times:Math.max(c.times||0,numOr(v.times,0,0,1e6)),...(on?{on}:{})}}return o}
 function fixState(x){
   const o=blank();if(!isObj(x))return o;
   for(const [k,v] of Object.entries(x))if(!(k in o)&&k!=="__proto__")o[k]=v; // fields of newer versions are kept as they are
@@ -3625,7 +3628,7 @@ function fixState(x){
   o.guest=o.profile?null:(x.guest?tsOr(x.guest,Date.now()):null);
   o.bonus=numOr(x.bonus,0);o.freezes=numOr(x.freezes,0,0,50);o.saved=tsOr(x.saved,0);o.resetAt=tsOr(x.resetAt,0);
   o.frozen=strArr(x.frozen,400,10).filter(d=>DAY.test(d));o.refClaimed=strArr(x.refClaimed);o.promos=strArr(x.promos);o.fav=strArr(x.fav,2000,300);
-  o.refBy=strOr(x.refBy,null,40);o.lvlSeen=x.lvlSeen==null?null:numOr(x.lvlSeen,null);
+  o.refBy=strOr(x.refBy,null,40);o.certName=typeof x.certName==="string"&&x.certName.trim()?x.certName.trim().slice(0,60):null;o.lvlSeen=x.lvlSeen==null?null:numOr(x.lvlSeen,null);
   o.custom=Array.isArray(x.custom)?x.custom.filter(c=>isObj(c)&&typeof c.tr==="string"&&typeof c.ru==="string"&&c.tr.trim()).map((c,i)=>({...c,tr:c.tr.slice(0,200),ru:c.ru.slice(0,300),id:typeof c.id==="string"&&/^[\w-]{1,40}$/.test(c.id)?c.id:"c"+i+"-"+c.tr.length})):[];
   o.resume=isObj(x.resume)&&Array.isArray(x.resume.list)&&x.resume.list.length&&x.resume.list.every(e=>isObj(e)&&typeof e.type==="string")?{...x.resume,i:Math.floor(numOr(x.resume.i,0,0,x.resume.list.length))}:null;
   // the level test: numbers and a date only (a progress file is untrusted input)
@@ -3688,7 +3691,8 @@ function mergeState(a,b){
   if((a.resetAt||0)!==(b.resetAt||0))return fixState(JSON.parse(JSON.stringify((a.resetAt||0)>(b.resetAt||0)?a:b)));
   const o=fixState(a);
   for(const [k,v] of Object.entries(b.xp))o.xp[k]=Math.max(o.xp[k]||0,+v||0);
-  o.lessons=normLessons({...a.lessons});for(const [k,v] of Object.entries(b.lessons)){const c=o.lessons[k]||{};o.lessons[k]={done:!!(c.done||v.done),best:Math.max(c.best||0,v.best||0),times:Math.max(c.times||0,v.times||0)}}
+  o.lessons=normLessons({...a.lessons});for(const [k,v] of Object.entries(b.lessons)){const c=o.lessons[k]||{},on=[c.on,v.on].filter(Boolean).sort()[0];o.lessons[k]={done:!!(c.done||v.done),best:Math.max(c.best||0,v.best||0),times:Math.max(c.times||0,v.times||0),...(on?{on}:{})}}
+  o.certName=a.certName||b.certName||null;
   for(const [k,v] of Object.entries(b.mistakes))if(!(k in o.mistakes))o.mistakes[k]=v;
   o.profile=a.profile||b.profile;o.guest=o.profile?null:(a.guest||b.guest||null);
   if(b.daily&&(!o.daily||b.daily.d>o.daily.d||(b.daily.d===o.daily.d&&b.daily.chest&&!o.daily.chest)))o.daily=b.daily;
@@ -3875,7 +3879,7 @@ const norm=s=>s.toLocaleLowerCase("tr").replace(/[.,!?'’"«»…:;—]/g," ").
 const DEACC={"ç":"c","ş":"s","ğ":"g","ı":"i","ö":"o","ü":"u","â":"a","î":"i","û":"u"};
 const deacc=s=>norm(s).replace(/[çşğıöüâîû]/g,c=>DEACC[c]);
 const toks=s=>s.replace(/[.,!?…]/g,"").split(/\s+/).filter(Boolean);
-const TOAST_IC={"⚠️":"warn","🎁":"gift","✉️":"mail","↩️":"repeat","🙏":"heart","🃏":"cards","⭐":"star","📱":"phone","✅":"ok","🤝":"users","🔗":"share","🏅":"trophy","🛡️":"shield","🔑":"lock","🔐":"lock","🚫":"xcircle","🗓️":"cal","📅":"cal","🗑️":"trash","🗂️":"file","🖼️":"share","🔊":"speaker","🔇":"speaker","📋":"file","📄":"file","📂":"upload","💾":"save","💬":"chat","🎯":"target","❄️":"snow","✍️":"pen","⏳":"clock","⏰":"bell","💸":"wallet","🎉":"sparkles","✈️":"luggage"};
+const TOAST_IC={"⚠️":"warn","🎁":"gift","✉️":"mail","↩️":"repeat","🙏":"heart","🃏":"cards","⭐":"star","📱":"phone","✅":"ok","🤝":"users","🔗":"share","🏅":"trophy","🏆":"trophy","📚":"book","🛡️":"shield","🔑":"lock","🔐":"lock","🚫":"xcircle","🗓️":"cal","📅":"cal","🗑️":"trash","🗂️":"file","🖼️":"share","🔊":"speaker","🔇":"speaker","📋":"file","📄":"file","📂":"upload","💾":"save","💬":"chat","🎯":"target","❄️":"snow","✍️":"pen","⏳":"clock","⏰":"bell","💸":"wallet","🎉":"sparkles","✈️":"luggage"};
 function toast(icon,title,sub){
   const t=document.createElement("div");t.className="toast";
   const ic=String(icon).startsWith("<svg")?icon:I[TOAST_IC[icon]]||I.info;
@@ -4255,7 +4259,7 @@ function finishSession(){
   let unlocked="";track(lesson?(lesson.exam?(passed?"exam_pass":"exam_fail"):"lesson_done"):"practice_done",{key:L.lessonKey||L.only||"mix",acc});
   if(lesson){
     const c=S.lessons[lesson.key]||{};const wasDone=!!c.done;
-    S.lessons[lesson.key]={done:!!(c.done||passed),best:Math.max(c.best||0,acc),times:(c.times||0)+1};
+    S.lessons[lesson.key]={done:!!(c.done||passed),best:Math.max(c.best||0,acc),times:(c.times||0)+1,...(c.on?{on:c.on}:lesson.exam&&passed?{on:today()}:{})};
     if(!wasDone&&passed){
       if(lesson.exam&&lesson.ci+1<COURSES.length)unlocked=paidOK(lesson.ci+1)?`Открыт новый курс: ${COURSES[lesson.ci+1].name} — ${COURSES[lesson.ci+1].level}`:`Экзамен сдан! Курс ${COURSES[lesson.ci+1].name} откроется с полным доступом — он в разделе «Уроки»`;
       else if(!lesson.exam){const nx=COURSES[lesson.ci].lessons[lesson.n];if(nx)unlocked=`Открыт урок ${nx.n}: ${nx.t}`}
@@ -4273,8 +4277,9 @@ function finishSession(){
   $("#lbody").innerHTML=`<div class="result">${head}
     ${FEAT.levels?(()=>{const v=lvlInfo();return `<div class="lvl-mini"><span>Уровень ${v.n}</span><div class="pbar"><i style="width:${v.pct}%;background:var(--violet)"></i></div><span>${v.into}/${v.need}</span></div>`})():""}<div class="result-cards">${FEAT.xp?`<div class="rc"><small>Опыт</small><b data-count="${xp}" data-prefix="+">+0</b></div>`:""}<div class="rc t"><small>Точность</small><b>${acc}%</b></div><div class="rc c"><small>Время</small><b>${mm}</b></div></div>
     ${unlocked?`<p class="res-unl">${esc(unlocked)}</p>`:""}</div>`;
-  $("#lcheck").innerHTML=`<div class="check-in"><button class="btn primary" id="ldone">Продолжить</button></div>`;
-  $("#ldone").onclick=endSession;chime(true);
+  const certCi=lesson&&lesson.exam&&passed&&certOk(lesson.ci)?lesson.ci:null;
+  $("#lcheck").innerHTML=`<div class="check-in">${certCi!=null?`<button class="btn" id="lcert">${I.trophy} Получить сертификат</button>`:""}<button class="btn primary" id="ldone">Продолжить</button></div>`;
+  $("#ldone").onclick=endSession;if(certCi!=null)$("#lcert").onclick=()=>openCert(certCi);chime(true);
   animateCounts($("#lbody"));if(party)confetti();checkLevelUp();
   (L.questsDone||[]).forEach((t,i)=>setTimeout(()=>toast("🏅","Задание дня выполнено",t),1100+i*600));L.questsDone=[];
   if(grew)setTimeout(()=>{const n=$("#streakNum");if(n)countUp(n,after.cur,before.alive?before.cur:after.cur-1,900)},350);
@@ -4331,7 +4336,7 @@ function placementFinal(){track("placement_done");const P_=L.placement;L.introFn
   $("#lcheck").innerHTML=`<div class="check-in">${passed?`<button class="btn primary" id="plApply">${all?"Засчитать все курсы":"Засчитать и начать с "+esc(cshort(startCi))}</button><button class="btn" id="plZero">Всё равно начать с нуля</button>`:`<button class="btn primary" id="plZero">Начать курс «Старт»</button>`}</div>`;
   const finish=apply=>{
     S.placement={passed,results:P_.results.map(r=>Math.round(r*100)),date:today(),applied:!!apply};
-    if(apply)for(let ci=0;ci<passed;ci++){const pc=Math.round(P_.results[ci]*100);COURSES[ci].lessons.forEach(l=>{const c=S.lessons[l.key]||{};S.lessons[l.key]={done:true,best:Math.max(c.best||0,pc),times:c.times||0,placed:true}})}
+    if(apply)for(let ci=0;ci<passed;ci++){const pc=Math.round(P_.results[ci]*100);COURSES[ci].lessons.forEach(l=>{const c=S.lessons[l.key]||{};S.lessons[l.key]={...c,done:true,best:Math.max(c.best||0,pc),times:c.times||0,placed:true}})}
     persist();L=null;$("#overlay").innerHTML="";document.body.style.overflow="";
     view="courses";sub=apply&&passed?{ci:startCi}:{ci:0};render();window.scrollTo({top:0});
     toast("🎯",apply&&passed?`Засчитано: ${COURSES.slice(0,passed).map((c,i)=>cshort(i)).join(", ")}`:"Начинаем с курса «Старт»","Удачи в учёбе!");
@@ -4751,13 +4756,14 @@ function openLesson(key){
       ${l.exam?`<div class="info"><b class="h">Условие</b>${len} заданий по всему курсу. Чтобы открыть следующий курс, нужно 80% правильных ответов с первой попытки.</div>`:""}
       ${l.task?`<div class="info"><b class="h">Задание в тетрадь</b>${esc(l.task)}</div>`:""}
       ${!l.exam&&!l.review&&l.words.length?`<div class="info"><b class="h">Слова урока</b><div class="words-mini">${l.words.map(w=>wordRow({...w,ci:null})).join("")}</div></div>`:""}
-      <button class="btn primary" id="sgo">${done?(l.exam?"Пересдать":"Повторить урок"):(l.exam?"Начать экзамен":"Начать урок")}</button>
+      <button class="btn primary" id="sgo">${done?(l.exam?"Пересдать":"Повторить урок"):(l.exam?"Начать экзамен":"Начать урок")}</button>${l.exam&&certOk(l.ci)?`<button class="btn" id="scert">${I.trophy} Сертификат</button>`:""}
       ${FEAT.tutor&&sampleApi?`<button class="btn" data-ask="${l.key}">${I.chat} Спросить репетитора</button>`:""}`}
     <button class="btn" id="sclose">Закрыть</button></div></div>`;
   wireSay($("#overlay"));
   $("#overlay").querySelectorAll("[data-ask]").forEach(b=>b.onclick=()=>openTutor(b.dataset.ask));
   $("#sbg").onclick=e=>{if(e.target.id==="sbg")closeSheet()};$("#sclose").onclick=closeSheet;
   const sb=$("#overlay #buyAll");if(sb)sb.onclick=()=>{closeSheet(true);SRV.buyCourse()};
+  const sc=$("#scert");if(sc)sc.onclick=()=>openCert(l.ci);
   const g=$("#sgo");if(g)g.onclick=()=>startSession({lesson:l,items:ws,len,abc:l.kind==="abc",drill:l.kind&&l.kind!=="abc"?l.kind:null,exam:!!l.exam});
   preloadPacks([c.id,"common"]);
 }
@@ -4979,7 +4985,7 @@ function viewProfile(){
       ${promoMsg?`<p class="help" style="margin:0;color:var(--bad)">${esc(promoMsg)}</p>`:""}
     </div>`:""}
     ${FEAT.adminInProfile&&isOwner&&DB?`<button class="deck" id="openAdmin"><span class="ico">${I.target}</span><div><b>Админка</b><small>Ученики, сообщения об ошибках, промокоды</small></div>${I.go}</button>`:""}
-    <div class="card"><h3>Курсы</h3>${COURSES.map((c,ci)=>{const nd=c.lessons.filter(isDone).length;return `<div class="crow"><span class="badge b${ci}">${cshort(ci)}</span><div><b>${esc(cname(ci))}</b><small>${coursePassed(ci)?"экзамен сдан на "+S.lessons[examOf(ci).key].best+"%":courseOpen(ci)?nd+" из "+c.lessons.length+" уроков":"закрыт"}</small></div><span class="pc">${Math.round(nd/c.lessons.length*100)}%</span></div>`}).join("")}</div>
+    <div class="card"><h3>Курсы</h3>${COURSES.map((c,ci)=>{const nd=c.lessons.filter(isDone).length;return `<div class="crow"><span class="badge b${ci}">${cshort(ci)}</span><div><b>${esc(cname(ci))}</b><small>${coursePassed(ci)?"экзамен сдан на "+S.lessons[examOf(ci).key].best+"%":courseOpen(ci)?nd+" из "+c.lessons.length+" уроков":"закрыт"}</small></div>${certOk(ci)?`<button class="btn sm cert-btn" data-cert="${ci}" aria-label="Сертификат ${esc(cname(ci))}">${I.trophy} Сертификат</button>`:`<span class="pc">${Math.round(nd/c.lessons.length*100)}%</span>`}</div>`}).join("")}</div>
     ${FEAT.xp?`<div class="card"><h3>Опыт за 14 дней</h3><p class="help" style="margin:0 0 10px">${FEAT.goal?`Пунктир — цель дня, ${P.goal} XP.`:"Сколько опыта вы набирали каждый день."}</p>${xpChart()}</div>`:""}
     <div class="card"><h3 style="margin-bottom:10px">${monthName()}</h3>${calendar()}
       <div class="legend">меньше <i style="background:var(--bg);border:1px solid var(--line)"></i><i style="background:var(--cobalt-soft)"></i><i style="background:var(--cobalt)"></i><i style="background:var(--cobalt-dk)"></i>${FEAT.xp?" больше XP":" больше занятий"}</div></div>
@@ -5180,6 +5186,7 @@ function wireView(){
     if(k){const t=$("#view ."+k);const el=t&&t.children[i];if(el)el.focus({preventScroll:true})}});
   const cc=v.querySelector(".cat-chips [aria-current]");if(cc){const r=cc.parentElement;r.scrollLeft+=cc.getBoundingClientRect().left-r.getBoundingClientRect().left-(r.clientWidth-cc.offsetWidth)/2}
   v.querySelectorAll("[data-ask]").forEach(b=>b.onclick=()=>openTutor(b.dataset.ask));
+  document.querySelectorAll("[data-cert]").forEach(b=>b.onclick=()=>openCert(+b.dataset.cert));
   const odc=$("#openDocs");if(odc)odc.onclick=openDocs;const owb=$("#openWb");if(owb)owb.onclick=openWorkbooks;
   const pls=$("#plStart");if(pls)pls.onclick=startPlacement;const ba=$("#buyAll");if(ba)ba.onclick=()=>SRV.buyCourse();const plr=$("#plRetake");if(plr)plr.onclick=startPlacement;
 const adl=$("#adLoad");if(adl)adl.onclick=loadPromos;
@@ -5947,6 +5954,119 @@ function icsReminder(){
 async function downloadText(name,data,type){
   if(dlApi){try{await dlApi.save({filename:name,data});return true}catch(e){return false}}
   try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);return true}catch(e){return false}
+}
+/* ================= LEVEL CERTIFICATE ================= */
+// A level exam taken and passed (80%+) earns a certificate with the learner's name. Levels counted as done by the level
+// test are not exams the learner sat, so they get none. The picture is drawn on a canvas in the app's look and wrapped
+// into a one-page A4 PDF: a JPEG inside a PDF needs no fonts, so Cyrillic and Turkish letters look the same everywhere.
+const certOk=ci=>{const e=S.lessons[examOf(ci).key];return !!(e&&e.done&&e.times>0&&e.best>=80)};
+const certLevel=ci=>ci?`${COURSES[ci].id} · ${COURSES[ci].level}`:"A0 · Старт с нуля";
+function certData(ci,name){
+  const e=S.lessons[examOf(ci).key];if(!e.on){e.on=today();persist()} // passed before dates were kept: the first certificate fixes it
+  const [y,m,d]=e.on.split("-").map(Number),date=new Date(y,m-1,d).toLocaleDateString("ru-RU",{day:"numeric",month:"long",year:"numeric"}).replace(/\s*г\.?$/,"");
+  // the number is a short fingerprint of name, level and date: the same certificate always gets the same number
+  let h=2166136261;for(const ch of name+"|"+COURSES[ci].id+"|"+e.on){h^=ch.codePointAt(0);h=Math.imul(h,16777619)>>>0}
+  const A="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let code="";for(let i=0;i<6;i++){code+=A[h%32];h=Math.imul(h^(h>>>15),2246822519)>>>0}
+  const site=/^https?:$/.test(location.protocol)?(location.host+location.pathname.replace(/\/app\/.*$|\/[^/]*$/,"/")).replace(/\/$/,""):"CepteTurk";
+  return {ci,name,level:certLevel(ci),lessons:COURSES[ci].lessons.length,score:e.best,on:e.on,date,no:`CT-${COURSES[ci].id}-${code}`,site};
+}
+const CERT_W=2400,CERT_H=1697; // A4 landscape at about 205 dpi
+async function certCanvas(c){
+  try{loadFonts();await Promise.all(["400","600","700"].map(w=>document.fonts.load(`${w} 64px Inter`)))}catch(e){}
+  const cv=document.createElement("canvas");cv.width=CERT_W;cv.height=CERT_H;const x=cv.getContext("2d");
+  const font=(w,sz)=>`${w} ${sz}px Inter, "Segoe UI", Roboto, Arial, sans-serif`;
+  const rr=(px,py,w,h,r)=>{x.beginPath();x.moveTo(px+r,py);x.arcTo(px+w,py,px+w,py+h,r);x.arcTo(px+w,py+h,px,py+h,r);x.arcTo(px,py+h,px,py,r);x.arcTo(px,py,px+w,py,r);x.closePath()};
+  const fit=(text,w,sz,min)=>{for(;sz>min;sz-=4){x.font=font(700,sz);if(x.measureText(text).width<=w)break}return sz};
+  // paper, a double frame and the skyline along the bottom, as on the landing
+  x.fillStyle="#F8F4F0";x.fillRect(0,0,CERT_W,CERT_H);
+  rr(56,56,CERT_W-112,CERT_H-112,44);x.fillStyle="#FFFCFA";x.fill();x.lineWidth=6;x.strokeStyle="#C91F2C";x.stroke();
+  rr(84,84,CERT_W-168,CERT_H-168,30);x.lineWidth=2;x.strokeStyle="#E6A64A";x.stroke();
+  const sky=(ART.sky().match(/ d="([^"]+)"/)||[])[1];
+  if(sky){x.save();rr(84,84,CERT_W-168,CERT_H-168,30);x.clip();x.translate(CERT_W-1500,CERT_H-84-480);x.scale(3,3);x.translate(-700,-80);x.fillStyle="rgba(201,31,44,.06)";x.fill(new Path2D(sky));x.restore()}
+  // emblem and name of the app
+  x.save();x.translate(180,170);x.scale(4.4,4.4);
+  x.fillStyle="#C91F2C";x.fill(new Path2D("M6 2.5h12A3.5 3.5 0 0 1 21.5 6v9.5A3.5 3.5 0 0 1 18 19H10.5L5.6 22.3c-.5.3-1.1 0-1.1-.6V18.6A3.5 3.5 0 0 1 2.5 15.5V6A3.5 3.5 0 0 1 6 2.5Z"));
+  x.fillStyle="#fff";x.fill(new Path2D("M14.21 7.05A5.2 5.2 0 1 0 14.21 14.55A4.25 4.25 0 1 1 14.21 7.05Z"));x.fill(new Path2D("M13.30 10.80L14.82 10.23L14.89 8.61L15.90 9.88L17.46 9.45L16.57 10.80L17.46 12.15L15.90 11.72L14.89 12.99L14.82 11.37Z"));x.restore();
+  x.textBaseline="alphabetic";x.textAlign="left";x.fillStyle="#211B1B";x.font=font(700,60);x.fillText("CepteTurk",300,250);
+  x.fillStyle="#6E6663";x.font=font(400,36);x.fillText("турецкий язык для русскоязычных",300,302);
+  // a gold seal with the level
+  const sx=CERT_W-380,sy=330;x.fillStyle="#E6A64A";
+  x.beginPath();for(let i=0;i<48;i++){const a=i/48*Math.PI*2,r=i%2?178:196;x.lineTo(sx+Math.cos(a)*r,sy+Math.sin(a)*r)}x.closePath();x.fill();
+  x.beginPath();x.arc(sx,sy,150,0,Math.PI*2);x.fillStyle="#C91F2C";x.fill();x.lineWidth=5;x.strokeStyle="#FFFCFA";x.beginPath();x.arc(sx,sy,132,0,Math.PI*2);x.stroke();
+  x.textAlign="center";x.fillStyle="#fff";x.font=font(700,c.ci?110:96);x.fillText(COURSES[c.ci].id,sx,sy+30);{let fz=30;for(;fz>18;fz--){x.font=font(600,fz);if(x.measureText("ЭКЗАМЕН СДАН").width<=200)break}x.fillText("ЭКЗАМЕН СДАН",sx,sy+78)}
+  // the text
+  const L0=180,W=CERT_W-L0*2-120;x.textAlign="left";
+  x.fillStyle="#C91F2C";x.font=font(700,46);x.save();x.letterSpacing="10px";x.fillText("СЕРТИФИКАТ",L0,560);x.restore();
+  x.fillStyle="#6E6663";x.font=font(400,52);x.fillText("о прохождении курса турецкого языка",L0,640);
+  const nsz=fit(c.name,W,150,64);x.fillStyle="#211B1B";x.font=font(700,nsz);x.fillText(c.name,L0,640+70+nsz*.9);
+  const ly=640+70+nsz*.9+56;x.fillStyle="#E6A64A";x.fillRect(L0,ly,Math.min(W,Math.max(900,x.measureText(c.name).width)),5);
+  x.fillStyle="#211B1B";x.font=font(600,60);x.fillText(`Курс ${c.level}`,L0,ly+120);
+  x.fillStyle="#6E6663";x.font=font(400,48);
+  x.fillText(`${c.lessons} ${["урок","урока","уроков"][plural_ru(c.lessons)]} с конспектами и итоговый экзамен: ${c.score}% правильных ответов`,L0,ly+196);
+  // bottom line: date, number, where it was issued
+  const by=CERT_H-250;x.fillStyle="#EDE4DF";x.fillRect(L0,by-70,CERT_W-L0*2,3);
+  const col=(label,val,px)=>{x.fillStyle="#6E6663";x.font=font(400,34);x.fillText(label,px,by);x.fillStyle="#211B1B";x.font=font(600,44);x.fillText(val,px,by+58)};
+  col("Дата",c.date,L0);col("Номер",c.no,L0+700);col("Выдан",c.site,L0+1320);
+  x.fillStyle="#6E6663";x.font=font(400,28);
+  x.fillText("Подтверждает прохождение курса в приложении CepteTurk. Не является документом об образовании государственного образца.",L0,CERT_H-120);
+  return cv;
+}
+// one page, one JPEG: catalog, pages, page, image, drawing and the document's title; offsets are counted in bytes
+function certPdf(jpeg,w,h,meta){
+  const enc=new TextEncoder(),parts=[],offs=[];let len=0;
+  const add=v=>{const b=typeof v==="string"?enc.encode(v):v;parts.push(b);len+=b.length};
+  const u16=s=>"<FEFF"+[...s].map(ch=>{const cp=ch.codePointAt(0);const units=cp>0xFFFF?[0xD800+((cp-0x10000)>>10),0xDC00+((cp-0x10000)&1023)]:[cp];return units.map(u=>u.toString(16).padStart(4,"0")).join("")}).join("").toUpperCase()+">";
+  const obj=(n,body,stream)=>{offs[n]=len;add(`${n} 0 obj\n${body}\n`);if(stream){add("stream\n");add(stream);add("\nendstream\n")}add("endobj\n")};
+  const PW=841.89,PH=595.28,draw=`q ${PW} 0 0 ${PH} 0 0 cm /Im0 Do Q`,t=new Date(),p=n=>String(n).padStart(2,"0");
+  add("%PDF-1.4\n");add(new Uint8Array([37,226,227,207,211,10]));
+  obj(1,"<< /Type /Catalog /Pages 2 0 R >>");
+  obj(2,"<< /Type /Pages /Kids [3 0 R] /Count 1 >>");
+  obj(3,`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>`);
+  obj(4,`<< /Type /XObject /Subtype /Image /Width ${w} /Height ${h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpeg.length} >>`,jpeg);
+  obj(5,`<< /Length ${enc.encode(draw).length} >>`,enc.encode(draw));
+  obj(6,`<< /Title ${u16(meta.title)} /Author ${u16(meta.author)} /Subject ${u16(meta.subject)} /Creator (CepteTurk) /CreationDate (D:${t.getFullYear()}${p(t.getMonth()+1)}${p(t.getDate())}${p(t.getHours())}${p(t.getMinutes())}${p(t.getSeconds())}) >>`);
+  const xref=len;add(`xref\n0 7\n0000000000 65535 f \n${offs.slice(1).map(o=>String(o).padStart(10,"0")+" 00000 n \n").join("")}`);
+  add(`trailer\n<< /Size 7 /Root 1 0 R /Info 6 0 R >>\nstartxref\n${xref}\n%%EOF\n`);
+  const out=new Uint8Array(len);let at=0;for(const b of parts){out.set(b,at);at+=b.length}return out;
+}
+const toBlobP=(cv,type,q)=>new Promise(r=>cv.toBlob(r,type,q));
+async function certFile(ci,name){
+  const c=certData(ci,name),cv=await certCanvas(c),jpeg=new Uint8Array(await (await toBlobP(cv,"image/jpeg",.92)).arrayBuffer());
+  const pdf=certPdf(jpeg,cv.width,cv.height,{title:`Сертификат CepteTurk · ${c.level} · ${c.name}`,author:c.name,subject:`Курс турецкого языка ${c.level}, экзамен ${c.score}%, ${c.date}, № ${c.no}`});
+  return {c,cv,pdf,file:`CepteTurk-sertifikat-${COURSES[ci].id}.pdf`};
+}
+async function saveBlob(name,blob){
+  if(dlApi){try{await dlApi.save({filename:name,data:new Uint8Array(await blob.arrayBuffer())});return true}catch(e){}}
+  try{const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);return true}catch(e){return false}
+}
+function openCert(ci){
+  if(!certOk(ci)){toast("🏆","Сертификата пока нет","Он появится, когда вы сдадите экзамен курса на 80% или выше");return}
+  const nm=S.certName||(S.profile&&S.profile.name)||"";
+  const el=sheetLayer(`<span class="kicker">${esc(certLevel(ci))}</span><h2>Сертификат</h2>
+    <div class="cert-prev"><img id="certImg" alt="Сертификат: предпросмотр" width="${CERT_W}" height="${CERT_H}"></div>
+    <div class="field"><label for="certName">Имя на сертификате</label><input class="inp" id="certName" maxlength="60" autocomplete="name" placeholder="Например, Анна Петрова" value="${esc(nm)}" aria-describedby="certHelp">
+      <p class="help" id="certHelp" style="margin:0">Напишите так, как хотите видеть на сертификате: имя или имя и фамилию.</p></div>
+    <button class="btn primary" id="certGo">${I.download} Скачать PDF</button>
+    ${navigator.canShare?`<button class="btn" id="certShare">${I.share} Поделиться</button>`:""}
+    <button class="btn" data-close>Закрыть</button>`,"certLayer",80);
+  const inp=el.querySelector("#certName"),img=el.querySelector("#certImg");let tm=null,seq=0;
+  const name=()=>inp.value.replace(/\s+/g," ").trim().slice(0,60);
+  const preview=async()=>{const my=++seq,c=certData(ci,name()||"Ваше имя"),cv=await certCanvas(c);if(my!==seq)return;
+    const small=document.createElement("canvas");small.width=960;small.height=Math.round(960*CERT_H/CERT_W);small.getContext("2d").drawImage(cv,0,0,small.width,small.height);img.src=small.toDataURL("image/jpeg",.85)};
+  inp.oninput=()=>{clearTimeout(tm);tm=setTimeout(preview,250)};preview();
+  const ready=()=>{const n=name();if(n.length<2){inp.focus();inp.setAttribute("aria-invalid","true");toast("✍️","Напишите имя","Оно будет на сертификате");return null}
+    inp.removeAttribute("aria-invalid");if(S.certName!==n){S.certName=n;persist()}return n};
+  el.querySelector("#certGo").onclick=async e=>{const n=ready();if(!n)return;const b=e.currentTarget;b.disabled=true;
+    try{const f=await certFile(ci,n);const ok=await saveBlob(f.file,new Blob([f.pdf],{type:"application/pdf"}));
+      track("certificate",{level:COURSES[ci].id});toast(ok?"🏆":"⚠️",ok?"Сертификат сохранён":"Не удалось сохранить файл",ok?f.file:"Попробуйте другой браузер")}
+    catch(err){toast("⚠️","Не удалось создать сертификат","Попробуйте ещё раз")}b.disabled=false};
+  const sh=el.querySelector("#certShare");if(sh)sh.onclick=async()=>{const n=ready();if(!n)return;
+    try{const f=await certFile(ci,n);const files=[new File([f.pdf],f.file,{type:"application/pdf"})];
+      if(!navigator.canShare({files})){const png=await toBlobP(f.cv,"image/png");files[0]=new File([png],f.file.replace(/\.pdf$/,".png"),{type:"image/png"})}
+      if(navigator.canShare({files}))await navigator.share({files,title:"Мой сертификат CepteTurk",text:`Экзамен ${f.c.level} в CepteTurk сдан!`});
+      else toast("⚠️","Этот браузер не умеет делиться файлами","Скачайте PDF и отправьте его как обычно")}
+    catch(err){if(!err||err.name!=="AbortError")toast("⚠️","Не получилось поделиться","Скачайте PDF и отправьте его как обычно")}};
+  el.querySelector("[data-close]").onclick=()=>el.remove();
 }
 async function weeklyCard(){
   const s=streakInfo(),mon=mondayOf(today());let wk=0,days=0;for(let i=0;i<7;i++){const x=S.xp[addDays(mon,i)]||0;wk+=x;if(x>0)days++}
