@@ -1,16 +1,16 @@
-// Offline support for the app. build-web.js replaces 9f77f056d9 and 3cf28772b6 with hashes of the build,
+// Offline support for the app. build-web.js replaces b1f72e1b1e and 3cf28772b6 with hashes of the build,
 // so every release installs a new worker and old caches are removed on activation.
 //   page (navigation)  — network first, the last good copy is used offline;
 //   audio packs        — from the cache, refreshed in the background; a new audio version empties the old cache;
 //   icons, fonts, images, manifest — from the cache (fonts are fetched at install, so the first offline start has them).
 // Never cached: anything that is not a GET to our own site, /api/, /auth/, /pay/, /admin, responses with errors
 // or with Cache-Control: no-store. Progress and personal data live in the page's storage, not here.
-const SHELL = 'turkce-shell-9f77f056d9', AUDIO = 'turkce-audio-3cf28772b6';
+const SHELL = 'turkce-shell-b1f72e1b1e', AUDIO = 'turkce-audio-3cf28772b6';
 const PRIVATE = /\/(api|auth|pay|admin)(\/|$)/;
 const cacheable = r => r && r.ok && r.status === 200 && r.type === 'basic' && !/no-store|private/i.test(r.headers.get('Cache-Control') || '');
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(SHELL).then(c => c.addAll(['./', './manifest.webmanifest', './icon-192.png', './fonts/inter-400.woff2', './fonts/inter-600.woff2', './fonts/inter-700.woff2'])).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(SHELL).then(c => c.addAll(['./', './manifest.webmanifest', './icon.svg', './icon-192.png', './fonts/inter-400.woff2', './fonts/inter-600.woff2', './fonts/inter-700.woff2'])).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys()
