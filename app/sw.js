@@ -1,11 +1,11 @@
-// Offline support for the app. build-web.js replaces 089f5bab0a and 7a588f7eda with hashes of the build,
+// Offline support for the app. build-web.js replaces 9f77f056d9 and 3cf28772b6 with hashes of the build,
 // so every release installs a new worker and old caches are removed on activation.
 //   page (navigation)  — network first, the last good copy is used offline;
 //   audio packs        — from the cache, refreshed in the background; a new audio version empties the old cache;
 //   icons, fonts, images, manifest — from the cache (fonts are fetched at install, so the first offline start has them).
 // Never cached: anything that is not a GET to our own site, /api/, /auth/, /pay/, /admin, responses with errors
 // or with Cache-Control: no-store. Progress and personal data live in the page's storage, not here.
-const SHELL = 'turkce-shell-089f5bab0a', AUDIO = 'turkce-audio-7a588f7eda';
+const SHELL = 'turkce-shell-9f77f056d9', AUDIO = 'turkce-audio-3cf28772b6';
 const PRIVATE = /\/(api|auth|pay|admin)(\/|$)/;
 const cacheable = r => r && r.ok && r.status === 200 && r.type === 'basic' && !/no-store|private/i.test(r.headers.get('Cache-Control') || '');
 
