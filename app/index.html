@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-ubGobP/BvFzFio7wvfjFDd6qbFbjQD/h9eAAztaRs80=' 'sha256-ki/JlC7mGDfctdesvbDzuNgFKuDECKUZXsVnQHis9zw=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-ubGobP/BvFzFio7wvfjFDd6qbFbjQD/h9eAAztaRs80=' 'sha256-7ugcWrE0OdyMGFgaJPBHFTNQLi76CMN0IBvorAz7oo4=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <title>CepteTurk — приложение</title>
 <meta name="description" content="Турецкий для русскоязычных: курсы от алфавита до B2, игры, истории с живой озвучкой и карточки.">
@@ -3859,48 +3859,98 @@ function castVoices(st){const out={};for(const [who,g] of Object.entries(st.cast
 function recordedPack(v,t){if(typeof AUDIO_INDEX==="undefined")return PACK.get(t);const map=AUDIO_INDEX[v];return map&&Object.hasOwn(map,t)?map[t]:null}
 // single words are recorded lower-case (packs w1…w6), so a tap on "Merhaba" plays "merhaba"
 const audKey=t=>typeof AUDIO_INDEX!=="undefined"&&!ALLV.some(v=>recordedPack(v,t))?t.toLocaleLowerCase("tr"):t;
-// After the microphone has been on, phones switch the sound to «call» mode and the first moments of playback are lost,
-// so there a clip starts with 0.35 s of silence (MP3 frames, same 24 kHz mono format; the clip's ID3 tag is skipped)
-const PAD_MP3="//NUxAAAAANIAAAAAExBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxGsAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV";
-let micAt=0;
-const padNeeded=()=>Date.now()-micAt<180000||!!(L&&L.list&&L.list[L.i]&&L.list[L.i].type==="speak");
-const b64bytes=b=>{const bin=atob(b),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);return u8};
-function noId3(u8){if(u8[0]!==73||u8[1]!==68||u8[2]!==51)return u8;const n=(u8[6]<<21)|(u8[7]<<14)|(u8[8]<<7)|u8[9];return u8.subarray(10+n+(u8[5]&16?10:0))}
-async function clipUrl(v,text,pad){
-  const key=v+"|"+text+(pad?"|pad":"");if(blobs.has(key))return blobs.get(key);
-  const p=recordedPack(v,text);if(!p)return null;
-  const pk=await loadPack(v,p);const b64=pk[text];if(!b64)return null;
-  const u8=b64bytes(b64),parts=pad?[b64bytes(PAD_MP3),noId3(u8)]:[u8];
-  const url=URL.createObjectURL(new Blob(parts,{type:"audio/mpeg"}));blobs.set(key,url);return url;
-}
 // a recording exists (the website build lists new strings that have none yet), or the device can read Turkish itself
 const hasClip=t=>(t=audKey(t),typeof AUDIO_INDEX!=="undefined"?ALLV.some(v=>!!recordedPack(v,t)):PACK.has(t)&&!(typeof NOAUDIO!=="undefined"&&NOAUDIO.has(t)));
 const ttsTr=()=>{try{return speechSynthesis.getVoices().some(x=>/^tr/i.test(x.lang))}catch(e){return false}};
 const audible=t=>hasClip(t)||ttsTr();
 try{let had=ttsTr();speechSynthesis.addEventListener("voiceschanged",()=>{const has=ttsTr();if(has&&!had&&!L&&!ST&&typeof render==="function")render();had=has})}catch(e){}
+// Speech: the clip is decoded once and prepared in the app: brought to one loudness (the recordings are quiet, about
+// −23 LUFS, and differ between speakers) with a limiter so it is louder without clipping; for the turtle, slowed by
+// WSOLA time stretch (the pitch stays; the browser's playbackRate stutters on phones); and after the microphone was on,
+// started with 0.3 s of silence (phones switch the sound to «call» mode then and lose the first moments).
+// The result is played as a WAV file by the <audio> element: it plays with the iPhone's silent switch on and needs no
+// running Web Audio. Where decoding fails, the original MP3 plays as before.
+let micAt=0;
+const padNeeded=()=>Date.now()-micAt<180000||!!(L&&L.list&&L.list[L.i]&&L.list[L.i].type==="speak");
+const SLOW=0.7,SPEECH_RMS=-16,PAD_S=.3; // turtle speed; loudness of the spoken part, dBFS RMS; silence after the microphone
+const b64bytes=b=>{const bin=atob(b),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);return u8};
+async function clipUrl(v,text){
+  const key=v+"|"+text;if(blobs.has(key))return blobs.get(key);
+  const p=recordedPack(v,text);if(!p)return null;
+  const pk=await loadPack(v,p);const b64=pk[text];if(!b64)return null;
+  const url=URL.createObjectURL(new Blob([b64bytes(b64)],{type:"audio/mpeg"}));blobs.set(key,url);return url;
+}
+// loudness of the spoken part only (frames within 40 dB of the loudest), so pauses do not lower it
+function speechGain(x,sr){const n=Math.round(sr*.02),k=Math.floor(x.length/n);if(!k)return 1;const e=new Float64Array(k);let mx=0;
+  for(let i=0;i<k;i++){let s=0;for(let j=i*n;j<i*n+n;j++)s+=x[j]*x[j];e[i]=s/n;if(e[i]>mx)mx=e[i]}
+  let s=0,c=0;for(let i=0;i<k;i++)if(e[i]>mx*1e-4){s+=e[i];c++}const db=10*Math.log10(s/Math.max(1,c)+1e-12);
+  return Math.min(6,Math.max(.5,Math.pow(10,(SPEECH_RMS-db)/20)))}
+// WSOLA: frames of 30 ms are laid out at a slower pace, each shifted (±8 ms) to continue the previous one smoothly
+function stretch(x,rate,sr){
+  const N=Math.round(sr*.03)&~1,Hs=N/2,Ha=Hs*rate,tol=Math.round(sr*.008),win=new Float32Array(N);
+  for(let i=0;i<N;i++)win[i]=.5-.5*Math.cos(2*Math.PI*i/N);
+  const frames=Math.max(1,Math.ceil((x.length-N)/Ha)+1),out=new Float32Array(frames*Hs+N),at=i=>i>=0&&i<x.length?x[i]:0;
+  let prev=0;
+  for(let f=0;f<frames;f++){
+    let best=Math.round(f*Ha);
+    if(f){const nat=prev+Hs,nom=Math.round(f*Ha);let bc=-Infinity;
+      for(let d=-tol;d<=tol;d+=2){const st=nom+d;if(st<0)continue;let c=0;for(let i=0;i<Hs;i+=2)c+=at(nat+i)*at(st+i);if(c>bc){bc=c;best=st}}}
+    const o=f*Hs;for(let i=0;i<N;i++)out[o+i]+=at(best+i)*win[i];prev=best;
+  }
+  return out;
+}
+// gain, then a limiter: 5 ms blocks never exceed −1 dB, the gain changes smoothly between blocks
+function loud(x,gain,sr){const T=.89,B=Math.round(sr*.005),nb=Math.ceil(x.length/B),g=new Float32Array(nb+2).fill(1),y=new Float32Array(x.length);
+  for(let b=0;b<nb;b++){let pk=0;for(let i=b*B;i<Math.min(x.length,b*B+B);i++){const a=Math.abs(x[i]*gain);if(a>pk)pk=a}g[b+1]=pk>T?T/pk:1}
+  const m=new Float32Array(nb+2);for(let b=1;b<=nb;b++)m[b]=Math.min(g[b-1],g[b],g[b+1]);m[0]=m[1];m[nb+1]=m[nb];
+  for(let i=0;i<x.length;i++){const p=i/B,b=Math.floor(p),t=p-b,h=m[b]+(m[b+1]-m[b])*t;let v=x[i]*gain*Math.min(1,h);y[i]=v>1?1:v<-1?-1:v}
+  return y}
+function toWav(x,sr,lead){const pad=Math.round(sr*lead),n=x.length+pad,buf=new ArrayBuffer(44+n*2),d=new DataView(buf);
+  const w=(o,s)=>{for(let i=0;i<s.length;i++)d.setUint8(o+i,s.charCodeAt(i))};
+  w(0,"RIFF");d.setUint32(4,36+n*2,true);w(8,"WAVE");w(12,"fmt ");d.setUint32(16,16,true);d.setUint16(20,1,true);d.setUint16(22,1,true);
+  d.setUint32(24,sr,true);d.setUint32(28,sr*2,true);d.setUint16(32,2,true);d.setUint16(34,16,true);w(36,"data");d.setUint32(40,n*2,true);
+  for(let i=0;i<x.length;i++){const v=x[i];d.setInt16(44+(pad+i)*2,v<0?v*32768:v*32767,true)}
+  return new Blob([buf],{type:"audio/wav"})}
+let decCtx=null;
+const decodeAudio=ab=>{decCtx=decCtx||new (window.AudioContext||window.webkitAudioContext)();return new Promise((ok,no)=>{const p=decCtx.decodeAudioData(ab,ok,no);if(p&&p.then)p.then(ok,no)})};
+const decoded=new Map(),wavs=new Map();
+async function decodedClip(v,text){
+  const k=v+"|"+text;if(decoded.has(k))return decoded.get(k);
+  const p=recordedPack(v,text);if(!p)return null;const pk=await loadPack(v,p);const b64=pk[text];if(!b64)return null;
+  const b=await decodeAudio(b64bytes(b64).buffer),x=b.getChannelData(0).slice(),r={x,sr:b.sampleRate,g:speechGain(x,b.sampleRate)};decoded.set(k,r);return r}
+// a prepared clip (WAV) for the player: key includes everything that changes the sound
+function prepared(src,slow,lead,key){const vol=Math.max(0,Math.min(1.5,P.vol??1)),boost=Math.max(1,vol),k=key+"|"+(slow?"s":"n")+"|"+lead+"|"+boost;
+  if(wavs.has(k))return wavs.get(k);
+  const y=loud(slow?stretch(src.x,SLOW,src.sr):src.x,src.g*boost,src.sr);
+  const r={url:URL.createObjectURL(toWav(y,src.sr,lead)),dur:y.length/src.sr+lead,gain:src.g*boost,vol};wavs.set(k,r);return r}
+let lastPlay=null;
+async function playPrepared(r,key,lead,seq){player.src=r.url;player.playbackRate=1;player.volume=Math.min(1,r.vol);lastPlay={key,lead,gain:r.gain,dur:r.dur,vol:r.vol};await player.play();return seq===playSeq}
 let playSeq=0;
 function stopSpeech(){playSeq++;try{player.pause();speechSynthesis.cancel()}catch(e){}}
 const SILENT="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=";
 document.addEventListener("pointerdown",function unlock(){document.removeEventListener("pointerdown",unlock,true);try{if(!player.src){player.src=SILENT;player.play().catch(()=>{})}}catch(e){}},true);
 async function speak(text,slow,voice){
   stopSpeech();
-  const seq=++playSeq;const v=voice||lessonVoice||"f";
+  const seq=++playSeq;const v=voice||lessonVoice||"f",key=audKey(text);
   // the speaker's own clip; where there is none, the other speaker's, and only then Эмель's
-  let url=null;const key=audKey(text),pad=padNeeded();for(const candidate of [...new Set([v,...VID,...SPARE])]){try{url=await clipUrl(candidate,key,pad)}catch(e){}if(seq!==playSeq)return;if(url){lastVoice=candidate;break}}
-  if(seq!==playSeq)return;
-  if(url){try{if(voiceGain)ensureCtx();player.src=url;player.preservesPitch=true;player.playbackRate=P.rate*(slow?0.72:1);await player.play();return}catch(e){if(seq!==playSeq)return}}
+  const order=[...new Set([v,...VID,...SPARE])].filter(x=>recordedPack(x,key));
+  if(order.length){lastVoice=order[0];
+    try{const src=await decodedClip(order[0],key);if(seq!==playSeq)return;
+      if(src){const lead=padNeeded()?PAD_S:0,r=prepared(src,!!slow,lead,order[0]+"|"+key);await playPrepared(r,order[0]+"|"+key+(slow?"|slow":""),lead,seq);return}}catch(e){if(seq!==playSeq)return}
+    // the browser cannot decode the clip: the original MP3
+    let url=null;for(const cand of order){try{url=await clipUrl(cand,key)}catch(e){}if(seq!==playSeq)return;if(url){lastVoice=cand;break}}
+    if(url){try{player.src=url;player.preservesPitch=true;player.playbackRate=slow?0.75:1;player.volume=Math.min(1,P.vol??1);await player.play();return}catch(e){if(seq!==playSeq)return}}
+  }
   try{const vs=speechSynthesis.getVoices().filter(x=>/^tr/i.test(x.lang));if(vs.length){const u=new SpeechSynthesisUtterance(text);u.lang="tr-TR";u.voice=vs[0];u.rate=P.rate*(slow?.55:.8);u.volume=Math.min(1,P.vol??1);u.onerror=()=>{if(seq===playSeq)audioUnavailable(text)};speechSynthesis.speak(u);return}}catch(e){}
   audioUnavailable(text);
 }
 let audioNoticeAt=0;
 function audioUnavailable(text){if(Date.now()-audioNoticeAt<5000)return;audioNoticeAt=Date.now();toast("🔈",hasClip(text)?"Не удалось воспроизвести запись":"Для этой фразы пока нет записи",hasClip(text)?"Проверьте подключение и нажмите на звук ещё раз.":"В этом браузере нет доступного турецкого голоса. Можно продолжить с текстом.")}
-let actx=null,voiceGain=null,voiceComp=null,sfxBus=null;
+let actx=null,sfxBus=null;
 function ensureCtx(){actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state!=="running")actx.resume().catch(()=>{});return actx}
-// Speech goes through a gain node only once the learner changes the volume: iOS ignores <audio>.volume, and values above 100% need gain.
-function voiceGraph(){if(voiceGain)return;try{const c=ensureCtx();const src=c.createMediaElementSource(player);voiceGain=c.createGain();voiceComp=c.createDynamicsCompressor();voiceComp.knee.value=6;voiceComp.ratio.value=4;voiceComp.attack.value=.003;voiceComp.release.value=.25;src.connect(voiceGain);voiceGain.connect(voiceComp);voiceComp.connect(c.destination)}catch(e){voiceGain=null}}
 function sfxOut(){const c=ensureCtx();if(!sfxBus){sfxBus=c.createGain();sfxBus.connect(c.destination)}sfxBus.gain.value=P.sfx??1;return sfxBus}
-function applyVolume(){const v=Math.max(0,Math.min(1.5,P.vol??1));if(v!==1&&!voiceGain&&actx)voiceGraph();if(voiceGain){voiceGain.gain.value=v;voiceComp.threshold.value=v>1?-14:0;player.volume=1}else player.volume=Math.min(1,v);if(sfxBus)sfxBus.gain.value=P.sfx??1}
-document.addEventListener("pointerdown",()=>{if((P.vol??1)!==1||actx){ensureCtx();if((P.vol??1)!==1&&!voiceGain){voiceGraph();applyVolume()}}},true);
+// the voice volume: up to 100% the player's volume, above it more gain in the prepared clip (prepared())
+function applyVolume(){const v=Math.max(0,Math.min(1.5,P.vol??1));player.volume=Math.min(1,v);if(sfxBus)sfxBus.gain.value=P.sfx??1}
 function chime(ok){
   if(!P.sound||!(P.sfx??1))return;
   try{ensureCtx();const out=sfxOut();const notes=ok?[659.3,880]:[311.1,233.1];
@@ -5345,7 +5395,7 @@ const adl=$("#adLoad");if(adl)adl.onclick=loadPromos;
   v.querySelectorAll("[data-rest]").forEach(b=>b.onclick=()=>{const i=+b.dataset.rest,r=P.rest||(P.rest=[]),k=r.indexOf(i);if(k>=0)r.splice(k,1);else{if(r.length>=2){toast("🗓️","Не больше двух выходных","Снимите один из выбранных дней");return}r.push(i)}savePrefs();render()});
   const rg2=$("#remGo");if(rg2)rg2.onclick=async()=>{P.remind=$("#remT").value||"19:00";savePrefs();if(await downloadText("turkce-napominanie.ics",icsReminder(),"text/calendar"))toast("📅","Файл напоминания готов","Откройте его, чтобы добавить в календарь")};
   const shw=$("#shareWeek");if(shw)shw.onclick=()=>weeklyCard().catch(()=>toast("⚠️","Не удалось создать картинку",""));
-  const vv=$("#vvol");if(vv){vv.oninput=()=>{P.vol=+vv.value;$("#vvolVal").textContent=Math.round(P.vol*100)+"%";applyVolume()};vv.onchange=()=>{savePrefs();if(P.vol!==1){ensureCtx();voiceGraph();applyVolume()}speak("Türkçe öğreniyorum.")}}
+  const vv=$("#vvol");if(vv){vv.oninput=()=>{P.vol=+vv.value;$("#vvolVal").textContent=Math.round(P.vol*100)+"%";applyVolume()};vv.onchange=()=>{savePrefs();applyVolume();speak("Türkçe öğreniyorum.")}}
   const vs=$("#vsfx");if(vs){vs.oninput=()=>{P.sfx=+vs.value;$("#vsfxVal").textContent=Math.round(P.sfx*100)+"%";applyVolume()};vs.onchange=()=>{savePrefs();chime(true)}}
   v.querySelectorAll("[data-theme-set]").forEach(b=>b.onclick=()=>{P.theme=b.dataset.themeSet;savePrefs();applyTheme();render()});
   const smt=$("#simpleT");if(smt)smt.onchange=()=>{P.simple=smt.checked;savePrefs();toast(P.simple?"🧘":"🗂️",P.simple?"Простой режим включён":"Простой режим выключен",P.simple?"На главной — одна кнопка «Продолжить»":"На главной снова все разделы")};
@@ -5889,7 +5939,7 @@ function scoreSpeech(expected,heard){
   for(let i=1;i<=n;i++)for(let j=1;j<=m;j++){const s=wordSim(E[i-1],H[j-1]);D[i][j]=Math.max(D[i-1][j],D[i][j-1],D[i-1][j-1]+(s>=.45?s:0))}
   const sims=new Array(n).fill(0);let i=n,j=m;
   while(i>0&&j>0){const s=wordSim(E[i-1],H[j-1]);if(s>=.45&&Math.abs(D[i][j]-(D[i-1][j-1]+s))<1e-9){sims[i-1]=s;i--;j--}else if(D[i-1][j]>=D[i][j-1])i--;else j--}
-  const words=shown.map((w,k)=>({w,st:sims[k]>=.9?"ok":sims[k]>=.5?"near":"miss"}));
+  const words=shown.map((w,k)=>({w,st:sims[k]>=(E[k].length>=5?.8:.9)?"ok":sims[k]>=.5?"near":"miss"}));
   const score=n?Math.round(words.reduce((a,x)=>a+(x.st==="ok"?1:x.st==="near"?.6:0),0)/n*100):0;
   return {score,words,heard};
 }
@@ -5945,11 +5995,16 @@ function renderSpeak(body,e){
   const icon=on=>{const ic=rb.querySelector(".mic-ic");if(ic)ic.innerHTML=on?I.stop:I.mic};
   const recOn=()=>{if(!live()||!recState||!recState.on||recState.heardOn)return;recState.heardOn=true;rb.classList.remove("wait");rb.classList.add("on");icon(true);info("Говорите — проверю, когда замолчите")};
   const idle=()=>{if(!live())return;rb.classList.remove("on","wait");icon(false);rb.setAttribute("aria-pressed","false");rb.setAttribute("aria-label","Нажмите и говорите");rb.disabled=!modeOf();lvl(0);mineLbl()};
-  const gotMine=blob=>{if(!live()||!blob.size)return;if(L.state.myUrl)URL.revokeObjectURL(L.state.myUrl);L.state.myUrl=URL.createObjectURL(blob);mineLbl()};
+  const gotMine=blob=>{if(!live()||!blob.size)return;if(L.state.myUrl)URL.revokeObjectURL(L.state.myUrl);L.state.myUrl=URL.createObjectURL(blob);L.state.myBlob=blob;mineLbl()};
   const recorder=stream=>{const chunks=[];let r;try{r=new MediaRecorder(stream)}catch(err){return null}r.ondataavailable=ev=>ev.data&&ev.data.size&&chunks.push(ev.data);r.chunks=chunks;return r};
   // «Себя»: a copy of the last try, recorded alongside the recognizer, to compare with the speaker as many times as wanted
   const mineLbl=()=>{if(!mine||!live())return;mine.hidden=!L.state.myUrl;mine.disabled=!!(recState&&recState.on)};
-  if(mine)mine.onclick=()=>{if(!L.state.myUrl||(recState&&recState.on))return;stopSpeech();try{player.src=L.state.myUrl;player.playbackRate=1;player.play().catch(()=>{})}catch(err){}};
+  // the own voice is brought to the speaker's loudness too; where it cannot be decoded, the recording plays as it is
+  if(mine)mine.onclick=async()=>{if(!L.state.myUrl||(recState&&recState.on))return;stopSpeech();const seq=++playSeq,url=L.state.myUrl;
+    try{let src=L.state.myBuf&&L.state.myBuf.url===url?L.state.myBuf.src:null;
+      if(!src){const b=await decodeAudio(await L.state.myBlob.arrayBuffer()),x=b.getChannelData(0).slice();src={x,sr:b.sampleRate,g:speechGain(x,b.sampleRate)};L.state.myBuf={url,src}}
+      if(seq!==playSeq)return;await playPrepared(prepared(src,false,PAD_S,"mine|"+url),"mine",PAD_S,seq);return}catch(err){}
+    if(seq!==playSeq)return;try{player.src=url;player.playbackRate=1;player.play().catch(()=>{})}catch(err){}};
   // a level meter on the recording (where there is one): the ring around the button follows the voice, and on our
   // server's path it also tells when the learner has finished: SP_SILENCE of quiet after speech stops the recording
   const meter=(st,stream,onQuiet,quietMs=SP_SILENCE)=>{
@@ -5980,9 +6035,12 @@ function renderSpeak(body,e){
   // browser recognizer: words light up while they are heard; it stops by itself after a pause or once every word is heard
   const listenAsr=async()=>{
     const st={on:true,asr:null,last:"",err:null,finished:false};recState=st;waiting();micAt=Date.now();
-    if(rec&&spParallel()){try{st.stream=await navigator.mediaDevices.getUserMedia({audio:true})}catch(err){st.stream=null}
-      if(st.cancelled||!live()){try{st.stream&&st.stream.getTracks().forEach(t=>t.stop())}catch(err){}return}
-      if(st.stream){st.rec=recorder(st.stream);if(st.rec){st.rec.onstop=()=>{try{st.stream.getTracks().forEach(t=>t.stop())}catch(err){}gotMine(new Blob(st.rec.chunks,{type:st.rec.mimeType||"audio/webm"}))};st.rec.start()}meter(st,st.stream)}}
+    // the copy of the voice («Себя») starts only once the recognizer has the microphone: opening our recording first
+    // makes the iPhone reconfigure the sound as the recognizer starts, and the first word was lost
+    st.copy=async()=>{if(!(rec&&spParallel())||st.copyOn)return;st.copyOn=true;
+      try{st.stream=await navigator.mediaDevices.getUserMedia({audio:true})}catch(err){st.stream=null}
+      if(st.cancelled||!st.on||!live()){try{st.stream&&st.stream.getTracks().forEach(t=>t.stop())}catch(err){}return}
+      if(st.stream){st.rec=recorder(st.stream);if(st.rec){st.rec.onstop=()=>{try{st.stream.getTracks().forEach(t=>t.stop())}catch(err){}gotMine(new Blob(st.rec.chunks,{type:st.rec.mimeType||"audio/webm"}))};st.rec.start()}meter(st,st.stream)}};
     // one try may need several recognizer sessions: Android ends a session at the first pause, so while words are
     // missing and the pause is shorter than `quiet`, a new session continues and its words are added to what was heard
     st.prefix="";st.heardAt=0;st.stopped=false;
@@ -5999,10 +6057,15 @@ function renderSpeak(body,e){
       failed(ASR_ERR[st.err]||ASR_ERR["no-speech"])};
     const session=()=>{
       let a;try{a=new ASR()}catch(err){if(!st.prefix&&!st.last){stopRecording();return failed(ASR_ERR.start)}return finish()}
-      st.asr=a;a.lang="tr-TR";a.interimResults=true;a.maxAlternatives=1;a.continuous=!ANDROID; // Android ends a phrase by itself and misbehaves in continuous mode
-      a.onaudiostart=recOn;a.onspeechstart=recOn;
-      a.onresult=ev=>{if(st.asr!==a)return;recOn();const rs=[...ev.results];const now=rs.map(r=>r[0]&&r[0].transcript||"").join(" ").replace(/\s+/g," ").trim();
-        st.last=(st.prefix+" "+now).replace(/\s+/g," ").trim();st.heardAt=Date.now();
+      st.asr=a;a.lang="tr-TR";a.interimResults=true;a.maxAlternatives=3;a.continuous=!ANDROID; // Android ends a phrase by itself and misbehaves in continuous mode
+      // «Говорите» a moment after the microphone really opens, so the first word is not said into the start-up
+      a.onaudiostart=()=>{st.copy();clearTimeout(st.cue);st.cue=setTimeout(recOn,250)};a.onspeechstart=recOn;
+      a.onresult=ev=>{if(st.asr!==a)return;recOn();const rs=[...ev.results];
+        // a word said on its own is often taken for a more common one: of the recognizer's guesses the closest counts
+        const cands=rs.length===1?[...rs[0]].map(x=>x.transcript||""):[rs.map(r=>r[0]&&r[0].transcript||"").join(" ")];
+        const join=t=>(st.prefix+" "+t).replace(/\s+/g," ").trim();let bestT=join(cands[0]||""),bs=-1;
+        for(const c of cands){const t=join(c),sc=scoreSpeech(e.w.tr,t).score;if(sc>bs){bs=sc;bestT=t}}
+        st.last=bestT;st.heardAt=Date.now();
         const r=scoreSpeech(e.w.tr,st.last);paint(r.words,false);
         later(r.words.every(x=>x.st==="ok")?500:quiet)};
       a.onerror=ev=>{if(st.asr===a)st.err=ev.error||"start"};
@@ -6014,7 +6077,7 @@ function renderSpeak(body,e){
     };
     later(SP_WAIT);st.maxT=setTimeout(end,maxMs);
     // some browsers never say when the microphone opens: then «Говорите…» appears a moment after the start
-    st.cue=setTimeout(recOn,900);
+    st.cue=setTimeout(()=>{st.copy();recOn()},1500);
     session();
   };
   // our server (Yandex SpeechKit): record until the learner stops talking, then send the recording
