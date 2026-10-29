@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-ubGobP/BvFzFio7wvfjFDd6qbFbjQD/h9eAAztaRs80=' 'sha256-OhYaK5ULH9pFxr6VfRGGDFjPq/BF81jNLJwsVhSiL/4=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-ubGobP/BvFzFio7wvfjFDd6qbFbjQD/h9eAAztaRs80=' 'sha256-ki/JlC7mGDfctdesvbDzuNgFKuDECKUZXsVnQHis9zw=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <title>CepteTurk — приложение</title>
 <meta name="description" content="Турецкий для русскоязычных: курсы от алфавита до B2, игры, истории с живой озвучкой и карточки.">
@@ -5860,7 +5860,7 @@ function similarity(a,b){a=norm(a);b=norm(b);if(!a||!b)return 0;const n=a.length
   return Math.max(0,Math.round((1-prev[m]/Math.max(n,m))*100))}
 let recState=null;
 function stopRecording(cancel=false){
-  const st=recState;if(st){if(cancel){st.cancelled=true;st.on=false;recState=null}try{st.rec&&st.rec.state!=="inactive"&&st.rec.stop()}catch(e){}try{st.stream&&st.stream.getTracks().forEach(t=>t.stop())}catch(e){}try{st.asr&&st.asr.stop()}catch(e){}clearTimeout(st.timer)}
+  const st=recState;if(st){if(cancel){st.cancelled=true;st.on=false;recState=null}try{st.rec&&st.rec.state!=="inactive"&&st.rec.stop()}catch(e){}try{st.stream&&st.stream.getTracks().forEach(t=>t.stop())}catch(e){}try{if(st.asr){st.stopped=true;st.asr.stop()}}catch(e){}clearTimeout(st.timer)}
   if(cancel&&L?.state?.myUrl){URL.revokeObjectURL(L.state.myUrl);L.state.myUrl=null}
 }
 /* Pronunciation check: the browser's speech recognizer (or Yandex SpeechKit on our server) turns the recording
@@ -5916,6 +5916,8 @@ function renderSpeak(body,e){
   const inLesson=!L.only,rec=canRecord();
   const modeOf=()=>ANDROID&&serverStt()&&rec?"server":ASR&&!asrBroken?"asr":serverStt()&&rec?"server":null;
   const shown=e.w.tr.replace(/[.,!?…:;«»"()]/g," ").split(/\s+/).filter(Boolean);
+  // a long sentence gets more time: a pause to recall the next word must not end the try (until every word is heard)
+  const quiet=shown.length<=3?SP_SILENCE:shown.length<=6?2200:3000,maxMs=Math.max(SP_MAX,shown.length*2500);
   body.innerHTML=`<span class="tag">Произношение</span><h2 class="l-title">Скажите вслух</h2>
     <div class="speak-card">
       <div class="sp-say"><button class="say sm" id="spNative" aria-label="Послушать">${I.speaker}</button><button class="say sm slow" id="spSlow" aria-label="Медленнее">${I.turtle}</button></div>
@@ -5950,7 +5952,7 @@ function renderSpeak(body,e){
   if(mine)mine.onclick=()=>{if(!L.state.myUrl||(recState&&recState.on))return;stopSpeech();try{player.src=L.state.myUrl;player.playbackRate=1;player.play().catch(()=>{})}catch(err){}};
   // a level meter on the recording (where there is one): the ring around the button follows the voice, and on our
   // server's path it also tells when the learner has finished: SP_SILENCE of quiet after speech stops the recording
-  const meter=(st,stream,onQuiet)=>{
+  const meter=(st,stream,onQuiet,quietMs=SP_SILENCE)=>{
     let src,an;try{const c=ensureCtx();src=c.createMediaStreamSource(stream);an=c.createAnalyser();an.fftSize=1024;src.connect(an)}catch(err){return}
     const buf=new Float32Array(an.fftSize),t0=Date.now();let floor=null,spoke=0,quietFrom=0;
     const tick=()=>{if(!st.on||!live()){try{src.disconnect()}catch(err){}lvl(0);return}
@@ -5958,7 +5960,7 @@ function renderSpeak(body,e){
       if(Date.now()-t0<300)floor=floor==null?db:Math.min(floor,db);const thr=Math.max(-50,(floor??-60)+12);
       lvl((db-thr+6)/30);
       if(db>thr){spoke=spoke||Date.now();quietFrom=0;st.spoke=true}else if(spoke&&!quietFrom)quietFrom=Date.now();
-      if(onQuiet&&spoke&&quietFrom&&Date.now()-quietFrom>SP_SILENCE)return onQuiet();
+      if(onQuiet&&spoke&&quietFrom&&Date.now()-quietFrom>quietMs)return onQuiet();
       requestAnimationFrame(tick)};
     requestAnimationFrame(tick)};
   const showResult=r=>{
@@ -5981,16 +5983,13 @@ function renderSpeak(body,e){
     if(rec&&spParallel()){try{st.stream=await navigator.mediaDevices.getUserMedia({audio:true})}catch(err){st.stream=null}
       if(st.cancelled||!live()){try{st.stream&&st.stream.getTracks().forEach(t=>t.stop())}catch(err){}return}
       if(st.stream){st.rec=recorder(st.stream);if(st.rec){st.rec.onstop=()=>{try{st.stream.getTracks().forEach(t=>t.stop())}catch(err){}gotMine(new Blob(st.rec.chunks,{type:st.rec.mimeType||"audio/webm"}))};st.rec.start()}meter(st,st.stream)}}
-    let a;try{a=new ASR()}catch(err){stopRecording();return failed(ASR_ERR.start)}
-    st.asr=a;a.lang="tr-TR";a.interimResults=true;a.maxAlternatives=1;a.continuous=!ANDROID; // Android ends a phrase by itself and misbehaves in continuous mode
-    const end=()=>{try{a.stop()}catch(err){}};
-    const later=(ms)=>{clearTimeout(st.timer);st.timer=setTimeout(end,ms)};
-    a.onaudiostart=recOn;a.onspeechstart=recOn;
-    a.onresult=ev=>{recOn();const rs=[...ev.results];st.last=rs.map(r=>r[0]&&r[0].transcript||"").join(" ").replace(/\s+/g," ").trim();
-      const r=scoreSpeech(e.w.tr,st.last);paint(r.words,false);
-      later(r.words.every(x=>x.st==="ok")?500:SP_SILENCE)};
-    a.onerror=ev=>{st.err=ev.error||"start"};
-    a.onend=()=>{st.on=false;micAt=Date.now();clearTimeout(st.timer);clearTimeout(st.maxT);clearTimeout(st.cue);try{st.rec&&st.rec.state!=="inactive"&&st.rec.stop()}catch(err){}
+    // one try may need several recognizer sessions: Android ends a session at the first pause, so while words are
+    // missing and the pause is shorter than `quiet`, a new session continues and its words are added to what was heard
+    st.prefix="";st.heardAt=0;st.stopped=false;
+    const end=()=>{st.stopped=true;try{st.asr&&st.asr.stop()}catch(err){}};
+    const later=ms=>{clearTimeout(st.timer);st.timer=setTimeout(end,ms)};
+    const complete=()=>!!st.last&&scoreSpeech(e.w.tr,st.last).words.every(x=>x.st==="ok");
+    const finish=()=>{st.on=false;micAt=Date.now();clearTimeout(st.timer);clearTimeout(st.maxT);clearTimeout(st.cue);try{st.rec&&st.rec.state!=="inactive"&&st.rec.stop()}catch(err){}
       if(st.cancelled||st.finished||!live())return;st.finished=true;idle();
       // the recognizer heard nothing while our copy of the voice did (or it could not get the microphone):
       // on this device the two cannot share the microphone, so from now on only the recognizer listens
@@ -5998,10 +5997,25 @@ function renderSpeak(body,e){
       if(st.last)return showResult(scoreSpeech(e.w.tr,st.last));
       if(ASR_FATAL.includes(st.err)&&serverStt()&&rec){asrBroken=true;idle();return failed("Распознавание браузера сейчас недоступно, поэтому проверю на нашем сервере. Нажмите на микрофон ещё раз.")}
       failed(ASR_ERR[st.err]||ASR_ERR["no-speech"])};
-    later(SP_WAIT);st.maxT=setTimeout(end,SP_MAX);
+    const session=()=>{
+      let a;try{a=new ASR()}catch(err){if(!st.prefix&&!st.last){stopRecording();return failed(ASR_ERR.start)}return finish()}
+      st.asr=a;a.lang="tr-TR";a.interimResults=true;a.maxAlternatives=1;a.continuous=!ANDROID; // Android ends a phrase by itself and misbehaves in continuous mode
+      a.onaudiostart=recOn;a.onspeechstart=recOn;
+      a.onresult=ev=>{if(st.asr!==a)return;recOn();const rs=[...ev.results];const now=rs.map(r=>r[0]&&r[0].transcript||"").join(" ").replace(/\s+/g," ").trim();
+        st.last=(st.prefix+" "+now).replace(/\s+/g," ").trim();st.heardAt=Date.now();
+        const r=scoreSpeech(e.w.tr,st.last);paint(r.words,false);
+        later(r.words.every(x=>x.st==="ok")?500:quiet)};
+      a.onerror=ev=>{if(st.asr===a)st.err=ev.error||"start"};
+      a.onend=()=>{if(st.asr!==a)return;
+        const more=!a.continuous&&!st.stopped&&!st.cancelled&&st.on&&live()&&st.last&&!complete()&&(!st.err||st.err==="no-speech")&&Date.now()-st.heardAt<quiet;
+        if(more){st.prefix=st.last;st.err=null;return session()}
+        finish()};
+      try{a.start()}catch(err){st.err="start";a.onend()}
+    };
+    later(SP_WAIT);st.maxT=setTimeout(end,maxMs);
     // some browsers never say when the microphone opens: then «Говорите…» appears a moment after the start
     st.cue=setTimeout(recOn,900);
-    try{a.start()}catch(err){st.err="start";a.onend()}
+    session();
   };
   // our server (Yandex SpeechKit): record until the learner stops talking, then send the recording
   const listenServer=async()=>{
@@ -6016,10 +6030,10 @@ function renderSpeak(body,e){
       rb.disabled=true;info("Проверяю…");
       try{const alts=await sttOnServer(blob);if(st.cancelled||!live())return;rb.disabled=false;if(alts[0])return showResult(scoreSpeech(e.w.tr,alts[0]));failed(ASR_ERR["no-speech"])}
       catch(err){if(st.cancelled||!live())return;rb.disabled=false;failed(err&&err.message==="quota"?"На сегодня проверки произношения закончились. Завтра лимит обновится.":ASR_ERR.network)}};
-    r.start();recOn();meter(st,stream,()=>stopRecording());st.timer=setTimeout(stopRecording,SP_MAX);
+    r.start();recOn();meter(st,stream,()=>stopRecording(),quiet);st.timer=setTimeout(stopRecording,maxMs);
   };
   rb.onclick=()=>{
-    if(recState&&recState.on){if(recState.asr){try{recState.asr.stop()}catch(err){}}else stopRecording();return}
+    if(recState&&recState.on){if(recState.asr){recState.stopped=true;try{recState.asr.stop()}catch(err){}}else stopRecording();return}
     const m=modeOf();if(!m)return;
     $("#spRes").innerHTML="";paint([],false);if(mine)mine.disabled=true;stopSpeech();
     if(m==="asr")listenAsr();else listenServer();
