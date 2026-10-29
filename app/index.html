@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-ubGobP/BvFzFio7wvfjFDd6qbFbjQD/h9eAAztaRs80=' 'sha256-olMgIdB0rjKLz3kfInsx2gEV0W2Vr9BpftRUzZYuybE=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-ubGobP/BvFzFio7wvfjFDd6qbFbjQD/h9eAAztaRs80=' 'sha256-OhYaK5ULH9pFxr6VfRGGDFjPq/BF81jNLJwsVhSiL/4=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <title>CepteTurk — приложение</title>
 <meta name="description" content="Турецкий для русскоязычных: курсы от алфавита до B2, игры, истории с живой озвучкой и карточки.">
@@ -3859,12 +3859,19 @@ function castVoices(st){const out={};for(const [who,g] of Object.entries(st.cast
 function recordedPack(v,t){if(typeof AUDIO_INDEX==="undefined")return PACK.get(t);const map=AUDIO_INDEX[v];return map&&Object.hasOwn(map,t)?map[t]:null}
 // single words are recorded lower-case (packs w1…w6), so a tap on "Merhaba" plays "merhaba"
 const audKey=t=>typeof AUDIO_INDEX!=="undefined"&&!ALLV.some(v=>recordedPack(v,t))?t.toLocaleLowerCase("tr"):t;
-async function clipUrl(v,text){
-  const key=v+"|"+text;if(blobs.has(key))return blobs.get(key);
+// After the microphone has been on, phones switch the sound to «call» mode and the first moments of playback are lost,
+// so there a clip starts with 0.35 s of silence (MP3 frames, same 24 kHz mono format; the clip's ID3 tag is skipped)
+const PAD_MP3="//NUxAAAAANIAAAAAExBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxGsAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NUxJQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV";
+let micAt=0;
+const padNeeded=()=>Date.now()-micAt<180000||!!(L&&L.list&&L.list[L.i]&&L.list[L.i].type==="speak");
+const b64bytes=b=>{const bin=atob(b),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);return u8};
+function noId3(u8){if(u8[0]!==73||u8[1]!==68||u8[2]!==51)return u8;const n=(u8[6]<<21)|(u8[7]<<14)|(u8[8]<<7)|u8[9];return u8.subarray(10+n+(u8[5]&16?10:0))}
+async function clipUrl(v,text,pad){
+  const key=v+"|"+text+(pad?"|pad":"");if(blobs.has(key))return blobs.get(key);
   const p=recordedPack(v,text);if(!p)return null;
   const pk=await loadPack(v,p);const b64=pk[text];if(!b64)return null;
-  const bin=atob(b64),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);
-  const url=URL.createObjectURL(new Blob([u8],{type:"audio/mpeg"}));blobs.set(key,url);return url;
+  const u8=b64bytes(b64),parts=pad?[b64bytes(PAD_MP3),noId3(u8)]:[u8];
+  const url=URL.createObjectURL(new Blob(parts,{type:"audio/mpeg"}));blobs.set(key,url);return url;
 }
 // a recording exists (the website build lists new strings that have none yet), or the device can read Turkish itself
 const hasClip=t=>(t=audKey(t),typeof AUDIO_INDEX!=="undefined"?ALLV.some(v=>!!recordedPack(v,t)):PACK.has(t)&&!(typeof NOAUDIO!=="undefined"&&NOAUDIO.has(t)));
@@ -3879,7 +3886,7 @@ async function speak(text,slow,voice){
   stopSpeech();
   const seq=++playSeq;const v=voice||lessonVoice||"f";
   // the speaker's own clip; where there is none, the other speaker's, and only then Эмель's
-  let url=null;const key=audKey(text);for(const candidate of [...new Set([v,...VID,...SPARE])]){try{url=await clipUrl(candidate,key)}catch(e){}if(seq!==playSeq)return;if(url){lastVoice=candidate;break}}
+  let url=null;const key=audKey(text),pad=padNeeded();for(const candidate of [...new Set([v,...VID,...SPARE])]){try{url=await clipUrl(candidate,key,pad)}catch(e){}if(seq!==playSeq)return;if(url){lastVoice=candidate;break}}
   if(seq!==playSeq)return;
   if(url){try{if(voiceGain)ensureCtx();player.src=url;player.preservesPitch=true;player.playbackRate=P.rate*(slow?0.72:1);await player.play();return}catch(e){if(seq!==playSeq)return}}
   try{const vs=speechSynthesis.getVoices().filter(x=>/^tr/i.test(x.lang));if(vs.length){const u=new SpeechSynthesisUtterance(text);u.lang="tr-TR";u.voice=vs[0];u.rate=P.rate*(slow?.55:.8);u.volume=Math.min(1,P.vol??1);u.onerror=()=>{if(seq===playSeq)audioUnavailable(text)};speechSynthesis.speak(u);return}}catch(e){}
@@ -5970,7 +5977,7 @@ function renderSpeak(body,e){
   const failed=msg=>{if(!live())return;info(msg);idle();L.custCheck()};
   // browser recognizer: words light up while they are heard; it stops by itself after a pause or once every word is heard
   const listenAsr=async()=>{
-    const st={on:true,asr:null,last:"",err:null,finished:false};recState=st;waiting();
+    const st={on:true,asr:null,last:"",err:null,finished:false};recState=st;waiting();micAt=Date.now();
     if(rec&&spParallel()){try{st.stream=await navigator.mediaDevices.getUserMedia({audio:true})}catch(err){st.stream=null}
       if(st.cancelled||!live()){try{st.stream&&st.stream.getTracks().forEach(t=>t.stop())}catch(err){}return}
       if(st.stream){st.rec=recorder(st.stream);if(st.rec){st.rec.onstop=()=>{try{st.stream.getTracks().forEach(t=>t.stop())}catch(err){}gotMine(new Blob(st.rec.chunks,{type:st.rec.mimeType||"audio/webm"}))};st.rec.start()}meter(st,st.stream)}}
@@ -5983,7 +5990,7 @@ function renderSpeak(body,e){
       const r=scoreSpeech(e.w.tr,st.last);paint(r.words,false);
       later(r.words.every(x=>x.st==="ok")?500:SP_SILENCE)};
     a.onerror=ev=>{st.err=ev.error||"start"};
-    a.onend=()=>{st.on=false;clearTimeout(st.timer);clearTimeout(st.maxT);clearTimeout(st.cue);try{st.rec&&st.rec.state!=="inactive"&&st.rec.stop()}catch(err){}
+    a.onend=()=>{st.on=false;micAt=Date.now();clearTimeout(st.timer);clearTimeout(st.maxT);clearTimeout(st.cue);try{st.rec&&st.rec.state!=="inactive"&&st.rec.stop()}catch(err){}
       if(st.cancelled||st.finished||!live())return;st.finished=true;idle();
       // the recognizer heard nothing while our copy of the voice did (or it could not get the microphone):
       // on this device the two cannot share the microphone, so from now on only the recognizer listens
@@ -5998,12 +6005,12 @@ function renderSpeak(body,e){
   };
   // our server (Yandex SpeechKit): record until the learner stops talking, then send the recording
   const listenServer=async()=>{
-    const st={on:true,cancelled:false};recState=st;waiting();rb.disabled=true;
+    const st={on:true,cancelled:false};recState=st;waiting();rb.disabled=true;micAt=Date.now();
     let stream;try{stream=await navigator.mediaDevices.getUserMedia({audio:true})}catch(err){recState=null;return failed(ASR_ERR["not-allowed"])}
     if(st.cancelled||!live()){stream.getTracks().forEach(t=>t.stop());return}rb.disabled=false;
     const r=recorder(stream);if(!r){stream.getTracks().forEach(t=>t.stop());recState=null;return failed(ASR_ERR.start)}
     st.rec=r;st.stream=stream;
-    r.onstop=async()=>{st.on=false;clearTimeout(st.timer);try{stream.getTracks().forEach(t=>t.stop())}catch(err){}
+    r.onstop=async()=>{st.on=false;micAt=Date.now();clearTimeout(st.timer);try{stream.getTracks().forEach(t=>t.stop())}catch(err){}
       if(st.cancelled||!live())return;idle();
       const blob=new Blob(r.chunks,{type:r.mimeType||"audio/webm"});gotMine(blob);
       rb.disabled=true;info("Проверяю…");
