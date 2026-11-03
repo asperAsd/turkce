@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-ubGobP/BvFzFio7wvfjFDd6qbFbjQD/h9eAAztaRs80=' 'sha256-7ugcWrE0OdyMGFgaJPBHFTNQLi76CMN0IBvorAz7oo4=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-ubGobP/BvFzFio7wvfjFDd6qbFbjQD/h9eAAztaRs80=' 'sha256-7XwdWXWvJ1K3BvJxDE27LZ1oD/gFh7+MaifscC2lGdI=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <title>CepteTurk — приложение</title>
 <meta name="description" content="Турецкий для русскоязычных: курсы от алфавита до B2, игры, истории с живой озвучкой и карточки.">
@@ -5926,14 +5926,34 @@ const TR_ONES=["","bir","iki","üç","dört","beş","altı","yedi","sekiz","doku
 function trNum(n){n=+n;if(!(n>=0&&n<1e6))return String(n);if(n===0)return "sıfır";const p=[];const th=Math.floor(n/1000),r=n%1000;
   if(th)p.push(th===1?"bin":trNum(th)+" bin");const h=Math.floor(r/100),t=Math.floor(r%100/10),o=r%10;
   if(h)p.push(h===1?"yüz":TR_ONES[h]+" yüz");if(t)p.push(TR_TENS[t]);if(o)p.push(TR_ONES[o]);return p.join(" ")}
-// Turkish letters count (şu is not su); only the circumflex is ignored, and numbers become words
-const spNorm=s=>String(s).replace(/\d+/g,d=>" "+trNum(d)+" ").toLocaleLowerCase("tr").replace(/['’]/g,"").replace(/â/g,"a").replace(/î/g,"i").replace(/û/g,"u").replace(/[^a-zçğıöşü\s]/g," ").split(/\s+/).filter(Boolean);
-function wordSim(a,b){if(a===b)return 1;const n=a.length,m=b.length;if(!n||!m)return 0;let prev=Array.from({length:m+1},(_,j)=>j);
-  for(let i=1;i<=n;i++){const cur=[i];for(let j=1;j<=m;j++)cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));prev=cur}
+// Turkish letters count (şu is not su); only the circumflex is ignored, and numbers become words. A number with a suffix,
+// as recognizers write it («5'e», «4'ü»), becomes one word with the consonant softened before a vowel (dört + ü → dördü)
+const numSuffix=(d,suf)=>{let w=trNum(d);if(/^[aeıioöuü]/.test(suf))w=w.replace(/t$/,"d");return w+suf};
+const spNorm=s=>String(s).replace(/(\d+)['’]?([a-zçğıöşüA-ZÇĞİÖŞÜ]+)/g,(m,d,suf)=>" "+numSuffix(d,suf.toLocaleLowerCase("tr"))+" ").replace(/\d+/g,d=>" "+trNum(d)+" ").toLocaleLowerCase("tr").replace(/['’]/g,"").replace(/â/g,"a").replace(/î/g,"i").replace(/û/g,"u").replace(/[^a-zçğıöşü\s]/g," ").split(/\s+/).filter(Boolean);
+// ğ is not pronounced (it lengthens the vowel or sounds like y): öğle and «öyle» are the same sound, so ğ ↔ y and a
+// missing ğ cost nothing
+function wordSim(a,b){if(a===b)return 1;const n=a.length,m=b.length;if(!n||!m)return 0;
+  const g=c=>c==="ğ"?0:1,sub=(x,y)=>x===y||(x==="ğ"&&y==="y")||(x==="y"&&y==="ğ")?0:1;let prev=[0];for(let j=1;j<=m;j++)prev[j]=prev[j-1]+g(b[j-1]);
+  for(let i=1;i<=n;i++){const cur=[prev[0]+g(a[i-1])];for(let j=1;j<=m;j++)cur[j]=Math.min(prev[j]+g(a[i-1]),cur[j-1]+g(b[j-1]),prev[j-1]+sub(a[i-1],b[j-1]));prev=cur}
   return 1-prev[m]/Math.max(n,m)}
+// Times: recognizers write «Saat beşe on var» as «Saat 4:50». The expected phrase is read as a time (saat H, H buçuk,
+// H-ı M geçiyor/geçe, H-e M var/kala), and a clock time in what was heard that equals it is put back in words.
+const TR_H=["","bir","iki","üç","dört","beş","altı","yedi","sekiz","dokuz","on"],TR_HACC=["","biri","ikiyi","üçü","dördü","beşi","altıyı","yediyi","sekizi","dokuzu","onu"],TR_HDAT=["","bire","ikiye","üçe","dörde","beşe","altıya","yediye","sekize","dokuza","ona"];
+function trHour(E,i,forms){if(E[i]==="on"){const k=forms.indexOf(E[i+1]);if(k===1||k===2)return [10+k,2]}const k=forms.indexOf(E[i]);return k>0?[k,1]:null}
+function trMin(E,i){if(E[i]==="çeyrek")return [15,1];if(E[i]==="yirmi")return E[i+1]==="beş"?[25,2]:[20,1];if(E[i]==="beş")return [5,1];if(E[i]==="on")return [10,1];return null}
+function trTime(E){
+  for(let i=0;i<E.length;i++){
+    let h,m;
+    if((h=trHour(E,i,TR_HACC))&&(m=trMin(E,i+h[1]))&&/^geç(iyor|e)$/.test(E[i+h[1]+m[1]]||""))return {min:h[0]*60+m[0],from:i,to:i+h[1]+m[1]+1};
+    if((h=trHour(E,i,TR_HDAT))&&(m=trMin(E,i+h[1]))&&/^(var|kala)$/.test(E[i+h[1]+m[1]]||""))return {min:(h[0]-1)*60+60-m[0],from:i,to:i+h[1]+m[1]+1};
+    if((h=trHour(E,i,TR_H))&&(i===0||E[i-1]==="saat")){if(E[i+h[1]]==="buçuk")return {min:h[0]*60+30,from:i,to:i+h[1]+1};if(i+h[1]===E.length)return {min:h[0]*60,from:i,to:i+h[1]}}
+  }
+  return null}
+function heardTimes(expectedWords,heard){const t=trTime(expectedWords);if(!t)return heard;
+  return String(heard).replace(/(\d{1,2})[:.](\d{2})/g,(m,h,mm)=>((+h)*60+(+mm))%720===t.min%720?" "+expectedWords.slice(t.from,t.to).join(" ")+" ":m)}
 function scoreSpeech(expected,heard){
   const shown=expected.replace(/[.,!?…:;«»"()]/g," ").split(/\s+/).filter(Boolean);
-  const E=shown.map(w=>spNorm(w).join("")),H=spNorm(heard);
+  const E=shown.map(w=>spNorm(w).join("")),H=spNorm(heardTimes(E,heard));
   // global alignment (gaps cost nothing) that maximises the summed word similarity
   const n=E.length,m=H.length,D=Array.from({length:n+1},()=>new Float64Array(m+1));
   for(let i=1;i<=n;i++)for(let j=1;j<=m;j++){const s=wordSim(E[i-1],H[j-1]);D[i][j]=Math.max(D[i-1][j],D[i][j-1],D[i-1][j-1]+(s>=.45?s:0))}
