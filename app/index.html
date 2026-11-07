@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XouWtI1uqX0KWHT0baeAq9/drU3/OvGpZaYZTxrYMt8=' 'sha256-ubGobP/BvFzFio7wvfjFDd6qbFbjQD/h9eAAztaRs80=' 'sha256-7XwdWXWvJ1K3BvJxDE27LZ1oD/gFh7+MaifscC2lGdI=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-3jnpIoiqjoZWrlZngu34CnQdy+o2rZr8EyUl/0x3rNQ=' 'sha256-E8LoGYy/0J6qT+KcfvWG+Kovl1COgbz4IdHVGnJh/J4=' 'sha256-hKePsy/HPUce8RGg0Ct9zKr39+43liBwlOguvLlmG88='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; frame-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <title>CepteTurk — приложение</title>
 <meta name="description" content="Турецкий для русскоязычных: курсы от алфавита до B2, игры, истории с живой озвучкой и карточки.">
@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://cepteturk.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
 </head><body>
-<noscript><main style="max-width:640px;margin:0 auto;padding:24px 16px;font:16px/1.6 system-ui,sans-serif"><h1>CepteTurk — турецкий язык с нуля до B2</h1><p>Приложению нужен JavaScript: включите его в настройках браузера. Без него можно читать материалы:</p><ul><li><a href="../grammatika.html">Грамматика турецкого языка</a></li><li><a href="../razgovornik.html">Турецкий разговорник</a></li><li><a href="../spryazhenie.html">Спряжение турецких глаголов</a></li><li><a href="../">О курсе</a></li></ul></main></noscript><div id="beta" style="background:#1B1118;color:#fff;font:600 13px/1.4 Inter,system-ui,sans-serif;padding:8px 40px 8px 14px;position:relative;text-align:center">Бета-версия для тестирования. <a href="https://github.com/asperAsd/turkce/issues/new" target="_blank" rel="noopener" style="color:#F3C9A8;display:inline-flex;align-items:center;min-height:24px">Сообщить о проблеме</a><button id="betaX" aria-label="Скрыть" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:0;color:#fff;font-size:20px;cursor:pointer;padding:4px 8px">×</button></div><script>(function(){var b=document.getElementById('beta');try{if(localStorage.getItem('turkce.beta')){b.remove();return}}catch(e){}document.getElementById('betaX').addEventListener('click',function(){b.remove();try{localStorage.setItem('turkce.beta','1')}catch(e){}})})();</script><style>
+<noscript><main style="max-width:640px;margin:0 auto;padding:24px 16px;font:16px/1.6 system-ui,sans-serif"><h1>CepteTurk — турецкий язык с нуля до B2</h1><p>Приложению нужен JavaScript: включите его в настройках браузера. Без него можно читать материалы:</p><ul><li><a href="../grammatika.html">Грамматика турецкого языка</a></li><li><a href="../razgovornik.html">Турецкий разговорник</a></li><li><a href="../spryazhenie.html">Спряжение турецких глаголов</a></li><li><a href="../">О курсе</a></li></ul></main></noscript><style>
 
 /* CepteTurk design system: warm minimalism. Cream surfaces, a red brand accent, a dark Istanbul dusk for headers.
    Tokens first; old names (--cobalt, --turq…) stay as aliases while screens move to the new components. */
@@ -1086,15 +1086,9 @@ a.btn{text-decoration:none}
   .lesson .l-top,.lesson .l-body,.check-in{max-width:720px}
   .cats{grid-template-columns:repeat(4,minmax(0,1fr))}
   .llist{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .toasts{left:calc(var(--rail-w) * var(--dz))}
-  .cookie-bar{left:calc(var(--rail-w) * var(--dz) + 16px);bottom:16px}
+  .toasts{left:var(--rail-w)}
+  .cookie-bar{left:calc(var(--rail-w) + 16px);bottom:16px}
 }
-/* big monitors: the menu and the page grow together (as at 125% screen scaling), so a 1920 px screen is not mostly empty */
-:root{--dz:1}
-@media (min-width:1680px){:root{--dz:1.12}}
-@media (min-width:1840px){:root{--dz:1.25}}
-@media (min-width:2300px){:root{--dz:1.4}}
-@media (min-width:1024px){.nav,.app{zoom:var(--dz)}}
 @media (max-width:359px){
   .cont{grid-template-columns:minmax(0,1fr) 84px;padding:16px}
   .qa{grid-template-columns:1fr}
@@ -1909,10 +1903,10 @@ function makeLegal(F, O) {
   // ---------------- privacy ----------------
   let privacy;
   if (mode === "static") privacy = { title: "Политика конфиденциальности", updated,
-    intro: "Эта политика объясняет, какие данные затрагивает бета-версия приложения «CepteTurk» на сайте и где они хранятся. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
+    intro: "Эта политика объясняет, какие данные затрагивает приложение «CepteTurk» на сайте и где они хранятся. Составлена с учётом Федерального закона № 152-ФЗ «О персональных данных».",
     sections: [
       ["1. Кто отвечает за приложение", opKnown ? `Приложение публикует ${opLine()}. Связаться: ${contact}.`
-        : `Бета-версию публикует автор проекта «CepteTurk» на GitHub. В этой версии нет регистрации, аккаунтов и нашего сервера, поэтому автор не получает ваших персональных данных. Вопросы и сообщения — ${contact}.`],
+        : `Приложение публикует автор проекта «CepteTurk» на GitHub. В этой версии нет регистрации, аккаунтов и нашего сервера, поэтому автор не получает ваших персональных данных. Вопросы и сообщения — ${contact}.`],
       ["2. Что хранится и где", "• Имя и аватар профиля (если вы его создали), учебный прогресс, карточки и настройки хранятся только в памяти вашего браузера (localStorage) на этом устройстве. На сервер они не отправляются.\n• Сайт и записи озвучки загружаются с хостинга GitHub Pages (GitHub, Inc., США). Как любой веб-сервер, он получает IP-адрес и технические сведения о запросе (браузер, время). Эти журналы нам не передаются.\n• Шрифт загружается с серверов Google Fonts — Google получает IP-адрес и сведения о браузере." + (F.metrika ? "\n• Яндекс Метрика (ООО «Яндекс») — только если вы разрешили cookie в появившемся окне: обезличенная статистика посещений." : "")],
       ["3. Проверка произношения", speech + " " + asrOff],
       ["4. Сообщения об ошибках в заданиях", "Кнопка «Сообщить об ошибке» открывает страницу GitHub с подготовленным текстом. Сообщение отправится, только если вы сами опубликуете его там, и будет видно всем."],
@@ -1982,7 +1976,7 @@ function makeLegal(F, O) {
   const liability = ["Ограничение ответственности", "Мы стараемся, чтобы сервис работал без сбоев, но не гарантируем непрерывную работу и не отвечаем за результат обучения, который зависит от регулярности занятий."];
   let tsec;
   if (mode === "static") tsec = [...common,
-    ["Бета-версия", "Это тестовая версия. Все уровни доступны бесплатно, оплаты и подписок нет. Прогресс хранится только в вашем браузере: если очистить данные сайта или сменить устройство, он пропадёт."],
+    ["Прогресс", "Прогресс хранится только в вашем браузере: если очистить данные сайта или сменить устройство, он пропадёт."],
     ["Профиль", "Профиль (имя и аватар) необязателен и хранится только в вашем браузере."],
     materials, liability,
     ["Обратная связь", "Сообщить об ошибке или задать вопрос можно " + contact + "."]];
@@ -3369,8 +3363,7 @@ const ACC=(()=>{
     if(q.get("reset"))openReset(q.get("reset"));
     if(q.get("purchase")&&me)waitPurchase(q.get("purchase"));
     cookieBanner();
-    const bb=document.getElementById("beta");if(bb&&health&&bb.firstChild)bb.firstChild.textContent="Бета-версия. Нашли ошибку? ";
-  }
+      }
 
   // ---- sales admin (server mode) ----
   let adm=null;
@@ -3474,7 +3467,7 @@ const CLUB_ON=FEAT.club&&!WEB; // the students' chat never runs on the public we
 const SRV=typeof ACC!=="undefined"?ACC:null;
 const paidOK=ci=>!SRV||SRV.paidOK(ci);
 const track=(n,p)=>{try{if(SRV)SRV.track(n,p)}catch(e){}};
-const NOACC=WEB?"Появится, когда на сайте заработают аккаунты (бета-версия).":"";
+const NOACC=WEB?"Появится, когда на сайте заработают аккаунты.":"";
 /* ================= ICONS ================= */
 // Icons: Lucide (https://lucide.dev) — ISC License, Copyright (c) Lucide Contributors 2022; some icons derive from
 // Feather — MIT License, Copyright (c) 2013-2023 Cole Bemis. Full license texts: web/LICENSES.txt (app/LICENSES.txt on the site).
