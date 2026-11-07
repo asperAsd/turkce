@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <title>CepteTurk — приложение</title>
 <meta name="description" content="Турецкий для русскоязычных: курсы от алфавита до B2, игры, истории с живой озвучкой и карточки.">
-<link rel="canonical" href="https://asperasd.github.io/turkce/app/">
+<link rel="canonical" href="https://cepteturk.com/app/">
 <meta name="theme-color" content="#1B1118">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-title" content="CepteTurk">
 <meta property="og:title" content="CepteTurk — турецкий по 10 минут в день">
 <meta property="og:description" content="Курсы от нуля до B2, конспекты по-русски, живая озвучка и карточки.">
-<meta property="og:image" content="https://asperasd.github.io/turkce/og.png">
+<meta property="og:image" content="https://cepteturk.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
 </head><body>
 <noscript><main style="max-width:640px;margin:0 auto;padding:24px 16px;font:16px/1.6 system-ui,sans-serif"><h1>CepteTurk — турецкий язык с нуля до B2</h1><p>Приложению нужен JavaScript: включите его в настройках браузера. Без него можно читать материалы:</p><ul><li><a href="../grammatika.html">Грамматика турецкого языка</a></li><li><a href="../razgovornik.html">Турецкий разговорник</a></li><li><a href="../spryazhenie.html">Спряжение турецких глаголов</a></li><li><a href="../">О курсе</a></li></ul></main></noscript><div id="beta" style="background:#1B1118;color:#fff;font:600 13px/1.4 Inter,system-ui,sans-serif;padding:8px 40px 8px 14px;position:relative;text-align:center">Бета-версия для тестирования. <a href="https://github.com/asperAsd/turkce/issues/new" target="_blank" rel="noopener" style="color:#F3C9A8;display:inline-flex;align-items:center;min-height:24px">Сообщить о проблеме</a><button id="betaX" aria-label="Скрыть" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:0;color:#fff;font-size:20px;cursor:pointer;padding:4px 8px">×</button></div><script>(function(){var b=document.getElementById('beta');try{if(localStorage.getItem('turkce.beta')){b.remove();return}}catch(e){}document.getElementById('betaX').addEventListener('click',function(){b.remove();try{localStorage.setItem('turkce.beta','1')}catch(e){}})})();</script><style>
@@ -1086,9 +1086,15 @@ a.btn{text-decoration:none}
   .lesson .l-top,.lesson .l-body,.check-in{max-width:720px}
   .cats{grid-template-columns:repeat(4,minmax(0,1fr))}
   .llist{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .toasts{left:var(--rail-w)}
-  .cookie-bar{left:calc(var(--rail-w) + 16px);bottom:16px}
+  .toasts{left:calc(var(--rail-w) * var(--dz))}
+  .cookie-bar{left:calc(var(--rail-w) * var(--dz) + 16px);bottom:16px}
 }
+/* big monitors: the menu and the page grow together (as at 125% screen scaling), so a 1920 px screen is not mostly empty */
+:root{--dz:1}
+@media (min-width:1680px){:root{--dz:1.12}}
+@media (min-width:1840px){:root{--dz:1.25}}
+@media (min-width:2300px){:root{--dz:1.4}}
+@media (min-width:1024px){.nav,.app{zoom:var(--dz)}}
 @media (max-width:359px){
   .cont{grid-template-columns:minmax(0,1fr) 84px;padding:16px}
   .qa{grid-template-columns:1fr}

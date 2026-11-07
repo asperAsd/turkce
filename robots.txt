@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Sitemap: https://asperasd.github.io/turkce/sitemap.xml
+Sitemap: https://cepteturk.com/sitemap.xml
